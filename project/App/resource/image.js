@@ -9,7 +9,6 @@ module.exports = {
     common_no_check:require('./image/common/no_check.png'),
     common_point:require('./image/common/point.png'),
     common_withdraw:require('./image/common/withdraw.png'),
-    home_background:require('./image/home/background.png'),
     home_menu1:require('./image/home/menu1.png'),
     home_menu2:require('./image/home/menu2.png'),
     home_menu3:require('./image/home/menu3.png'),

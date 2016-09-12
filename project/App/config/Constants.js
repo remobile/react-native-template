@@ -11,8 +11,8 @@ module.exports = {
     ISSUE_ANDROID: false,
     //测试状态，发布的时候需要改为false
     TEST: true,
-    APP_NAME: '全民监督',
-    THEME_COLOR: '#0D315E',
+    APP_NAME: '疾风步',
+    THEME_COLOR: 'red',
     //IOS的appid
     IOS_APPID: '1096525384',
     // IOS_APPID: '',
