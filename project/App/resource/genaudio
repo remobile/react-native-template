@@ -1,0 +1,42 @@
+#!/bin/bash
+
+function __get_extname()
+{
+    local basename extname file
+    file="$1"
+    [ -z "$file" ]&&echo ""&&return
+    [ "$file" = "." ]&&echo "."&&return
+
+    basename=$(basename $file)
+    extname=${basename/#*./}
+    [ "$extname" = "" ]&&extname="."
+    [ "$extname" = "$basename" ]&&extname=""
+    echo "$extname"
+}
+function __get_pure_filename()
+{
+    local file extname purename
+    file="$1"
+    [ -z "$file" ]&&echo ""&&return
+    [ "$file" = "." ]&&echo "."&&return
+
+    extname=`__get_extname ${file}`
+    [ "$extname" = "" ]&&purename=${file}
+
+    basename=$(basename $file)
+    purename=${basename/%.${extname}/}
+    echo "$purename"
+}
+
+file=audio.js
+echo "module.exports = {" > $file
+modules=(`ls audio`)
+for module in ${modules[@]};do
+    files=(`ls audio/${module}`)
+    for item in ${files[@]};do
+        purefilename=`__get_pure_filename $item`
+        filename=`basename $item`
+        echo "    ${module}_${purefilename}:require('./audio/${module}/${filename}')," >> $file
+    done
+done
+echo "};" >> $file

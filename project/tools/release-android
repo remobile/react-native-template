@@ -1,0 +1,57 @@
+#!/bin/bash
+
+#文件名称
+file=jfbsample
+#密码
+password=88164657
+#您的名字与姓氏是什么?
+CN=贵阳千陌
+#您的组织单位名称是什么?
+OU=贵阳千陌科技有限公司
+#您的组织名称是什么?
+O=研发部门
+#您所在的城市或区域名称是什么?
+L=贵阳
+#您所在的省/市/自治区名称是什么?
+ST=贵州
+#该单位的双字母国家/地区代码是什么?
+C=CN
+
+tap="\\t"
+tap2="\\t\\t"
+tap3="\\t\\t\\t"
+
+gradlefile=../android/app/build.gradle
+
+function genkey() {
+    rm -f $file.keystore
+    expect -c "
+        spawn keytool -genkey -v -keystore $file.keystore -alias $file -keyalg RSA -keysize 2048 -validity 10000;
+        expect {
+            \"*输入密钥库口令:\" {send \"$password\r\"; exp_continue}
+            \"*再次输入新口令:\" {send \"$password\r\"; exp_continue}
+            \"*您的名字与姓氏是什么*\" {send \"$CN\r\"; exp_continue}
+            \"*您的组织单位名称是什么*\" {send \"$OU\r\"; exp_continue}
+            \"*您的组织名称是什么*\" {send \"$O\r\"; exp_continue}
+            \"*您所在的城市或区域名称是什么*\" {send \"$L\r\"; exp_continue}
+            \"*您所在的省/市/自治区名称是什么*\" {send \"$ST\r\"; exp_continue}
+            \"*该单位的双字母国家/地区代码是什么*\" {send \"$C\r\"; exp_continue}
+            \"*是否正确*\" {send \"y\r\"; exp_continue}
+            \"*如果和密钥库口令相同*\" {send \"\r\"; exp_continue}
+        }
+    "
+    mv $file.keystore ../android/app/
+}
+
+
+[ -a ../android/app/$file.keystore ]||genkey
+[ -z "`grep signingConfigs ${gradlefile}`" ] && vim -e -s ${gradlefile} \
+    -c "%s/buildTypes.*{/signingConfigs {\r ${tap2}release {\r ${tap3}storeFile file(\"${file}.keystore\")\r ${tap3}storePassword \"${password}\"\r ${tap3}keyAlias \"${file}\"\r ${tap3}keyPassword \"${password}\"\r ${tap2}}\r ${tap}}\r${tap}&/" \
+    -c "%s/proguardFiles.*/&\r${tap3}signingConfig signingConfigs.release/" \
+    -c "%s/def enableSeparateBuildPerCPUArchitecture = false/def enableSeparateBuildPerCPUArchitecture = true/" \
+    -c "wq"
+
+cd ../android
+./gradlew assembleRelease
+#./gradlew installRelease
+mv app/build/outputs/apk/app-release.apk ../../server/public/download/apks/admin/apks/apk/jfbsample.apk

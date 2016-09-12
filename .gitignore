@@ -1,0 +1,16 @@
+*.[aod]
+*.DS_Store
+.DS_Store
+*Thumbs.db
+*.keystore
+.flowconfig
+.watchmanconfig
+/**/npm-debug.log
+/**/node_modules
+/**/*.iml
+/**/build
+/**/*shared*
+/**/*xcuserdata*
+/**/.svn
+/**/.gradle
+*.idea

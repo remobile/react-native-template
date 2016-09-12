@@ -1,0 +1,26 @@
+#!/bin/bash
+
+src="$1"
+
+#ios
+ffmpeg -i ${src} -s 40x40 ../ios/JFBSample/icons/icon-40.png -y
+ffmpeg -i ${src} -s 80x80 ../ios/JFBSample/icons/icon-40@2x.png -y
+ffmpeg -i ${src} -s 50x50 ../ios/JFBSample/icons/icon-50.png -y
+ffmpeg -i ${src} -s 100x100 ../ios/JFBSample/icons/icon-50@2x.png -y
+ffmpeg -i ${src} -s 60x60 ../ios/JFBSample/icons/icon-60.png -y
+ffmpeg -i ${src} -s 120x120 ../ios/JFBSample/icons/icon-60@2x.png -y
+ffmpeg -i ${src} -s 180x180 ../ios/JFBSample/icons/icon-60@3x.png -y
+ffmpeg -i ${src} -s 72x72 ../ios/JFBSample/icons/icon-72.png -y
+ffmpeg -i ${src} -s 144x144 ../ios/JFBSample/icons/icon-72@2x.png -y
+ffmpeg -i ${src} -s 76x76 ../ios/JFBSample/icons/icon-76.png -y
+ffmpeg -i ${src} -s 152x152 ../ios/JFBSample/icons/icon-76@2x.png -y
+ffmpeg -i ${src} -s 29x29 ../ios/JFBSample/icons/icon-small.png -y
+ffmpeg -i ${src} -s 58x58 ../ios/JFBSample/icons/icon-small@2x.png -y
+ffmpeg -i ${src} -s 57x57 ../ios/JFBSample/icons/icon.png -y
+ffmpeg -i ${src} -s 114x114 ../ios/JFBSample/icons/icon@2x.png -y
+
+#android
+ffmpeg -i ${src} -s 48x48 ../android/app/src/main/res/mipmap-mdpi/ic_launcher.png -y
+ffmpeg -i ${src} -s 72x72 ../android/app/src/main/res/mipmap-hdpi/ic_launcher.png -y
+ffmpeg -i ${src} -s 96x96 ../android/app/src/main/res/mipmap-xhdpi/ic_launcher.png -y
+ffmpeg -i ${src} -s 144x144 ../android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png -y

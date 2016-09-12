@@ -1,0 +1,12 @@
+#!/bin/bash
+
+src="$1"
+
+ffmpeg -i ${src} -s 640x1136 ../ios/JFBSample/splash/Default-568h@2x~iphone.png -y
+ffmpeg -i ${src} -s 750x1334 ../ios/JFBSample/splash/Default-667h.png -y
+ffmpeg -i ${src} -s 1242x2208 ../ios/JFBSample/splash/Default-736h.png -y
+ffmpeg -i ${src} -s 640x960 ../ios/JFBSample/splash/Default@2x~iphone.png -y
+ffmpeg -i ${src} -s 320x480 ../ios/JFBSample/splash/Default~iphone.png -y
+ffmpeg -i ${src} -s 320x568 ../ios/JFBSample/splash/splash.png -y
+cp ../ios/JFBSample/splash/splash.png ../App/resource/image/splash/splash.png
+cp ../ios/JFBSample/splash/splash.png ../App/node_modules/@remobile/react-native-splashscreen/android/src/main/res/drawable/splash.png

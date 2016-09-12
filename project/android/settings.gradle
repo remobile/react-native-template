@@ -1,0 +1,65 @@
+rootProject.name = 'JFBSample'
+
+include ':app'
+
+include ':ReactAndroid'
+project(':ReactAndroid').projectDir = new File(rootProject.projectDir, '../node_modules/react-native/ReactAndroid')
+
+//RemobileLibraries
+include ':react-native-des'
+project(':react-native-des').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-des/android')
+
+include ':react-native-zip'
+project(':react-native-zip').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-zip/android')
+
+include ':react-native-update'
+project(':react-native-update').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-update/android')
+
+include ':react-native-local-notifications'
+project(':react-native-local-notifications').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-local-notifications/android')
+
+include ':react-native-cordova'
+project(':react-native-cordova').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-cordova/android')
+
+include ':react-native-camera'
+project(':react-native-camera').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-camera/android')
+
+include ':react-native-toast'
+project(':react-native-toast').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-toast/android')
+
+include ':react-native-file-transfer'
+project(':react-native-file-transfer').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-file-transfer/android')
+
+include ':react-native-dialogs'
+project(':react-native-dialogs').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-dialogs/android')
+
+include ':react-native-datetime-picker'
+project(':react-native-datetime-picker').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-datetime-picker/android')
+
+include ':react-native-splashscreen'
+project(':react-native-splashscreen').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-splashscreen/android')
+
+include ':react-native-sqlite'
+project(':react-native-sqlite').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-sqlite/android')
+
+include ':react-native-contacts'
+project(':react-native-contacts').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-contacts/android')
+
+include ':react-native-video'
+project(':react-native-video').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-video/android')
+
+include ':react-native-audio'
+project(':react-native-audio').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-audio/android')
+
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-image-picker/android')
+
+include ':react-native-call'
+project(':react-native-call').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-call/android')
+
+//VendorLibraries
+include ':react-native-fs'
+project(':react-native-fs').projectDir = new File(settingsDir, '../App/node_modules/react-native-fs/android')
+
+include ':react-native-fileupload'
+project(':react-native-fileupload').projectDir = new File(settingsDir, '../App/node_modules/react-native-fileupload/android')

@@ -1,0 +1,68 @@
+#!/bin/bash
+resource=../App/resource
+
+
+function main() {
+    rm -fr www
+    mkdir www
+    checkResource
+    cd ..
+    genIOSBundle
+    genAndroidBundle
+    zipAll
+}
+
+function checkResource() {
+    if [ -z "${resource}" ];then
+        echo Usage:./genbundle resourcedir
+        exit
+    fi
+    if ! [ -a ${resource}/image ];then
+        echo please set right resource dir
+        exit
+    fi
+    if ! [ -f ${resource}/image.js ];then
+        echo please set right resource dir
+        exit
+    fi
+    resource=`cd ${resource};pwd`
+}
+
+function genIOSBundle() {
+    mkdir -p tools/www/ios/www
+    react-native bundle \
+        --platform ios \
+        --reset-cache true \
+        --entry-file index.ios.js \
+        --bundle-output ./tools/www/ios/www/index.ios.bundle \
+        --assets-dest ./tools/www/ios/www \
+        --dev false
+}
+
+function genAndroidBundle() {
+    mkdir -p tools/www/android/www
+    react-native bundle \
+        --platform android \
+        --reset-cache true \
+        --entry-file index.android.js \
+        --bundle-output ./tools/www/android/www/index.android.bundle \
+        --assets-dest ./tools/www/android/www \
+        --dev false
+}
+
+function zipWWW() {
+    node -e "!function(){function i(e,r){var o=n.readdirSync(e);o.forEach(function(o){var s=e+'/'+o;n.statSync(s).isDirectory()?i(s,r+'/'+o):c.folder(r).file(o,n.readFileSync(s))})}function e(e,r,o){r=r||'',o=o||e+'.zip',i(e,r);var s=c.generate({base64:!1,compression:'DEFLATE'});n.writeFile(o,s,'binary',function(){console.log('success')})}var r=require('jszip'),n=require('fs'),c=new r,o=process.argv.splice(1);e.apply(null,o)}();"  www www www.zip
+}
+
+function zipAll() {
+    cd ./tools/www/android
+    zipWWW
+    cd ../ios
+    zipWWW
+    cd ../..
+    mv ./www/android/www.zip ../../server/public/download/apks/admin/apks/jsAndroid/jsandroid.zip
+    mv ./www/ios/www.zip ../../server/public/download/apks/admin/apks/jsIos/jsios.zip
+    rm -fr www
+}
+
+main

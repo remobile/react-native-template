@@ -1,0 +1,51 @@
+#!/bin/bash
+
+newname=$1
+oldname="JFBSample"
+project_old="project"
+project_new="project_new"
+
+[ -z "$newname" ]&&echo "input newname[e.g:YXjqd]"&&exit
+[ -d "${project_new}" ]&&echo "${project_new} have exist"&&exit
+
+lnewname=$(echo ${newname}|tr '[A-Z]' '[a-z]')
+loldname=$(echo ${oldname}|tr '[A-Z]' '[a-z]')
+
+mkdir ${project_new}
+cp -r ./${project_old}/App ./${project_new}/App
+pushd ./${project_new}/App
+xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
+popd
+pushd ./${project_new}/App/node_modules/@remobile/react-native-local-notifications
+xfind -t "${oldname}" -v "-c \"%s/${oldname}/${newname}/g\""
+popd
+
+cp -r ./${project_old}/android ./${project_new}/android
+pushd ./${project_new}/android
+xfind -n "*${loldname}*" -r "${loldname}:${lnewname}"
+xfind -t "${oldname}" -v "-c \"%s/${oldname}/${newname}/g\""
+xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
+popd
+
+cp -r ./${project_old}/ios ./${project_new}/ios
+pushd ./${project_new}/ios
+find -name "xcshareddata" -exec rm -fr {} \;
+find -name "xcuserdata" -exec rm -fr {} \;
+xfind -n "*${oldname}*" -r "${oldname}:${newname}"
+xfind -n "AppDelegate.m" -v "-c \"%s/${oldname}/${newname}/g\""
+xfind -n "${project_old}.pbxproj" -v "-c \"%s/${oldname}/${newname}/g\""
+xfind -n "${project_old}.pbxproj" -v "-c \"%s/${loldname}/${lnewname}/g\""
+xfind -n "contents.xcworkspacedata" -v "-c \"%s/${oldname}/${newname}/g\""
+popd
+
+cp -r ./${project_old}/tools ./${project_new}/tools
+pushd ./${project_new}/tools
+xfind -t "${oldname}" -v "-c \"%s/${oldname}/${newname}/g\""
+xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
+popd
+
+cp -r ./${project_old}/index.android.js ./${project_new}/index.android.js
+vim "./${project_new}/index.android.js" -e -s -c "%s/${oldname}/${newname}/g" -c "normal ZZ"
+
+cp -r ./${project_old}/index.ios.js ./${project_new}/index.ios.js
+vim "./${project_new}/index.ios.js" -e -s -c "%s/${oldname}/${newname}/g" -c "normal ZZ"
