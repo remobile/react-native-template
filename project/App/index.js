@@ -8,7 +8,6 @@ var {
     Navigator,
     Platform,
     BackAndroid,
-    NetInfo,
     View,
     PixelRatio,
     Text,
@@ -19,25 +18,30 @@ var {
     Dimensions,
 } = ReactNative;
 
+
 global._ = require('lodash');
 global.sr = require('./config/Screen.js');
 global.Toast = require('@remobile/react-native-toast').show;
 global.CONSTANTS = require('./config/Constants.js');
-global.POST = require('./utils/net/Post.js');
-global.GET = require('./utils/net/Get.js');
-global.UPLOAD = require('./utils/net/Upload.js');
-global.MULTIUPLOAD = require('./utils/net/MultiUpload.js');
+const {POST, GET, UPLOAD, MULTIUPLOAD} = require('./utils/net');
+global.POST = POST;
+global.GET = GET;
+global.UPLOAD = UPLOAD;
+global.MULTIUPLOAD = MULTIUPLOAD;
 global.COMPONENTS = require('./components/index.js');
 global.DelayTouchableOpacity = COMPONENTS.DelayTouchableOpacity;
 
-var ProgressHUD = require('react-native-progress-hud');
+var ProgressHUD = COMPONENTS.ProgressHud;
 var TimerMixin = require('react-timer-mixin');
 var Utils = require('./utils/common/index.js');
 var Route = require('./config/Route.js');
 var img = require('./resource/image.js');
 var aud = require('./resource/audio.js');
 var PersonalInfoMgr = require('./manager/PersonalInfoMgr.js');
+var NetMgr = require('./manager/NetMgr.js');
+var SettingMgr = require('./manager/SettingMgr.js');
 var LoginMgr = require('./manager/LoginMgr.js');
+var MediaFileMgr = require('./manager/MediaFileMgr.js');
 
 global.app = {
     route: Route,
@@ -46,7 +50,10 @@ global.app = {
     aud: aud,
     data: {},
     personal: PersonalInfoMgr,
+    net: NetMgr,
+    setting: SettingMgr,
     login: LoginMgr,
+    mediaFileMgr: MediaFileMgr,
     isandroid: Platform.OS==="android",
 };
 
@@ -71,7 +78,7 @@ app.configureScene = function(route) {
     }
     return sceneConfig;
 };
-
+var SplashScreen = require('@remobile/react-native-splashscreen');
 var Splash = require('./modules/splash/index.js');
 
 var NavigationBarRouteMapper = {
@@ -155,6 +162,24 @@ module.exports = React.createClass({
         };
     },
     componentWillMount() {
+        SplashScreen.hide();
+        if (!app.isandroid) {
+            NativeModules.AccessibilityManager.setAccessibilityContentSizeMultipliers({
+                "extraSmall": 1,
+                "small": 1,
+                "medium": 1,
+                "large": 1,
+                "extraLarge": 1,
+                "extraExtraLarge": 1,
+                "extraExtraExtraLarge": 1,
+                "accessibilityMedium": 1,
+                "accessibilityLarge": 1,
+                "accessibilityExtraLarge": 1,
+                "accessibilityExtraExtraLarge": 1,
+                "accessibilityExtraExtraExtraLarge": 1
+            });
+        }
+        app.mediaFileMgr.checkRootDir();
         app.root = this;
         app.showProgressHUD = this.showProgressHUD;
         app.dismissProgressHUD = this.dismissProgressHUD;
@@ -218,26 +243,8 @@ module.exports = React.createClass({
             });
         }
     },
-    componentDidMount: function() {
-        NetInfo.isConnected.addEventListener(
-            'change',
-            this._handleConnectivityChange
-        );
-        NetInfo.isConnected.fetch().done(
-            (connect) => {app.connect = connect;}
-        );
-    },
     componentWillUnmount: function() {
-        NetInfo.isConnected.removeEventListener(
-            'change',
-            this._handleConnectivityChange
-        );
-    },
-    _handleConnectivityChange: function(connect) {
-        app.connect = connect;
-        if (!connect) {
-            Toast('当前设备已离线，请检查您的网络是否可用');
-        }
+        app.net.unregister();
     },
     configureScene(route){
         return app.configureScene(route);
@@ -276,6 +283,7 @@ module.exports = React.createClass({
                     onDidFocus={(route)=>{
                         var ref = route.ref;
                         var getChildScene = ref && ref.getChildScene;
+                        //注意：app.scene调用的时候一定需要使用封装函数，如：{handler: ()=>{app.scene.toggleEdit()}}，不能直接使用 handler: app.scene.toggleEdit.
                         var scene = app.scene = getChildScene ? getChildScene() : ref;
                         scene && scene.onDidFocus && scene.onDidFocus();
                     }}
@@ -297,7 +305,7 @@ module.exports = React.createClass({
                     isVisible={this.state.is_hud_visible}
                     isDismissible={false}
                     overlayColor="rgba(0, 0, 0, 0.6)"
-                    color="#239FDB"
+                    color={CONSTANTS.THEME_COLOR}
                     />
             </View>
         );
@@ -310,14 +318,14 @@ var styles = StyleSheet.create({
         backgroundColor:'#EEEEEE'
     },
     navBar: {
-        backgroundColor: '#239FDB',
+        backgroundColor: CONSTANTS.THEME_COLOR,
         alignItems:'center',
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
     },
     titleContainer: {
         width: sr.w,
-        backgroundColor: '#239FDB',
+        backgroundColor: CONSTANTS.THEME_COLOR,
         alignItems:'center',
     },
     navBarText: {
@@ -332,6 +340,7 @@ var styles = StyleSheet.create({
     },
     navBarLeftButton: {
         flexDirection: 'row',
+        paddingTop: 5,
         paddingLeft: 8,
         alignItems:'center',
     },
@@ -343,14 +352,14 @@ var styles = StyleSheet.create({
     navBarRightEmptyButton: {
         width: 70,
         height: 50,
-        backgroundColor: '#239FDB',
+        backgroundColor: CONSTANTS.THEME_COLOR,
     },
     navBarButtonText: {
         color: '#FFFFFF',
     },
     navBarIcon: {
         marginTop: 3,
-        width: 47,
-        height:32,
+        width: 25,
+        height:25,
     },
 });

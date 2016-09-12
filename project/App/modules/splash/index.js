@@ -17,8 +17,7 @@ var Update = require('@remobile/react-native-update');
 
 var {ProgressBar} = COMPONENTS;
 
-var
-STATUS_NONE = 0,
+var STATUS_NONE = 0,
 STATUS_DOWNLOAD_JS_PROGESS = 1,
 STATUS_UNZIP_JS_PROGESS = 2,
 STATUS_UPDATE_END = 3;
@@ -58,7 +57,7 @@ module.exports = React.createClass({
             versionUrl: app.route.ROUTE_VERSION_INFO_URL,
             jsbundleUrl:app.isandroid?app.route.ROUTE_JS_ANDROID_URL:app.route.ROUTE_JS_IOS_URL,
             androidApkUrl:app.route.ROUTE_APK_URL,
-            androidApkDownloadDestPath:'/sdcard/jfbsample.apk',
+            androidApkDownloadDestPath:'/sdcard/picturesque.apk',
             iosAppId: CONSTANTS.IOS_APPID,
             needUpdateApp: this.needUpdateApp,
             needUpdateJS: this.needUpdateJS,
@@ -114,14 +113,14 @@ module.exports = React.createClass({
     },
     doGetPersonalInfo() {
         var param = {
-            userID: app.personal.info.userID,
+            phone: app.personal.info.phone,
         };
         POST(app.route.ROUTE_GET_PERSONAL_INFO, param, this.getPersonalInfoSuccess, this.getInfoError);
     },
     getPersonalInfoSuccess(data) {
         if (data.success) {
             var context = data.context;
-            context['userID'] = app.personal.info.userID;
+            context['phone'] = app.personal.info.phone;
             app.personal.set(context);
             this.changeToHomePage();
         } else {
@@ -134,6 +133,7 @@ module.exports = React.createClass({
     },
     changeToLoginPage() {
         app.navigator.replace({
+            title: '登录'+CONSTANTS.APP_NAME,
             component: Login,
         });
         this.closeSplash();
@@ -153,17 +153,15 @@ module.exports = React.createClass({
     },
     closeSplash() {
         Animated.timing(this.state.opacity, {
-                toValue: 0,
-                duration: 500,
-            }
-        ).start(()=>{
+            toValue: 0,
+            duration: 500,
+        }).start(()=>{
             app.closeModal();
         });
     },
     componentDidMount() {
         app.showModal(
             <Animated.View style={[styles.container, {width: sr.tw,height: sr.th-sr.statusBarHeight, opacity: this.state.opacity}]}>
-                <View style={[styles.upperCover, {height: sr.totalNavHeight}]} />
             </Animated.View>,
             '',
             'rgba(0, 0, 0, 0)'

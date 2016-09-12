@@ -38,8 +38,8 @@ module.exports = React.createClass({
                 <View style={[styles.container, {top: Navigator.NavigationBar.Styles.General.TotalNavHeight+sr.statusBarHeight}]}>
                     <WebView
                         style={styles.webview}
-                        url={this.props.webAddress}
-                        scalesPageToFit={false}
+                        srouce={{uri:this.props.webAddress}}
+                        scalesPageToFit={true}
                         />
                     <Button
                         onPress={this.closeModal}
@@ -68,8 +68,8 @@ var styles = StyleSheet.create({
     contentButton: {
         width:sr.w*5/6,
         height:50,
-        borderRadius:3,
-        backgroundColor:'#54C1E7',
+        borderRadius:0,
+        backgroundColor: CONSTANTS.THEME_COLOR,
     },
     overlayContainer: {
         position:'absolute',

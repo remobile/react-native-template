@@ -5,7 +5,6 @@ var FileTransfer = require('@remobile/react-native-file-transfer');
 var KEY = CONSTANTS.DES_KEY;
 
 function UPLOAD(filePath, url, options, onprogress, success, failed, wait) {
-    console.log("send:", url, parameter);
     if (typeof failed === 'boolean') {
         wait = failed;
         failed = null;
@@ -14,11 +13,11 @@ function UPLOAD(filePath, url, options, onprogress, success, failed, wait) {
         app.showProgressHUD();
     }
     var parameter = options.params;
-    Des.encrypt(JSON.stringify(parameter), KEY, function(base64) {
-        var param = base64;
+    Des.encrypt(parameter, KEY, function(base64) {
+        options.params = base64;
         var fileTransfer = new FileTransfer();
         fileTransfer.onprogress = onprogress;
-        fileTransfer.upload(filePath, app.route.ROUTE_UPDATE_FILE, (res)=>{
+        fileTransfer.upload(filePath, url, (res)=>{
             var base64 = res.response;
             Des.decrypt(base64, KEY, function(jsonString) {
                 var json = {};

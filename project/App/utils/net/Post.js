@@ -1,6 +1,7 @@
 'use strict';
 
 var Des = require('@remobile/react-native-des');
+var qs = require('qs');
 var KEY = CONSTANTS.DES_KEY;
 
 module.exports = (url, parameter, success, failed, wait)=>{
@@ -12,15 +13,15 @@ module.exports = (url, parameter, success, failed, wait)=>{
     if (wait) {
         app.showProgressHUD();
     }
-    Des.encrypt(JSON.stringify(parameter), KEY, (base64)=>{
+    Des.encrypt(qs.stringify(parameter), KEY, (base64)=>{
         var param = base64;
         fetch(url,  {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'text/plain'
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: param
+            body: param,
         })
         .then((response)=>response.text())
         .then((base64)=>{
@@ -54,7 +55,7 @@ module.exports = (url, parameter, success, failed, wait)=>{
         .catch((error)=>{
             if (!failed || !failed(error)) {
                 Toast('网络错误');
-                console.log(url+ ":网络错误");
+                console.log(url+ ":网络错误", error);
                 if (wait) {
                     app.dismissProgressHUD();
                 }

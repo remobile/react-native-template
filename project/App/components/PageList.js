@@ -17,7 +17,7 @@ module.exports = React.createClass({
     getDefaultProps() {
         return {
             autoLoad: true,
-            pageNo: 1,
+            pageNo: 0,
             infiniteLoadStatus: STATUS_START_LOAD,
             style: {flex: 1},
         };
@@ -47,14 +47,14 @@ module.exports = React.createClass({
             ...this.props.listParam,
             pageNo: this.pageNo,
         };
-        this.setState({infiniteLoadStatus: this.pageNo===1?STATUS_START_LOAD:STATUS_HAVE_MORE});
+        this.setState({infiniteLoadStatus: this.pageNo===0?STATUS_START_LOAD:STATUS_HAVE_MORE});
         POST(this.props.listUrl, param, this.getListSuccess, this.getListFailed, wait);
     },
     getListSuccess(data) {
         this.props.onGetList && this.props.onGetList(data, this.pageNo);
         if (data.success) {
             var list = data.context[this.props.listName];
-            var infiniteLoadStatus = (!list.length && this.pageNo===1) ? STATUS_NO_DATA : (!list.length && this.pageNo===1) ? STATUS_NO_DATA : list.length < CONSTANTS.PER_PAGE_COUNT ? STATUS_ALL_LOADED : STATUS_TEXT_HIDE;
+            var infiniteLoadStatus = (!list.length && this.pageNo===0) ? STATUS_NO_DATA : (!list.length && this.pageNo===0) ? STATUS_NO_DATA : list.length < CONSTANTS.PER_PAGE_COUNT ? STATUS_ALL_LOADED : STATUS_TEXT_HIDE;
             this.list = this.list.concat(list);
             this.setState({
                 dataSource: this.ds.cloneWithRows(this.list),
@@ -87,7 +87,7 @@ module.exports = React.createClass({
         this.setState({
             dataSource: this.ds.cloneWithRows(this.list),
         });
-        this.pageNo = 1;
+        this.pageNo = 0;
         this.getList();
     },
     isRefreshing() {

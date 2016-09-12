@@ -108,23 +108,22 @@ var styles = StyleSheet.create({
     },
     line: {
         width: 1,
-        height: 70,
+        height: 50,
         backgroundColor: '#b4b4b4'
     },
     buttonStyleContain: {
-        marginTop:15,
-        height: 40,
+        height: 50,
         flex: 1,
         justifyContent:'center',
         alignItems:'center',
     },
     buttonStyle: {
-        fontSize: 20,
+        fontSize: 15,
         color: '#000000'
     },
     container: {
-        width:sr.w-40,
-        height:sr.h/3,
+        width:sr.w*5/6,
+        height:sr.h/4,
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:'#FFFFFF',
@@ -132,17 +131,15 @@ var styles = StyleSheet.create({
     },
     title: {
         color: '#ff3c30',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '100',
         textAlign: 'center',
-        marginBottom:20,
         overflow: 'hidden',
     },
     content: {
         alignSelf:'center',
         color:'#000000',
         margin: 20,
-        fontSize:17,
     },
     overlayContainer: {
         position:'absolute',

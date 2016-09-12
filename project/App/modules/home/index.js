@@ -2,141 +2,203 @@
 
 var React = require('react');var ReactNative = require('react-native');
 var {
-    Navigator,
-    PixelRatio,
     StyleSheet,
-    ScrollView,
-    Text,
-    TouchableHighlight,
     View,
-    Image
+    Text,
+    Image,
+    ListView,
+    TouchableOpacity,
 } = ReactNative;
+var ShowWebsite = require('./ShowWebsite.js');
+var Accusations = require('./Accusations.js');
+var PersonInfo = require('../person/PersonInfo.js');
 
-import TabNavigator from 'react-native-tab-navigator';
-var Empty = require('./Empty.js');
-
-var INIT_ROUTE_INDEX = 0;
-var ROUTE_STACK = [
-    {index: 0, component: Empty},
-    {index: 1, component: Empty},
-    {index: 2, component: Empty},
-    {index: 3, component: Empty},
+const LIST_DATA = [
+    {
+        title:'王二大，清镇市保密局局长，贪污2000万，正在接受组织调查',
+        date: '2016-02-12',
+        source: {text: '清镇市纪委', url:'http://www.baidu.com'}
+    },
+    {
+        title:'王二小，清镇市保密局副局长，贪污5000万，正在接受组织调查',
+        date: '2016-02-12',
+        source: {text: '清镇市纪委', url:'http://www.baidu.com'}
+    },
 ];
 
-var HomeTabBar = React.createClass({
-    componentWillMount() {
-        app.showMainScene = (i)=> {
-            var {title, leftButton, rightButton} = _.find(ROUTE_STACK, (o)=>o.index===i).component;
-            Object.assign(app.getCurrentRoute(), {
-                title: title,
-                leftButton: leftButton,
-                rightButton: rightButton,
+const MENUS = [
+    {
+        text: '法律法规',
+        img: app.img.home_menu1,
+        url: 'http://www.baidu.com',
+    },
+    {
+        text: '公示公开查询',
+        img: app.img.home_menu2,
+        url: 'http://www.baidu.com',
+    },
+    {
+        text: '民生监督',
+        img: app.img.home_menu3,
+        url: 'http://www.baidu.com',
+    },
+    {
+        text: '我要举报',
+        img: app.img.home_menu4,
+        module: Accusations,
+    },
+];
+
+var MenuItem = React.createClass({
+    onPress(menu) {
+        if (menu.url) {
+            app.navigator.push({
+                title: menu.text,
+                component: ShowWebsite,
+                passProps: {
+                    url: menu.url,
+                },
             });
-            this.props.onTabIndex(i);
-            app.forceUpdateNavbar();
+        } else {
+            app.navigator.push({
+                title: menu.text,
+                component: Accusations,
+            });
         }
     },
-    componentDidMount() {
-        app.toggleNavigationBar(true);
-    },
-    getInitialState() {
-        return {
-            tabIndex: this.props.initTabIndex
-        };
-    },
-    handleWillFocus(route) {
-        var tabIndex = route.index;
-        this.setState({ tabIndex, });
-    },
     render() {
-        var menus = [
-            {index: 0, title: '首  页', icon: app.img.home_home, selected: app.img.home_home_press},
-            {index: 1, title: '学习场', icon: app.img.home_learn, selected: app.img.home_learn_press},
-            {index: 2, title: '训练场', icon: app.img.home_train, selected: app.img.home_train_press},
-            {index: 3, title: '实战场', icon: app.img.home_actual, selected: app.img.home_actual_press},
-        ];
-        var TabNavigatorItems = menus.map((item)=>{
-            return (
-                <TabNavigator.Item
-                    key={item.index}
-                    selected={this.state.tabIndex === item.index}
-                    title={item.title}
-                    titleStyle={styles.titleStyle}
-                    renderIcon={() =>
-                        <Image
-                            resizeMode='stretch'
-                            source={item.icon}
-                            style={styles.icon} />
-                    }
-                    renderSelectedIcon={() =>
-                        <Image
-                            resizeMode='stretch'
-                            source={item.selected}
-                            style={styles.icon} />
-                    }
-                    onPress={() => {
-                        app.showMainScene(item.index);
-                    }}>
-                    <View />
-                </TabNavigator.Item>
-            )
-        });
+        const menu = MENUS[this.props.index];
         return (
-            <View style={styles.tabs}>
-                <TabNavigator
-                    tabBarStyle={styles.tabBarStyle}
-                    tabBarShadowStyle={styles.tabBarShadowStyle}
-                    hidesTabTouch={true} >
-                    {TabNavigatorItems}
-                </TabNavigator>
-            </View>
-        );
-    },
+            <TouchableOpacity style={styles.menuItem} onPress={this.onPress.bind(null, menu)}>
+                <Image
+                    resizeMode='stretch'
+                    source={menu.img}
+                    style={styles.menuImage}>
+                </Image>
+                <Text style={styles.menuText}>
+                    {menu.text}
+                </Text>
+            </TouchableOpacity>
+        )
+    }
 });
 
 module.exports = React.createClass({
-    statics: {
-        title: ROUTE_STACK[INIT_ROUTE_INDEX].component.title,
-        leftButton: ROUTE_STACK[INIT_ROUTE_INDEX].component.leftButton,
-        rightButton: ROUTE_STACK[INIT_ROUTE_INDEX].component.rightButton,
+    getInitialState() {
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        return {
+            dataSource: this.ds.cloneWithRows(LIST_DATA),
+        };
     },
-    getChildScene() {
-        return this.scene;
+    componentWillMount() {
+        app.toggleNavigationBar(false);
     },
-    renderScene(route, navigator) {
-        return <route.component ref={(ref)=>{if(ref)route.ref=ref}}/>;
+    onWillFocus() {
+        app.toggleNavigationBar(false);
+    },
+    showSourceWeb(obj) {
+        app.navigator.push({
+            title: obj.title,
+            component: ShowWebsite,
+            passProps: {
+                url: obj.source.url,
+            },
+        });
+    },
+    showLeftMenu() {
+        app.navigator.push({
+            component: PersonInfo,
+            fromLeft: true,
+        });
+    },
+    renderRow(obj, sectionID, rowID) {
+        const {title, date, source} = obj;
+        return (
+            <TouchableOpacity key={rowID} style={styles.row} onPress={this.showSourceWeb.bind(null, obj)}>
+                <View style={styles.rowHead}>
+                    <Image
+                        resizeMode='stretch'
+                        source={app.img.common_point}
+                        style={styles.rowHeadImage}>
+                    </Image>
+                </View>
+                <View style={styles.rowContainer}>
+                    <View style={styles.rowUp}>
+                        <Text style={styles.rowTitle}>{title}</Text>
+                    </View>
+                    <View style={styles.rowDown}>
+                        <Text style={styles.rowDate}>{date}</Text>
+                        <Text style={styles.rowSource}>{`来源:${source.text}`}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        )
+    },
+    renderSeparator(sectionID, rowID) {
+        return (
+            <View style={styles.separator} key={rowID}/>
+        );
     },
     render() {
         return (
-            <Navigator
-                debugOverlay={false}
-                style={styles.container}
-                ref={(navigator) => {
-                    this._navigator = navigator;
-                }}
-                initialRoute={ROUTE_STACK[INIT_ROUTE_INDEX]}
-                initialRouteStack={ROUTE_STACK}
-                renderScene={this.renderScene}
-                onDidFocus={(route)=>{
-                    var ref = this.scene = app.scene = route.ref;
-                    ref && ref.onDidFocus && ref.onDidFocus();
-                }}
-                onWillFocus={(route)=>{
-                    var ref = route.ref;
-                    ref && ref.onWillFocus && ref.onWillFocus(); //注意：因为有initialRouteStack，在mounted的时候所有的页面都会加载，因此只有第一个页面首次不会调用，需要在componentDidMount中调用，其他页面可以调用
-                }}
-                configureScene={(route) => ({
-                    ...app.configureScene(route),
-                })}
-                navigationBar={
-                    <HomeTabBar
-                        initTabIndex={INIT_ROUTE_INDEX}
-                        onTabIndex={(index) => {
-                            this._navigator.jumpTo(_.find(ROUTE_STACK, (o)=>o.index===index));
-                        }}
+            <View style={styles.container}>
+                <View style={styles.topContainer}>
+                    <Image
+                        resizeMode='stretch'
+                        style={styles.topImage}
+                        source={app.img.home_background}>
+                        <View>
+                            <Image
+                                resizeMode='cover'
+                                source={app.img.splash_logo}
+                                style={styles.headStyle}
+                                />
+                        </View>
+                        <Text style={styles.info}>
+                            <Text style={[styles.bigInfo, {color: '#EE3B3B'}]}>人人</Text>监督    <Text style={[styles.bigInfo, {color: '#436EEE'}]}>监督</Text>人人
+                        </Text>
+                    </Image>
+                </View>
+                <View style={styles.middleContainer}>
+                    <View style={styles.middleRow}>
+                        <MenuItem index={0} />
+                        <View style={styles.vline}/>
+                        <MenuItem index={1} />
+                    </View>
+                    <View style={styles.hline}/>
+                    <View style={styles.middleRow}>
+                        <MenuItem index={2} />
+                        <View style={styles.vline}/>
+                        <MenuItem index={3} />
+                    </View>
+                </View>
+                <View style={styles.hline}/>
+                <View style={styles.bottomTitle}>
+                    <Image
+                        resizeMode='stretch'
+                        source={app.img.login_user}
+                        style={styles.bottomTitleImage}>
+                    </Image>
+                    <Text style={styles.bottomTitleText}>纪律检查</Text>
+                </View>
+                <View style={styles.bottomContainer}>
+                    <ListView
+                        initialListSize={1}
+                        enableEmptySections={true}
+                        dataSource={this.state.dataSource}
+                        keyboardShouldPersistTaps={true}
+                        renderRow={this.renderRow}
+                        renderSeparator={this.renderSeparator}
                         />
-                }
-                />
+                </View>
+                <TouchableOpacity style={styles.leftMenuContainer} onPress={this.showLeftMenu}>
+                    <Image
+                        resizeMode='stretch'
+                        source={app.img.common_left_menu}
+                        style={styles.leftMenuImage}>
+                    </Image>
+                </TouchableOpacity>
+            </View>
         );
     },
 });
@@ -144,30 +206,135 @@ module.exports = React.createClass({
 
 var styles = StyleSheet.create({
     container: {
-        overflow: 'hidden',
         flex: 1,
     },
-    tabs: {
-        height: 60,
-        width: sr.w,
+    leftMenuContainer: {
         position: 'absolute',
-        left: 0,
-        bottom: 0,
+        top: 20,
+        left: 10,
+        width: 50,
+        height: 50,
     },
-    titleStyle: {
-        fontSize:16,
-        color: '#FFFFFF',
+    leftMenuImage: {
+        width: 50,
+        height: 30,
     },
-    tabBarStyle: {
-        height:60,
+    topContainer: {
+        height: sr.mw,
+    },
+    topImage: {
+        height: sr.mw,
+        width: sr.w,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    middleContainer: {
+        height: sr.mw,
+    },
+    middleRow: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    menuItem: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    menuImage: {
+        width: 50,
+        height: 50,
+        tintColor: CONSTANTS.THEME_COLOR,
+    },
+    menuText: {
+        marginTop: 6,
+        fontSize: 16,
+        color: '#787878',
+    },
+    vline: {
+        width: 1,
         backgroundColor: '#7A7A7A',
     },
-    tabBarShadowStyle: {
-        height: 0,
+    hline: {
+        height: 1,
         backgroundColor: '#7A7A7A',
     },
-    icon: {
-        width:30,
-        height:30
+    bottomTitle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 10,
+    },
+    bottomTitleImage: {
+        width: 40,
+        height: 40,
+        marginRight: 20,
+        tintColor: CONSTANTS.THEME_COLOR,
+    },
+    bottomTitleText: {
+        fontSize: 18,
+        color:  CONSTANTS.THEME_COLOR,
+        fontWeight: '600',
+    },
+    bottomContainer: {
+        flex: 1,
+        paddingTop: 2,
+    },
+    row: {
+        flexDirection: 'row',
+        height: 80,
+    },
+    rowHead: {
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    rowHeadImage: {
+        width: 30,
+        height: 30,
+        tintColor: CONSTANTS.THEME_COLOR,
+    },
+    rowContainer: {
+        flex: 1,
+    },
+    rowUp: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    rowTitle: {
+        fontSize: 14,
+        color: '#8B2323',
+    },
+    rowDown: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    rowDate: {
+        fontSize: 14,
+        color: '#7A7A7A',
+        marginRight: 20,
+    },
+    rowSource: {
+        fontSize: 14,
+        color: '#BC8F8F',
+    },
+    separator: {
+      backgroundColor: '#DDDDDD',
+      height: 1,
+    },
+    headStyle: {
+        alignSelf: 'flex-start',
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+    },
+    info: {
+        marginTop: 20,
+        fontSize: 20,
+        color: '#8B864E',
+        backgroundColor: 'transparent',
+    },
+    bigInfo: {
+        fontSize: 26,
     },
 });

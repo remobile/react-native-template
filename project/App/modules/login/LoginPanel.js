@@ -11,7 +11,7 @@ var {
     TouchableOpacity,
 } = ReactNative;
 
-var GetVerification = require('./GetVerification.js');
+var ForgetPassword = require('./ForgetPassword.js');
 var Home = require('../home/index.js');
 var Umeng = require('../../native/index.js').Umeng;
 
@@ -23,7 +23,7 @@ var WeixinQQPanel = React.createClass({
             <View style={styles.thirdpartyContainer}>
                 <View style={styles.sepratorContainer}>
                     <View style={styles.sepratorLine}></View>
-                    <Text style={styles.sepratorText} >{app.isandroid?'    ':''}或者你也可以</Text>
+                    <Text style={styles.sepratorText} >{app.isandroid?'    ':''}或者您也可以</Text>
                 </View>
                 <View style={styles.thirdpartyButtonContainer}>
                     {
@@ -58,14 +58,14 @@ var NoWeixinQQPanel = React.createClass({
     render() {
         return (
             <View style={styles.thirdpartyContainer2}>
-                <Text style={styles.thirdpartyContainer2_text}>赢在路上 现在出发</Text>
+                <Text style={styles.thirdpartyContainer2_text}>人人监督         监督人人</Text>
             </View>
         )
     }
 });
 
 module.exports = React.createClass({
-    doLogin() {
+    doLogin() {;
         if (!app.utils.checkPhone(this.state.phone)) {
             Toast('手机号码不是有效的手机号码');
             return;
@@ -76,15 +76,24 @@ module.exports = React.createClass({
         }
         var param = {
             phone:this.state.phone,
-            pwd:this.state.password,
-            type:1  //1 表示登录  2 表示注册   3 表示忘记密码
+            password:this.state.password,
         };
+        /*--- delete ---*/
+        app.personal.info = true;
+        app.navigator.replace({
+            component: Home,
+        });
+        return;
+        /*--- delete ---*/
+
         app.showProgressHUD();
         POST(app.route.ROUTE_LOGIN, param, this.doLoginSuccess, this.doLoginError);
     },
     doLoginSuccess(data) {
         if (data.success) {
-            this.userID = data.context.userID;
+            if (CONSTANTS.LOCAL) {
+                this.userId = data.context.userId;
+            }
             app.login.savePhone(this.state.phone);
             this.doGetPersonalInfo();
         } else {
@@ -95,22 +104,30 @@ module.exports = React.createClass({
     doLoginError(error) {
         app.dismissProgressHUD();
     },
+    doAnonymousLogin() {
+        app.personal.info = null;
+        app.navigator.replace({
+            component: Home,
+        });
+    },
     doShowForgetPassword() {
         app.navigator.push({
-            component: GetVerification,
+            component: ForgetPassword,
+            passProps: {
+                phone: this.state.phone,
+            },
         });
     },
     doGetPersonalInfo() {
         var param = {
-            userID: this.userID,
+            phone: CONSTANTS.LOCAL ? this.userId : this.state.phone,
         };
         POST(app.route.ROUTE_GET_PERSONAL_INFO, param, this.getPersonalInfoSuccess, this.getPersonalInfoError);
     },
     getPersonalInfoSuccess(data) {
         if (data.success) {
             var context = data.context;
-            context['userID'] = this.userID;
-            context['phone'] = this.state.phone;
+            context['phone'] = CONSTANTS.LOCAL ? this.userId : this.state.phone;
             app.personal.set(context);
             app.navigator.replace({
                 component: Home,
@@ -126,16 +143,13 @@ module.exports = React.createClass({
     getInitialState() {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         return {
-            phone: app.login.list[0]||"",
+            phone: this.props.phone|| app.login.list[0]||"",
             password: "",
             dataSource: ds.cloneWithRows(app.login.list),
             showList: false,
             weixininstalled: false,//Umeng.isWeixinInstalled,
             qqinstalled: false,//Umeng.isQQInstalled,
         };
-    },
-    setPhoneText(phone) {
-        this.setState({phone: phone});
     },
     onPhoneTextInputLayout(e) {
         var frame = e.nativeEvent.layout;
@@ -212,7 +226,8 @@ module.exports = React.createClass({
                     <Button onPress={this.doShowForgetPassword} style={styles.btnForgetPassWord} textStyle={styles.btnForgetPassWordText}>忘记密码?</Button>
                 </View>
                 <View style={styles.btnLoginContainer}>
-                    <Button onPress={this.doLogin} style={styles.btnLogin} textStyle={styles.btnLoginText}>登    录</Button>
+                    <Button onPress={this.doLogin} style={styles.btnLogin} textStyle={styles.btnLoginText}>账号登录</Button>
+                    <Button onPress={this.doAnonymousLogin} style={[styles.btnLogin, {backgroundColor:'#D1D1D1'}]} textStyle={styles.btnLoginText}>匿名登录</Button>
                 </View>
                 {this.state.qqinstalled || this.state.weixininstalled ? <WeixinQQPanel qqinstalled={this.state.qqinstalled} weixininstalled={this.state.weixininstalled}/>: <NoWeixinQQPanel />}
                 {
@@ -272,12 +287,12 @@ var styles = StyleSheet.create({
     },
     btnLoginContainer: {
         height: 60,
-        justifyContent:'center',
-        alignSelf: 'center',
+        justifyContent:'space-around',
+        flexDirection: 'row',
     },
     btnLogin: {
-        height: 50,
-        width: 150,
+        height: 40,
+        width: 130,
         marginTop: 50,
     },
     btnLoginText: {
@@ -333,7 +348,7 @@ var styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     thirdpartyContainer2_text: {
-        color: '#5DC2E6',
+        color: CONSTANTS.THEME_COLOR,
         fontSize: 18,
         marginBottom:60,
     },

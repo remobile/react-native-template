@@ -60,7 +60,7 @@ module.exports = React.createClass({
             versionUrl: app.route.ROUTE_VERSION_INFO_URL,
             jsbundleUrl:app.isandroid?app.route.ROUTE_JS_ANDROID_URL:app.route.ROUTE_JS_IOS_URL,
             androidApkUrl:app.route.ROUTE_APK_URL,
-            androidApkDownloadDestPath:'/sdcard/jfbsample.apk',
+            androidApkDownloadDestPath:'/sdcard/picturesque.apk',
             iosAppId: CONSTANTS.IOS_APPID,
             needUpdateApp: this.needUpdateApp,
             needUpdateJS: this.needUpdateJS,
@@ -135,7 +135,7 @@ module.exports = React.createClass({
             <Text style={styles.textInfo}>解压js bundle失败，请稍后再试</Text>
         );
         components[STATUS_FAILED_INSTALL_ERROR] = (
-            <Text style={styles.textInfo}>你放弃了安装</Text>
+            <Text style={styles.textInfo}>您放弃了安装</Text>
         );
         components[STATUS_HAS_VEW_VERSION] = (
             <View>
@@ -166,10 +166,10 @@ module.exports = React.createClass({
                 <View style={styles.logoContainer}>
                     <Image
                         resizeMode='stretch'
-                        source={app.img.login_logo}
+                        source={app.img.splash_logo}
                         style={styles.logo}
                         />
-                    <Text style={styles.app_name}>赢销截拳道 V{this.getShowVerion(Update.getVersion())}</Text>
+                    <Text style={styles.app_name}>{CONSTANTS.APP_NAME+' V'}{this.getShowVerion(Update.getVersion())}</Text>
                 </View>
                 <View style={styles.functionContainer}>
                     {components[this.state.status]}

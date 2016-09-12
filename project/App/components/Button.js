@@ -41,7 +41,7 @@ var styles = StyleSheet.create({
         borderRadius: 10,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#54C1E7',
+        backgroundColor:CONSTANTS.THEME_COLOR,
     },
     text: {
         color: '#FFFFFF',

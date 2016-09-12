@@ -1,19 +1,19 @@
 'use strict';
 
-import {
-  AlertIOS,
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+var React = require('react');
+var ReactNative = require('react-native');
+var {
+    AlertIOS,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} = ReactNative;
 
 import Video from '@remobile/react-native-video';
 var SplashScreen = require('@remobile/react-native-splashscreen');
 
-class VideoPlayer extends Component {
+class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -24,7 +24,7 @@ class VideoPlayer extends Component {
     resizeMode: 'stretch',
     duration: 0.0,
     currentTime: 0.0,
-    paused: true,
+    paused: false,
   };
 
   componentWillMount() {
@@ -35,7 +35,7 @@ class VideoPlayer extends Component {
     return (
       <View style={styles.container}>
           <Video
-            source={{uri: 'http://192.168.1.119:3000/video/test.m3u8'}}
+            source={{uri: 'http://192.168.0.155:8088/Exhibition/download/A14151F1F13A43E3B29A5E934B0C4218.mp4'}}
             style={styles.videoNormalFrame}
             rate={this.state.rate}
             paused={this.state.paused}

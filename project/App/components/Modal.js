@@ -64,7 +64,7 @@ var styles = StyleSheet.create({
         right: 0,
     },
     title: {
-        backgroundColor: '#239FDB',
+        backgroundColor: CONSTANTS.THEME_COLOR,
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
     },

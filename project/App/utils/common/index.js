@@ -88,4 +88,8 @@ module.exports = {
     checkNumberCode(code) {
         return /^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/.test(code);
     },
+    checkMailAddress(code) {
+      var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+      return reg.test(code);
+    },
 };

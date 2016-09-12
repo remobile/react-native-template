@@ -17,8 +17,13 @@ module.exports = React.createClass({
     componentDidMount() {
         SplashScreen.hide();
     },
+    getInitialState() {
+        return {
+            filePath: '',
+        };
+    },
     takePicture() {
-        var options = {
+        var options1 = {
             quality: 30,
             allowEdit: true,
             targetWidth: 240,
@@ -26,14 +31,44 @@ module.exports = React.createClass({
             cameraDirection: Camera.Direction.FRONT,
             destinationType: Camera.DestinationType.FILE_URI,
         };
-        Camera.getPicture(options, (filePath) => {
-            console.log(filePath);
+        var options2 = {
+            quality: 100,
+            allowEdit: false,
+            cameraDirection: Camera.Direction.FRONT,
+            destinationType: Camera.DestinationType.FILE_URI,
+        };
+        var options3 = {
+            quality: 100,
+            allowEdit: false,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        };
+        var options4 = {
+            quality: 30,
+            allowEdit: true,
+            targetWidth: 240,
+            targetHeight: 240,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        };
+        var options5 = {
+            quality: 100,
+            allowEdit: false,
+            destinationType: Camera.DestinationType.FILE_URI,
+            mediaType:Camera.MediaType.VIDEO,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        };
+        Camera.getPicture(options5, (filePath) => {
+            this.setState({filePath});
         });
     },
     render() {
         return (
             <View style={styles.container}>
                 <Button onPress={this.takePicture}>照相</Button>
+                <Text>
+                    {this.state.filePath}
+                </Text>
             </View>
         );
     }

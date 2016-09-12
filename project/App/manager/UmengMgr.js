@@ -9,7 +9,7 @@ class Manager extends EventEmitter {
     doActionSheetShare(url,title,text,shareType,callback) {
         Umeng.shareWithActionSheet({
             url: 'https://itunes.apple.com/cn/app/ying-xiao-jie-quan-dao/id1096525384?mt=8',
-            title: "贵阳赢销截拳道网络科技有限公司",
+            title: CONSTANTS.APP_NAME,
             text: text,
 			shareType:shareType,
 			sharePlatforms:"all"
