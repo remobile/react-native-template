@@ -15,3 +15,6 @@
 
 三、发布小版本
     进入tools，执行genbundle，生成www:server/public/download/www
+
+四、环境搭建
+    1.android找不到support-v4:23.2.1，使用android update sdk --no-ui --all --filter "extra-android-m2repository" 安装依赖
