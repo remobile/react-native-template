@@ -1,0 +1,17 @@
+一、升级：
+1. di update/modify/NavigatorNavigationBarStylesAndroid.js project/node_modules/react-native/Libraries/CustomComponents/Navigator/NavigatorNavigationBarStylesAndroid.js
+2. di update/modify/StyleSheet.js project/node_modules/react-native/Libraries/StyleSheet/StyleSheet.js
+3. di update/modify/assetPathUtils.js project/node_modules/react-native/local-cli/bundle/assetPathUtils.js
+4. di update/modify/minify.js project/node_modules/react-native/packager/react-packager/src/JSTransformer/worker/minify.js
+5. di update/modify/build.gradle project/node_modules/react-native/ReactAndroid/build.gradle
+
+二、发布大版本
+    只有添加java或者object-c的代码的时候才发布大版本
+    1.android发布
+        进入tools，执行release-android，生成apk: server/public/download/apk/yxjqd.apk
+        注意，首次编译时需要下载 boost_1_57_0.zip ,由于网络下载很慢，我们将 boost_1_57_0.zip 放在了本地，需要进入server, 开始 node app.js
+    2.ios发布
+        打开xcode工程,Produce->Scheme->Edit Scheme->Release 然后编译就可以了
+
+三、发布小版本
+    进入tools，执行genbundle，生成www:server/public/download/www

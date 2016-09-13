@@ -1,5 +1,4 @@
 'use strict';
-
 var React = require('react');var ReactNative = require('react-native');
 var {
     Navigator,
@@ -7,18 +6,17 @@ var {
     StyleSheet,
     ScrollView,
     Text,
-    TouchableHighlight,
     View,
     Image
 } = ReactNative;
 
 import TabNavigator from 'react-native-tab-navigator';
-var Home = require('./Home.js');
+var Test = require('../test');
 var Empty = require('./Empty.js');
 
 var INIT_ROUTE_INDEX = 0;
 var ROUTE_STACK = [
-    {index: 0, component: Home},
+    {index: 0, component: Test},
     {index: 1, component: Empty},
     {index: 2, component: Empty},
     {index: 3, component: Empty},

@@ -12,7 +12,7 @@ module.exports = {
     //测试状态，发布的时候需要改为false
     TEST: true,
     APP_NAME: '疾风步',
-    THEME_COLOR: 'red',
+    THEME_COLOR: '#2F4F4F',
     //IOS的appid
     IOS_APPID: '1096525384',
     // IOS_APPID: '',
