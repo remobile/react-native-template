@@ -38,7 +38,7 @@ module.exports = React.createClass({
                 <View style={[styles.container, {top: Navigator.NavigationBar.Styles.General.TotalNavHeight+sr.statusBarHeight}]}>
                     <WebView
                         style={styles.webview}
-                        srouce={{uri:this.props.webAddress}}
+                        source={{uri:this.props.webAddress}}
                         scalesPageToFit={true}
                         />
                     <Button
