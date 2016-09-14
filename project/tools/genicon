@@ -19,6 +19,8 @@ ffmpeg -i ${src} -s 58x58 ../ios/JFBSample/icons/icon-small@2x.png -y
 ffmpeg -i ${src} -s 57x57 ../ios/JFBSample/icons/icon.png -y
 ffmpeg -i ${src} -s 114x114 ../ios/JFBSample/icons/icon@2x.png -y
 
+cp ../ios/JFBSample/icons/icon@2x.png ../App/resource/image/splash/logo.png
+
 #android
 ffmpeg -i ${src} -s 48x48 ../android/app/src/main/res/mipmap-mdpi/ic_launcher.png -y
 ffmpeg -i ${src} -s 72x72 ../android/app/src/main/res/mipmap-hdpi/ic_launcher.png -y

@@ -5,7 +5,9 @@ var ReactNative = require('react-native');
 var {
     StyleSheet,
     View,
+    Text,
     AsyncStorage,
+    ListView,
 } = ReactNative;
 
 var Button = require('@remobile/react-native-simple-button');
@@ -13,6 +15,12 @@ module.exports = React.createClass({
     statics: {
         title: '查看存储',
         leftButton: {handler: ()=>{app.scene.goBack()}},
+    },
+    getInitialState() {
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        return {
+            dataSource: this.ds.cloneWithRows([]),
+        };
     },
     componentWillMount() {
         app.toggleNavigationBar(true);
@@ -22,40 +30,68 @@ module.exports = React.createClass({
         app.navigator.pop();
     },
     doShowList() {
-        (async function(){
-            var list = await AsyncStorage.getAllKeys();
-            for (var i in list) {
-                var obj = await AsyncStorage.getItem(list[i]);
-                console.log(list[i], JSON.parse(obj));
+        (async ()=>{
+            var list = [];
+            var keys = await AsyncStorage.getAllKeys();
+            for (var key of keys) {
+                var obj = await AsyncStorage.getItem(key);
+                console.log(key, JSON.parse(obj));
+                list.push(key+': '+obj);
             }
+            this.setState({dataSource: this.ds.cloneWithRows(list)});
         })();
     },
     doShowKeys() {
-        (async function(){
-            var list = await AsyncStorage.getAllKeys();
-            console.log('result:', list);
+        var list = [];
+        (async ()=>{
+            var keys = await AsyncStorage.getAllKeys();
+            console.log(keys);
+            list = keys;
+            this.setState({dataSource: this.ds.cloneWithRows(list)});
         })();
     },
     doClearItem() {
-        (async function(){
+        (async ()=>{
             await AsyncStorage.removeItem('mediaRecordeFiles');
         })();
     },
     doClearAll() {
-        (async function(){
+        (async ()=>{
             var list = await AsyncStorage.getAllKeys();
             for (var i in list) {
                 await AsyncStorage.removeItem(list[i]);
             }
         })();
     },
+    renderRow(text, sectionID, rowID) {
+        return (
+            <Text style={styles.itemText} key={rowID}>
+              {text}
+            </Text>
+        )
+    },
+    renderSeparator(sectionID, rowID) {
+        return (
+            <View style={styles.separator} key={rowID}/>
+        );
+    },
     render() {
         return (
             <View style={styles.container}>
-                <Button onPress={this.doShowList}>列表</Button>
-                <Button onPress={this.doShowKeys}>键值</Button>
-                <Button onPress={this.doClearItem}>清除个例</Button>
-                <Button onPress={this.doClearAll}>清除所有</Button>
+                <View style={styles.buttonContainer}>
+                    <Button onPress={this.doShowList}>列表</Button>
+                    <Button onPress={this.doShowKeys}>键值</Button>
+                    <Button onPress={this.doClearItem}>清除个例</Button>
+                    <Button onPress={this.doClearAll}>清除所有</Button>
+                </View>
+                <ListView
+                    initialListSize={1}
+                    enableEmptySections={true}
+                    dataSource={this.state.dataSource}
+                    keyboardShouldPersistTaps={true}
+                    renderRow={this.renderRow}
+                    renderSeparator={this.renderSeparator}
+                    />
             </View>
         );
     }
@@ -65,8 +101,17 @@ module.exports = React.createClass({
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'transparent',
-        justifyContent: 'space-around',
-        paddingVertical: 150,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    itemText: {
+        fontSize: 16,
+        marginVertical:10,
+    },
+    separator: {
+      backgroundColor: '#DDDDDD',
+      height: 1,
     },
 });
