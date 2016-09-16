@@ -57,7 +57,7 @@ module.exports = React.createClass({
             mediaType:Camera.MediaType.VIDEO,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
         };
-        Camera.getPicture(options1, (filePath) => {
+        Camera.getPicture(options3, (filePath) => {
             this.setState({filePath});
         });
     },
