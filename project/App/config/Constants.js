@@ -1,7 +1,7 @@
 'use strict';
 
-// const BASE_SERVER = "http://192.168.0.155:8088/Exhibition/";
-const BASE_SERVER = "http://localhost:3000/app/";
+//const BASE_SERVER = "http://120.76.207.56:8088/";
+const BASE_SERVER = "http://localhost:3000/";
 
 module.exports = {
     //显示发布配置， 发布ios时 ISSUE_IOS=true, ISSUE_ANDROID=false
@@ -14,13 +14,12 @@ module.exports = {
     APP_NAME: '疾风步',
     THEME_COLOR: '#2F4F4F',
     //IOS的appid
-    IOS_APPID: '1096525384',
-    // IOS_APPID: '',
+    // IOS_APPID: '1096525384',
+    IOS_APPID: '',
     //web服务器
     DES_KEY:"SV#Y!jAz", //DES加密KEY
-    SERVER: BASE_SERVER+"api/", //web服务器地址
+    SERVER: BASE_SERVER+"JFBSample/api/", //web服务器地址
     BASE_SERVER: BASE_SERVER, //web服务器地址
-    DOWNLOAD_SERVER: BASE_SERVER+"download/apks/admin/apks/",//程序更新下载地址
     //获取验证码的超时时间
     DEFAULT_CODE_TIMEOUT: 90,
     //分页列表每页数据的条数

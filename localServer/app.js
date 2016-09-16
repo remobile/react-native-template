@@ -55,7 +55,7 @@ app.sendObj = function(req, res, obj) {
 };
 
 app.subPost = function(url, callback) {
-    app.post('/app/api'+url, callback);
+    app.post('/JFBSample/api'+url, callback);
 };
 
 for (var i in modules) {

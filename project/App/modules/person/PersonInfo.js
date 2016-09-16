@@ -21,7 +21,7 @@ var {Button, DImage, WebviewMessageBox} = COMPONENTS;
 const CHILD_PAGES = [
     {strict:true, title:'个人资料', module: EditPersonInfo, img:app.img.personal_info, info:''},
     {seprator:true, title:'设置', module: Settings, img:app.img.personal_settings, info:''},
-    {hidden:!CONSTANTS.TEST||true, title:'查看存储', module: Store, img:app.img.personal_settings, info:''},
+    {hidden:!CONSTANTS.TEST, title:'查看存储', module: Store, img:app.img.personal_settings, info:''},
 ];
 
 
@@ -67,6 +67,12 @@ module.exports = React.createClass({
         }, 0);
         app.personal.clear();
     },
+    goBack() {
+        app.navigator.pop();
+    },
+    shouldComponentUpdate(nextProps, nextState) {
+        return app.personal.info!=null;
+    },
     render() {
         return (
             <View style={styles.container}>
@@ -88,7 +94,7 @@ module.exports = React.createClass({
                 <ScrollView >
                     {
                         CHILD_PAGES.map((item, i)=>{
-                            if (!app.personal.info && item.strict) {
+                            if (!app.personal.info.phone && item.strict) {
                                 return null;
                             }
                             return (
@@ -98,10 +104,14 @@ module.exports = React.createClass({
                         })
                     }
                 </ScrollView>
-                {
-                    app.personal.info &&
-                    <Button onPress={this.doExit} style={styles.btnExit}>安全退出</Button>
-                }
+                <Button onPress={this.doExit} style={styles.btnExit}>{app.personal.info.phone?'安全退出':'没有身份的人生是不完整的'}</Button>
+                <TouchableOpacity style={styles.leftMenuContainer} onPress={this.goBack}>
+                    <Image
+                        resizeMode='stretch'
+                        source={app.img.common_back}
+                        style={styles.leftMenuImage}>
+                    </Image>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -187,5 +197,16 @@ var styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor:'#CD3700',
         bottom: 50,
+    },
+    leftMenuContainer: {
+        position: 'absolute',
+        top: 20,
+        left: 10,
+        width: 80,
+        height: 50,
+    },
+    leftMenuImage: {
+        width: 30,
+        height: 30,
     },
 });

@@ -60,7 +60,7 @@ module.exports = React.createClass({
             versionUrl: app.route.ROUTE_VERSION_INFO_URL,
             jsbundleUrl:app.isandroid?app.route.ROUTE_JS_ANDROID_URL:app.route.ROUTE_JS_IOS_URL,
             androidApkUrl:app.route.ROUTE_APK_URL,
-            androidApkDownloadDestPath:'/sdcard/picturesque.apk',
+            androidApkDownloadDestPath:'/sdcard/jfbsample.apk',
             iosAppId: CONSTANTS.IOS_APPID,
             needUpdateApp: this.needUpdateApp,
             needUpdateJS: this.needUpdateJS,

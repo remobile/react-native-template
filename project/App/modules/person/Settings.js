@@ -83,7 +83,7 @@ module.exports = React.createClass({
                 <ScrollView>
                     {
                         CHILD_PAGES.map((item, i)=>{
-                            if (!app.personal.info && item.strict) {
+                            if (!app.personal.info.phone && item.strict) {
                                 return null;
                             }
                             return (

@@ -29,7 +29,7 @@ module.exports = React.createClass({
         }
         fileTransfer.download(
             app.route.ROUTE_APK_URL,
-            '/Users/fang/work/test/project/picturesque.apk',
+            '/Users/fang/work/test/project/jfbsample.apk',
             (result)=>{
                 console.log(result);
             },

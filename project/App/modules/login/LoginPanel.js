@@ -78,14 +78,6 @@ module.exports = React.createClass({
             phone:this.state.phone,
             password:this.state.password,
         };
-        /*--- delete ---*/
-        app.personal.info = true;
-        app.navigator.replace({
-            component: Home,
-        });
-        return;
-        /*--- delete ---*/
-
         app.showProgressHUD();
         POST(app.route.ROUTE_LOGIN, param, this.doLoginSuccess, this.doLoginError);
     },
@@ -105,7 +97,7 @@ module.exports = React.createClass({
         app.dismissProgressHUD();
     },
     doAnonymousLogin() {
-        app.personal.info = null;
+        app.personal.info = {phone: ''};
         app.navigator.replace({
             component: Home,
         });

@@ -1,6 +1,6 @@
 'use strict';
 
-const {SERVER, DOWNLOAD_SERVER} = CONSTANTS;
+const {SERVER, BASE_SERVER} = CONSTANTS;
 
 module.exports = {
     //登录
@@ -12,27 +12,16 @@ module.exports = {
     //个人中心
     ROUTE_GET_PERSONAL_INFO: SERVER+'getPersonalInfo', //获取个人信息
     ROUTE_UPDATE_PERSONAL_INFO: SERVER+'updatePersonalInfo', //修改个人信息
-    
-    ROUTE_GET_INCOME_SUMMARY: SERVER+'getIncomeSummary', //获取收入汇总
-    ROUTE_GET_INCOME_LIST: SERVER+'getIncomeList', //获取收入明细
-    ROUTE_GET_WITH_DRAW_LIST: SERVER+'getWithDrawList', //获取提现明细
-
-    //投诉
-    ROUTE_ACCUSATIONS: SERVER+'accusations', //我要投诉
-    ROUTE_GET_MY_ACCUSATIONS_LIST: SERVER+'getMyAccusationsList', //获取我的投诉列表
-
-    //任务
-    ROUTE_GET_TASK_LIST: SERVER+'getTaskList', //获取任务列表
-    ROUTE_GET_MY_TASK_LIST: SERVER+'getMyTaskList', //获取我的任务列表
-    ROUTE_ACCEPT_TASK: SERVER+'acceptTask', //领取任务
-    ROUTE_UPLOAD_MEDIA_FILE: SERVER+'uploadMediaFile', //上传媒体文件
-    ROUTE_SUBMIT_TASK: SERVER+'submitTask', //提交任务
-
-    //基础信息
     ROUTE_SUBMIT_FEEDBACK: SERVER+'submitFeedback', //提交信息反馈
 
     //网页地址
-    ROUTE_USER_PROTOCOL: 'http://www.baidu.com', //用户协议
-    ROUTE_SOFTWARE_LICENSE: 'http://www.baidu.com',//获取软件许可协议
-    ROUTE_ABOUT_PAGE: 'http://www.baidu.com', //关于
+    ROUTE_USER_PROTOCOL: BASE_SERVER+'helper/protocal.html', //用户协议
+    ROUTE_SOFTWARE_LICENSE: BASE_SERVER+'helper/protocal.html',//获取软件许可协议
+    ROUTE_ABOUT_PAGE: BASE_SERVER+'helper/about.html', //关于
+
+    //下载更新
+    ROUTE_VERSION_INFO_URL: BASE_SERVER+"download/version.json",//版本信息地址
+    ROUTE_JS_ANDROID_URL: BASE_SERVER+"download/jsandroid.zip",//android jsbundle 包地址
+    ROUTE_JS_IOS_URL: BASE_SERVER+"download/jsios.zip",//ios jsbundle 包地址
+    ROUTE_APK_URL: BASE_SERVER+"download/yxjqd.apk", //apk地址
 };
