@@ -22,7 +22,6 @@ import com.remobile.imagePicker.RCTImagePickerPackage;
 import com.remobile.video.RCTVideoPackage;
 import com.remobile.audio.RCTAudioPackage;
 import com.remobile.filetransfer.RCTFileTransferPackage;
-import com.remobile.datetimepicker.RCTDateTimePickerPackage;
 import com.remobile.call.RCTCallPackage;
 
 import com.rnfs.RNFSPackage;
@@ -67,7 +66,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RCTVideoPackage(),
             new RCTAudioPackage(),
             new RCTFileTransferPackage(),
-            new RCTDateTimePickerPackage(),
             new RCTCallPackage(),
 
             //VendorLibraries
