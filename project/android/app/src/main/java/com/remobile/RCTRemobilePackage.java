@@ -1,5 +1,7 @@
 package com.remobile;
 
+import android.app.Activity;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -12,18 +14,23 @@ import com.facebook.react.uimanager.ViewManager;
 
 import com.remobile.alipay.AliPayPlugin;
 import com.remobile.audioRecorder.AudioRecorderAPI;
-import com.remobile.umeng.UMengSharePlugin;
 import com.remobile.utils.UtilsModule;
 import com.remobile.wxpay.WeixinPay;
 
 public class RCTRemobilePackage implements ReactPackage {
+    private Activity activity;
+
+    public RCTRemobilePackage(Activity activity) {
+        super();
+        this.activity = activity;
+    }
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Arrays.<NativeModule>asList(
-                new UMengSharePlugin(reactContext),
                 new WeixinPay(reactContext),
                 new AliPayPlugin(reactContext),
-                new UtilsModule(reactContext),
+                new UtilsModule(reactContext, activity),
                 new AudioRecorderAPI(reactContext)
         );
     }

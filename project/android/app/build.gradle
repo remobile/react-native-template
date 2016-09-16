@@ -146,7 +146,6 @@ dependencies {
     compile project(':react-native-video')
     compile project(':react-native-audio')
     compile project(':react-native-file-transfer')
-    compile project(':react-native-datetime-picker')
     compile project(':react-native-call')
 
     //VendorLibraries

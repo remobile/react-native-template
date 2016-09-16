@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
-//    private RCTUpdateMgr mUpdateMgr;
+    private RCTUpdateMgr mUpdateMgr;
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
@@ -40,16 +40,18 @@ public class MainApplication extends Application implements ReactApplication {
             return BuildConfig.DEBUG;
         }
 
-//        @Override
-//        protected String getJSBundleFile() {
-//            return mUpdateMgr.getBundleUrl();
-//        }
+        @Override
+        protected String getJSBundleFile() {
+            return mUpdateMgr.getBundleUrl();
+        }
 
         @Override
         protected List<ReactPackage> getPackages() {
+            mUpdateMgr = new RCTUpdateMgr(MainActivity.activity);
+
             return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
-            new RCTRemobilePackage(),
+            new RCTRemobilePackage(MainActivity.activity),
             //RemobileLibraries
             new RCTSplashScreenPackage(MainActivity.activity),
             new RCTToastPackage(),
@@ -58,7 +60,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RCTZipPackage(),
             new RCTSqlitePackage(),
             new RCTDesPackage(),
-//            mUpdateMgr.getReactPackage(),
+            mUpdateMgr.getReactPackage(),
             new RCTContactsPackage(),
             new RCTCameraPackage(),
             new RCTImagePickerPackage(),

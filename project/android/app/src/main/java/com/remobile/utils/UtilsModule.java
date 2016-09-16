@@ -7,7 +7,6 @@ import android.os.PowerManager;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.jfbsample.MainActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,9 +20,9 @@ public class UtilsModule extends ReactContextBaseJavaModule {
     private PowerManager.WakeLock wakeLock;
 
 
-    public UtilsModule(ReactApplicationContext reactContext) {
+    public UtilsModule(ReactApplicationContext reactContext, Activity activity) {
         super(reactContext);
-        activity = MainActivity.activity;
+        this.activity = activity;
     }
 
     @Override

@@ -45,9 +45,6 @@ project(':react-native-video').projectDir = new File(settingsDir, '../App/node_m
 include ':react-native-audio'
 project(':react-native-audio').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-audio/android')
 
-include ':react-native-datetime-picker'
-project(':react-native-datetime-picker').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-datetime-picker/android')
-
 include ':react-native-file-transfer'
 project(':react-native-file-transfer').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-file-transfer/android')
 

@@ -127,7 +127,6 @@ public class WeixinPay extends CordovaPlugin  implements IWXAPIEventHandler {
 			});
 			ret = true;
 		}
-		Log.v("weixpay-java","execute======================================");
 		return ret;
 	}
 
@@ -191,7 +190,6 @@ public class WeixinPay extends CordovaPlugin  implements IWXAPIEventHandler {
 			map.putString("errStr", message);
 			map.putString("success", "false");
 		}
-		Log.v("weixpay-java","onResp======================================"+map+success);
 		getReactApplicationContext()
 				.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
 				.emit("WEIXIN_PAY", map);
