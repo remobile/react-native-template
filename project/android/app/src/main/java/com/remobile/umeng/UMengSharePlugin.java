@@ -1,20 +1,18 @@
 package com.remobile.umeng;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.telecom.Call;
-import android.widget.Toast;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
+import com.jfbsample.MainActivity;
+import com.remobile.cordova.CordovaPlugin;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -26,17 +24,15 @@ import java.util.List;
 import java.util.Map;
 
 
-public class UMengSharePlugin extends ReactContextBaseJavaModule {
+public class UMengSharePlugin extends CordovaPlugin {
     public static String FLOG_TAG = "RCTUmeng";
-    private Activity activity;
     private Callback mCallback;
 
-    public UMengSharePlugin(ReactApplicationContext reactContext, Activity activity) {
+    public UMengSharePlugin(ReactApplicationContext reactContext) {
         super(reactContext);
-        this.activity = activity;
 
         PlatformConfig.setWeixin("wx18d0597c9febcd0d", "83453a0c858e052a3d73dfbdbc11c874");
-       PlatformConfig.setQQZone("1105204262", " fELEobxl728L2MDl");
+        PlatformConfig.setQQZone("1105204262", " fELEobxl728L2MDl");
         // PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
 
         // PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad");
@@ -44,7 +40,9 @@ public class UMengSharePlugin extends ReactContextBaseJavaModule {
     }
 
     @Override
-    public String getName() { return "Umeng"; }
+    public String getName() {
+        return "Umeng";
+    }
 
     @Override
     public Map<String, Object> getConstants() {
@@ -103,10 +101,10 @@ public class UMengSharePlugin extends ReactContextBaseJavaModule {
         final String url = args.getString("url");
         mCallback = callback;
 
-        activity.runOnUiThread(new Runnable() {
+        getReactApplicationContext().runOnUiQueueThread(new Runnable() {
             @Override
             public void run() {
-                new ShareAction(activity)
+                new ShareAction(MainActivity.activity)
                         .setDisplayList(
 //                                SHARE_MEDIA.SINA,
                                 // SHARE_MEDIA.TENCENT,
@@ -116,7 +114,7 @@ public class UMengSharePlugin extends ReactContextBaseJavaModule {
                                 SHARE_MEDIA.WEIXIN,
                                 SHARE_MEDIA.QQ,
                                 SHARE_MEDIA.WEIXIN_CIRCLE
-                                )
+                        )
                         .setCallback(umShareListener)
                         .withText(text)
                         .withTitle(title)
@@ -135,11 +133,11 @@ public class UMengSharePlugin extends ReactContextBaseJavaModule {
         final String url = args.getString("url");
         mCallback = callback;
 
-        activity.runOnUiThread(new Runnable() {
+        getReactApplicationContext().runOnUiQueueThread(new Runnable() {
             @Override
             public void run() {
 
-                new ShareAction(activity)
+                new ShareAction(MainActivity.activity)
                         .setPlatform(SHARE_MEDIA.convertToEmun(platfrom))
                         .setCallback(umShareListener)
                         .withText(text)
@@ -175,7 +173,8 @@ public class UMengSharePlugin extends ReactContextBaseJavaModule {
         }
     };
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        UMShareAPI.get(activity).onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(MainActivity.activity).onActivityResult(requestCode, resultCode, data);
     }
 }

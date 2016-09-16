@@ -1,8 +1,5 @@
 package com.remobile;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,22 +17,13 @@ import com.remobile.utils.UtilsModule;
 import com.remobile.wxpay.WeixinPay;
 
 public class RCTRemobilePackage implements ReactPackage {
-    private Activity activity;
-    private UMengSharePlugin mUmeng;
-
-    public RCTRemobilePackage(Activity activity) {
-        super();
-        this.activity = activity;
-    }
-
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        mUmeng = new UMengSharePlugin(reactContext, activity);
         return Arrays.<NativeModule>asList(
-                mUmeng,
+                new UMengSharePlugin(reactContext),
                 new WeixinPay(reactContext),
-                new AliPayPlugin(reactContext, activity),
-                new UtilsModule(reactContext, activity),
+                new AliPayPlugin(reactContext),
+                new UtilsModule(reactContext),
                 new AudioRecorderAPI(reactContext)
         );
     }
@@ -48,11 +36,5 @@ public class RCTRemobilePackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList();
-    }
-
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (mUmeng != null) {
-            mUmeng.onActivityResult(requestCode, resultCode, data);
-        }
     }
 }

@@ -1,10 +1,7 @@
 package com.remobile.alipay;
 
-import android.app.Activity;
 import android.text.TextUtils;
-
 import com.alipay.sdk.app.PayTask;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,9 +26,8 @@ public class AliPayPlugin extends CordovaPlugin {
     //商户私钥，pkcs8格式
     private String privateKey = "";
 
-    public AliPayPlugin(ReactApplicationContext reactContext, Activity activity) {
+    public AliPayPlugin(ReactApplicationContext reactContext) {
         super(reactContext);
-        cordova.setActivity(activity);
     }
 
     @Override

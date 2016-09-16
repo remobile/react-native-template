@@ -1,12 +1,12 @@
 'use strict';
 var React = require('react');
 var ReactNative = require('react-native');
-var App = require('./App/index.js');
+var Camera = require('./App/modules/test/camera.js');
 
 var JFBSample = React.createClass({
     render() {
         return(
-            <App />
+            <Camera/>
         );
     }
 });

@@ -11,7 +11,6 @@ var {
 
 var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
-var FileTransfer = require('@remobile/react-native-file-transfer');
 var Camera = require('@remobile/react-native-camera');
 module.exports = React.createClass({
     componentDidMount() {
@@ -58,7 +57,7 @@ module.exports = React.createClass({
             mediaType:Camera.MediaType.VIDEO,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
         };
-        Camera.getPicture(options5, (filePath) => {
+        Camera.getPicture(options1, (filePath) => {
             this.setState({filePath});
         });
     },
