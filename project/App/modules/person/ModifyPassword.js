@@ -18,7 +18,6 @@ var {Button, Label} = COMPONENTS;
 module.exports = React.createClass({
     statics: {
         title: '修改密码',
-        leftButton: {handler: ()=>{app.scene.goBack()}},
     },
     getInitialState() {
         return {
@@ -26,9 +25,6 @@ module.exports = React.createClass({
             newPassword1: '',
             newPassword2: '',
         };
-    },
-    componentWillMount() {
-        app.toggleNavigationBar(true);
     },
     goBack() {
         app.navigator.pop();

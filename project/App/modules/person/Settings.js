@@ -64,14 +64,6 @@ var MenuItem = React.createClass({
 module.exports = React.createClass({
     statics: {
         title: '设置',
-        leftButton: {handler: ()=>{app.scene.goBack()}},
-    },
-    componentWillMount() {
-        app.toggleNavigationBar(true);
-    },
-    goBack() {
-        app.toggleNavigationBar(false);
-        app.navigator.pop();
     },
     shouldComponentUpdate(nextProps, nextState) {
         return app.personal.info != null;

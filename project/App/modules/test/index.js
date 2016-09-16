@@ -11,7 +11,7 @@ var {
     Navigator,
 } = ReactNative;
 
-
+var PersonInfo = require('../person/PersonInfo.js');
 var Camera = require('./camera.js');
 
 var modules = [

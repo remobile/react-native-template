@@ -14,20 +14,12 @@ var Button = require('@remobile/react-native-simple-button');
 module.exports = React.createClass({
     statics: {
         title: '查看存储',
-        leftButton: {handler: ()=>{app.scene.goBack()}},
     },
     getInitialState() {
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         return {
             dataSource: this.ds.cloneWithRows([]),
         };
-    },
-    componentWillMount() {
-        app.toggleNavigationBar(true);
-    },
-    goBack() {
-        app.toggleNavigationBar(false);
-        app.navigator.pop();
     },
     doShowList() {
         (async ()=>{

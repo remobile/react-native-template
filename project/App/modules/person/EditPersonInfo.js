@@ -26,15 +26,11 @@ module.exports = React.createClass({
         leftButton: {handler: ()=>{app.scene.goBack()}},
         rightButton: { title: "编辑", handler: ()=>{app.scene.toggleEdit()}},
     },
-    componentWillMount() {
-        app.toggleNavigationBar(true);
-    },
     goBack() {
         if (this.state.isEditting) {
             this.setState({messageBoxType: 2});
         } else {
             app.navigator.pop();
-            app.toggleNavigationBar(false);
         }
     },
     toggleEdit() {
