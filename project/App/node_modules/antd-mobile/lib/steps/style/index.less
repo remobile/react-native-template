@@ -1,0 +1,428 @@
+@import '../../style/mixins';
+@import '../../style/themes/default';
+
+
+@stepsPrefixCls: am-steps;
+@errorTailCls: error-tail;
+@ellipsisItem: ellipsis-item;
+@defaultIconSize: 48px;
+@smallIconSize: 36px;
+
+@font-size-base: 9px;
+.iconfont-size-under-12px(@size, @rotate: 0deg) {
+  display: inline-block;
+  @font-scale: unit(@size/@font-size-base);
+  font-size: @font-size-base;
+  transform: scale(@font-scale) rotate(@rotate);
+}
+
+.@{stepsPrefixCls} {
+  font-size: 0;
+  width: 100%;
+  line-height: 1.5;
+  .box-sizing();
+  &-item {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+
+    &.@{stepsPrefixCls}-status-wait {
+      .@{stepsPrefixCls}-head-inner {
+        border-color: @color-text-placeholder;
+        background-color: @fill-base;
+        > .@{stepsPrefixCls}-icon {
+          color: @color-text-placeholder;
+          &.anticon-pointer {
+            background-color: @color-text-placeholder !important;
+          }
+        }
+
+      }
+      .@{stepsPrefixCls}-title {
+        color: @color-text-base;
+      }
+      .@{stepsPrefixCls}-description {
+        color: @color-text-placeholder;
+      }
+      .@{stepsPrefixCls}-tail > i {
+        background-color: @color-text-placeholder;
+      }
+    }
+
+    &.@{stepsPrefixCls}-status-process {
+      .@{stepsPrefixCls}-head-inner {
+        border-color: @brand-primary;
+        background-color: @brand-primary;
+        > .@{stepsPrefixCls}-icon {
+          color: @color-text-base-inverse;
+        }
+      }
+      .@{stepsPrefixCls}-title {
+        color: @color-text-base;
+      }
+      .@{stepsPrefixCls}-description {
+        color: @color-text-placeholder;
+      }
+      .@{stepsPrefixCls}-tail > i {
+        background-color: @brand-primary;
+        width: 55%;
+      }
+    }
+    &.@{stepsPrefixCls}-status-finish {
+      .@{stepsPrefixCls}-head-inner {
+        border-color: @brand-primary;
+        background-color: @fill-base;
+        > .@{stepsPrefixCls}-icon {
+          color: @brand-primary;
+        }
+      }
+      .@{stepsPrefixCls}-tail > i {
+        background-color: @brand-primary;
+      }
+      .@{stepsPrefixCls}-title {
+        color: @color-text-base;
+      }
+      .@{stepsPrefixCls}-description {
+        color: @color-text-placeholder;
+      }
+    }
+
+    &.@{stepsPrefixCls}-status-error {
+      .@{stepsPrefixCls}-head-inner {
+        border-color: @brand-error;
+        background-color: @fill-base;
+        > .@{stepsPrefixCls}-icon {
+          color: @brand-error;
+        }
+      }
+      .@{stepsPrefixCls}-tail > i:after {
+        width: 100%;
+        background: @brand-primary;
+        transition: all 0.4s ease;
+        opacity: 1;
+      }
+      .@{stepsPrefixCls}-title {
+        color: @color-text-base;
+      }
+      .@{stepsPrefixCls}-description {
+        color: @color-text-placeholder;
+      }
+      .@{stepsPrefixCls}-tail > i {
+        background-color: @border-color-base;
+      }
+    }
+
+    &.@{stepsPrefixCls}-status-error
+
+    &.@{stepsPrefixCls}-next-error {
+      .@{stepsPrefixCls}-tail > i,
+      .@{stepsPrefixCls}-tail > i:after {
+        background-color: @brand-error;
+      }
+    }
+
+    &.@{stepsPrefixCls}-custom {
+      .@{stepsPrefixCls}-head-inner {
+        background: none;
+        border: 0;
+        width: auto;
+        height: auto;
+        > .@{stepsPrefixCls}-icon {
+          font-size: @defaultIconSize;
+          top: 4px;
+          width: @defaultIconSize;
+          height: @defaultIconSize;
+          background-color: @fill-base;
+        }
+      }
+      &.@{stepsPrefixCls}-status-process {
+        .@{stepsPrefixCls}-head-inner > .@{stepsPrefixCls}-icon {
+          color: @brand-primary;
+        }
+      }
+    }
+
+    .@{ellipsisItem}.@{stepsPrefixCls}-status-wait&.@{stepsPrefixCls}-custom {
+      .@{stepsPrefixCls}-head-inner {
+        background: none;
+        border: 0;
+        width: auto;
+        height: auto;
+        > .@{stepsPrefixCls}-icon {
+          font-size: @font-size-subhead;
+          line-height: 40px;
+          top: 4px;
+          width: 40px;
+          height: 40px;
+          border: 4px solid @color-text-placeholder;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  &-head,
+  &-main {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  &-head-inner {
+    display: block;
+    border: 4px solid @color-text-placeholder;
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+    text-align: center;
+    border-radius: 52px;
+    font-size: 28px;
+    margin-right: 16px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
+    > .@{stepsPrefixCls}-icon {
+      line-height: 1;
+      top: -1.5px;
+      color: @brand-primary;
+      position: relative;
+
+      &.anticon {
+        font-size: 24px;
+        &-cross,
+        &-check {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  &-main {
+    margin-top: 6px;
+  }
+  &-title {
+    font-size: @font-size-heading;
+    margin-bottom: 4px;
+    font-weight: bold;
+    display: inline-block;
+    padding-right: 10px;
+  }
+  &-item-last {
+    .@{stepsPrefixCls}-title {
+      padding-right: 0;
+    }
+  }
+  &-description {
+    font-size: @font-size-subhead;
+  }
+
+
+  &-tail {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 26px;
+    padding: 0 20px;
+    > i {
+      display: inline-block;
+      vertical-align: top;
+      background: @border-color-base;
+      height: 4px;
+      border-radius: 4px;
+      width: 100%;
+      position: relative;
+      &:after {
+        position: absolute;
+        content: '';
+        top: 0;
+        width: 0;
+        background: @border-color-base;
+        height: 100%;
+        opacity: 0;
+      }
+    }
+  }
+
+  &&-small {
+    .@{stepsPrefixCls}-main {
+      margin-top: 0;
+    }
+    .@{stepsPrefixCls}-title {
+      font-size: @font-size-caption;
+      margin-bottom: 4px;
+      color: @color-text-base;
+      font-weight: bold;
+    }
+    .@{stepsPrefixCls}-description {
+      font-size: @font-size-caption-sm;
+      color: @color-text-placeholder;
+    }
+    .@{stepsPrefixCls}-tail {
+      padding: 0 8px;
+      > i {
+        height: 1px;
+        border-radius: 1px;
+        width: 100%;
+      }
+    }
+  }
+
+  &&-small &-item&-custom &-head-inner,
+  &-item&-custom &-head-inner {
+    width: inherit;
+    height: inherit;
+    line-height: inherit;
+    border-radius: 0;
+    border: 0;
+    background: none;
+  }
+
+  &&-small &-item&-custom &-head-inner {
+    margin-right: @h-spacing-md;
+    > .@{stepsPrefixCls}-icon {
+      font-size: @smallIconSize;
+      top: 4px;
+      width: @smallIconSize;
+      height: @smallIconSize;
+      background-color: @fill-base;
+    }
+  }
+
+  &&-small &-item&-status-wait&-custom &-head-inner {
+    > .@{stepsPrefixCls}-icon {
+      font-size: 20px;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+    }
+  }
+}
+
+.@{stepsPrefixCls}-vertical {
+  .@{stepsPrefixCls}-item {
+    display: block;
+  }
+
+  .@{errorTailCls} .@{stepsPrefixCls}-tail {
+    background-color: @brand-error;
+  }
+
+  .@{stepsPrefixCls}-tail {
+    position: absolute;
+    left: 22px;
+    height: 100%;
+    width: 4px;
+    padding: 0;
+    background-color: @border-color-base;
+    > i {
+      height: 100%;
+      width: 4px;
+      &:after {
+        height: 0;
+        width: 100%;
+      }
+    }
+  }
+  .@{stepsPrefixCls}-status-finish {
+    .@{stepsPrefixCls}-tail > i:after {
+      height: 100%;
+    }
+  }
+
+  .@{stepsPrefixCls}-head {
+    float: left;
+    &-inner {
+      margin-right: @h-spacing-lg;
+    }
+  }
+
+  .@{stepsPrefixCls}-main {
+    min-height: 140px;
+    overflow: hidden;
+    display: block;
+    .@{stepsPrefixCls}-description {
+      padding-bottom: @v-spacing-md;
+    }
+  }
+
+  .@{stepsPrefixCls}-item.@{stepsPrefixCls}-status-process .@{stepsPrefixCls}-tail > i {
+    width: 4px;
+    height: 55%;
+  }
+}
+
+.@{stepsPrefixCls}-small .@{stepsPrefixCls}-item.@{stepsPrefixCls}-status-process .@{stepsPrefixCls}-tail > i {
+  height: 50%;
+}
+
+.@{stepsPrefixCls}-vertical.@{stepsPrefixCls}-small {
+  .@{stepsPrefixCls}-tail {
+    position: absolute;
+    left: 16px;
+    padding: 0;
+    > i {
+      height: 100%;
+    }
+  }
+}
+
+.@{stepsPrefixCls}-pointer {
+  .@{stepsPrefixCls}-title {
+    font-size: 24px;
+  }
+}
+
+.@{stepsPrefixCls}-pointer {
+  &.@{stepsPrefixCls}-label-vertical {
+    .@{stepsPrefixCls}-tail {
+      left: 20px;
+      right: -4px;
+    }
+  }
+}
+
+.@{stepsPrefixCls}-horizontal {
+   &.@{stepsPrefixCls}-hidden {
+     visibility: hidden;
+  }
+  .@{stepsPrefixCls}-description {
+    max-width: 200px;
+  }
+  .@{stepsPrefixCls}-item:not(:first-child) .@{stepsPrefixCls}-head {
+    padding-left: 20px;
+    margin-left: -20px;
+  }
+}
+
+.@{stepsPrefixCls}-label-vertical {
+  .@{stepsPrefixCls}-tail {
+    left: 12px;
+    right: 0;
+    width: auto;
+    background-color: @border-color-base;
+  }
+  .@{stepsPrefixCls}-item {
+    .@{stepsPrefixCls}-step {
+      display: inline-block;
+      text-align: center;
+    }
+  }
+  .@{stepsPrefixCls}-item:not(:first-child) .@{stepsPrefixCls}-head {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .@{stepsPrefixCls}-head {
+    display: inline-block;
+    &-inner {
+      margin: 0 auto;
+    }
+  }
+  .@{stepsPrefixCls}-main {
+    display: block;
+    margin-top: 10px;
+    .@{stepsPrefixCls}-title {
+      padding-right: 0;
+    }
+    .@{stepsPrefixCls}-description {
+      text-align: left;
+    }
+  }
+}

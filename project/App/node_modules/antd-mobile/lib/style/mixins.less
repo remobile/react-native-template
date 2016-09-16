@@ -1,0 +1,179 @@
+@import "./themes/default";
+
+.transform(@t) {
+  transform: @t;
+}
+.transform-origin(@to) {
+  transform-origin: @to;
+}
+
+.hairline-top(@color:@border-color-base, @width: @border-width-sm) {
+  border-top: @width solid @color;
+}
+.hairline-bottom(@color:@border-color-base, @left:0, @width: @border-width-sm) {
+  &:after {
+    display: block;
+    position: absolute;
+    content: '';
+    left: @left;
+    bottom: 0;
+    right: auto;
+    top: auto;
+    width: 100%;
+    border-bottom: @width solid @color;
+  }
+}
+.hairline-right(@color:@border-color-base) {
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: auto;
+    bottom: auto;
+    width: @border-width-sm;
+    height: 100%;
+    background-color: @color;
+    display: block;
+  }
+}
+// For right and bottom
+.hairline-remove-right-bottom {
+  border-bottom: 0;
+  &:after {
+    display: none;
+  }
+}
+.hairline-remove-right-bottom-bak {
+  &:after {
+    display: none;
+  }
+}
+// For left and top
+.hairline-remove-left-top {
+  &:before {
+    display: none;
+  }
+}
+
+// Encoded SVG Background
+.encoded-svg-background(@svg) {
+  @url: `encodeURIComponent(@{svg})`;
+  background-image: url("data:image/svg+xml;charset=utf-8,@{url}");
+}
+
+
+.align-self(@as) {
+  align-self: @as;
+}
+
+.ellipsis() {
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-box() {
+  display: flex;
+}
+
+.flex-direction(@direction: row) {
+  flex-direction: @direction;
+}
+
+.flex-wrap(@wrap: nowrap) {
+  flex-wrap: @wrap;
+}
+
+.flex-justify(@justify: flex-start) {
+  justify-content: @justify;
+}
+
+.box-align(@align: center) {
+  align-items: @align;
+}
+
+.box-align-content(@alignContent: stretch) {
+  align-content: @alignContent;
+}
+
+.box-flex(@scale: 1) {
+  flex: @scale;
+}
+
+.border-radius(@radius: 0) {
+  border-top-left-radius: @radius;
+  border-top-right-radius: @radius;
+  border-bottom-left-radius: @radius;
+  border-bottom-right-radius: @radius;
+  -webkit-background-clip: padding-box;
+}
+
+.background(@start: #ffffff, @end: #000000) {
+  background: @end;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(@start), to(@end)); /* Saf4+, Chrome */
+  background-image: linear-gradient(@start, @end);
+}
+
+.border-1px-bottom(@color: #d2d2d2) {
+  background: left bottom repeat-x;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(.5, transparent), color-stop(.5, @color), to(@color));
+  background-image: linear-gradient(left top, left bottom, color-stop(.5, transparent), color-stop(.5, @color), to(@color));
+  -webkit-background-size: 100% @border-width-sm;
+  background-size: 100% @border-width-sm;
+}
+
+.border-1px-top(@color: #d2d2d2) {
+  background: left top repeat-x;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(@color), color-stop(.5, @color), color-stop(.5, transparent));
+  background-image: linear-gradient(left top, left bottom, from(@color), color-stop(.5, @color), color-stop(.5, transparent));
+  -webkit-background-size: 100% @border-width-sm;
+  background-size: 100% @border-width-sm;
+}
+
+.border-1px-both(@color: #d2d2d2) {
+  background-position: left top, left bottom;
+  background-repeat: repeat-x, repeat-x;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(@color), color-stop(.5, @color), color-stop(.5, transparent)), -webkit-gradient(linear, left top, left bottom, color-stop(.5, transparent), color-stop(.5, @color), to(@color));
+  background-image: linear-gradient(left top, left bottom, from(@color), color-stop(.5, @color), color-stop(.5, transparent)), linear-gradient(left top, left bottom, color-stop(.5, transparent), color-stop(.5, @color), to(@color));
+  -webkit-background-size: 100% @border-width-sm, 100% @border-width-sm;
+  background-size: 100% @border-width-sm, 100% @border-width-sm;
+}
+
+.border-1px-scale(@color: #d2d2d2) {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -@border-width-sm;
+    left: 0px;
+    right: 0px;
+    border-bottom: @border-width-sm solid @color;
+    -webkit-transform: scaleY(.5);
+    -webkit-transform-origin: 0px 0px;
+  }
+}
+
+.box-sizing(@sizing: border-box) {
+  -webkit-box-sizing: @sizing;
+}
+
+.box-shadow(@value) {
+  -webkit-box-shadow: @value;
+}
+
+.box-shadow(@value1, @value2) {
+  -webkit-box-shadow: @value1, @value2;
+}
+
+.float-clear() {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0px;
+    content: ' ';
+    clear: both;
+    height: 0px;
+  }
+}

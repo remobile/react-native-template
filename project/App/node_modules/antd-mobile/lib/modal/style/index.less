@@ -1,0 +1,61 @@
+@import '../../style/mixins';
+@import '../../style/themes/default';
+
+@modalPrefixClass: am-modal;
+
+@import './Dialog.less';
+
+.@{modalPrefixClass} {
+  .button-common() {
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: @color-link;
+    font-size: @link-button-font-size;
+    height: @button-height;
+    line-height: @button-height;
+    .ellipsis();
+  }
+  &-button-group-h {
+    border-top: @border-width-sm solid @border-color-base;
+    .display-box();
+    .@{modalPrefixClass}-button {
+      .box-flex();
+      .button-common();
+      &:first-child {
+        border-right: @border-width-sm solid @border-color-base;
+      }
+    }
+  }
+
+  &-button-group-v {
+    .@{modalPrefixClass}-button {
+      display: block;
+      border-top: @border-width-sm solid @border-color-base;
+      .button-common();
+    }
+  }
+
+  &-input {
+    border-left: @border-width-sm solid @border-color-base;
+    border-right: @border-width-sm solid @border-color-base;
+    border-bottom: @border-width-sm solid @border-color-base;
+    &:first-child {
+      margin-top: @v-spacing-md;
+      border-top: @border-width-sm solid @border-color-base;
+      border-top-left-radius: @radius-sm;
+      border-top-right-radius: @radius-sm;
+    }
+    &:last-child {
+      border-bottom-left-radius: @radius-sm;
+      border-bottom-right-radius: @radius-sm;
+    }
+    input {
+      border: 0;
+      width: 98%;
+      .box-sizing();
+      margin: 0;
+      padding: @v-spacing-xs 0;
+    }
+  }
+}

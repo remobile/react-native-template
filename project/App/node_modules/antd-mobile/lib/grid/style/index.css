@@ -1,0 +1,102 @@
+.hairline-remove-right-bottom {
+  border-bottom: 0;
+}
+.hairline-remove-right-bottom:after {
+  display: none;
+}
+.hairline-remove-right-bottom-bak:after {
+  display: none;
+}
+.hairline-remove-left-top:before {
+  display: none;
+}
+/* flexbox */
+.am-grid .am-flexbox {
+  background: #fff;
+}
+.am-grid .am-flexbox .am-flexbox-item {
+  margin-left: 0;
+}
+.am-grid .am-flexbox .am-flexbox-item.am-grid-item:active {
+  background-color: #ddd;
+}
+.am-grid .am-flexbox .am-flexbox-item .am-grid-item-contain {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+}
+.am-grid .am-flexbox .am-flexbox-item .am-grid-item-contain .am-grid-icon {
+  margin-top: 18px;
+  height: 28%;
+}
+.am-grid .am-flexbox .am-flexbox-item .am-grid-item-contain .am-grid-text {
+  margin-top: 18px;
+  font-size: 24px;
+  color: #000;
+  text-align: center;
+}
+.am-grid .am-flexbox .am-flexbox-item .am-grid-item-contain.column-num-3 .am-grid-text {
+  font-size: 30px;
+}
+.am-grid .am-flexbox .am-flexbox-item .am-grid-item-contain.column-num-2 .am-grid-text {
+  margin-top: 30px;
+  font-size: 36px;
+}
+.am-grid.am-grid-line .am-flexbox {
+  position: relative;
+}
+.am-grid.am-grid-line .am-flexbox:after {
+  display: block;
+  position: absolute;
+  content: '';
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  width: 100%;
+  border-bottom: 1PX solid #ddd;
+}
+.am-grid.am-grid-line .am-flexbox:last-child {
+  border-bottom: 0;
+}
+.am-grid.am-grid-line .am-flexbox:last-child:after {
+  display: none;
+}
+.am-grid.am-grid-line .am-flexbox .am-flexbox-item {
+  position: relative;
+}
+.am-grid.am-grid-line .am-flexbox .am-flexbox-item:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: auto;
+  bottom: auto;
+  width: 1PX;
+  height: 100%;
+  background-color: #ddd;
+  display: block;
+}
+.am-grid.am-grid-line .am-flexbox .am-flexbox-item:last-child {
+  border-bottom: 0;
+}
+.am-grid.am-grid-line .am-flexbox .am-flexbox-item:last-child:after {
+  display: none;
+}
+.am-grid.am-grid-line .am-grid-carousel-page {
+  border-right: 1PX solid #ddd;
+}
+.am-grid.am-grid-line .am-grid-carousel-page:first-child {
+  border-left: 1PX solid #ddd;
+}

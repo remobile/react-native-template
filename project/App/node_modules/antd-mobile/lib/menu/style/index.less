@@ -1,0 +1,89 @@
+@import '../../style/mixins';
+@import '../../style/themes/default';
+
+@menuPrefixCls: am-menu;
+@subMenuPrefixCls: am-sub-menu;
+@flexPrefixCls: am-flexbox;
+@listPrefixCls: am-list;
+
+.@{menuPrefixCls} {
+  background-color: @fill-body;
+  .@{flexPrefixCls} {
+    .@{flexPrefixCls}-item {
+      margin-left: 0;
+      -webkit-overflow-scrolling: touch;
+      .@{listPrefixCls} {
+        padding: 0;
+      }
+      .@{listPrefixCls} {
+        .@{listPrefixCls}-item {
+          .@{listPrefixCls}-line {
+            .@{listPrefixCls}-content {
+              font-size: @link-button-font-size;
+            }
+          }
+        }
+      }
+      &:first-child {
+        .@{listPrefixCls} {
+          .@{listPrefixCls}-item {
+            background-color: @fill-body;
+            .@{listPrefixCls}-line {
+              .hairline-remove-right-bottom();
+              .@{listPrefixCls}-content {
+                color: @color-text-base;
+              }
+            }
+            &:last-child {
+              .hairline-remove-right-bottom();
+            }
+            &.@{menuPrefixCls}-selected {
+              background-color: @fill-tap;
+            }
+          }
+        }
+      }
+      &:last-child {
+        background-color: @fill-base;
+        .@{listPrefixCls} {
+          .@{listPrefixCls}-item {
+            background-color: @fill-base;
+            .hairline-remove-right-bottom();
+            .@{listPrefixCls}-line {
+              .hairline-bottom(@border-color-base);
+              .@{listPrefixCls}-extra {
+                flex: 0;
+              }
+            }
+            &.@{subMenuPrefixCls}-item-selected {
+              .@{listPrefixCls}-line {
+                .@{listPrefixCls}-content {
+                  color: @color-link;
+                }
+              }
+            }
+            &.@{subMenuPrefixCls}-item-disabled {
+              .@{listPrefixCls}-line {
+                .@{listPrefixCls}-content {
+                  color: @color-text-disabled;
+                }
+              }
+            }
+          }
+        }
+      }
+      &:only-child {
+        .@{listPrefixCls} {
+          .@{listPrefixCls}-item {
+            &:last-child {
+              .hairline-bottom(@border-color-base);
+              .@{listPrefixCls}-line {
+                .hairline-remove-right-bottom();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

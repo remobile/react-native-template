@@ -1,0 +1,56 @@
+@import '../../style/themes/default';
+@import '../../style/mixins';
+
+@swipeout-prefix-cls: am-swipe;
+
+.@{swipeout-prefix-cls} {
+  overflow: hidden;
+  position: relative;
+  & .@{swipeout-prefix-cls}-content,
+  & .@{swipeout-prefix-cls}-actions {
+    transition: all 250ms;
+  }
+  &-actions {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    &-left {
+      left: 0;
+      width: 0;
+    }
+    &-right {
+      right: 0;
+      width: 0;
+    }
+  }
+  &-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 99;
+    &-text {
+      padding: 0 @h-spacing-sm;
+    }
+  }
+  &-android-actions {
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: @brand-primary;
+    font-size: @font-size-base;
+  }
+  &-android-btn {
+    .hairline-top(@border-color-base);
+    padding: @h-spacing-lg;
+    position: relative;
+    .ellipsis();
+    line-height: 1;
+  }
+}

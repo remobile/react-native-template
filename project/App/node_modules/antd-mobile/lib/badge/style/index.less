@@ -1,0 +1,95 @@
+@import '../../style/mixins';
+@import '../../style/themes/default';
+
+.am-badge {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+
+  &-text {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    transform: translateX(-45%);
+    top: -1 * @v-spacing-sm;
+    height: @v-spacing-lg;
+    min-width: @font-size-icontext;
+    border-radius: 2 * @v-spacing-sm;
+    line-height: 1.2;
+    text-align: center;
+    padding: 0 @h-spacing-sm @radius-md;
+    font-size: @link-button-font-size;
+    background-color: @brand-important;
+    white-space: nowrap;
+    transform-origin: -10% center;
+    z-index: 10;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",SimSun,sans-serif;
+    color: @color-text-base-inverse;
+    a,
+    a:hover {
+      color: @color-text-base-inverse;
+    }
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &-dot {
+  	position: absolute;
+  	transform: translateX(-50%);
+  	transform-origin: 0 center;
+    top: -2 * @border-width-lg;
+    height: 0.5 * @link-button-font-size;
+    width: 0.5 * @link-button-font-size;
+    border-radius: 100%;
+    background: @brand-important;
+    z-index: 10;
+  }
+
+  &-not-a-wrapper &-text,
+  &-not-a-wrapper &-dot {
+    top: auto;
+    display: block;
+    position: relative;
+    transform: translateX(0);
+  }
+
+  &-corner {
+  	width: 5 * @link-button-font-size;
+  	padding: 0.5 * @link-button-font-size;
+  	position: absolute;
+  	right: -2 * @link-button-font-size;
+  	top: 0.5 * @link-button-font-size;
+  	background-color: @brand-important;
+  	color: @color-text-base-inverse;
+  	white-space: nowrap;
+  	transform: rotate(45deg);
+  	text-align: center;
+    font-size: @font-size-subhead;
+  	&-wrapper {
+  	  overflow: hidden;
+  	}
+  }
+}
+
+a & {
+  &-text:hover {
+    background: tint(@color-text-base, 20%);
+  }
+  &-text:active {
+    background: shade(@color-text-base, 5%);
+  }
+}
+
+.am-scroll {
+  &-number {
+  	overflow: hidden;
+  	&-only {
+  	  display: inline-block;
+  	  transition: transform .3s cubic-bezier(0.645,0.045,0.355,1);
+  	}
+  }
+}

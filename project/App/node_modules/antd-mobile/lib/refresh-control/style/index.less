@@ -1,0 +1,49 @@
+@pull-to-refresh: am-refresh-control;
+.@{pull-to-refresh} {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+
+  &-content {
+    transform-origin: left top;
+    transform: translateZ(0);
+  }
+
+  &-ptr {
+    color: grey;
+    text-align: center;
+    height: 50PX;
+    margin-top: -50PX;
+    overflow: hidden;
+    &-icon {
+      display: block;
+    }
+    &-loading {
+      display: none;
+    }
+  }
+  &-loading {
+    .@{pull-to-refresh}-ptr {
+      &-icon {
+        display: none;
+      }
+      &-loading {
+        display: block;
+      }
+    }
+  }
+
+  // custom
+  &-pull {
+    display: block;
+  }
+  &-release {
+    display: none;
+  }
+  &-active &-pull {
+    display: none;
+  }
+  &-active &-release {
+    display: block;
+  }
+}
