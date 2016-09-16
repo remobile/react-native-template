@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.remobile.localNotifications">
+    <application android:allowBackup="true" android:hardwareAccelerated="true">
+        <receiver android:exported="false" android:name="com.remobile.localNotifications.TriggerReceiver" />
+        <receiver android:exported="false" android:name="com.remobile.localNotifications.ClearReceiver" />
+        <activity android:exported="false" android:launchMode="singleInstance" android:name="com.remobile.localNotifications.ClickActivity" android:theme="@android:style/Theme.NoDisplay" />
+        <receiver android:exported="false" android:name="com.remobile.localNotifications.notification.TriggerReceiver" />
+        <receiver android:exported="false" android:name="com.remobile.localNotifications.notification.ClearReceiver" />
+        <receiver android:exported="false" android:name="com.remobile.localNotifications.RestoreReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <activity android:exported="false" android:launchMode="singleInstance" android:name="com.remobile.localNotifications.notification.ClickActivity" android:theme="@android:style/Theme.NoDisplay" />
+    </application>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+</manifest>

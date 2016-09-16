@@ -1,0 +1,34 @@
+{
+    "name": "@remobile/react-native-call",
+        "version": "1.0.1",
+        "description": "A call for react-native",
+        "main": "index.js",
+        "author": {
+            "name": "YunJiang.Fang",
+            "email": "42550564@qq.com"
+        },
+        "license": "MIT",
+        "keywords": [
+            "react-native",
+            "react-component",
+            "ios",
+            "android",
+            "call",
+            "phoneNumber",
+            "phone",
+            "dail",
+            "remobile",
+            "mobile"
+        ],
+        "homepage": "https://github.com/remobile/react-native-call",
+        "bugs": {
+            "url": "https://github.com/remobile/react-native-call/issues"
+        },
+        "repository": {
+            "type": "git",
+            "url": "git://github.com/remobile/react-native-call.git"
+        },
+        "peerDependencies": {
+            "@remobile/react-native-cordova": "^1.0.9"
+        }
+}

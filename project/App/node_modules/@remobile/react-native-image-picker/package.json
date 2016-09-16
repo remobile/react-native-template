@@ -1,0 +1,33 @@
+{
+    "name": "@remobile/react-native-image-picker",
+        "version": "1.0.3",
+        "description": "A image picker for react-native, supprt for ios and android",
+        "main": "index.js",
+        "author": {
+            "name": "YunJiang.Fang",
+            "email": "42550564@qq.com"
+        },
+        "license": "MIT",
+        "keywords": [
+            "react-native",
+            "react-component",
+            "ios",
+            "android",
+            "image-picker",
+            "image",
+            "picker",
+            "remobile",
+            "mobile"
+        ],
+        "homepage": "https://github.com/remobile/react-native-image-picker",
+        "bugs": {
+            "url": "https://github.com/remobile/react-native-image-picker/issues"
+        },
+        "repository": {
+            "type": "git",
+            "url": "git://github.com/remobile/react-native-image-picker.git"
+        },
+        "peerDependencies": {
+            "@remobile/react-native-cordova": "^1.0.9"
+        }
+}

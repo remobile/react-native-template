@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.remobile.imagePicker">
+    <application android:allowBackup="true">
+        <activity android:label="图片选择" android:name="com.remobile.imagePicker.MultiImageChooserActivity" android:theme="@android:style/Theme.Holo.Light" />
+    </application>
+</manifest>

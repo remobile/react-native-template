@@ -1,0 +1,28 @@
+{
+    "name": "@remobile/react-native-simple-button",
+        "version": "1.0.0",
+        "description": "A simple react-native button",
+        "main": "index.js",
+        "author": {
+            "name": "YunJiang.Fang",
+            "email": "42550564@qq.com"
+        },
+        "license": "MIT",
+        "keywords": [
+            "react-native",
+            "react-component",
+            "ios",
+            "android",
+            "button",
+            "remobile",
+            "mobile"
+        ],
+        "homepage": "https://github.com/remobile/react-native-simple-button",
+        "bugs": {
+            "url": "https://github.com/remobile/react-native-simple-button/issues"
+        },
+        "repository": {
+            "type": "git",
+            "url": "git://github.com/remobile/react-native-simple-button.git"
+        }
+}
