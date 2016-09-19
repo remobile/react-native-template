@@ -12,12 +12,13 @@ var {
 
 import TabNavigator from 'react-native-tab-navigator';
 var Test = require('../test');
+var Remobile = require('../remobile');
 var Empty = require('./Empty.js');
 
 var INIT_ROUTE_INDEX = 0;
 var ROUTE_STACK = [
-    {index: 0, component: Test},
-    {index: 1, component: Empty},
+    {index: 0, component: Remobile},
+    {index: 1, component: Test},
     {index: 2, component: Empty},
     {index: 3, component: Empty},
 ];

@@ -55,6 +55,7 @@
 		329758F61C9D31C100785683 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 329758F01C9D31C100785683 /* Default~iphone.png */; };
 		329758F71C9D31C100785683 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 329758F11C9D31C100785683 /* splash.png */; };
 		32AF4DBE1CD1F92400A215B4 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AF4DBD1CD1F91500A215B4 /* libRNFS.a */; };
+		32B25E371D8F950900C56855 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 32B25E361D8F950900C56855 /* CDVNotification.bundle */; };
 		32B2F57B1CD201D90066B824 /* libRCTZip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F57A1CD201C30066B824 /* libRCTZip.a */; };
 		32B2F57C1CD201DC0066B824 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5741CD201BD0066B824 /* libRCTVideo.a */; };
 		32B2F57D1CD201DF0066B824 /* libRCTUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5681CD201B00066B824 /* libRCTUpdate.a */; };
@@ -344,6 +345,7 @@
 		329758F01C9D31C100785683 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
 		329758F11C9D31C100785683 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		32AF4DB81CD1F91500A215B4 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../App/node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
+		32B25E361D8F950900C56855 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVNotification.bundle; path = "../App/node_modules/@remobile/react-native-dialogs/ios/RCTDialogs/CDVNotification.bundle"; sourceTree = "<group>"; };
 		32B2F50F1CD201400066B824 /* RCTAudio.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAudio.xcodeproj; path = "../App/node_modules/@remobile/react-native-audio/ios/RCTAudio.xcodeproj"; sourceTree = "<group>"; };
 		32B2F5151CD2014B0066B824 /* RCTCall.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCall.xcodeproj; path = "../App/node_modules/@remobile/react-native-call/ios/RCTCall.xcodeproj"; sourceTree = "<group>"; };
 		32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../App/node_modules/@remobile/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 				32B2F58B1CD202E40066B824 /* Resources */,
 				32B2F53F1CD2018C0066B824 /* RCTFileTransfer.xcodeproj */,
 				32B2F5391CD201840066B824 /* RCTDialogs.xcodeproj */,
+				32B25E361D8F950900C56855 /* CDVNotification.bundle */,
 				32B2F52D1CD2016E0066B824 /* RCTDes.xcodeproj */,
 				32B2F5271CD2015E0066B824 /* RCTCordova.xcodeproj */,
 				32B2F5211CD201590066B824 /* RCTContacts.xcodeproj */,
@@ -1258,6 +1261,7 @@
 				329758F61C9D31C100785683 /* Default~iphone.png in Resources */,
 				325A7C871C9FD62D00974DA4 /* icon-small.png in Resources */,
 				325A7C811C9FD62D00974DA4 /* icon-60@2x.png in Resources */,
+				32B25E371D8F950900C56855 /* CDVNotification.bundle in Resources */,
 				325A7C841C9FD62D00974DA4 /* icon-72@2x.png in Resources */,
 				325A7C7D1C9FD62D00974DA4 /* icon-40@2x.png in Resources */,
 				32B2F5931CD202E40066B824 /* ELCAssetTablePicker.xib in Resources */,
