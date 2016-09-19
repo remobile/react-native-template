@@ -13,9 +13,11 @@ var {
 
 var PersonInfo = require('../person/PersonInfo.js');
 var Dialogs = require('./react-native-dialogs');
+var Camera = require('./react-native-camera');
 
 var modules = [
     {title:'react-native-dialogs', image: app.img.common_point, module:Dialogs},
+    {title:'react-native-camera', image: app.img.common_point, module:Camera},
 ];
 
 
@@ -49,14 +51,14 @@ module.exports = React.createClass({
         }
         app.navigator.push(route);
     },
-    renderSeparator(rowID) {
+    renderSeparator(sectionID, rowID) {
         return (
             <View style={styles.separator} key={rowID}/>
         );
     },
-    renderRow(obj) {
+    renderRow(obj, sectionID, rowID) {
         return (
-            <View>
+            <View key={rowID}>
                 <TouchableOpacity
                     onPress={this._onPressRow.bind(null, obj)}
                     underlayColor="#EEB422">
@@ -95,7 +97,8 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingTop: 30,
     },
     row: {
         height:60,
