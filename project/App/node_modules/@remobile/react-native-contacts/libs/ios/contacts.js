@@ -24,7 +24,7 @@ var exec = require('@remobile/react-native-cordova').exec;
 /**
  * Provides iOS enhanced contacts API.
  */
-var contacts = {
+module.exports = {
     newContactUI : function(successCallback) {
         /*
          *    Create a contact using the iOS Contact Picker UI
@@ -60,5 +60,3 @@ var contacts = {
         exec(win, null, "Contacts","chooseContact", [options]);
     }
 };
-
-module.exports = contacts;

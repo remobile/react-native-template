@@ -56,6 +56,9 @@
 		32AF4DBE1CD1F92400A215B4 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AF4DBD1CD1F91500A215B4 /* libRNFS.a */; };
 		32B25E371D8F950900C56855 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 32B25E361D8F950900C56855 /* CDVNotification.bundle */; };
 		32B25F2B1D9113CE00C56855 /* CDVCapture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 32B25F2A1D9113CE00C56855 /* CDVCapture.bundle */; };
+		32B25F2F1D911B0300C56855 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F2D1D911B0300C56855 /* AddressBook.framework */; };
+		32B25F301D911B0300C56855 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F2E1D911B0300C56855 /* AddressBookUI.framework */; };
+		32B25F321D911B1A00C56855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F311D911B1A00C56855 /* CoreGraphics.framework */; };
 		32B2F57B1CD201D90066B824 /* libRCTZip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F57A1CD201C30066B824 /* libRCTZip.a */; };
 		32B2F57C1CD201DC0066B824 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5741CD201BD0066B824 /* libRCTVideo.a */; };
 		32B2F57D1CD201DF0066B824 /* libRCTUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5681CD201B00066B824 /* libRCTUpdate.a */; };
@@ -355,6 +358,9 @@
 		32B25E361D8F950900C56855 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVNotification.bundle; path = "../App/node_modules/@remobile/react-native-dialogs/ios/RCTDialogs/CDVNotification.bundle"; sourceTree = "<group>"; };
 		32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCapture.xcodeproj; path = "/Users/fang/rn/react-native-template/project/App/node_modules/@remobile/react-native-camera/ios/../../react-native-capture/ios/RCTCapture.xcodeproj"; sourceTree = "<absolute>"; };
 		32B25F2A1D9113CE00C56855 /* CDVCapture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVCapture.bundle; path = "../App/node_modules/@remobile/react-native-capture/ios/RCTCapture/CDVCapture.bundle"; sourceTree = "<group>"; };
+		32B25F2D1D911B0300C56855 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		32B25F2E1D911B0300C56855 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		32B25F311D911B1A00C56855 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		32B2F50F1CD201400066B824 /* RCTAudio.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAudio.xcodeproj; path = "../App/node_modules/@remobile/react-native-audio/ios/RCTAudio.xcodeproj"; sourceTree = "<group>"; };
 		32B2F5151CD2014B0066B824 /* RCTCall.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCall.xcodeproj; path = "../App/node_modules/@remobile/react-native-call/ios/RCTCall.xcodeproj"; sourceTree = "<group>"; };
 		32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../App/node_modules/@remobile/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
@@ -391,6 +397,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32B25F321D911B1A00C56855 /* CoreGraphics.framework in Frameworks */,
+				32B25F2F1D911B0300C56855 /* AddressBook.framework in Frameworks */,
+				32B25F301D911B0300C56855 /* AddressBookUI.framework in Frameworks */,
 				FE1C69281C8D6A7500B45AAF /* libstdc++.tbd in Frameworks */,
 				3201A8AA1C858A9200AA7980 /* CoreTelephony.framework in Frameworks */,
 				3202B37E1C72C97700AA4EE8 /* libz.tbd in Frameworks */,
@@ -804,6 +813,9 @@
 		748A4B5CC9EFD3A1B9430D67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				32B25F311D911B1A00C56855 /* CoreGraphics.framework */,
+				32B25F2D1D911B0300C56855 /* AddressBook.framework */,
+				32B25F2E1D911B0300C56855 /* AddressBookUI.framework */,
 				FE1C69291C8D6A8A00B45AAF /* libstdc++.6.0.9.tbd */,
 				FE1C692A1C8D6A8A00B45AAF /* libstdc++.6.tbd */,
 				FE1C69271C8D6A7500B45AAF /* libstdc++.tbd */,

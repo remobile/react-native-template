@@ -92,7 +92,7 @@ module.exports = React.createClass({
                 <Button onPress={this.takePicture.bind(null, 5)}>选择可编辑(100)</Button>
                 <Button onPress={this.takePicture.bind(null, 6)}>选择视频</Button>
                 <Button onPress={this.taskVideo}>摄像</Button>
-                <Button onPress={this.cleanup}>清除</Button>
+                <Button onPress={this.cleanup}>(ios)清除</Button>
                 <Text>{filePath}</Text>
                 <Image
                     resizeMode='stretch'
