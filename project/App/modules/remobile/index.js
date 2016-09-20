@@ -14,10 +14,12 @@ var {
 var PersonInfo = require('../person/PersonInfo.js');
 var Dialogs = require('./react-native-dialogs');
 var Camera = require('./react-native-camera');
+var Sqlite = require('./react-native-sqlite-storage');
 
 var modules = [
     {title:'react-native-dialogs', image: app.img.common_point, module:Dialogs},
     {title:'react-native-camera', image: app.img.common_point, module:Camera},
+    {title:'react-native-sqlite-storage', image: app.img.common_point, module:Sqlite},
 ];
 
 
