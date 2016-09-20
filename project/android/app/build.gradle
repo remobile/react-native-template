@@ -151,6 +151,7 @@ dependencies {
     compile project(':react-native-update')
     compile project(':react-native-contacts')
     compile project(':react-native-camera')
+    compile project(':react-native-capture')
     compile project(':react-native-image-picker')
     compile project(':react-native-video')
     compile project(':react-native-audio')

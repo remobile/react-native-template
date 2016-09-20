@@ -11,6 +11,7 @@ var {
 
 var Button = require('@remobile/react-native-simple-button');
 var Camera = require('@remobile/react-native-camera');
+var Capture = require('@remobile/react-native-capture');
 var {DImage} = COMPONENTS;
 
 module.exports = React.createClass({
@@ -65,8 +66,16 @@ module.exports = React.createClass({
         }];
         Camera.getPicture((filePath) => {
             console.log(filePath);
-            this.setState({filePath});
+            this.setState({filePath:'file://'+filePath});
         }, null, options[i]);
+    },
+    taskVideo() {
+        Capture.captureVideo((mediaFiles)=>{
+            let filePath = mediaFiles[0].fullPath;
+            this.setState({filePath});
+        }, ()=>{
+            Toast('录制失败');
+        }, {limit:1});
     },
     cleanup () {
         Camera.cleanup();
@@ -82,6 +91,7 @@ module.exports = React.createClass({
                 <Button onPress={this.takePicture.bind(null, 4)}>选择可编辑(30)</Button>
                 <Button onPress={this.takePicture.bind(null, 5)}>选择可编辑(100)</Button>
                 <Button onPress={this.takePicture.bind(null, 6)}>选择视频</Button>
+                <Button onPress={this.taskVideo}>摄像</Button>
                 <Button onPress={this.cleanup}>清除</Button>
                 <Text>{filePath}</Text>
                 <Image
