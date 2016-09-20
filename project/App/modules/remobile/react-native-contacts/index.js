@@ -5,7 +5,6 @@ var {
     View,
     Image,
 } = ReactNative;
-/root/exhibitionApp/apache-tomcat-7.0.53/webapps/download/exhibition.apk
 
 var Button = require('@remobile/react-native-simple-button');
 var RCTContacts = require('@remobile/react-native-contacts');

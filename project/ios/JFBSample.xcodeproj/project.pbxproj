@@ -59,6 +59,7 @@
 		32B25F2F1D911B0300C56855 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F2D1D911B0300C56855 /* AddressBook.framework */; };
 		32B25F301D911B0300C56855 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F2E1D911B0300C56855 /* AddressBookUI.framework */; };
 		32B25F321D911B1A00C56855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F311D911B1A00C56855 /* CoreGraphics.framework */; };
+		32B25F6E1D912F6700C56855 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F6D1D912F6700C56855 /* MobileCoreServices.framework */; };
 		32B2F57B1CD201D90066B824 /* libRCTZip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F57A1CD201C30066B824 /* libRCTZip.a */; };
 		32B2F57C1CD201DC0066B824 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5741CD201BD0066B824 /* libRCTVideo.a */; };
 		32B2F57D1CD201DF0066B824 /* libRCTUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5681CD201B00066B824 /* libRCTUpdate.a */; };
@@ -361,6 +362,7 @@
 		32B25F2D1D911B0300C56855 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		32B25F2E1D911B0300C56855 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		32B25F311D911B1A00C56855 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		32B25F6D1D912F6700C56855 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		32B2F50F1CD201400066B824 /* RCTAudio.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAudio.xcodeproj; path = "../App/node_modules/@remobile/react-native-audio/ios/RCTAudio.xcodeproj"; sourceTree = "<group>"; };
 		32B2F5151CD2014B0066B824 /* RCTCall.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCall.xcodeproj; path = "../App/node_modules/@remobile/react-native-call/ios/RCTCall.xcodeproj"; sourceTree = "<group>"; };
 		32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../App/node_modules/@remobile/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32B25F6E1D912F6700C56855 /* MobileCoreServices.framework in Frameworks */,
 				32B25F321D911B1A00C56855 /* CoreGraphics.framework in Frameworks */,
 				32B25F2F1D911B0300C56855 /* AddressBook.framework in Frameworks */,
 				32B25F301D911B0300C56855 /* AddressBookUI.framework in Frameworks */,
@@ -813,6 +816,7 @@
 		748A4B5CC9EFD3A1B9430D67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				32B25F6D1D912F6700C56855 /* MobileCoreServices.framework */,
 				32B25F311D911B1A00C56855 /* CoreGraphics.framework */,
 				32B25F2D1D911B0300C56855 /* AddressBook.framework */,
 				32B25F2E1D911B0300C56855 /* AddressBookUI.framework */,
