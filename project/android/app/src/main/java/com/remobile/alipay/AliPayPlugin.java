@@ -35,12 +35,7 @@ public class AliPayPlugin extends CordovaPlugin {
 
     @ReactMethod
     public void pay(ReadableArray args, Callback success, Callback error) {
-        String action = "pay";
-        try {
-            this.execute(action, JsonConvert.reactToJSON(args), new CallbackContext(success, error));
-        } catch (Exception ex) {
-            FLog.e(TAG, "Unexpected error:" + ex.getMessage());
-        }
+        executeReactMethod("pay", args, success, error);
     }
 
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
