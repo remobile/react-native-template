@@ -36,6 +36,9 @@ project(':react-native-contacts').projectDir = new File(settingsDir, '../App/nod
 include ':react-native-camera'
 project(':react-native-camera').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-camera/android')
 
+include ':react-native-capture'
+project(':react-native-capture').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-capture/android')
+
 include ':react-native-image-picker'
 project(':react-native-image-picker').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-image-picker/android')
 

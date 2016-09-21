@@ -8,6 +8,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.remobile.RCTRemobilePackage;
 
+import com.remobile.capture.RCTCapturePackage;
 import com.remobile.splashscreen.RCTSplashScreenPackage;
 import com.remobile.toast.RCTToastPackage;
 import com.remobile.dialogs.RCTDialogsPackage;
@@ -62,6 +63,7 @@ public class MainApplication extends Application implements ReactApplication {
             mUpdateMgr.getReactPackage(),
             new RCTContactsPackage(),
             new RCTCameraPackage(),
+            new RCTCapturePackage(),
             new RCTImagePickerPackage(),
             new RCTVideoPackage(),
             new RCTAudioPackage(),

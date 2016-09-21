@@ -11,7 +11,8 @@ var {
 
 var TimerMixin = require('react-timer-mixin');
 var SplashScreen = require('@remobile/react-native-splashscreen');
-var Login = require('../login/Login.js');
+// var Login = require('../login/Login.js');
+var Login = require('../remobile/index.js');
 var Home = require('../home/index.js');
 var Update = require('@remobile/react-native-update');
 

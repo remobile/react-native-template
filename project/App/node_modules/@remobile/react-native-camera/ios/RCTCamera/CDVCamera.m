@@ -6,9 +6,9 @@
  to you under the Apache License, Version 2.0 (the
  "License"); you may not use this file except in compliance
  with the License.  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing,
  software distributed under the License is distributed on an
  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,7 +20,6 @@
 #import "CDVCamera.h"
 #import "CDVJpegHeaderWriter.h"
 #import "UIImage+CropScaleOrientation.h"
-#import "NSData+Base64.h"
 #import <ImageIO/CGImageProperties.h>
 #import <AssetsLibrary/ALAssetRepresentation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -31,6 +30,9 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <objc/message.h>
 
+
+#import "NSData+Base64.h"
+
 #define CDV_PHOTO_PREFIX @"cdv_photo_"
 
 static NSSet* org_apache_cordova_validArrowDirections;
@@ -38,9 +40,20 @@ static NSSet* org_apache_cordova_validArrowDirections;
 static NSString* toBase64(NSData* data) {
     SEL s1 = NSSelectorFromString(@"cdv_base64EncodedString");
     SEL s2 = NSSelectorFromString(@"base64EncodedString");
-    SEL realSel = [data respondsToSelector:s1] ? s1 : s2;
-    NSString* (*func)(id, SEL) = (void *)[data methodForSelector:realSel];
-    return func(data, realSel);
+    SEL s3 = NSSelectorFromString(@"base64EncodedStringWithOptions:");
+    
+    if ([data respondsToSelector:s1]) {
+        NSString* (*func)(id, SEL) = (void *)[data methodForSelector:s1];
+        return func(data, s1);
+    } else if ([data respondsToSelector:s2]) {
+        NSString* (*func)(id, SEL) = (void *)[data methodForSelector:s2];
+        return func(data, s2);
+    } else if ([data respondsToSelector:s3]) {
+        NSString* (*func)(id, SEL, NSUInteger) = (void *)[data methodForSelector:s3];
+        return func(data, s3, 0);
+    } else {
+        return nil;
+    }
 }
 
 @implementation CDVPictureOptions
@@ -88,8 +101,7 @@ static NSString* toBase64(NSData* data) {
 RCT_EXPORT_MODULE(Camera)
 RCT_EXPORT_CORDOVA_METHOD(takePicture);
 RCT_EXPORT_CORDOVA_METHOD(cleanup);
-RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
-
+RCT_EXPORT_CORDOVA_METHOD(repositionPopover);
 
 + (void)initialize
 {
@@ -101,6 +113,20 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
 - (NSURL*) urlTransformer:(NSURL*)url
 {
     NSURL* urlToTransform = url;
+    
+#if 0
+    // for backwards compatibility - we check if this property is there
+    SEL sel = NSSelectorFromString(@"urlTransformer");
+    if ([self.commandDelegate respondsToSelector:sel]) {
+        // grab the block from the commandDelegate
+        NSURL* (^urlTransformer)(NSURL*) = ((id(*)(id, SEL))objc_msgSend)(self.commandDelegate, sel);
+        // if block is not null, we call it
+        if (urlTransformer) {
+            urlToTransform = urlTransformer(url);
+        }
+    }
+#endif
+    
     return urlToTransform;
 }
 
@@ -142,17 +168,19 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
             if (authStatus == AVAuthorizationStatusDenied ||
                 authStatus == AVAuthorizationStatusRestricted) {
                 // If iOS 8+, offer a link to the Settings app
-                NSString* settingsButton = nil;
-                if (IsAtLeastiOSVersion(@"8.0")) {
-                    settingsButton =  NSLocalizedString(@"Settings", nil);
-                }
-                
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wtautological-pointer-compare"
+                NSString* settingsButton = (&UIApplicationOpenSettingsURLString != NULL)
+                    ? NSLocalizedString(@"Settings", nil)
+                    : nil;
+#pragma clang diagnostic pop
+
                 // Denied; show an alert
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[[UIAlertView alloc] initWithTitle:[[NSBundle mainBundle]
                                                          objectForInfoDictionaryKey:@"CFBundleDisplayName"]
                                                 message:NSLocalizedString(@"Access to the camera has been prohibited; please enable it in the Settings app to continue.", nil)
-                                               delegate:self
+                                               delegate:weakSelf
                                       cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                       otherButtonTitles:settingsButton, nil] show];
                 });
@@ -181,7 +209,7 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
                 [weakSelf displayPopover:pictureOptions.popoverOptions];
                 weakSelf.hasPendingOperation = NO;
             } else {
-                [[CDVPlugin presentViewController] presentViewController:cameraPicker animated:YES completion:^{
+                [weakSelf.viewController presentViewController:cameraPicker animated:YES completion:^{
                     weakSelf.hasPendingOperation = NO;
                 }];
             }
@@ -194,7 +222,12 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
 {
     // If Settings button (on iOS 8), open the settings app
     if (buttonIndex == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wtautological-pointer-compare"
+        if (&UIApplicationOpenSettingsURLString != NULL) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+#pragma clang diagnostic pop
     }
 
     // Dismiss the view
@@ -210,9 +243,13 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
 
 - (void)repositionPopover:(CDVInvokedUrlCommand*)command
 {
-    NSDictionary* options = [command argumentAtIndex:0 withDefault:nil];
+    if (([[self pickerController] pickerPopoverController] != nil) && [[[self pickerController] pickerPopoverController] isPopoverVisible]) {
 
-    [self displayPopover:options];
+        [[[self pickerController] pickerPopoverController] dismissPopoverAnimated:NO];
+
+        NSDictionary* options = [command argumentAtIndex:0 withDefault:nil];
+        [self displayPopover:options];
+    }
 }
 
 - (NSInteger)integerValueForKey:(NSDictionary*)dict key:(NSString*)key defaultValue:(NSInteger)defaultValue
@@ -248,9 +285,9 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
 
     [[[self pickerController] pickerPopoverController] setDelegate:self];
     [[[self pickerController] pickerPopoverController] presentPopoverFromRect:CGRectMake(x, y, width, height)
-                                                                       inView:[CDVPlugin presentViewController].view
-                                                     permittedArrowDirections:arrowDirection
-                                                                     animated:YES];
+                                                                 inView:self.viewController.view
+                                               permittedArrowDirections:arrowDirection
+                                                               animated:YES];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -307,7 +344,7 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
     pc.delegate = nil;
     if (self.pickerController && self.pickerController.callbackId && self.pickerController.pickerPopoverController) {
         self.pickerController.pickerPopoverController = nil;
-        CDVInvokedUrlCommand* callbackId = self.pickerController.callbackId;
+        NSString* callbackId = self.pickerController.callbackId;
         CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"no image selected"];   // error callback expects string ATM
         [self.commandDelegate sendPluginResult:result callbackId:callbackId];
     }
@@ -324,28 +361,28 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
             break;
         case EncodingTypeJPEG:
         {
-            if ((options.allowsEditing == NO) && (options.targetSize.width <= 0) && (options.targetSize.height <= 0) && (options.correctOrientation == NO)){
+            if ((options.allowsEditing == NO) && (options.targetSize.width <= 0) && (options.targetSize.height <= 0) && (options.correctOrientation == NO) && (([options.quality integerValue] == 100) || (options.sourceType != UIImagePickerControllerSourceTypeCamera))){
                 // use image unedited as requested , don't resize
                 data = UIImageJPEGRepresentation(image, 1.0);
             } else {
-                if (options.usesGeolocation) {
-                    NSDictionary* controllerMetadata = [info objectForKey:@"UIImagePickerControllerMediaMetadata"];
-                    if (controllerMetadata) {
-                        self.data = data;
-                        self.metadata = [[NSMutableDictionary alloc] init];
-                        
-                        NSMutableDictionary* EXIFDictionary = [[controllerMetadata objectForKey:(NSString*)kCGImagePropertyExifDictionary]mutableCopy];
-                        if (EXIFDictionary)	{
-                            [self.metadata setObject:EXIFDictionary forKey:(NSString*)kCGImagePropertyExifDictionary];
-                        }
-                        
-                        if (IsAtLeastiOSVersion(@"8.0")) {
-                            [[self locationManager] performSelector:NSSelectorFromString(@"requestWhenInUseAuthorization") withObject:nil afterDelay:0];
-                        }
-                        [[self locationManager] startUpdatingLocation];
+                data = UIImageJPEGRepresentation(image, [options.quality floatValue] / 100.0f);
+            }
+            
+            if (options.usesGeolocation) {
+                NSDictionary* controllerMetadata = [info objectForKey:@"UIImagePickerControllerMediaMetadata"];
+                if (controllerMetadata) {
+                    self.data = data;
+                    self.metadata = [[NSMutableDictionary alloc] init];
+                    
+                    NSMutableDictionary* EXIFDictionary = [[controllerMetadata objectForKey:(NSString*)kCGImagePropertyExifDictionary]mutableCopy];
+                    if (EXIFDictionary)	{
+                        [self.metadata setObject:EXIFDictionary forKey:(NSString*)kCGImagePropertyExifDictionary];
                     }
-                } else {
-                    data = UIImageJPEGRepresentation(image, [options.quality floatValue] / 100.0f);
+                    
+                    if (IsAtLeastiOSVersion(@"8.0")) {
+                        [[self locationManager] performSelector:NSSelectorFromString(@"requestWhenInUseAuthorization") withObject:nil afterDelay:0];
+                    }
+                    [[self locationManager] startUpdatingLocation];
                 }
             }
         }
@@ -400,7 +437,7 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
     return (scaledImage == nil ? image : scaledImage);
 }
 
-- (CDVPluginResult*)resultForImage:(CDVPictureOptions*)options info:(NSDictionary*)info
+- (void)resultForImage:(CDVPictureOptions*)options info:(NSDictionary*)info completion:(void (^)(CDVPluginResult* res))completion
 {
     CDVPluginResult* result = nil;
     BOOL saveToPhotoAlbum = options.saveToPhotoAlbum;
@@ -409,10 +446,28 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
     switch (options.destinationType) {
         case DestinationTypeNativeUri:
         {
-            NSURL* url = (NSURL*)[info objectForKey:UIImagePickerControllerReferenceURL];
-            NSString* nativeUri = [[self urlTransformer:url] absoluteString];
-            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:nativeUri];
+            NSURL* url = [info objectForKey:UIImagePickerControllerReferenceURL];
             saveToPhotoAlbum = NO;
+            // If, for example, we use sourceType = Camera, URL might be nil because image is stored in memory.
+            // In this case we must save image to device before obtaining an URI.
+            if (url == nil) {
+                image = [self retrieveImage:info options:options];
+                ALAssetsLibrary* library = [ALAssetsLibrary new];
+                [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)(image.imageOrientation) completionBlock:^(NSURL *assetURL, NSError *error) {
+                    CDVPluginResult* resultToReturn = nil;
+                    if (error) {
+                        resultToReturn = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:[error localizedDescription]];
+                    } else {
+                        NSString* nativeUri = [[self urlTransformer:assetURL] absoluteString];
+                        resultToReturn = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:nativeUri];
+                    }
+                    completion(resultToReturn);
+                }];
+                return;
+            } else {
+                NSString* nativeUri = [[self urlTransformer:url] absoluteString];
+                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:nativeUri];
+            }
         }
             break;
         case DestinationTypeFileUri:
@@ -438,7 +493,6 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
         {
             image = [self retrieveImage:info options:options];
             NSData* data = [self processImage:image info:info options:options];
-            
             if (data)  {
                 result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
             }
@@ -452,8 +506,8 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
         ALAssetsLibrary* library = [ALAssetsLibrary new];
         [library writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)(image.imageOrientation) completionBlock:nil];
     }
-    
-    return result;
+
+    completion(result);
 }
 
 - (CDVPluginResult*)resultForVideo:(NSDictionary*)info
@@ -472,13 +526,16 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
         
         NSString* mediaType = [info objectForKey:UIImagePickerControllerMediaType];
         if ([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
-            result = [self resultForImage:cameraPicker.pictureOptions info:info];
+            [weakSelf resultForImage:cameraPicker.pictureOptions info:info completion:^(CDVPluginResult* res) {
+                if (![self usesGeolocation] || picker.sourceType != UIImagePickerControllerSourceTypeCamera) {
+                    [weakSelf.commandDelegate sendPluginResult:res callbackId:cameraPicker.callbackId];
+                    weakSelf.hasPendingOperation = NO;
+                    weakSelf.pickerController = nil;
+                }
+            }];
         }
         else {
-            result = [self resultForVideo:info];
-        }
-        
-        if (result) {
+            result = [weakSelf resultForVideo:info];
             [weakSelf.commandDelegate sendPluginResult:result callbackId:cameraPicker.callbackId];
             weakSelf.hasPendingOperation = NO;
             weakSelf.pickerController = nil;
@@ -510,11 +567,14 @@ RCT_EXPORT_CORDOVA_METHOD2(_repositionPopover, repositionPopover);
     
     dispatch_block_t invoke = ^ (void) {
         CDVPluginResult* result;
-        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
-            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"no image selected"];
-        } else {
+        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera && [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] != ALAuthorizationStatusAuthorized) {
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"has no access to camera"];
+        } else if (picker.sourceType != UIImagePickerControllerSourceTypeCamera && [ALAssetsLibrary authorizationStatus] != ALAuthorizationStatusAuthorized) {
             result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"has no access to assets"];
+        } else {
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"no image selected"];
         }
+
         
         [weakSelf.commandDelegate sendPluginResult:result callbackId:cameraPicker.callbackId];
         

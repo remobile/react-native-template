@@ -55,9 +55,10 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 // iPhone only method to create a new contact through the GUI
 - (void)newContact:(CDVInvokedUrlCommand*)command
 {
-    CDVInvokedUrlCommand* callbackId = command.callbackId;
+    NSString* callbackId = command.callbackId;
 
     CDVAddressBookHelper* abHelper = [[CDVAddressBookHelper alloc] init];
+    CDVContacts* __weak weakSelf = self;  // play it safe to avoid retain cycles
 
     [abHelper createAddressBook: ^(ABAddressBookRef addrBook, CDVAddressBookAccessError* errCode) {
         if (addrBook == NULL) {
@@ -73,7 +74,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 
         UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:npController];
 
-        [[CDVPlugin presentViewController] presentViewController:navController animated:YES completion:nil];
+        [weakSelf.viewController presentViewController:navController animated:YES completion:nil];
     }];
 }
 
@@ -81,7 +82,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 {
     ABRecordID recordId = kABRecordInvalidID;
     CDVNewContactsController* newCP = (CDVNewContactsController*)newPersonViewController;
-    CDVInvokedUrlCommand* callbackId = newCP.callbackId;
+    NSString* callbackId = newCP.callbackId;
 
     if (person != NULL) {
         // return the contact id
@@ -108,7 +109,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 
 - (void)displayContact:(CDVInvokedUrlCommand*)command
 {
-    CDVInvokedUrlCommand* callbackId = command.callbackId;
+    NSString* callbackId = command.callbackId;
     ABRecordID recordID = [[command argumentAtIndex:0] intValue];
     NSDictionary* options = [command argumentAtIndex:1 withDefault:[NSNull null]];
     bool bEdit = [options isKindOfClass:[NSNull class]] ? false : [self existsValue:options val:@"true" forKey:@"allowsEditing"];
@@ -137,7 +138,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 
             [navController pushViewController:personController animated:YES];
 
-            [[CDVPlugin presentViewController] presentViewController:navController animated:YES completion:nil];
+            [self.viewController presentViewController:navController animated:YES completion:nil];
 
             if (bEdit) {
                 // create the editing controller and push it onto the stack
@@ -164,7 +165,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 
 - (void)chooseContact:(CDVInvokedUrlCommand*)command
 {
-    CDVInvokedUrlCommand* callbackId = command.callbackId;
+    NSString* callbackId = command.callbackId;
     NSDictionary* options = [command argumentAtIndex:0 withDefault:[NSNull null]];
 
     CDVContactsPicker* pickerController = [[CDVContactsPicker alloc] init];
@@ -180,7 +181,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
     }
     pickerController.allowsEditing = allowsEditing;
 
-    [[CDVPlugin presentViewController] presentViewController:pickerController animated:YES completion:nil];
+    [self.viewController presentViewController:pickerController animated:YES completion:nil];
 }
 
 - (void)pickContact:(CDVInvokedUrlCommand *)command
@@ -197,10 +198,35 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
     
     NSArray* args = [NSArray arrayWithObjects:options, nil];
     
-    CDVInvokedUrlCommand* newCommand = [[CDVInvokedUrlCommand alloc] initWithArguments:args command:command];
-    
-    [self chooseContact:newCommand];
-    
+    CDVInvokedUrlCommand* newCommand = [[CDVInvokedUrlCommand alloc] initWithArguments:args
+                 command:command];
+
+    // First check for Address book permissions
+    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+    if (status == kABAuthorizationStatusAuthorized) {
+        [self chooseContact:newCommand];
+        return;
+    }
+
+    CDVPluginResult *errorResult = [CDVPluginResult resultWithStatus: CDVCommandStatus_ERROR messageAsInt:PERMISSION_DENIED_ERROR];
+
+    // if the access is already restricted/denied the only way is to fail
+    if (status == kABAuthorizationStatusRestricted || status == kABAuthorizationStatusDenied) {
+        [self.commandDelegate sendPluginResult: errorResult callbackId:command.callbackId];
+        return;
+    }
+
+    // if no permissions granted try to request them first
+    if (status == kABAuthorizationStatusNotDetermined) {
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+            if (granted) {
+                [self chooseContact:newCommand];
+                return;
+            }
+
+            [self.commandDelegate sendPluginResult: errorResult callbackId:command.callbackId];
+        });
+    }
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker
@@ -239,7 +265,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
     NSNumber* recordId = picker.pickedContactDictionary[kW3ContactId];
     
     if ([recordId isEqualToNumber:[NSNumber numberWithInt:kABRecordInvalidID]]) {
-        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsInt:OPERATION_CANCELLED_ERROR] ;
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:picker.pickedContactDictionary];
     }
@@ -286,7 +312,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 
 - (void)search:(CDVInvokedUrlCommand*)command
 {
-    CDVInvokedUrlCommand* callbackId = command.callbackId;
+    NSString* callbackId = command.callbackId;
     NSArray* fields = [command argumentAtIndex:0];
     NSDictionary* findOptions = [command argumentAtIndex:1 withDefault:[NSNull null]];
 
@@ -393,7 +419,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 
 - (void)save:(CDVInvokedUrlCommand*)command
 {
-    CDVInvokedUrlCommand* callbackId = command.callbackId;
+    NSString* callbackId = command.callbackId;
     NSDictionary* contactDict = [command argumentAtIndex:0];
 
     [self.commandDelegate runInBackground:^{
@@ -465,7 +491,7 @@ RCT_EXPORT_CORDOVA_METHOD(remove);
 
 - (void)remove:(CDVInvokedUrlCommand*)command
 {
-    CDVInvokedUrlCommand* callbackId = command.callbackId;
+    NSString* callbackId = command.callbackId;
     NSNumber* cId = [command argumentAtIndex:0];
 
     CDVAddressBookHelper* abHelper = [[CDVAddressBookHelper alloc] init];

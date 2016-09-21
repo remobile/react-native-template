@@ -59,12 +59,7 @@ public class WeixinPay extends CordovaPlugin  implements IWXAPIEventHandler {
 
 	@ReactMethod
 	public void payment(ReadableArray args, Callback success, Callback error) {
-		String action = "payment";
-		try {
-			this.execute(action, JsonConvert.reactToJSON(args), new CallbackContext(success, error));
-		} catch (Exception ex) {
-			FLog.e(LOG_TAG, "Unexpected error:" + ex.getMessage());
-		}
+		executeReactMethod("payment", args, success, error);
 	}
 
 	public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {

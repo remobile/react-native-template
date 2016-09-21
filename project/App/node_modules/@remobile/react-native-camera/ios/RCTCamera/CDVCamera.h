@@ -69,7 +69,7 @@ typedef NSUInteger CDVMediaType;
 
 @property (strong) CDVPictureOptions* pictureOptions;
 
-@property (strong)   CDVInvokedUrlCommand* callbackId;
+@property (strong)   NSString* callbackId;
 @property (copy)   NSString* postUrl;
 @property (strong) UIPopoverController* pickerPopoverController;
 @property (assign) BOOL cropToSize;

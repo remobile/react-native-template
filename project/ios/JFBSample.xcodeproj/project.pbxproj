@@ -29,7 +29,6 @@
 		3201A8C21C858B8F00AA7980 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 3201A8BA1C858B8F00AA7980 /* RSADataSigner.m */; };
 		3201A8C81C858C2900AA7980 /* CDVWxpay.m in Sources */ = {isa = PBXBuildFile; fileRef = 3201A8C41C858C2900AA7980 /* CDVWxpay.m */; };
 		3202B37E1C72C97700AA4EE8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3202B37D1C72C97700AA4EE8 /* libz.tbd */; };
-		3202B3801C72C98100AA4EE8 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3202B37F1C72C98100AA4EE8 /* libsqlite3.0.tbd */; };
 		3233C90E1C892F6900E360AB /* AudioRecorderAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3233C90D1C892F6900E360AB /* AudioRecorderAPI.m */; };
 		325A7C7C1C9FD62D00974DA4 /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 325A7C6D1C9FD62D00974DA4 /* icon-40.png */; };
 		325A7C7D1C9FD62D00974DA4 /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325A7C6E1C9FD62D00974DA4 /* icon-40@2x.png */; };
@@ -55,6 +54,12 @@
 		329758F61C9D31C100785683 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 329758F01C9D31C100785683 /* Default~iphone.png */; };
 		329758F71C9D31C100785683 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 329758F11C9D31C100785683 /* splash.png */; };
 		32AF4DBE1CD1F92400A215B4 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AF4DBD1CD1F91500A215B4 /* libRNFS.a */; };
+		32B25E371D8F950900C56855 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 32B25E361D8F950900C56855 /* CDVNotification.bundle */; };
+		32B25F2B1D9113CE00C56855 /* CDVCapture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 32B25F2A1D9113CE00C56855 /* CDVCapture.bundle */; };
+		32B25F2F1D911B0300C56855 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F2D1D911B0300C56855 /* AddressBook.framework */; };
+		32B25F301D911B0300C56855 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F2E1D911B0300C56855 /* AddressBookUI.framework */; };
+		32B25F321D911B1A00C56855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F311D911B1A00C56855 /* CoreGraphics.framework */; };
+		32B25F6E1D912F6700C56855 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B25F6D1D912F6700C56855 /* MobileCoreServices.framework */; };
 		32B2F57B1CD201D90066B824 /* libRCTZip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F57A1CD201C30066B824 /* libRCTZip.a */; };
 		32B2F57C1CD201DC0066B824 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5741CD201BD0066B824 /* libRCTVideo.a */; };
 		32B2F57D1CD201DF0066B824 /* libRCTUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5681CD201B00066B824 /* libRCTUpdate.a */; };
@@ -152,6 +157,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
 			remoteInfo = RNFS;
+		};
+		32B25F111D9113A900C56855 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32A87E981BF598330048D713;
+			remoteInfo = RCTCapture;
 		};
 		32B2F5131CD201400066B824 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -344,6 +356,13 @@
 		329758F01C9D31C100785683 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
 		329758F11C9D31C100785683 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		32AF4DB81CD1F91500A215B4 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../App/node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
+		32B25E361D8F950900C56855 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVNotification.bundle; path = "../App/node_modules/@remobile/react-native-dialogs/ios/RCTDialogs/CDVNotification.bundle"; sourceTree = "<group>"; };
+		32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCapture.xcodeproj; path = "/Users/fang/rn/react-native-template/project/App/node_modules/@remobile/react-native-camera/ios/../../react-native-capture/ios/RCTCapture.xcodeproj"; sourceTree = "<absolute>"; };
+		32B25F2A1D9113CE00C56855 /* CDVCapture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVCapture.bundle; path = "../App/node_modules/@remobile/react-native-capture/ios/RCTCapture/CDVCapture.bundle"; sourceTree = "<group>"; };
+		32B25F2D1D911B0300C56855 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		32B25F2E1D911B0300C56855 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		32B25F311D911B1A00C56855 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		32B25F6D1D912F6700C56855 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		32B2F50F1CD201400066B824 /* RCTAudio.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAudio.xcodeproj; path = "../App/node_modules/@remobile/react-native-audio/ios/RCTAudio.xcodeproj"; sourceTree = "<group>"; };
 		32B2F5151CD2014B0066B824 /* RCTCall.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCall.xcodeproj; path = "../App/node_modules/@remobile/react-native-call/ios/RCTCall.xcodeproj"; sourceTree = "<group>"; };
 		32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../App/node_modules/@remobile/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
@@ -380,9 +399,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32B25F6E1D912F6700C56855 /* MobileCoreServices.framework in Frameworks */,
+				32B25F321D911B1A00C56855 /* CoreGraphics.framework in Frameworks */,
+				32B25F2F1D911B0300C56855 /* AddressBook.framework in Frameworks */,
+				32B25F301D911B0300C56855 /* AddressBookUI.framework in Frameworks */,
 				FE1C69281C8D6A7500B45AAF /* libstdc++.tbd in Frameworks */,
 				3201A8AA1C858A9200AA7980 /* CoreTelephony.framework in Frameworks */,
-				3202B3801C72C98100AA4EE8 /* libsqlite3.0.tbd in Frameworks */,
 				3202B37E1C72C97700AA4EE8 /* libz.tbd in Frameworks */,
 				329758E91C9D265800785683 /* libART.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -558,10 +580,13 @@
 				32B2F58B1CD202E40066B824 /* Resources */,
 				32B2F53F1CD2018C0066B824 /* RCTFileTransfer.xcodeproj */,
 				32B2F5391CD201840066B824 /* RCTDialogs.xcodeproj */,
+				32B25E361D8F950900C56855 /* CDVNotification.bundle */,
 				32B2F52D1CD2016E0066B824 /* RCTDes.xcodeproj */,
 				32B2F5271CD2015E0066B824 /* RCTCordova.xcodeproj */,
 				32B2F5211CD201590066B824 /* RCTContacts.xcodeproj */,
 				32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */,
+				32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */,
+				32B25F2A1D9113CE00C56855 /* CDVCapture.bundle */,
 				32B2F5151CD2014B0066B824 /* RCTCall.xcodeproj */,
 				32B2F50F1CD201400066B824 /* RCTAudio.xcodeproj */,
 			);
@@ -635,6 +660,14 @@
 			isa = PBXGroup;
 			children = (
 				32AF4DBD1CD1F91500A215B4 /* libRNFS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32B25F091D9113A900C56855 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32B25F121D9113A900C56855 /* libRCTCapture.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -783,6 +816,10 @@
 		748A4B5CC9EFD3A1B9430D67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				32B25F6D1D912F6700C56855 /* MobileCoreServices.framework */,
+				32B25F311D911B1A00C56855 /* CoreGraphics.framework */,
+				32B25F2D1D911B0300C56855 /* AddressBook.framework */,
+				32B25F2E1D911B0300C56855 /* AddressBookUI.framework */,
 				FE1C69291C8D6A8A00B45AAF /* libstdc++.6.0.9.tbd */,
 				FE1C692A1C8D6A8A00B45AAF /* libstdc++.6.tbd */,
 				FE1C69271C8D6A7500B45AAF /* libstdc++.tbd */,
@@ -935,6 +972,10 @@
 				{
 					ProductGroup = 32B2F51C1CD201530066B824 /* Products */;
 					ProjectRef = 32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */;
+				},
+				{
+					ProductGroup = 32B25F091D9113A900C56855 /* Products */;
+					ProjectRef = 32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */;
 				},
 				{
 					ProductGroup = 32B2F5221CD201590066B824 /* Products */;
@@ -1107,6 +1148,13 @@
 			remoteRef = 32AF4DBC1CD1F91500A215B4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		32B25F121D9113A900C56855 /* libRCTCapture.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCapture.a;
+			remoteRef = 32B25F111D9113A900C56855 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		32B2F5141CD201400066B824 /* libRCTAudio.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1254,10 +1302,12 @@
 				325A7C891C9FD62D00974DA4 /* icon.png in Resources */,
 				325A7C851C9FD62D00974DA4 /* icon-76.png in Resources */,
 				325A7C8A1C9FD62D00974DA4 /* icon@2x.png in Resources */,
+				32B25F2B1D9113CE00C56855 /* CDVCapture.bundle in Resources */,
 				325A7C7E1C9FD62D00974DA4 /* icon-50.png in Resources */,
 				329758F61C9D31C100785683 /* Default~iphone.png in Resources */,
 				325A7C871C9FD62D00974DA4 /* icon-small.png in Resources */,
 				325A7C811C9FD62D00974DA4 /* icon-60@2x.png in Resources */,
+				32B25E371D8F950900C56855 /* CDVNotification.bundle in Resources */,
 				325A7C841C9FD62D00974DA4 /* icon-72@2x.png in Resources */,
 				325A7C7D1C9FD62D00974DA4 /* icon-40@2x.png in Resources */,
 				32B2F5931CD202E40066B824 /* ELCAssetTablePicker.xib in Resources */,

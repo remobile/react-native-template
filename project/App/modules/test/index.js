@@ -12,10 +12,10 @@ var {
 } = ReactNative;
 
 var PersonInfo = require('../person/PersonInfo.js');
-var Camera = require('./camera.js');
+var Image = require('./image.js');
 
 var modules = [
-    {title:'相机', image: app.img.common_point, module:Camera},
+    {title:'图片', image: app.img.common_point, module:Image},
 ];
 
 
@@ -49,14 +49,14 @@ module.exports = React.createClass({
         }
         app.navigator.push(route);
     },
-    renderSeparator(rowID) {
+    renderSeparator(sectionID, rowID) {
         return (
             <View style={styles.separator} key={rowID}/>
         );
     },
-    renderRow(obj) {
+    renderRow(obj, sectionID, rowID) {
         return (
-            <View>
+            <View key={rowID}>
                 <TouchableOpacity
                     onPress={this._onPressRow.bind(null, obj)}
                     underlayColor="#EEB422">

@@ -114,13 +114,13 @@
 @interface CDVContactsPicker : ABPeoplePickerNavigationController
 {
     BOOL allowsEditing;
-    CDVInvokedUrlCommand* callbackId;
+    NSString* callbackId;
     NSDictionary* options;
     NSDictionary* pickedContactDictionary;
 }
 
 @property BOOL allowsEditing;
-@property (strong) CDVInvokedUrlCommand* callbackId;
+@property (strong) NSString* callbackId;
 @property (nonatomic, strong) NSDictionary* options;
 @property (nonatomic, strong) NSDictionary* pickedContactDictionary;
 
@@ -128,9 +128,9 @@
 
 @interface CDVNewContactsController : ABNewPersonViewController
 {
-    CDVInvokedUrlCommand* callbackId;
+    NSString* callbackId;
 }
-@property (strong) CDVInvokedUrlCommand* callbackId;
+@property (strong) NSString* callbackId;
 @end
 
 /* ABPersonViewController does not have any UI to dismiss.  Adding navigationItems to it does not work properly,  the navigationItems are lost when the app goes into the background.

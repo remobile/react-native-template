@@ -46,7 +46,7 @@ RCT_EXPORT_CORDOVA_METHOD(getPictures);
    albumController.parent = imagePicker;
 	self.callbackId = command.callbackId;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[CDVPlugin presentViewController] presentViewController:imagePicker animated:YES completion:nil];
+        [self.viewController presentViewController:imagePicker animated:YES completion:nil];
     });
 }
 

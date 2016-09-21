@@ -32,6 +32,6 @@
 @end
 
 @interface CDVAlertView : UIAlertView {}
-@property (nonatomic, strong) CDVInvokedUrlCommand* callbackId;
+@property (nonatomic, strong) NSString* callbackId;
 
 @end
