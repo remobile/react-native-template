@@ -17,6 +17,7 @@ var Camera = require('./react-native-camera');
 var Sqlite = require('./react-native-sqlite-storage');
 var Contacts = require('./react-native-contacts');
 var FileTransfer = require('./react-native-file-transfer');
+var Zip = require('./react-native-zip');
 
 var modules = [
     {title:'react-native-dialogs', image: app.img.common_point, module:Dialogs},
@@ -24,6 +25,7 @@ var modules = [
     {title:'react-native-sqlite-storage', image: app.img.common_point, module:Sqlite},
     {title:'react-native-contacts', image: app.img.common_point, module:Contacts},
     {title:'react-native-file-transfer', image: app.img.common_point, module:FileTransfer},
+    {title:'react-native-zip', image: app.img.common_point, module:Zip},
 ];
 
 

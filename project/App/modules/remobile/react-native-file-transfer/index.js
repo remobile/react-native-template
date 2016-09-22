@@ -12,7 +12,7 @@ var Button = require('@remobile/react-native-simple-button');
 
 module.exports = React.createClass({
     testUpload() {
-        var fileURL = app.isandroid?'file:///sdcard/data/1.jpg':'file:///Users/fang/rn/react-native-template/localServer/public/exhibition.apk';
+        var fileURL = app.isandroid?'file:///sdcard/1/jsandroid.zip':'file:///Users/fang/rn/react-native-template/localServer/public/exhibition.apk';
         var options = {};
         options.fileKey = 'file';
         options.fileName = fileURL.substr(fileURL.lastIndexOf('/')+1);
@@ -40,7 +40,7 @@ module.exports = React.createClass({
           fileTransfer.onprogress = (progress) => console.log("progress", progress.loaded+'/'+progress.total);
           fileTransfer.download(
               uri,
-              app.isandroid?'/sdcard/data/1.zip':'/Users/fang/rn/react-native-template/localServer/public/xx.apk',
+              app.isandroid?'/sdcard/1/xx.apk':'/Users/fang/rn/react-native-template/localServer/public/xx.apk',
               function(result) {
                   console.log(result);
               },
