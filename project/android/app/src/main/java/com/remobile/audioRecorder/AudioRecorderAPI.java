@@ -55,7 +55,7 @@ public class AudioRecorderAPI extends CordovaPlugin {
         executeReactMethod("playStop", args, success, error);
     }
 
-
+    @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         Context context = getReactApplicationContext();
 

@@ -62,6 +62,7 @@ public class WeixinPay extends CordovaPlugin  implements IWXAPIEventHandler {
 		executeReactMethod("payment", args, success, error);
 	}
 
+	@Override
 	public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
 		FLog.d(LOG_TAG, "WeixinPay#execute");
 

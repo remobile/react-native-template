@@ -38,6 +38,7 @@ public class AliPayPlugin extends CordovaPlugin {
         executeReactMethod("pay", args, success, error);
     }
 
+    @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
         boolean ret = false;
 
