@@ -1,0 +1,73 @@
+@import '../../style/themes/default';
+@import '../../style/mixins';
+
+@tabs-prefix-cls: am-tabs;
+
+.@{tabs-prefix-cls} {
+  overflow: hidden;
+  &-bar {
+    display: flex;
+    position: relative;
+    .@{tabs-prefix-cls}-tab {
+      flex: 1;
+      text-align: center;
+      border-bottom: @border-width-sm solid @border-color-base;
+      font-size: @tabs-font-size-heading;
+      height: @tabs-height;
+      line-height: @tabs-height;
+      color: @color-text-base;
+      background-color: @fill-base;
+      &-active {
+        color: @tabs-color;
+      }
+    }
+  }
+
+  &-ink-bar {
+    position: absolute;
+    bottom: 0;
+    height: @border-width-lg;
+    background-color: @tabs-color;
+
+    &-animated {
+      transition: transform .3s @ease-in-out-quint;
+    }
+  }
+
+  &&-bottom {
+    .@{tabs-prefix-cls}-ink-bar {
+      bottom: auto;
+      top: 0;
+    }
+    .@{tabs-prefix-cls}-tab {
+      border-top: @border-width-sm solid @border-color-base;
+      border-bottom: 0;
+    }
+  }
+
+  &-content {
+    zoom: 1;
+
+    .@{tabs-prefix-cls}-tabpane {
+      overflow: auto;
+    }
+
+    &-animated {
+      transition: transform .3s @ease-in-out-quint;
+      display: flex;
+      will-change: transform;
+
+      .@{tabs-prefix-cls}-tabpane {
+        box-sizing: border-box;
+        width: 100%;
+        flex-shrink: 0;
+      }
+    }
+
+    &-no-animated {
+      .@{tabs-prefix-cls}-tabpane-inactive {
+        display: none;
+      }
+    }
+  }
+}

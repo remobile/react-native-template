@@ -1,0 +1,47 @@
+.hairline-remove-right-bottom {
+  border-bottom: 0;
+}
+.hairline-remove-right-bottom:after {
+  display: none;
+}
+.hairline-remove-right-bottom-bak:after {
+  display: none;
+}
+.hairline-remove-left-top:before {
+  display: none;
+}
+.am-toast {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  z-index: 1999;
+}
+.am-toast-text {
+  min-width: 1.2rem;
+  display: inline-block;
+  margin: auto 30px;
+  border-radius: 6px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+  font-size: 26px;
+  line-height: 1.18;
+  padding: 18px 30px;
+}
+.am-toast-text-icon {
+  border-radius: 14px;
+  padding: 30px;
+}
+.am-toast .anticon {
+  font-size: 72px;
+  margin-bottom: 18px;
+}

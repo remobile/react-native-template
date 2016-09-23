@@ -1,0 +1,81 @@
+.hairline-remove-right-bottom {
+  border-bottom: 0;
+}
+.hairline-remove-right-bottom:after {
+  display: none;
+}
+.hairline-remove-right-bottom-bak:after {
+  display: none;
+}
+.hairline-remove-left-top:before {
+  display: none;
+}
+.am-tabs {
+  overflow: hidden;
+}
+.am-tabs-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+.am-tabs-bar .am-tabs-tab {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: center;
+  border-bottom: 1PX solid #ddd;
+  font-size: 30px;
+  height: 84px;
+  line-height: 84px;
+  color: #000;
+  background-color: #fff;
+}
+.am-tabs-bar .am-tabs-tab-active {
+  color: #108ee9;
+}
+.am-tabs-ink-bar {
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  background-color: #108ee9;
+}
+.am-tabs-ink-bar-animated {
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1), -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+}
+.am-tabs.am-tabs-bottom .am-tabs-ink-bar {
+  bottom: auto;
+  top: 0;
+}
+.am-tabs.am-tabs-bottom .am-tabs-tab {
+  border-top: 1PX solid #ddd;
+  border-bottom: 0;
+}
+.am-tabs-content {
+  zoom: 1;
+}
+.am-tabs-content .am-tabs-tabpane {
+  overflow: auto;
+}
+.am-tabs-content-animated {
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1), -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  will-change: transform;
+}
+.am-tabs-content-animated .am-tabs-tabpane {
+  box-sizing: border-box;
+  width: 100%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+.am-tabs-content-no-animated .am-tabs-tabpane-inactive {
+  display: none;
+}

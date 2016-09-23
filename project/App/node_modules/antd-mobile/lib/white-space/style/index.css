@@ -1,0 +1,15 @@
+.am-whitespace.am-whitespace-xs {
+  height: 6px;
+}
+.am-whitespace.am-whitespace-sm {
+  height: 12px;
+}
+.am-whitespace.am-whitespace-md {
+  height: 18px;
+}
+.am-whitespace.am-whitespace-lg {
+  height: 30px;
+}
+.am-whitespace.am-whitespace-xl {
+  height: 42px;
+}

@@ -1,0 +1,77 @@
+.hairline-remove-right-bottom {
+  border-bottom: 0;
+}
+.hairline-remove-right-bottom:after {
+  display: none;
+}
+.hairline-remove-right-bottom-bak:after {
+  display: none;
+}
+.hairline-remove-left-top:before {
+  display: none;
+}
+.am-swipe {
+  overflow: hidden;
+  position: relative;
+}
+.am-swipe .am-swipe-content,
+.am-swipe .am-swipe-actions {
+  -webkit-transition: all 250ms;
+  transition: all 250ms;
+}
+.am-swipe-actions {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.am-swipe-actions-left {
+  left: 0;
+  width: 0;
+}
+.am-swipe-actions-right {
+  right: 0;
+  width: 0;
+}
+.am-swipe-btn {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 99;
+}
+.am-swipe-btn-text {
+  padding: 0 12px;
+}
+.am-swipe-android-actions {
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #108ee9;
+  font-size: 26px;
+}
+.am-swipe-android-btn {
+  border-top: 1PX solid #ddd;
+  padding: 30px;
+  position: relative;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1;
+}

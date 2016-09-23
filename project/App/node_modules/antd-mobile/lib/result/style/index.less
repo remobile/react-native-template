@@ -1,0 +1,43 @@
+@import '../../style/mixins';
+@import '../../style/themes/default';
+
+@resultPrefixCls: am-result;
+
+.@{resultPrefixCls} {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  min-height: 328px;
+  padding-top: @v-spacing-xl;
+  padding-bottom: @v-spacing-xl;
+  background-color: @fill-base;
+  .hairline-bottom(@border-color-base);
+  & &-pic {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    line-height: 120px;
+    background-size: 120px 120px;
+  }
+  & &-title,
+  & &-message {
+    font-size: @font-size-display-md;
+    line-height: 1;
+    color: @color-text-base;
+    padding-left: @h-spacing-lg;
+    padding-right: @h-spacing-lg;
+  }
+  & &-title {
+    margin-top: @v-spacing-lg;
+  }
+  & &-message {
+    margin-top: @v-spacing-lg;
+    font-size: @font-size-subhead;
+    color: @color-text-caption;
+    line-height: 1.8;
+  }
+  & &-button {
+    padding: 0 @h-spacing-lg;
+    margin-top: @v-spacing-lg;
+  }
+}

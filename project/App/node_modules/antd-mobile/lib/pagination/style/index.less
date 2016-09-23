@@ -1,0 +1,36 @@
+@import '../../style/themes/default';
+
+@paginationPrefixCls: am-pagination;
+
+.@{paginationPrefixCls} {
+  &-wrap {
+    font-size: @font-size-display-sm;
+    color: @color-text-base;
+    background: none;
+    text-align: center;
+
+    .active {
+      color: @color-link;
+    }
+    &-btn {
+      text-align: center;
+    }
+    &-dot {
+      display: inline-block;
+      zoom: 1;
+      > span {
+        display: block;
+        width: 16px;
+        height: 16px;
+        margin-right: @h-spacing-sm;
+        border-radius: 50%;
+        background: @input-color-icon;
+      }
+      &-active {
+        > span {
+          background: #888;
+        }
+      }
+    }
+  }
+}

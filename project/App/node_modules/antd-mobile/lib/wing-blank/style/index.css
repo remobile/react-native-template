@@ -1,0 +1,16 @@
+.am-wingblank {
+  margin-left: 18px;
+  margin-right: 18px;
+}
+.am-wingblank.am-wingblank-sm {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+.am-wingblank.am-wingblank-md {
+  margin-left: 18px;
+  margin-right: 18px;
+}
+.am-wingblank.am-wingblank-lg {
+  margin-left: 30px;
+  margin-right: 30px;
+}

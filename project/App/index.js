@@ -79,7 +79,7 @@ app.configureScene = function(route) {
     return sceneConfig;
 };
 var SplashScreen = require('@remobile/react-native-splashscreen');
-var Splash = require('./modules/splash/index.js');
+var Splash = require('./modules/test/ant.js');
 
 var NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, navState) {

@@ -1,0 +1,34 @@
+@import '../../style/themes/default';
+@import '../../style/mixins';
+
+@segment-prefix-cls: am-segment;
+
+.@{segment-prefix-cls} {
+  .display-box;
+  background-color: @fill-base;
+  border-width: @border-width-md;
+  border-style: solid;
+  border-radius: @radius-md;
+  border-color: @segmented-control-color;
+  overflow: hidden;
+  margin: 0 @h-spacing-lg;
+  &-item {
+    .box-flex(1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: @segmented-control-color;
+    font-size: @font-size-base;
+    border-right: @border-width-md solid @segmented-control-color;
+    line-height: 1;
+    min-height: @segmented-control-height;
+    &:last-child {
+      border-right: 0;
+    }
+
+    &-selected {
+      background: @segmented-control-color;
+      color: @color-text-base-inverse;
+    }
+  }
+}

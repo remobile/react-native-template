@@ -1,0 +1,130 @@
+.hairline-remove-right-bottom {
+  border-bottom: 0;
+}
+.hairline-remove-right-bottom:after {
+  display: none;
+}
+.hairline-remove-right-bottom-bak:after {
+  display: none;
+}
+.hairline-remove-left-top:before {
+  display: none;
+}
+.am-list .am-list-item.am-input-item {
+  height: 90px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.am-list .am-list-item.am-input-item:after {
+  display: block;
+  position: absolute;
+  content: '';
+  left: 30px;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  width: 100%;
+  border-bottom: 1PX solid #ddd;
+}
+.am-list .am-list-item .am-input-label {
+  color: #000;
+  font-size: 34px;
+  margin-left: 0;
+  margin-right: 30px;
+  text-align: left;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.am-list .am-list-item .am-input-label.am-input-label-2 {
+  width: 68px;
+}
+.am-list .am-list-item .am-input-label.am-input-label-3 {
+  width: 102px;
+}
+.am-list .am-list-item .am-input-label.am-input-label-4 {
+  width: 136px;
+}
+.am-list .am-list-item .am-input-label.am-input-label-5 {
+  width: 170px;
+}
+.am-list .am-list-item .am-input-label.am-input-label-6 {
+  width: 204px;
+}
+.am-list .am-list-item .am-input-label.am-input-label-7 {
+  width: 238px;
+}
+.am-list .am-list-item .am-input-control {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 28px;
+}
+.am-list .am-list-item .am-input-control input {
+  color: #000;
+  font-size: 34px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  line-height: 1;
+  box-sizing: border-box;
+}
+.am-list .am-list-item .am-input-control input::-webkit-input-placeholder {
+  font-size: 30px;
+  color: #ccc;
+  line-height: 1.4;
+}
+.am-list .am-list-item .am-input-control input:disabled {
+  color: #bbb;
+}
+.am-list .am-list-item .am-input-clear {
+  visibility: hidden;
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  font-style: normal;
+  color: #fff;
+  background-color: #ccc;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20fill%3D'%23fff'%20viewBox%3D'0%200%2024%2024'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M19%206.41L17.59%205%2012%2010.59%206.41%205%205%206.41%2010.59%2012%205%2017.59%206.41%2019%2012%2013.41%2017.59%2019%2019%2017.59%2013.41%2012z'%2F%3E%3Cpath%20d%3D'M0%200h24v24H0z'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E");
+  background-size: 42px auto;
+}
+.am-list .am-list-item .am-input-clear:active {
+  background-color: #108ee9;
+}
+.am-list .am-list-item.am-input-focus .am-input-clear {
+  visibility: visible;
+}
+.am-list .am-list-item .am-input-extra {
+  -webkit-box-flex: initial;
+      -ms-flex: initial;
+          flex: initial;
+  min-width: 0;
+  max-height: 42px;
+  overflow: hidden;
+  padding-right: 0;
+  line-height: 1;
+  color: #888;
+  font-size: 28px;
+  margin-left: 12px;
+}
+.am-list .am-list-item.am-input-error .am-input-control input {
+  color: #f50;
+}
+.am-list .am-list-item.am-input-error .am-input-error-extra {
+  height: 42px;
+  width: 42px;
+  margin-left: 12px;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D'18'%20height%3D'18'%20viewBox%3D'0%200%2018%2018'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cg%20stroke%3D'none'%20stroke-width%3D'1'%20fill%3D'none'%20fill-rule%3D'evenodd'%3E%3Cg%20transform%3D'translate(-300.000000%2C%20-1207.000000)'%20fill%3D'%23FF5500'%3E%3Cg%20id%3D'exclamation-circle-o'%20transform%3D'translate(300.000000%2C%201207.000000)'%3E%3Cpath%20d%3D'M9%2C16.734375%20C10.0441406%2C16.734375%2011.0566406%2C16.5304688%2012.009375%2C16.1279297%20C12.9304688%2C15.7376953%2013.7566406%2C15.1804687%2014.4685547%2C14.4703125%20C15.1787109%2C13.7601563%2015.7376953%2C12.9322266%2016.1261719%2C12.0111328%20C16.5304688%2C11.0566406%2016.734375%2C10.0441406%2016.734375%2C9%20C16.734375%2C7.95585938%2016.5304688%2C6.94335938%2016.1279297%2C5.990625%20C15.7376953%2C5.06953125%2015.1804687%2C4.24335938%2014.4703125%2C3.53144531%20C13.7601563%2C2.82128906%2012.9322266%2C2.26230469%2012.0111328%2C1.87382813%20C11.0566406%2C1.46953125%2010.0441406%2C1.265625%209%2C1.265625%20C7.95585938%2C1.265625%206.94335938%2C1.46953125%205.990625%2C1.87207031%20C5.06953125%2C2.26230469%204.24335938%2C2.81953125%203.53144531%2C3.5296875%20C2.82128906%2C4.23984375%202.26230469%2C5.06777344%201.87382813%2C5.98886719%20C1.46953125%2C6.94335938%201.265625%2C7.95585938%201.265625%2C9%20C1.265625%2C10.0441406%201.46953125%2C11.0566406%201.87207031%2C12.009375%20C2.26230469%2C12.9304688%202.81953125%2C13.7566406%203.5296875%2C14.4685547%20C4.23984375%2C15.1787109%205.06777344%2C15.7376953%205.98886719%2C16.1261719%20C6.94335938%2C16.5304688%207.95585938%2C16.734375%209%2C16.734375%20L9%2C16.734375%20Z%20M9%2C18%20C4.02890625%2C18%200%2C13.9710937%200%2C9%20C0%2C4.02890625%204.02890625%2C0%209%2C0%20C13.9710937%2C0%2018%2C4.02890625%2018%2C9%20C18%2C13.9710937%2013.9710937%2C18%209%2C18%20L9%2C18%20L9%2C18%20Z%20M9%2C6.75%20C8.61152344%2C6.75%208.296875%2C7.06464844%208.296875%2C7.453125%20L8.296875%2C13.9394531%20C8.296875%2C14.3279297%208.61152344%2C14.6425781%209%2C14.6425781%20C9.38847656%2C14.6425781%209.703125%2C14.3279297%209.703125%2C13.9394531%20L9.703125%2C7.453125%20C9.703125%2C7.06464844%209.38847656%2C6.75%209%2C6.75%20L9%2C6.75%20Z%20M8.20898438%2C4.83398438%20C8.20898438%2C5.27085024%208.56313413%2C5.625%209%2C5.625%20C9.43686587%2C5.625%209.79101562%2C5.27085024%209.79101562%2C4.83398438%20C9.79101562%2C4.39711851%209.43686587%2C4.04296875%209%2C4.04296875%20C8.56313413%2C4.04296875%208.20898438%2C4.39711851%208.20898438%2C4.83398438%20L8.20898438%2C4.83398438%20Z'%20id%3D'Shape'%20transform%3D'translate(9.000000%2C%209.000000)%20scale(1%2C%20-1)%20translate(-9.000000%2C%20-9.000000)%20'%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: 42px auto;
+}
+.am-list .am-list-item.am-input-disabled .am-input-label {
+  color: #bbb;
+}

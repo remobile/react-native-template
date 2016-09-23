@@ -1,0 +1,51 @@
+.hairline-remove-right-bottom {
+  border-bottom: 0;
+}
+.hairline-remove-right-bottom:after {
+  display: none;
+}
+.hairline-remove-right-bottom-bak:after {
+  display: none;
+}
+.hairline-remove-left-top:before {
+  display: none;
+}
+.am-popup-wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  overflow-scrolling: touch;
+  outline: 0;
+}
+.am-popup-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  z-index: 999;
+}
+.am-popup-mask-hidden {
+  display: none;
+}
+.am-popup-close {
+  display: none;
+}
+.am-popup {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+.am-popup-slide-down {
+  top: 0;
+}
+.am-popup-slide-up {
+  bottom: 0;
+}
