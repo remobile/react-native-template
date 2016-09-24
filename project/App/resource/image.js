@@ -18,6 +18,7 @@ module.exports = {
     login_qq_button:require('./image/login/qq_button.png'),
     login_user:require('./image/login/user.png'),
     login_weixin_button:require('./image/login/weixin_button.png'),
+    personal_default_head:require('./image/personal/default_head.png'),
     personal_info:require('./image/personal/info.png'),
     personal_money:require('./image/personal/money.png'),
     personal_settings:require('./image/personal/settings.png'),

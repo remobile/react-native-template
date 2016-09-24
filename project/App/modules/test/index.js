@@ -12,10 +12,10 @@ var {
 } = ReactNative;
 
 var PersonInfo = require('../person/PersonInfo.js');
-var Image = require('./image.js');
+var TestImage = require('./image.js');
 
 var modules = [
-    {title:'图片', image: app.img.common_point, module:Image},
+    {title:'图片', image: app.img.common_point, module:TestImage},
 ];
 
 
@@ -95,7 +95,8 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingTop: 30,
     },
     row: {
         height:60,

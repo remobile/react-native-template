@@ -6,18 +6,9 @@ var {
     View,
     Image,
 } = ReactNative;
-
-var SplashScreen = require('@remobile/react-native-splashscreen');
 import {Button} from 'antd-mobile';
 
-
 module.exports = React.createClass({
-    componentWillMount() {
-        SplashScreen.hide();
-    },
-    getInitialState() {
-        return {index: 1}
-    },
     render() {
         return (
             <View style={styles.container}>
