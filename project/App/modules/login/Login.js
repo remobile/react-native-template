@@ -31,18 +31,18 @@ module.exports = React.createClass({
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.tabContainer}>
+                <View style={[styles.tabContainer, {borderColor: app.THEME_COLOR}]}>
                     <TouchableOpacity
                         onPress={this.changeTab.bind(null, 0)}
-                        style={[styles.tabButton, this.state.tabIndex===0?{backgroundColor:CONSTANTS.THEME_COLOR}:null]}>
+                        style={[styles.tabButton, this.state.tabIndex===0?{backgroundColor:app.THEME_COLOR}:null]}>
                         <Text style={[styles.tabText, this.state.tabIndex===0?{color:'#FFFFFF'}:null]} >已有账号</Text>
-                        {this.state.tabIndex===0&&<View style={[styles.makeup, {right:0}]}></View>}
+                        {this.state.tabIndex===0&&<View style={[styles.makeup, {backgroundColor:app.THEME_COLOR, right:0}]}></View>}
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={this.changeTab.bind(null, 1)}
-                        style={[styles.tabButton, this.state.tabIndex===1?{backgroundColor:CONSTANTS.THEME_COLOR}:null]}>
+                        style={[styles.tabButton, this.state.tabIndex===1?{backgroundColor:app.THEME_COLOR}:null]}>
                         <Text style={[styles.tabText, this.state.tabIndex===1?{color:'#FFFFFF'}:null]} >手机注册</Text>
-                        {this.state.tabIndex===1&&<View style={[styles.makeup, {left:0}]}></View>}
+                        {this.state.tabIndex===1&&<View style={[styles.makeup, {backgroundColor:app.THEME_COLOR, left:0}]}></View>}
                     </TouchableOpacity>
                 </View>
                 {this.state.tabIndex===0 ? <LoginPanel phone={this.state.phone}/> : <RegisterPanel changeToLoginPanel={this.changeToLoginPanel}/>}
@@ -62,7 +62,6 @@ var styles = StyleSheet.create({
         marginHorizontal: 10,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: CONSTANTS.THEME_COLOR,
         flexDirection: 'row',
         overflow: 'hidden',
     },
@@ -76,7 +75,6 @@ var styles = StyleSheet.create({
         fontSize: 18,
     },
     makeup: {
-        backgroundColor:CONSTANTS.THEME_COLOR,
         top: 0,
         width: 10,
         height: 50,

@@ -26,7 +26,7 @@ module.exports = React.createClass({
         }
         return (
             <TouchableOpacity
-                style={[styles.container, this.props.style]} {...touchableProps}
+                style={[styles.container, {backgroundColor:app.THEME_COLOR}, this.props.style]} {...touchableProps}
                 testID={this.props.testID}>
                 <Text style={[styles.text, this.props.disable ? styles.disableText : null, this.props.textStyle]}>
                     {this.props.children}
@@ -41,7 +41,6 @@ var styles = StyleSheet.create({
         borderRadius: 10,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:CONSTANTS.THEME_COLOR,
     },
     text: {
         color: '#FFFFFF',

@@ -22,6 +22,8 @@ class Manager extends EventEmitter {
             } catch(e) {
             }
             this.data = data||{};
+            app.THEME_COLOR = app.setting.data.themeColor||CONSTANTS.THEME_COLORS[0];
+            app.update();
         });
     }
     set(data) {
@@ -35,6 +37,13 @@ class Manager extends EventEmitter {
         var data = this.data;
         data.onlyWifiUpload = flag;
         this.set(data);
+    }
+    setThemeColor(color) {
+        var data = this.data;
+        data.themeColor = color;
+        this.set(data);
+        app.THEME_COLOR = color;
+        app.update();
     }
     clear() {
         this.data = {};

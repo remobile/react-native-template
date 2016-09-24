@@ -103,7 +103,7 @@ var NavigationBarRouteMapper = {
     RightButton(route, navigator, index, navState) {
         var rightButton = route.rightButton||route.component.rightButton;
         if (!rightButton) {
-            return <View style={styles.navBarRightEmptyButton}/>;
+            return <View style={[styles.navBarRightEmptyButton, {backgroundColor: app.THEME_COLOR}]}/>;
         }
         if (rightButton.image) {
             return (
@@ -132,7 +132,7 @@ var NavigationBarRouteMapper = {
         var title = route.title||route.component.title;
         if (typeof title === 'string') {
             return (
-                <View style={[styles.titleContainer, {height: sr.navBarHeight}]}>
+                <View style={[styles.titleContainer, {height: sr.navBarHeight, backgroundColor: app.THEME_COLOR}]}>
                     <Text
                         numberOfLines={1}
                         style={[styles.navBarText, styles.navBarTitleText, {textAlign: 'center'}]}>
@@ -198,6 +198,9 @@ module.exports = React.createClass({
             this.setState({
                 modalShow: false,
             });
+        };
+        app.update = () => {
+            this.setState({});
         };
         app.forceUpdateNavbar = () => {
             this.setState({
@@ -266,7 +269,7 @@ module.exports = React.createClass({
         var navigationBar = (
             <Navigator.NavigationBar
                 routeMapper={NavigationBarRouteMapper}
-                style={styles.navBar}
+                style={[styles.navBar, {backgroundColor: app.THEME_COLOR}]}
                 />
         );
         return (
@@ -305,7 +308,7 @@ module.exports = React.createClass({
                     isVisible={this.state.is_hud_visible}
                     isDismissible={false}
                     overlayColor="rgba(0, 0, 0, 0.6)"
-                    color={CONSTANTS.THEME_COLOR}
+                    color={app.THEME_COLOR}
                     />
             </View>
         );
@@ -318,14 +321,12 @@ var styles = StyleSheet.create({
         backgroundColor:'#EEEEEE'
     },
     navBar: {
-        backgroundColor: CONSTANTS.THEME_COLOR,
         alignItems:'center',
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
     },
     titleContainer: {
         width: sr.w,
-        backgroundColor: CONSTANTS.THEME_COLOR,
         alignItems:'center',
     },
     navBarText: {
@@ -352,7 +353,6 @@ var styles = StyleSheet.create({
     navBarRightEmptyButton: {
         width: 70,
         height: 50,
-        backgroundColor: CONSTANTS.THEME_COLOR,
     },
     navBarButtonText: {
         color: '#FFFFFF',

@@ -123,7 +123,7 @@ module.exports = React.createClass({
                                 />
                         </TouchableOpacity>
                         <Text style={styles.protocal_text}>  我已阅读并同意 </Text>
-                        <Button onPress={this.doShowProtocal} style={styles.protocal_button} textStyle={styles.protocal_button_text}>{CONSTANTS.APP_NAME+'用户协议'}</Button>
+                        <Button onPress={this.doShowProtocal} style={styles.protocal_button} textStyle={[styles.protocal_button_text, {color: app.THEME_COLOR}]}>{CONSTANTS.APP_NAME+'用户协议'}</Button>
                     </View>
                 </View>
             </View>
@@ -203,7 +203,6 @@ var styles = StyleSheet.create({
         backgroundColor:'transparent',
     },
     protocal_button_text: {
-        color: CONSTANTS.THEME_COLOR,
         fontSize: 13,
     }
 });

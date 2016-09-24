@@ -6,6 +6,7 @@ var {
     Switch,
     View,
     Text,
+    TouchableOpacity,
 } = ReactNative;
 
 module.exports = React.createClass({
@@ -21,6 +22,9 @@ module.exports = React.createClass({
         this.setState({onlyWifiUpload: value});
         app.setting.setOnlyWifiUpload(value);
     },
+    selectThemeColor(color) {
+        app.setting.setThemeColor(color);
+    },
     render() {
         return (
             <View style={styles.container}>
@@ -30,6 +34,22 @@ module.exports = React.createClass({
                         style={styles.switch}
                         onValueChange={this.onValueChange}
                         value={this.state.onlyWifiUpload} />
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.title}>主题颜色</Text>
+                    <View style={styles.colorContainer}>
+                        {
+                            CONSTANTS.THEME_COLORS.map((color, i)=> {
+                                return (
+                                    <TouchableOpacity
+                                        key={i}
+                                        onPress={this.selectThemeColor.bind(null, color)}
+                                        style={[styles.color, {backgroundColor: color}]}
+                                        />
+                                )
+                            })
+                        }
+                    </View>
                 </View>
             </View>
         );
@@ -43,7 +63,6 @@ var styles = StyleSheet.create({
     },
     row: {
         paddingHorizontal: 14,
-        paddingVertical: 6,
         height: 80,
         flexDirection: 'row',
         backgroundColor: '#FFFFFF',
@@ -57,5 +76,15 @@ var styles = StyleSheet.create({
     },
     switch: {
         flex: 2,
-    }
+    },
+    colorContainer: {
+        flex: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    color: {
+        flex: 1,
+        height:80,
+        marginRight: 10,
+    },
 });

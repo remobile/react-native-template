@@ -52,7 +52,7 @@ module.exports = React.createClass({
                         />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button onPress={this.doSubmit} style={styles.btnSubmit}>提    交</Button>
+                    <Button onPress={this.doSubmit} style={[styles.btnSubmit, {backgroundColor:app.THEME_COLOR}]}>提    交</Button>
                 </View>
             </View>
         );
@@ -87,6 +87,5 @@ var styles = StyleSheet.create({
         width: sr.w-40,
         height: 40,
         borderRadius: 5,
-        backgroundColor:CONSTANTS.THEME_COLOR,
     },
 });

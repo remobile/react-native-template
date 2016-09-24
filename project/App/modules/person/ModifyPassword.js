@@ -120,6 +120,6 @@ var styles = StyleSheet.create({
         height: 40,
         bottom: 20,
         borderRadius: 20,
-        backgroundColor:CONSTANTS.THEME_COLOR,
+        backgroundColor:app.THEME_COLOR,
     },
 });

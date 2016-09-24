@@ -48,7 +48,7 @@ var MenuItem = React.createClass({
                     <Image
                         resizeMode='stretch'
                         source={img}
-                        style={styles.icon_item}  />
+                        style={[styles.icon_item, {tintColor:app.THEME_COLOR}]}  />
                     <Text style={styles.itemNameText}>{title}</Text>
                     <Text style={styles.itemNoticeText}>{info}</Text>
                 </View>
@@ -122,7 +122,6 @@ var styles = StyleSheet.create({
     icon_item: {
         width: 25,
         height: 25,
-        tintColor:CONSTANTS.THEME_COLOR,
     },
     itemNameText: {
         fontSize: 17,

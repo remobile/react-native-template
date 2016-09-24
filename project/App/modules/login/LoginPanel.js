@@ -58,7 +58,7 @@ var NoWeixinQQPanel = React.createClass({
     render() {
         return (
             <View style={styles.thirdpartyContainer2}>
-                <Text style={styles.thirdpartyContainer2_text}>人人监督         监督人人</Text>
+                <Text style={[styles.thirdpartyContainer2_text, {color: app.THEME_COLOR}]}>人人监督         监督人人</Text>
             </View>
         )
     }
@@ -340,7 +340,6 @@ var styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     thirdpartyContainer2_text: {
-        color: CONSTANTS.THEME_COLOR,
         fontSize: 18,
         marginBottom:60,
     },

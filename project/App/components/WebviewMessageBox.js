@@ -43,7 +43,7 @@ module.exports = React.createClass({
                         />
                     <Button
                         onPress={this.closeModal}
-                        style={styles.contentButton}>返回</Button>
+                        style={[styles.contentButton, backgroundColor:app.THEME_COLOR]}>返回</Button>
                 </View>
             </Animated.View>
         );
@@ -69,7 +69,6 @@ var styles = StyleSheet.create({
         width:sr.w*5/6,
         height:50,
         borderRadius:0,
-        backgroundColor: CONSTANTS.THEME_COLOR,
     },
     overlayContainer: {
         position:'absolute',

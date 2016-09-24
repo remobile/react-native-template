@@ -41,7 +41,7 @@ module.exports = React.createClass({
             <Animated.View style={[styles.container, {backgroundColor: this.props.backgroundColor}]}>
                 {
                     !!this.props.title &&
-                    <View style={[styles.title, {height:Navigator.NavigationBar.Styles.General.TotalNavHeight}]}>
+                    <View style={[styles.title, {backgroundColor:app.THEME_COLOR, height:Navigator.NavigationBar.Styles.General.TotalNavHeight}]}>
                         <View style={[styles.titleContainer, {marginTop: Navigator.NavigationBar.Styles.General.StatusBarHeight}]}>
                             <Text style={styles.titleText}>
                                 {this.props.title}
@@ -64,7 +64,6 @@ var styles = StyleSheet.create({
         right: 0,
     },
     title: {
-        backgroundColor: CONSTANTS.THEME_COLOR,
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
     },
