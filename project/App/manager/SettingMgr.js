@@ -22,8 +22,7 @@ class Manager extends EventEmitter {
             } catch(e) {
             }
             this.data = data||{};
-            app.THEME_COLOR = app.setting.data.themeColor||CONSTANTS.THEME_COLORS[0];
-            app.update();
+            app.THEME_COLOR = data.themeColor||CONSTANTS.THEME_COLORS[0];
         });
     }
     set(data) {
