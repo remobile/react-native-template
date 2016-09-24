@@ -1,0 +1,13 @@
+一、IOS
+1. iphone4s
+w:320 h:480 pr:2 whr:0.6666666666666666
+2. iphone5
+w: 320, h: 568, pr:2, whr: 0.5633802816901409
+3. iphone5s
+w: 320, h: 568, whr: 0.5633802816901409
+4. iphone6
+w:375 h:667 pr:2 whr:0.5622188905547226
+4. iphone6plus
+w:414 h:736 pr:3 whr:0.5625
+
+二、Android

@@ -22,20 +22,23 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @providesModule NavigatorNavigationBarStylesAndroid
+ * @providesModule NavigatorNavigationBarStylesIOS
  */
 'use strict';
+
+var Dimensions = require('Dimensions');
 
 var buildStyleInterpolator = require('buildStyleInterpolator');
 var merge = require('merge');
 
+var SCREEN_WIDTH = Dimensions.get('window').width;
 var NAV_BAR_HEIGHT = 44;
-var STATUS_BAR_HEIGHT = 12;
+var STATUS_BAR_HEIGHT = 20;
 var _height = Dimensions.get('window').height;
 var _rate = (667-375/SCREEN_WIDTH*_height)/667;
 if (_rate > 0) {
     NAV_BAR_HEIGHT = 44*(1-_rate);
-    STATUS_BAR_HEIGHT = 12*(1-_rate);
+    STATUS_BAR_HEIGHT = 20*(1-_rate*2);
 }
 var NAV_HEIGHT = NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT;
 
@@ -79,18 +82,18 @@ var BASE_STYLES = {
 // center-to-left transition on the current navigation item.
 var Stages = {
   Left: {
-    Title: merge(BASE_STYLES.Title, { opacity: 0 }),
-    LeftButton: merge(BASE_STYLES.LeftButton, { opacity: 0 }),
+    Title: merge(BASE_STYLES.Title, { left: -SCREEN_WIDTH / 2, opacity: 0 }),
+    LeftButton: merge(BASE_STYLES.LeftButton, { left: 0, opacity: 0 }),
     RightButton: merge(BASE_STYLES.RightButton, { opacity: 0 }),
   },
   Center: {
-    Title: merge(BASE_STYLES.Title, { opacity: 1 }),
-    LeftButton: merge(BASE_STYLES.LeftButton, { opacity: 1 }),
+    Title: merge(BASE_STYLES.Title, { left: 0, opacity: 1 }),
+    LeftButton: merge(BASE_STYLES.LeftButton, { left: 0, opacity: 1 }),
     RightButton: merge(BASE_STYLES.RightButton, { opacity: 1 }),
   },
   Right: {
-    Title: merge(BASE_STYLES.Title, { opacity: 0 }),
-    LeftButton: merge(BASE_STYLES.LeftButton, { opacity: 0 }),
+    Title: merge(BASE_STYLES.Title, { left: SCREEN_WIDTH / 2, opacity: 0 }),
+    LeftButton: merge(BASE_STYLES.LeftButton, { left: 0, opacity: 0 }),
     RightButton: merge(BASE_STYLES.RightButton, { opacity: 0 }),
   },
 };
@@ -168,7 +171,7 @@ var Interpolators = {
 module.exports = {
   General: {
     NavBarHeight: NAV_BAR_HEIGHT,
-    StatusBarHeight: 0,
+    StatusBarHeight: STATUS_BAR_HEIGHT,
     TotalNavHeight: NAV_HEIGHT,
   },
   Interpolators,

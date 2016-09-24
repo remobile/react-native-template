@@ -45,7 +45,7 @@ module.exports = React.createClass({
                         {this.state.tabIndex===1&&<View style={[styles.makeup, {left:0}]}></View>}
                     </TouchableOpacity>
                 </View>
-                {this.state.tabIndex===0 ? <LoginPanel ref="loginPanel" phone={this.state.phone}/> : <RegisterPanel changeToLoginPanel={this.changeToLoginPanel}/>}
+                {this.state.tabIndex===0 ? <LoginPanel phone={this.state.phone}/> : <RegisterPanel changeToLoginPanel={this.changeToLoginPanel}/>}
             </View>
         );
     }
