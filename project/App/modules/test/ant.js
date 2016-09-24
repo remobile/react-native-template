@@ -7,9 +7,8 @@ var {
     Image,
 } = ReactNative;
 
-// var Button = require('@remobile/react-native-simple-button');
 var SplashScreen = require('@remobile/react-native-splashscreen');
-import Button from 'antd-mobile/lib/button';
+import {Button} from 'antd-mobile';
 
 
 module.exports = React.createClass({
@@ -33,7 +32,6 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 100,
-        backgroundColor: 'red',
     },
     button: {
         backgroundColor: 'blue',
