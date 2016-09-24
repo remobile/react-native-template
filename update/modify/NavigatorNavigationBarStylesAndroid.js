@@ -31,8 +31,10 @@ var merge = require('merge');
 
 var NAV_BAR_HEIGHT = 44;
 var STATUS_BAR_HEIGHT = 12;
+var Dimensions = require('Dimensions');
 var _height = Dimensions.get('window').height;
-var _rate = (667-375/SCREEN_WIDTH*_height)/667;
+var _width = Dimensions.get('window').width;
+var _rate = (667-375/_width*_height)/667;
 if (_rate > 0) {
     NAV_BAR_HEIGHT = 44*(1-_rate);
     STATUS_BAR_HEIGHT = 12*(1-_rate);
