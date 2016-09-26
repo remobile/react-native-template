@@ -180,8 +180,8 @@ module.exports = {
               if (key === 'flex') {
                   return value;
               }
-              if (key === 'fontSize') {
-                  return value*FONT_SCALE;
+              if (key === 'lineHeight' || key=== 'fontSize') {
+                  return Math.round(value*FONT_SCALE);
               } else {
                   return value*WIDTH_SCALE;
               }

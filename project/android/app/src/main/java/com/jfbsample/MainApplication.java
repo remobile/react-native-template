@@ -24,6 +24,7 @@ import com.remobile.video.RCTVideoPackage;
 import com.remobile.audio.RCTAudioPackage;
 import com.remobile.filetransfer.RCTFileTransferPackage;
 import com.remobile.call.RCTCallPackage;
+import com.remobile.qrcodeLocalImage.RCTQRCodeLocalImagePackage;
 
 import com.rnfs.RNFSPackage;
 import com.yoloci.fileupload.FileUploadPackage;
@@ -70,6 +71,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RCTAudioPackage(),
             new RCTFileTransferPackage(),
             new RCTCallPackage(),
+            new RCTQRCodeLocalImagePackage(),
 
             //VendorLibraries
             new RNFSPackage(),

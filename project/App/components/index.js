@@ -19,4 +19,5 @@ module.exports = {
 	WebviewMessageBox: require('./WebviewMessageBox.js'),
 	DelayTouchableOpacity: require('./DelayTouchableOpacity.js'),
 	ProgressHud: require('./ProgressHud.js'),
+	RText: require('./RText.js'),
 };

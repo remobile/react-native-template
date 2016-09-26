@@ -12,14 +12,12 @@ import com.facebook.react.uimanager.ViewManager;
 
 import com.remobile.des.RCTDes;
 
-
 public class RCTDesPackage implements ReactPackage {
-
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Arrays.<NativeModule>asList(
-                                           new RCTDes(reactContext)
-                                           );
+                new RCTDes(reactContext)
+        );
     }
 
     @Override
