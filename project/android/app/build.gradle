@@ -157,10 +157,12 @@ dependencies {
     compile project(':react-native-audio')
     compile project(':react-native-file-transfer')
     compile project(':react-native-call')
+    compile project(':react-native-qrcode-local-image')
 
     //VendorLibraries
     compile project(':react-native-fs')
     compile project(':react-native-fileupload')
+    compile project(':react-native-barcodescanner')
 }
 
 // Run this once to be able to run the application with BUCK

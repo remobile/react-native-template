@@ -54,9 +54,15 @@ project(':react-native-file-transfer').projectDir = new File(settingsDir, '../Ap
 include ':react-native-call'
 project(':react-native-call').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-call/android')
 
+include ':react-native-qrcode-local-image'
+project(':react-native-qrcode-local-image').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-qrcode-local-image/android')
+
 //VendorLibraries
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(settingsDir, '../App/node_modules/react-native-fs/android')
 
 include ':react-native-fileupload'
 project(':react-native-fileupload').projectDir = new File(settingsDir, '../App/node_modules/react-native-fileupload/android')
+
+include ':react-native-barcodescanner'
+project(':react-native-barcodescanner').projectDir = new File(rootProject.projectDir, '../App/node_modules/react-native-barcodescanner/android')
