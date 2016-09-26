@@ -30,6 +30,7 @@
 		3201A8C81C858C2900AA7980 /* CDVWxpay.m in Sources */ = {isa = PBXBuildFile; fileRef = 3201A8C41C858C2900AA7980 /* CDVWxpay.m */; };
 		3202B37E1C72C97700AA4EE8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3202B37D1C72C97700AA4EE8 /* libz.tbd */; };
 		3233C90E1C892F6900E360AB /* AudioRecorderAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3233C90D1C892F6900E360AB /* AudioRecorderAPI.m */; };
+		32411CEE1D98A88B001B328E /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32411CD41D98A82E001B328E /* libRCTCamera.a */; };
 		325A7C7C1C9FD62D00974DA4 /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 325A7C6D1C9FD62D00974DA4 /* icon-40.png */; };
 		325A7C7D1C9FD62D00974DA4 /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325A7C6E1C9FD62D00974DA4 /* icon-40@2x.png */; };
 		325A7C7E1C9FD62D00974DA4 /* icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 325A7C6F1C9FD62D00974DA4 /* icon-50.png */; };
@@ -143,6 +144,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		32411CD31D98A82E001B328E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32411CCB1D98A82E001B328E /* RCTCamera.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
+			remoteInfo = RCTCamera;
 		};
 		329758D01C9D264A00785683 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -332,6 +340,7 @@
 		3202B37F1C72C98100AA4EE8 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		3233C90C1C892F6900E360AB /* AudioRecorderAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecorderAPI.h; sourceTree = "<group>"; };
 		3233C90D1C892F6900E360AB /* AudioRecorderAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderAPI.m; sourceTree = "<group>"; };
+		32411CCB1D98A82E001B328E /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../App/node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		325A7C6D1C9FD62D00974DA4 /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		325A7C6E1C9FD62D00974DA4 /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40@2x.png"; sourceTree = "<group>"; };
 		325A7C6F1C9FD62D00974DA4 /* icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-50.png"; sourceTree = "<group>"; };
@@ -432,6 +441,7 @@
 				32B2F5871CD202040066B824 /* libRCTContacts.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				32B2F5881CD202070066B824 /* libRCTCamera.a in Frameworks */,
+				32411CEE1D98A88B001B328E /* libRCTCamera.a in Frameworks */,
 				32B2F5891CD2020B0066B824 /* libRCTCall.a in Frameworks */,
 				32B9343A1D8C0AE500BFD0E5 /* libWeChatSDK.a in Frameworks */,
 				32B2F58A1CD202100066B824 /* libRCTAudio.a in Frameworks */,
@@ -596,6 +606,7 @@
 		3202B2BB1C72AF4600AA4EE8 /* VendorLibraries */ = {
 			isa = PBXGroup;
 			children = (
+				32411CCB1D98A82E001B328E /* RCTCamera.xcodeproj */,
 				328DF2CE1CD1BD2700951EFC /* FileUpload.m */,
 				32AF4DB81CD1F91500A215B4 /* RNFS.xcodeproj */,
 			);
@@ -609,6 +620,14 @@
 				3233C90D1C892F6900E360AB /* AudioRecorderAPI.m */,
 			);
 			path = audioRecorder;
+			sourceTree = "<group>";
+		};
+		32411CCC1D98A82E001B328E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32411CD41D98A82E001B328E /* libRCTCamera.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		325A7C6C1C9FD62D00974DA4 /* icons */ = {
@@ -970,6 +989,10 @@
 					ProjectRef = 32B2F5151CD2014B0066B824 /* RCTCall.xcodeproj */;
 				},
 				{
+					ProductGroup = 32411CCC1D98A82E001B328E /* Products */;
+					ProjectRef = 32411CCB1D98A82E001B328E /* RCTCamera.xcodeproj */;
+				},
+				{
 					ProductGroup = 32B2F51C1CD201530066B824 /* Products */;
 					ProjectRef = 32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */;
 				},
@@ -1132,6 +1155,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32411CD41D98A82E001B328E /* libRCTCamera.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCamera.a;
+			remoteRef = 32411CD31D98A82E001B328E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		329758D11C9D264A00785683 /* libART.a */ = {

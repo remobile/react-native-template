@@ -51,12 +51,6 @@ module.exports = React.createClass({
             title: obj.title,
             component: obj.module,
         };
-        if (obj.noSwipe) {
-            route.sceneConfig = {
-                ...app.configureScene(),
-                gestures: null
-            }
-        }
         app.navigator.push(route);
     },
     renderSeparator(sectionID, rowID) {

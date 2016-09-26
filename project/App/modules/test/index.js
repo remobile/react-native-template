@@ -13,9 +13,11 @@ var {
 
 var PersonInfo = require('../person/PersonInfo.js');
 var TestImage = require('./image.js');
+var QRCode = require('./qrcode.js');
 
 var modules = [
     {title:'图片', image: app.img.common_point, module:TestImage},
+    {title:'二维码', image: app.img.common_point, module:QRCode},
 ];
 
 
@@ -41,12 +43,6 @@ module.exports = React.createClass({
             title: obj.title,
             component: obj.module,
         };
-        if (obj.noSwipe) {
-            route.sceneConfig = {
-                ...app.configureScene(),
-                gestures: null
-            }
-        }
         app.navigator.push(route);
     },
     renderSeparator(sectionID, rowID) {
