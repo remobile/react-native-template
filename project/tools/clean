@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd ..
+find -name "build"|grep "android"|xargs -I bbbb rm -fr bbbb
+find -name "*xcuser*" -exec rm -fr {} \;
+find -name "*xcshared*" -exec rm -fr {} \;
+find -name ".DS_*" -exec rm -f {} \;
