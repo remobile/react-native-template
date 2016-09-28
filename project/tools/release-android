@@ -54,4 +54,4 @@ function genkey() {
 cd ../android
 ./gradlew assembleRelease
 #./gradlew installRelease
-mv app/build/outputs/apk/app-release.apk ../../localServer/public/download/jfbsample.apk
+mv app/build/outputs/apk/app-armeabi-v7a-release.apk ../../localServer/public/download/jfbsample.apk
