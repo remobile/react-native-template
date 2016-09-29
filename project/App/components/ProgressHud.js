@@ -15,34 +15,34 @@ var BACKGROUND_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCA
 
 var SPIN_DURATION = 1000;
 
-var ProgressHUDMixin = {
+var ProgressHudMixin = {
     getInitialState() {
         return {
             is_hud_visible: false
         };
     },
 
-    showProgressHUD() {
+    showProgressHud() {
         this.setState({
             is_hud_visible: true
         });
     },
 
-    dismissProgressHUD() {
+    dismissProgressHud() {
         this.setState({
             is_hud_visible: false
         });
     },
 
     childContextTypes: {
-        showProgressHUD: React.PropTypes.func,
-        dismissProgressHUD: React.PropTypes.func
+        showProgressHud: React.PropTypes.func,
+        dismissProgressHud: React.PropTypes.func
     },
 
     getChildContext() {
         return {
-            showProgressHUD: this.showProgressHUD,
-            dismissProgressHUD: this.dismissProgressHUD
+            showProgressHud: this.showProgressHud,
+            dismissProgressHud: this.dismissProgressHud
         };
     },
 };
@@ -51,12 +51,12 @@ var ProgressHud = React.createClass({
     mixins: [tweenState.Mixin],
 
     contextTypes: {
-        showProgressHUD: React.PropTypes.func.isRequired,
-        dismissProgressHUD: React.PropTypes.func
+        showProgressHud: React.PropTypes.func.isRequired,
+        dismissProgressHud: React.PropTypes.func
     },
 
     statics: {
-        Mixin: ProgressHUDMixin
+        Mixin: ProgressHudMixin
     },
 
     propTypes: {
@@ -104,7 +104,7 @@ var ProgressHud = React.createClass({
 
     _clickHandler() {
         if (this.props.isDismissible) {
-            this.context.dismissProgressHUD();
+            this.context.dismissProgressHud();
         }
     },
 

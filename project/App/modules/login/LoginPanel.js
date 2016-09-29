@@ -78,7 +78,7 @@ module.exports = React.createClass({
             phone:this.state.phone,
             password:this.state.password,
         };
-        app.showProgressHUD();
+        app.showProgressHud();
         POST(app.route.ROUTE_LOGIN, param, this.doLoginSuccess, this.doLoginError);
     },
     doLoginSuccess(data) {
@@ -90,11 +90,11 @@ module.exports = React.createClass({
             this.doGetPersonalInfo();
         } else {
             Toast(data.msg);
-            app.dismissProgressHUD();
+            app.dismissProgressHud();
         }
     },
     doLoginError(error) {
-        app.dismissProgressHUD();
+        app.dismissProgressHud();
     },
     doAnonymousLogin() {
         app.personal.info = {phone: ''};
@@ -125,12 +125,12 @@ module.exports = React.createClass({
                 component: Home,
             });
         } else {
-            app.dismissProgressHUD();
+            app.dismissProgressHud();
             Toast(data.msg);
         }
     },
     getPersonalInfoError(error) {
-        app.dismissProgressHUD();
+        app.dismissProgressHud();
     },
     getInitialState() {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

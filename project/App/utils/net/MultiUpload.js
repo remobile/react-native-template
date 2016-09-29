@@ -21,7 +21,7 @@ function MULTIUPLOAD(files, url, parameter, onprogress, success, failed, wait) {
         failed = null;
     }
     if (wait) {
-        app.showProgressHUD();
+        app.showProgressHud();
     }
     Des.encrypt(JSON.stringify(parameter), KEY, function(base64) {
         var param = base64;
@@ -36,12 +36,12 @@ function MULTIUPLOAD(files, url, parameter, onprogress, success, failed, wait) {
                   if (!failed || !failed(error)) {
                       Toast('数据解析错误');
                       if (wait) {
-                          app.dismissProgressHUD();
+                          app.dismissProgressHud();
                       }
                   }
               }
               console.log("recv:", json);
-              app.dismissProgressHUD();
+              app.dismissProgressHud();
               success(json);
           }, function() {
               Toast('数据解密错误');

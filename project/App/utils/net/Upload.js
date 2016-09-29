@@ -10,7 +10,7 @@ function UPLOAD(filePath, url, options, onprogress, success, failed, wait) {
         failed = null;
     }
     if (wait) {
-        app.showProgressHUD();
+        app.showProgressHud();
     }
     var parameter = options.params;
     Des.encrypt(parameter, KEY, function(base64) {
@@ -27,12 +27,12 @@ function UPLOAD(filePath, url, options, onprogress, success, failed, wait) {
                     if (!failed || !failed(error)) {
                         Toast('数据解析错误');
                         if (wait) {
-                            app.dismissProgressHUD();
+                            app.dismissProgressHud();
                         }
         			}
                 }
                 console.log("recv:", json);
-                app.dismissProgressHUD();
+                app.dismissProgressHud();
                 success(json);
             }, function() {
                 Toast('数据解密错误');
@@ -41,7 +41,7 @@ function UPLOAD(filePath, url, options, onprogress, success, failed, wait) {
             if (!failed || !failed(err)) {
                 Toast('上传失败');
                 if (wait) {
-                    app.dismissProgressHUD();
+                    app.dismissProgressHud();
                 }
 			}
         }, options);

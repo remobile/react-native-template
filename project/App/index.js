@@ -31,7 +31,7 @@ global.MULTIUPLOAD = MULTIUPLOAD;
 global.COMPONENTS = require('./components/index.js');
 global.DelayTouchableOpacity = COMPONENTS.DelayTouchableOpacity;
 
-var ProgressHUD = COMPONENTS.ProgressHud;
+var ProgressHud = COMPONENTS.ProgressHud;
 var TimerMixin = require('react-timer-mixin');
 var Utils = require('./utils/common/index.js');
 var Route = require('./config/Route.js');
@@ -151,7 +151,7 @@ var NavigationBarRouteMapper = {
 };
 
 module.exports = React.createClass({
-    mixins: [ProgressHUD.Mixin, TimerMixin],
+    mixins: [ProgressHud.Mixin, TimerMixin],
     getInitialState() {
         return {
             showNavBar: false,
@@ -181,8 +181,8 @@ module.exports = React.createClass({
         }
         app.mediaFileMgr.checkRootDir();
         app.root = this;
-        app.showProgressHUD = this.showProgressHUD;
-        app.dismissProgressHUD = this.dismissProgressHUD;
+        app.showProgressHud = this.showProgressHud;
+        app.dismissProgressHud = this.dismissProgressHud;
         app.showModal = (view, title, backgroundColor) => {
             this.setState({
                 modalShow: true,
@@ -304,7 +304,7 @@ module.exports = React.createClass({
                         {this.state.modalContent}
                     </COMPONENTS.Modal>
                 }
-                <ProgressHUD
+                <ProgressHud
                     isVisible={this.state.is_hud_visible}
                     isDismissible={false}
                     overlayColor="rgba(0, 0, 0, 0.6)"
