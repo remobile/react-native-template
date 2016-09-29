@@ -47,7 +47,7 @@ var ProgressHUDMixin = {
     },
 };
 
-var ProgressHUD = React.createClass({
+var ProgressHud = React.createClass({
     mixins: [tweenState.Mixin],
 
     contextTypes: {
@@ -122,7 +122,7 @@ var ProgressHUD = React.createClass({
         return (
             /*jshint ignore:start */
             <TouchableHighlight
-                key="ProgressHUD"
+                key="ProgressHud"
                 style={[styles.overlay, {
                     backgroundColor: this.props.overlayColor
                 }]}
@@ -204,4 +204,4 @@ var styles = StyleSheet.create({
     },
 });
 
-module.exports = ProgressHUD;
+module.exports = ProgressHud;
