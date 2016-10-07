@@ -78,7 +78,7 @@ app.configureScene = function(route) {
     }
     return sceneConfig;
 };
-var SplashScreen = require('@remobile/react-native-splashscreen');
+
 var Splash = require('./modules/splash/index.js');
 
 var NavigationBarRouteMapper = {
@@ -162,7 +162,6 @@ module.exports = React.createClass({
         };
     },
     componentWillMount() {
-        SplashScreen.hide();
         if (!app.isandroid) {
             NativeModules.AccessibilityManager.setAccessibilityContentSizeMultipliers({
                 "extraSmall": 1,
@@ -215,6 +214,19 @@ module.exports = React.createClass({
         app.getCurrentRoute = ()=>{
             var {routeStack, presentedIndex} = app.navigator.state;
             return routeStack[presentedIndex];
+        };
+        app.pop = (step=1)=>{
+            if (step ===1 ) {
+                app.navigator.pop();
+            } else {
+                var routes = app.navigator.getCurrentRoutes();
+                var index = routes.length-step-1;
+                if (index > 0) {
+                    app.navigator.popToRoute(routes[index]);
+                } else {
+                    app.navigator.popToTop();
+                }
+            }
         };
         if (app.isandroid) {
             BackAndroid.addEventListener('hardwareBackPress', ()=>{
@@ -276,7 +288,9 @@ module.exports = React.createClass({
             <View style={{flex:1}}>
                 <Navigator
                     ref={(navigator) => {
-                        app.navigator = navigator;
+                        if (navigator) {
+                            app.navigator = navigator;
+                        }
                     }}
                     debugOverlay={false}
                     style={styles.container}
