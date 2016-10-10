@@ -190,10 +190,10 @@ module.exports = React.createClass({
                 modalBackgroundColor: backgroundColor,
             });
         };
-        app.hideModal = () => {
+        app.closeModal = () => {
             this.refs.modal.closeModal();
         };
-        app.closeModal = () => {
+        app.removeModal = () => {
             this.setState({
                 modalShow: false,
             });

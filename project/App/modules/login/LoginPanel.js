@@ -83,9 +83,6 @@ module.exports = React.createClass({
     },
     doLoginSuccess(data) {
         if (data.success) {
-            if (CONSTANTS.LOCAL) {
-                this.userId = data.context.userId;
-            }
             app.login.savePhone(this.state.phone);
             this.doGetPersonalInfo();
         } else {
@@ -112,14 +109,14 @@ module.exports = React.createClass({
     },
     doGetPersonalInfo() {
         var param = {
-            phone: CONSTANTS.LOCAL ? this.userId : this.state.phone,
+            phone: this.state.phone,
         };
         POST(app.route.ROUTE_GET_PERSONAL_INFO, param, this.getPersonalInfoSuccess, this.getPersonalInfoError);
     },
     getPersonalInfoSuccess(data) {
         if (data.success) {
             var context = data.context;
-            context['phone'] = CONSTANTS.LOCAL ? this.userId : this.state.phone;
+            context['phone'] = this.state.phone;
             app.personal.set(context);
             app.navigator.replace({
                 component: Home,

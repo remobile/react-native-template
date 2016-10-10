@@ -12,7 +12,7 @@ var {
 module.exports = React.createClass({
     getDefaultProps() {
         return {
-            backgroundColor: 'rgba(0, 0, 0, 0.2)'
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
         };
     },
     getInitialState() {
@@ -33,12 +33,12 @@ module.exports = React.createClass({
                 duration: 500,
             }
         ).start(()=>{
-            app.closeModal();
+            app.removeModal();
         });
     },
     render() {
         return (
-            <Animated.View style={[styles.container, {backgroundColor: this.props.backgroundColor}]}>
+            <Animated.View style={[styles.container, {backgroundColor: this.props.backgroundColor, opacity: this.state.opacity}]}>
                 {
                     !!this.props.title &&
                     <View style={[styles.title, {backgroundColor:app.THEME_COLOR, height:Navigator.NavigationBar.Styles.General.TotalNavHeight}]}>

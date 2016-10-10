@@ -5,7 +5,6 @@ var {
     StyleSheet,
     View,
     WebView,
-    Animated,
     Navigator,
 } = ReactNative;
 
@@ -13,28 +12,9 @@ var Button = require('./Button.js');
 var sr = require('../config/Screen.js');
 
 module.exports = React.createClass({
-    getInitialState() {
-        return {
-            opacity: new Animated.Value(0)
-        };
-    },
-    componentDidMount() {
-        Animated.timing(this.state.opacity, {
-            toValue: 1,
-            duration: 500,
-        }).start();
-    },
-    closeModal() {
-        Animated.timing(this.state.opacity, {
-            toValue: 0,
-            duration: 500,
-        }).start(()=>{
-            app.closeModal();
-        });
-    },
     render() {
         return (
-            <Animated.View style={[styles.overlayContainer, {opacity: this.state.opacity}]}>
+            <View style={styles.overlayContainer}>
                 <View style={[styles.container, {top: Navigator.NavigationBar.Styles.General.TotalNavHeight+sr.statusBarHeight}]}>
                     <WebView
                         style={styles.webview}
@@ -42,15 +22,24 @@ module.exports = React.createClass({
                         scalesPageToFit={true}
                         />
                     <Button
-                        onPress={this.closeModal}
-                        style={[styles.contentButton, backgroundColor:app.THEME_COLOR]}>返回</Button>
+                        onPress={app.closeModal}
+                        style={[styles.contentButton, {backgroundColor:app.THEME_COLOR}]}>返回</Button>
                 </View>
-            </Animated.View>
+            </View>
         );
     }
 });
 
 var styles = StyleSheet.create({
+    overlayContainer: {
+        position:'absolute',
+        bottom: 0,
+        alignItems:'center',
+        justifyContent: 'center',
+        width:sr.w,
+        height:sr.rws(sr.th),
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
     container: {
         width:sr.w*5/6,
         height:sr.h*4/5,
@@ -70,14 +59,4 @@ var styles = StyleSheet.create({
         height:50,
         borderRadius:0,
     },
-    overlayContainer: {
-        position:'absolute',
-        bottom: 0,
-        alignItems:'center',
-        justifyContent: 'center',
-        width:sr.w,
-        height:sr.h,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)'
-    },
-
 });

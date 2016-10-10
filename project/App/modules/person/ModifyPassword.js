@@ -4,12 +4,7 @@ var React = require('react');var ReactNative = require('react-native');
 var {
     Image,
     StyleSheet,
-    Text,
     View,
-    TouchableOpacity,
-    TouchableHighlight,
-    Animated,
-    ScrollView,
     TextInput,
 } = ReactNative;
 

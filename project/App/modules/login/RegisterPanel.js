@@ -54,9 +54,8 @@ module.exports = React.createClass({
     },
     doShowProtocal() {
         app.showModal(
-            <WebviewMessageBox
-                webAddress={app.route.ROUTE_USER_PROTOCOL}/>,
-            CONSTANTS.APP_NAME+'用户协议'
+            <WebviewMessageBox webAddress={app.route.ROUTE_USER_PROTOCOL}/>,
+            CONSTANTS.APP_NAME+'用户协议',
         );
     },
     getInitialState() {

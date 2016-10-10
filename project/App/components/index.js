@@ -15,4 +15,5 @@ module.exports = {
 	ProgressHud: require('./ProgressHud.js'),
 	RText: require('./RText.js'),
 	ScoreSelect: require('./ScoreSelect.js'),
+	AutogrowInput: require('./AutogrowInput.js'),
 };

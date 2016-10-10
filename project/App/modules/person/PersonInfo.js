@@ -7,8 +7,6 @@ var {
     Text,
     View,
     TouchableOpacity,
-    TouchableHighlight,
-    Animated,
     ScrollView,
 } = ReactNative;
 

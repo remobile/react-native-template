@@ -17,6 +17,7 @@ var {width, height} = Dimensions.get('window'),
 
 var {TotalNavHeight, NavBarHeight} = Navigator.NavigationBar.Styles.General;
 var statusBarHeight = (Platform.OS === "android")?NativeModules.UtilsModule.statusBarHeight/pxielRatio:0;
+
 module.exports = {
     w: SCREEN_WIDTH_BASE,
     h: SCREEN_WIDTH_BASE/width*height,
@@ -33,4 +34,6 @@ module.exports = {
     navBarHeight: NavBarHeight,
     ws: (w)=>{return w*width/SCREEN_WIDTH_BASE},
     hs: (h)=>{return h*height/SCREEN_HEIGHT_BASE},
+    rws: (w)=>{return w*SCREEN_WIDTH_BASE/width},
+    rhs: (h)=>{return h*SCREEN_HEIGHT_BASE/height},
 };
