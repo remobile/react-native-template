@@ -10,7 +10,6 @@ var {
 } = ReactNative;
 
 var Button = require('./Button.js');
-var sr = require('../config/Screen.js');
 
 module.exports = React.createClass({
     getDefaultProps: function() {

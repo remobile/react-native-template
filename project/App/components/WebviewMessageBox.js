@@ -5,17 +5,15 @@ var {
     StyleSheet,
     View,
     WebView,
-    Navigator,
 } = ReactNative;
 
 var Button = require('./Button.js');
-var sr = require('../config/Screen.js');
 
 module.exports = React.createClass({
     render() {
         return (
             <View style={styles.overlayContainer}>
-                <View style={[styles.container, {top: Navigator.NavigationBar.Styles.General.TotalNavHeight+sr.statusBarHeight}]}>
+                <View style={[styles.container, {top: sr.totalNavHeight+sr.statusBarHeight}]}>
                     <WebView
                         style={styles.webview}
                         source={{uri:this.props.webAddress}}
@@ -33,12 +31,13 @@ module.exports = React.createClass({
 var styles = StyleSheet.create({
     overlayContainer: {
         position:'absolute',
+        top: 0,
         bottom: 0,
+        left:0,
+        right: 0,
         alignItems:'center',
         justifyContent: 'center',
-        width:sr.w,
-        height:sr.rws(sr.th),
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     container: {
         width:sr.w*5/6,
