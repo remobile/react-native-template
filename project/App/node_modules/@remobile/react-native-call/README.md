@@ -14,7 +14,7 @@ npm install @remobile/react-native-contacts --save
 ```gradle
 ...
 include ':react-native-contacts'
-project(':react-native-contacts').projectDir = new File(rootProject.projectDir, '../node_modules/@remobile/react-native-contacts/android')
+project(':react-native-contacts').projectDir = new File(settingsDir, '../node_modules/@remobile/react-native-contacts/android')
 ```
 
 * In `android/app/build.gradle`

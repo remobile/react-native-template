@@ -27,38 +27,21 @@ dependencies {
 }
 ```
 
-* register module (in MainActivity.java)
+* register module (in MainApplication.java)
 
 ```java
-import com.remobile.des.*;  // <--- import
+......
+import com.remobile.des.RCTDesPackage;  // <--- import
 
-public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
-  ......
+......
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    mReactRootView = new ReactRootView(this);
-
-    mReactInstanceManager = ReactInstanceManager.builder()
-      .setApplication(getApplication())
-      .setBundleAssetName("index.android.bundle")
-      .setJSMainModuleName("index.android")
-      .addPackage(new MainReactPackage())
-      .addPackage(new RCTDesPackage())              // <------ add here
-      .setUseDeveloperSupport(BuildConfig.DEBUG)
-      .setInitialLifecycleState(LifecycleState.RESUMED)
-      .build();
-
-    mReactRootView.startReactApplication(mReactInstanceManager, "ExampleRN", null);
-
-    setContentView(mReactRootView);
-  }
-
-  ......
-
+@Override
+protected List<ReactPackage> getPackages() {
+   ......
+   new RCTDesPackage(),            // <------ add here
+   ......
 }
-```
+
 
 ## Usage
 
