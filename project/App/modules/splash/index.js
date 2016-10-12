@@ -11,8 +11,8 @@ var {
 
 var TimerMixin = require('react-timer-mixin');
 var SplashScreen = require('@remobile/react-native-splashscreen');
-var Login = require('../login/Login.js');
-// var Login = require('../remobile/index.js');
+// var Login = require('../login/Login.js');
+var Login = require('../remobile/index.js');
 var Home = require('../home/index.js');
 var Update = require('@remobile/react-native-update');
 
@@ -161,6 +161,7 @@ module.exports = React.createClass({
         });
     },
     componentDidMount() {
+        SplashScreen.hide();
         app.showModal(
             <Animated.View style={[styles.container, {width: sr.tw,height: sr.th-sr.statusBarHeight, opacity: this.state.opacity}]}>
             </Animated.View>,

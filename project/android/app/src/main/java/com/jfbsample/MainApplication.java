@@ -9,6 +9,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.remobile.RCTRemobilePackage;
 
 import com.remobile.capture.RCTCapturePackage;
+import com.remobile.marqueeLabel.RCTMarqueeLabelPackage;
 import com.remobile.splashscreen.RCTSplashScreenPackage;
 import com.remobile.toast.RCTToastPackage;
 import com.remobile.dialogs.RCTDialogsPackage;
@@ -72,6 +73,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RCTFileTransferPackage(),
             new RCTCallPackage(),
             new RCTQRCodeLocalImagePackage(),
+            new RCTMarqueeLabelPackage(),
 
             //VendorLibraries
             new RNFSPackage(),

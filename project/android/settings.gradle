@@ -57,6 +57,9 @@ project(':react-native-call').projectDir = new File(settingsDir, '../App/node_mo
 include ':react-native-qrcode-local-image'
 project(':react-native-qrcode-local-image').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-qrcode-local-image/android')
 
+include ':react-native-marquee-label'
+project(':react-native-marquee-label').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-marquee-label/android')
+
 //VendorLibraries
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(settingsDir, '../App/node_modules/react-native-fs/android')
