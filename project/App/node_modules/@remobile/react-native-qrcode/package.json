@@ -1,0 +1,30 @@
+{
+    "name": "@remobile/react-native-qrcode",
+    "version": "1.0.0",
+    "description": "A pure js show string as qrcode in react-native View.",
+    "main": "index.js",
+    "author": {
+        "name": "YunJiang.Fang",
+        "email": "42550564@qq.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "react-native",
+        "react-component",
+        "ios",
+        "android",
+        "qrcode",
+        "image",
+        "generate",
+        "remobile",
+        "mobile"
+    ],
+    "homepage": "https://github.com/remobile/react-native-qrcode",
+    "bugs": {
+        "url": "https://github.com/remobile/react-native-qrcode/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/remobile/react-native-qrcode.git"
+    }
+}
