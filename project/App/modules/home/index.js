@@ -158,7 +158,7 @@ var styles = StyleSheet.create({
         width: sr.w,
         position: 'absolute',
         left: 0,
-        bottom: 0,
+        top: sr.rws(sr.th-sr.totalNavHeight-sr.statusBarHeight)-60,
     },
     titleStyle: {
         fontSize:16,

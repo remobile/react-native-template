@@ -29,6 +29,7 @@ function __get_pure_filename()
     echo "$purename"
 }
 
+last_name=""
 file=image.js
 echo "module.exports = {" > $file
 modules=(`ls image`)
@@ -36,8 +37,12 @@ for module in ${modules[@]};do
     files=(`ls image/${module}`)
     for item in ${files[@]};do
         purefilename=`__get_pure_filename $item`
-        filename=`basename $item`
-        echo "    ${module}_${purefilename}:require('./image/${module}/${filename}')," >> $file
+        purefilename=${purefilename%%@*}
+        extfilename=`__get_extname ${item}`
+        if [ "${last_name}" != "${purefilename}" ];then
+            last_name=${purefilename}
+            echo "    ${module}_${purefilename}:require('./image/${module}/${purefilename}.${extfilename}')," >> $file
+        fi
     done
 done
 echo "};" >> $file
