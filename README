@@ -1,20 +1,31 @@
 一、升级：
 1. di update/modify/NavigatorNavigationBarStylesAndroid.js project/node_modules/react-native/Libraries/CustomComponents/Navigator/NavigatorNavigationBarStylesAndroid.js
-1. di update/modify/NavigatorNavigationBarStylesIOS.js project/node_modules/react-native/Libraries/CustomComponents/Navigator/NavigatorNavigationBarStylesIOS.js
-2. di update/modify/StyleSheet.js project/node_modules/react-native/Libraries/StyleSheet/StyleSheet.js
-3. di update/modify/assetPathUtils.js project/node_modules/react-native/local-cli/bundle/assetPathUtils.js
-4. di update/modify/minify.js project/node_modules/react-native/packager/react-packager/src/JSTransformer/worker/minify.js
+2. di update/modify/NavigatorNavigationBarStylesIOS.js project/node_modules/react-native/Libraries/Utilities/Dimensions.js
+3. di update/modify/StyleSheet.js project/node_modules/react-native/Libraries/StyleSheet/StyleSheet.js
+4. di update/modify/assetPathUtils.js project/node_modules/react-native/local-cli/bundle/assetPathUtils.js
+5. di update/modify/minify.js project/node_modules/react-native/packager/react-packager/src/JSTransformer/worker/minify.js
+6. di update/modify/Dimensions.js project/node_modules/react-native/Libraries/Utilities/Dimensions.js
 
 二、发布大版本
     只有添加java或者object-c的代码的时候才发布大版本
     1.android发布
-        进入tools，执行release-android，生成apk: localServer/public/download/yxjqd.apk
+        进入tools，执行release-android，生成apk: server/public/download/apk/yxjqd.apk
     2.ios发布
         打开xcode工程,Produce->Scheme->Edit Scheme->Release 然后编译就可以了
 
 三、发布小版本
-    进入tools，执行genbundle，生成www:localServer/public/download/www
+    进入tools，执行genbundle，生成www:server/public/download/www
 
 四、环境搭建
     1.android找不到support-v4:23.2.1，使用android update sdk --no-ui --all --filter "extra-android-m2repository" 安装依赖
-    2.或者拷贝 /usr/local/opt/android-sdk/extras 到其他机子上也可以
+    2.ios打包生成IPA包时遇到错误:missing ios distribution signing identity for XXXXXXXXXX
+
+解决方法: 
+1.首先， 去此链接:https://developer.apple.com/certificationauthority/AppleWWDRCA.cer ,下载文件，并双击安装。
+
+2.然后进入钥匙串 选择菜单栏的显示 - 显示已过期证书
+
+3.然后在钥匙串 -（登录和系统中查看）  可以看到Apple WorldWide Developer Relations CertXXXXXXX (并且显示此证书已过去)删除即可
+
+不一定（登录和系统）都有此证书。
+

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 function __get_extname()
 {
     local basename extname file
