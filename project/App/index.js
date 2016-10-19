@@ -99,7 +99,7 @@ var NavigationBarRouteMapper = {
     RightButton(route, navigator, index, navState) {
         var rightButton = route.rightButton===null ? null : (route.rightButton||route.component.rightButton);
         if (!rightButton) {
-            return <View style={[styles.navBarRightEmptyButton, {backgroundColor: app.THEME_COLOR}]}/>;
+            return <View style={styles.navBarRightEmptyButton}/>;
         }
         if (rightButton.image) {
             return (
@@ -345,33 +345,30 @@ var styles = StyleSheet.create({
         alignItems:'center',
         justifyContent: 'center',
     },
-    navBarTitleText: {
-        color: '#FFFFFF',
-        fontWeight: '500',
-        marginVertical: 9,
-        width: sr.mw,
-    },
-    navBarLeftButton: {
-        flexDirection: 'row',
-        paddingTop: 5,
-        paddingLeft: 8,
-        alignItems:'center',
-    },
-    navBarRightButton: {
-        flexDirection: 'row',
-        paddingRight: 8,
-        alignItems:'center'
-    },
-    navBarRightEmptyButton: {
-        width: 70,
-        height: 50,
-    },
     navBarButtonText: {
         color: '#FFFFFF',
+        fontSize: 18,
+    },
+    navBarTitleText: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontWeight: '500',
+        width: sr.w/2,
+    },
+    navBarButton: {
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        height:NAVBAR_HEIGHT,
+        alignItems: 'center',
+    },
+    navBarRightEmptyButton: {
+        width: 80,
+        height: NAVBAR_HEIGHT,
+        backgroundColor: CONSTANTS.THEME_COLOR,
     },
     navBarIcon: {
-        marginTop: 3,
-        width: 25,
-        height:25,
+        width: NAVBAR_HEIGHT*0.6,
+        height: NAVBAR_HEIGHT*0.6,
     },
 });
