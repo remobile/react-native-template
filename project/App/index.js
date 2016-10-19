@@ -9,13 +9,9 @@ var {
     Platform,
     BackAndroid,
     View,
-    PixelRatio,
     Text,
     Image,
-    TouchableOpacity,
-    StatusBar,
     NativeModules,
-    Dimensions,
 } = ReactNative;
 
 
@@ -92,7 +88,7 @@ var NavigationBarRouteMapper = {
         return (
             <DelayTouchableOpacity
                 onPress={handler}
-                style={styles.navBarLeftButton}>
+                style={styles.navBarButton}>
                 <Image
                     resizeMode='stretch'
                     source={image}
@@ -109,7 +105,7 @@ var NavigationBarRouteMapper = {
             return (
                 <DelayTouchableOpacity
                     onPress={rightButton.handler}
-                    style={styles.navBarRightButton}>
+                    style={styles.navBarButton}>
                     <Image
                         resizeMode='stretch'
                         source={rightButton.image}
@@ -120,8 +116,8 @@ var NavigationBarRouteMapper = {
             return (
                 <DelayTouchableOpacity
                     onPress={rightButton.handler}
-                    style={styles.navBarRightButton}>
-                    <Text style={[styles.navBarText, styles.navBarButtonText]}>
+                    style={styles.navBarButton}>
+                    <Text style={styles.navBarButtonText}>
                         {rightButton.title}
                     </Text>
                 </DelayTouchableOpacity>
@@ -132,17 +128,17 @@ var NavigationBarRouteMapper = {
         var title = route.title||route.component.title;
         if (typeof title === 'string') {
             return (
-                <View style={[styles.titleContainer, {height: sr.navBarHeight, backgroundColor: app.THEME_COLOR}]}>
+                <View style={styles.titleContainer}>
                     <Text
                         numberOfLines={1}
-                        style={[styles.navBarText, styles.navBarTitleText, {textAlign: 'center'}]}>
+                        style={styles.navBarTitleText}>
                         {title}
                     </Text>
                 </View>
             );
         } else {
           return (
-            <View style={[styles.titleContainer, {height: sr.navBarHeight}]}>
+            <View style={styles.titleContainer}>
                 {title}
             </View>
           )
@@ -267,7 +263,7 @@ module.exports = React.createClass({
     renderScene(route, navigator) {
         return (
             <View style={{flex: 1}}>
-                {this.state.showNavBar&&<View style={{height:sr.totalNavHeight}} />}
+                {this.state.showNavBar&&<View style={[styles.navBarBack, {backgroundColor:app.THEME_COLOR}]} />}
                 <route.component
                     {...route.passProps}
                     ref={(ref)=>{if(ref)route.ref=ref}}/>
@@ -329,10 +325,14 @@ module.exports = React.createClass({
     },
 });
 
+var NAVBAR_HEIGHT = sr.rws(Navigator.NavigationBar.Styles.General.NavBarHeight);
 var styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor:'#EEEEEE'
+    },
+    navBarBack: {
+        height:sr.totalNavHeight,
     },
     navBar: {
         alignItems:'center',
@@ -341,11 +341,9 @@ var styles = StyleSheet.create({
     },
     titleContainer: {
         width: sr.w,
+        height: NAVBAR_HEIGHT,
         alignItems:'center',
-    },
-    navBarText: {
-        fontSize: 18,
-        marginVertical: 10,
+        justifyContent: 'center',
     },
     navBarTitleText: {
         color: '#FFFFFF',
