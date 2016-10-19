@@ -301,6 +301,13 @@ module.exports = React.createClass({
                         scene && scene.onDidFocus && scene.onDidFocus();
                     }}
                     onWillFocus={(route)=>{
+                        var preRoute = app.navigator && app.getCurrentRoute();
+                        if (preRoute) {
+                            var preRef = preRoute.ref;
+                            var preGetChildScene = preRef && preRef.getChildScene;
+                            var preScene = preGetChildScene ? preGetChildScene() : preRef;
+                            preScene && preScene.onWillHide && preScene.onWillHide();
+                        }
                         var ref = route.ref;
                         var getChildScene = ref && ref.getChildScene;
                         var scene = getChildScene ? getChildScene() : ref;

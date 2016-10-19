@@ -128,6 +128,14 @@ module.exports = React.createClass({
                     ref && ref.onDidFocus && ref.onDidFocus();
                 }}
                 onWillFocus={(route)=>{
+                    if (this._navigator) {
+                        var {routeStack, presentedIndex} = this._navigator.state;
+                        var preRoute = routeStack[presentedIndex];
+                        if (preRoute) {
+                            var preRef = preRoute.ref;
+                            preRef && preRef.onWillHide && preRef.onWillHide();
+                        }
+                    }
                     var ref = route.ref;
                     ref && ref.onWillFocus && ref.onWillFocus(); //注意：因为有initialRouteStack，在mounted的时候所有的页面都会加载，因此只有第一个页面首次不会调用，需要在componentDidMount中调用，其他页面可以调用
                 }}
