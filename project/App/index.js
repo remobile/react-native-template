@@ -298,6 +298,10 @@ module.exports = React.createClass({
                         var getChildScene = ref && ref.getChildScene;
                         //注意：app.scene调用的时候一定需要使用封装函数，如：{handler: ()=>{app.scene.toggleEdit()}}，不能直接使用 handler: app.scene.toggleEdit.
                         var scene = app.scene = getChildScene ? getChildScene() : ref;
+                        if (getChildScene && !scene.hasMouted) {
+                            scene.hasMouted = true;
+                            return;
+                        }
                         scene && scene.onDidFocus && scene.onDidFocus();
                     }}
                     onWillFocus={(route)=>{
