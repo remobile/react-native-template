@@ -15,6 +15,7 @@ var {
     UIManager,
     TextInput,
     Keyboard,
+    ScrollView,
     TouchableOpacity,
     PanResponder,
 } = ReactNative;
@@ -25,121 +26,154 @@ import  Swipeout  from 'react-native-swipe-out';
 const dismissKeyboard = require('dismissKeyboard');
 
 const
-NO_KEYBOARD_TYPE = 0,
-SYSTEM_KEYBOARD_TYPE = 1,
-EMOJI_KEYBOARD_TYPE = 2;
+ENGLISH_TYPE = 0,
+CHINESE_TYPE = 1,
+EMOJI_TYPE = 2,
+END_TYPE = 3;
+
+var WordItem = React.createClass({
+    componentWillMount() {
+        this._panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: (e, gestureState) => true,
+            onPanResponderGrant: (e, gestureState) => {
+                console.log("======", this.props.item.index);
+                this.props.onFocus(this.props.item.index);
+            },
+        });
+    },
+    getWordWith(type, height, val) {
+        if (type === ENGLISH_TYPE) {
+            return height/1.5;
+        } else if (type === CHINESE_TYPE) {
+            return height;
+        } else {
+            return height/1.5;
+        }
+    },
+    render() {
+        const {item, fontSize} = this.props;
+        const {focus, type, val, width, height} = item;
+        if (type===END_TYPE) {
+            return (
+                <View style={{flex:1, height, flexDirection: 'row'}} {...this._panResponder.panHandlers}>
+                    <View style={{marginLeft: 1, width:1, height, backgroundColor: focus?'black':'transparent'}}/>
+                </View>
+            )
+        } else {
+            return (
+                <View style={{width: width+2, height, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}} {...this._panResponder.panHandlers}>
+                    <View style={{width:1, height, marginRight: 1, backgroundColor: focus?'black':'transparent'}}/>
+                    {
+                        type===EMOJI_TYPE ?
+                        <Image resizeMode='stretch' source={val} style={{width, height}} />
+                        :
+                        <Text style={{fontSize}}>{val}</Text>
+                    }
+                </View>
+            )
+        }
+    }
+});
 
 module.exports = React.createClass({
     componentWillMount() {
         SplashScreen.hide();
-        this._panResponder = PanResponder.create({
-            // Ask to be the responder:
-            onStartShouldSetPanResponder: (e, gestureState) => true,
-            onStartShouldSetPanResponderCapture: (e, gestureState) => true,
-            onMoveShouldSetPanResponder: (e, gestureState) => true,
-            onMoveShouldSetPanResponderCapture: (e, gestureState) => true,
-            onPanResponderGrant: (e, gestureState) => {
-                const {locationX, locationY} = e.nativeEvent;
-                console.log("======= onPanResponderGrant", locationX, locationY);
-            },
-            onPanResponderMove: (e, gestureState) => {
-                console.log("======= onPanResponderMove");
-                console.log(e, gestureState);
-            },
-            onPanResponderTerminationRequest: (e, gestureState) => true,
-            onPanResponderRelease: (e, gestureState) => {
-                const {locationX, locationY} = e.nativeEvent;
-                console.log("======= onPanResponderGrant", locationX, locationY);
-            },
-        });
     },
     getInitialState() {
         return {
-            selection:{start:0, end: 0},
-            text: '方运江',
-            keyboardType: NO_KEYBOARD_TYPE,
-            fontSize: 14,
+            wordsList: [
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
+                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
+                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
+                {type: END_TYPE, width: 10, height: 14},
+            ],
         };
     },
-    switchKeyboard() {
-        const {keyboardType} = this.state;
-        this.switchKeyboardPress = true;
-        if (keyboardType === NO_KEYBOARD_TYPE) {
-            this.setState({keyboardType: EMOJI_KEYBOARD_TYPE});
-            dismissKeyboard();
-        } else if (keyboardType === EMOJI_KEYBOARD_TYPE) {
-            this.setState({keyboardType: SYSTEM_KEYBOARD_TYPE});
-            this.contentInput.focus();
-        } else {
-            this.setState({keyboardType: EMOJI_KEYBOARD_TYPE});
-            dismissKeyboard();
+    onWordFocus(i) {
+        const {wordsList} = this.state;
+        wordsList.forEach((item)=>item.focus = false);
+        wordsList[i].focus = true;
+        this.setState({wordsList});
+    },
+    showInputPanelContent(lineHeight, fontSize) {
+        const {wordsList} = this.state;
+        const MAX_WIDTH = sr.rws(sr.w-60);
+        let width = 0, showList = [], array = [];
+        for (var i in wordsList) {
+            var item = wordsList[i];
+            item.index = i;
+            width += item.width + 2;
+            // console.log(width, MAX_WIDTH);
+            if (width >= MAX_WIDTH) {
+                showList.push(array);
+                width = item.width;
+                array = []
+            }
+            array.push(item);
         }
-    },
-    onBlur() {
-        if (!this.switchKeyboardPress) {
-            this.setState({keyboardType: NO_KEYBOARD_TYPE});
-        } else {
-            this.switchKeyboardPress = false;
-        }
-    },
-    onKeyboardPress(num) {
-        var {text, selection} = this.state;
-        var {start, end} = selection;
-        var newtext = text.substring(0, start)+num+text.substring(end);
-        this.setState({text: newtext});
-    },
-    onChangeText(text) {
-        this.setState({text});
-    },
-    onSelectionChange(e) {
-        this.setState({selection: e.nativeEvent.selection});
-    },
-    EmojiKeyboard() {
-        return (
-            <View style={styles.emojiKeyboard}>
-                <View style={styles.emojiKeyboardRow}>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 1)}><Text>1</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 2)}><Text>2</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 3)}><Text>3</Text></TouchableOpacity>
+        showList.push(array);
+        console.log(showList);
+        return showList.map((array, i)=>{
+            return (
+                <View key={i} style={[styles.row, {height: lineHeight}]}>
+                    {array.map((item, j)=><WordItem item={item} fontSize={fontSize} key={j} onFocus={this.onWordFocus}/>)}
                 </View>
-                <View style={styles.emojiKeyboardRow}>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 4)}><Text>4</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 5)}><Text>5</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 6)}><Text>6</Text></TouchableOpacity>
-                </View>
-                <View style={styles.emojiKeyboardRow}>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 7)}><Text>7</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 8)}><Text>8</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.emojiKeyboardItem} onPress={this.onKeyboardPress.bind(null, 9)}><Text>9</Text></TouchableOpacity>
-                </View>
-            </View>
-        )
+            )
+        });
     },
     render() {
-        const {keyboardType} = this.state;
+        var
+        lineHeight= 14*2,
+        fontSize= 14;
         return (
             <View style={styles.container}>
-                <Button onPress={this.switchKeyboard}>{keyboardType===EMOJI_KEYBOARD_TYPE?"系统键盘":"emoji键盘"}{keyboardType}</Button>
-                <TextInput
-                    ref={(ref)=>this.contentInput = ref}
-                    autoCorrect={false}
-                    style={styles.text_input}
-                    value={this.state.text}
-                    onSelectionChange={this.onSelectionChange}
-                    onChangeText={this.onChangeText}
-                    selection={this.state.selection}
-                    onBlur={this.onBlur}
-                    />
-                <View style={styles.inputPanel} {...this._panResponder.panHandlers}>
-                    "sadjhfasdljflskadfjslakdfjsaldkfjsladkjflksd".split('').map((letter, i)=>{
-                        return (
-                            <Text key={i}>
-                                {letter}
-                            </Text>
-                        )
-                    });
+                <View style={[styles.inputPanel, {width:308}]}>
+                    <ScrollView>
+                        {this.showInputPanelContent(lineHeight, fontSize)}
+                    </ScrollView>
                 </View>
-                {keyboardType!==NO_KEYBOARD_TYPE && <this.EmojiKeyboard />}
             </View>
         );
     }
@@ -152,14 +186,13 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    text_input: {
-        position: 'absolute',
-        left: -sr.w,
-    },
     inputPanel: {
-        height: 80,
+        height: 140,
         width: sr.w-60,
         backgroundColor: '#FFFFFF',
+    },
+    row: {
+        flexDirection: 'row',
     },
     emojiKeyboard: {
         width: sr.w,
