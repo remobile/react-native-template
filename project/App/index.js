@@ -155,6 +155,7 @@ module.exports = React.createClass({
             modalContent: null,
             modalTitle: '',
             modalBackgroundColor: null,
+            modalTouchHide: false,
         };
     },
     componentWillMount() {
@@ -178,12 +179,14 @@ module.exports = React.createClass({
         app.root = this;
         app.showProgressHud = this.showProgressHud;
         app.dismissProgressHud = this.dismissProgressHud;
-        app.showModal = (view, title, backgroundColor) => {
+        app.showModal = (view, options={}) => {
+            const { title, backgroundColor, touchHide} = options;
             this.setState({
                 modalShow: true,
                 modalContent: view,
                 modalTitle: title,
                 modalBackgroundColor: backgroundColor,
+                modalTouchHide: touchHide,
             });
         };
         app.closeModal = () => {
@@ -315,13 +318,13 @@ module.exports = React.createClass({
                         var ref = route.ref;
                         var getChildScene = ref && ref.getChildScene;
                         var scene = getChildScene ? getChildScene() : ref;
-                        scene && scene.onWillFocus && scene.onWillFocus();//注意：在首次加载的时候是不会调用的，只有从上页面返回的时候才能被调用
+                        scene && scene.onWillFocus && scene.onWillFocus();//注意：在首次加载的时候页面没有被加载，route.ref为空，不会调用该函数，需要在该页面的componentWillMount里面处理首次逻辑，只有从上页面返回的时候才能被调用
                     }}
                     navigationBar={this.state.showNavBar ? navigationBar : null}
                     />
                 {
                     this.state.modalShow &&
-                    <COMPONENTS.Modal ref="modal" title={this.state.modalTitle} backgroundColor={this.state.modalBackgroundColor}>
+                    <COMPONENTS.Modal ref="modal" title={this.state.modalTitle} backgroundColor={this.state.modalBackgroundColor} modalTouchHide={this.state.modalTouchHide}>
                         {this.state.modalContent}
                     </COMPONENTS.Modal>
                 }

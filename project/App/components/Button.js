@@ -28,7 +28,8 @@ module.exports = React.createClass({
             <TouchableOpacity
                 style={[styles.container, {backgroundColor:app.THEME_COLOR}, this.props.style]} {...touchableProps}
                 testID={this.props.testID}>
-                <Text style={[styles.text, this.props.disable ? styles.disableText : null, this.props.textStyle]}>
+                <Text style={[styles.text, this.props.disable ? styles.disableText : null, this.props.textStyle]}
+                      numberOfLines={1}>
                     {this.props.children}
                 </Text>
             </TouchableOpacity>

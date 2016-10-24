@@ -2,11 +2,19 @@ import React from 'react';
 import {
     View,
     ScrollView,
+    InteractionManager,
 } from 'react-native';
 
 const ViewPager = React.createClass({
     componentWillMount() {
         this.count = this.props.children.length;
+        var _scrollView: ScrollView;
+        this.scrollView = _scrollView;
+    },
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.scrollView.scrollTo({x: sr.ws(160)});
+        });
     },
     onScroll(e) {
         // android incompatible
@@ -31,7 +39,7 @@ const ViewPager = React.createClass({
             return (<View style={{width, height}} key={i}>{page}</View>);
         });
         return (
-            <ScrollView ref="scrollview"
+            <ScrollView ref={(scrollView) => { this.scrollView = scrollView; }}
                 horizontal={true}
                 pagingEnabled={false}
                 scrollEventThrottle={10}

@@ -3,7 +3,7 @@
 var React = require('react');var ReactNative = require('react-native');
 var {
     Image,
-    Platform,
+    View,
 } = ReactNative;
 
 var DImage = React.createClass({
@@ -26,7 +26,10 @@ var DImage = React.createClass({
         var {showDefault} = this.state;
         return (
             showDefault ?
-            <Image source={defaultSource} {...other}><Image style={{left:-1, top:-1, position:'absolute', width:1,height:1}} source={source} onLoad={this.onLoad} />{this.props.children}</Image>
+            <View>
+                <Image source={defaultSource} {...other}>{this.props.children}</Image>
+                <Image style={{left:-1, top:-1, position:'absolute', width:1,height:1}} source={source} onLoad={this.onLoad} />
+            </View>
             :
             <Image source={source} {...other} >{this.props.children}</Image>
         )
