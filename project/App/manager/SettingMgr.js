@@ -15,14 +15,15 @@ class Manager extends EventEmitter {
 	}
     get() {
         return new Promise(async(resolve, reject)=>{
-            var data = [];
+            var data = {};
             try {
                 var infoStr = await AsyncStorage.getItem(ITEM_NAME);
                 data = JSON.parse(infoStr);
             } catch(e) {
+                data = {};
             }
             this.data = data||{};
-            app.THEME_COLOR = data.themeColor||CONSTANTS.THEME_COLORS[0];
+            app.THEME_COLOR = this.data.themeColor||CONSTANTS.THEME_COLORS[0];
         });
     }
     set(data) {
