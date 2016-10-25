@@ -24,6 +24,7 @@ var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
 import  Swipeout  from 'react-native-swipe-out';
 const dismissKeyboard = require('dismissKeyboard');
+const EmojiKeyboard = require('./EmojiKeyboard.js');
 
 const
 NO_KEYBOARD_TYPE = 0,
@@ -34,7 +35,8 @@ const
 ENGLISH_TYPE = 0,
 CHINESE_TYPE = 1,
 EMOJI_TYPE = 2,
-END_TYPE = 3;
+NEW_LINE_TYPE = 3,
+END_TYPE = 4;
 
 var WordItem = React.createClass({
     componentWillMount() {
@@ -46,18 +48,24 @@ var WordItem = React.createClass({
         });
     },
     render() {
-        const {item, fontSize, focus} = this.props;
-        const {type, val, width, height} = item;
+        const {item, fontSize} = this.props;
+        const {type, val, width, height, selected} = item;
         if (type===END_TYPE) {
             return (
+                <View style={{flex:1, height, flexDirection: 'row', backgroundColor:'red'}} {...this._panResponder.panHandlers}>
+                    <View style={{marginLeft: 1, width:1, height, backgroundColor: selected?'black':'transparent'}}/>
+                </View>
+            )
+        } else if (type===NEW_LINE_TYPE) {
+            return (
                 <View style={{flex:1, height, flexDirection: 'row'}} {...this._panResponder.panHandlers}>
-                    <View style={{marginLeft: 1, width:1, height, backgroundColor: focus?'black':'transparent'}}/>
+                    <View style={{marginLeft: 1, width:1, height, backgroundColor: selected?'black':'transparent'}}/>
                 </View>
             )
         } else {
             return (
                 <View style={{width: width+2, height, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}} {...this._panResponder.panHandlers}>
-                    <View style={{width:1, height, marginRight: 1, backgroundColor: focus?'black':'transparent'}}/>
+                    <View style={{width:1, height, marginRight: 1, backgroundColor: selected?'black':'transparent'}}/>
                     {
                         type===EMOJI_TYPE ?
                         <Image resizeMode='stretch' source={val} style={{width, height}} />
@@ -74,22 +82,29 @@ module.exports = React.createClass({
     componentWillMount() {
         SplashScreen.hide();
     },
-    getInitialState() {
+    getDefaultProps() {
+        const SIZE = 14;
         return {
+            lineHeight: SIZE*1.5,
+            fontSize: SIZE,
+            maxLines: 3,
+        };
+    },
+    getInitialState() {
+        const {lineHeight} = this.props;
+        this.wordsList = [
+            {type: END_TYPE, width: 10, height: 14},
+        ];
+        this.selection = {start: 0, end: 0};
+        return {
+            showList: this.getShowList(),
             assistText: '',
             keyboardType: NO_KEYBOARD_TYPE,
-            selection: {},
-            wordsList: [
-                {type: ENGLISH_TYPE, val: '1', width: 10, height: 14},
-                {type: ENGLISH_TYPE, val: '2', width: 10, height: 14},
-                {type: ENGLISH_TYPE, val: '3', width: 10, height: 14},
-                {type: ENGLISH_TYPE, val: '4', width: 10, height: 14},
-                {type: ENGLISH_TYPE, val: 'a', width: 10, height: 14},
-                {type: CHINESE_TYPE, val: '方', width: 14, height: 14},
-                {type: EMOJI_TYPE, val: app.img.common_go, width: 14, height: 14},
-                {type: END_TYPE, width: 10, height: 14},
-            ],
+            inputHeight: this.getInputContainerHeight(lineHeight),
         };
+    },
+    getInputContainerHeight(height) {
+        return height;
     },
     switchKeyboard() {
         const {keyboardType} = this.state;
@@ -105,56 +120,91 @@ module.exports = React.createClass({
         }
     },
     deleteFromSelected() {
-        const {wordsList, selection} = this.state;
-        const {start, end} = selection;
+        const {start, end} = this.selection;
         const newStart = start-1, length = end-start;
         if (!length && newStart>=0) {
-            wordsList.splice(newStart, 1);
-            this.setState({wordsList, selection:{start:newStart, end:newStart}});
+            this.wordsList.splice(newStart, 1);
+            this.selection = {start:newStart, end:newStart};
+            this.updateShowList();
         } else if (length > 0) {
-            wordsList.splice(start, length);
-            this.setState({wordsList, selection:{start:start, end:start}});
+            this.wordsList.splice(start, length);
+            this.selection = {start:start, end:start};
+            this.updateShowList();
         }
     },
     addFromSelected(key) {
-        const {wordsList, selection} = this.state;
-        const {start, end} = selection;
+        const {start, end} = this.selection;
         const newStart = start+1, length = end-start;
-        const item = {type: ENGLISH_TYPE, val: key, width: 10, height: 14};
-        if (length > 0) {
-            wordsList.splice(start, length, item);
-            this.setState({wordsList, selection:{start:newStart, end:newStart}});
-        } else {
-            wordsList.splice(start, 0, item);
-            this.setState({wordsList, selection:{start:newStart, end:newStart}});
-        }
+        this.wordsList.splice(start, length, {type: ENGLISH_TYPE, val: key, width: 10, height: 14});
+        this.selection = {start:newStart, end:newStart};
+        this.updateShowList();
+    },
+    addNewLineFromSelected() {
+        const {start, end} = this.selection;
+        const newStart = start+1, length = end-start;
+        this.wordsList.splice(start, length, {type: NEW_LINE_TYPE, height: 14});
+        this.selection = {start:newStart, end:newStart};
+        this.updateShowList();
+    },
+    scrollToSelected() {
+        // const {wordsList, selection} = this.state;
+        // const {start} = selection;
+        // const curItem = wordsList[start];
+        // console.log(curItem);
     },
     onWordFocus(i) {
-        this.setState({keyboardType: SYSTEM_KEYBOARD_TYPE, selection:{start:i, end:i}});
+        this.selection = {start:i, end:i};
+        this.setState({keyboardType: SYSTEM_KEYBOARD_TYPE, showList: this.getShowList()});
         this.assistInput.focus();
     },
-    showInputPanelContent(lineHeight, fontSize) {
-        const {wordsList, selection} = this.state;
-        const {start, end} = selection;
+    updateShowList() {
+        this.setState({showList: this.getShowList()});
+    },
+    getShowList() {
         const MAX_WIDTH = sr.rws(sr.w-60);
-        let width = 0, showList = [], array = [];
-        for (var i in wordsList) {
-            var item = wordsList[i];
-            item.index = i*1;
-            width += item.width + 2;
+        const {wordsList, selection} = this;
+        const {start, end} = selection;
+        let width = 0, list = [], array = [];
+        var row = 0,  col = 0;
+        for (let i in wordsList) {
+            let item = wordsList[i];
+            let index = i*1;
+            item.index = index;
+            item.selected = (index>=start&&index<=end)
+            item.row = row;
+            item.col = col;
             // console.log(width, MAX_WIDTH);
-            if (width >= MAX_WIDTH) {
-                showList.push(array);
-                width = item.width;
-                array = []
+            if (item.type === NEW_LINE_TYPE) {
+                array.push(item);
+                list.push(array);
+                width = 0;
+                array = [];
+                row++;
+                col = 0;
+            } else {
+                width += item.width + 2;
+                if (width >= MAX_WIDTH) {
+                    list.push(array);
+                    width = item.width;
+                    array = [];
+                    row++;
+                    col = 0;
+                }
+                array.push(item);
+                col++;
             }
-            array.push(item);
         }
-        showList.push(array);
+        list.push(array);
+        return list;
+    },
+    showInputPanelContent() {
+        const {lineHeight, fontSize} = this.props;
+        const {showList} = this.state;
+        console.log("====================", showList);
         return showList.map((array, i)=>{
             return (
                 <View key={i} style={[styles.inputRow, {height: lineHeight}]}>
-                    {array.map((item, j)=><WordItem key={j} focus={item.index>=start&&item.index<=end} item={item} fontSize={fontSize} onFocus={this.onWordFocus}/>)}
+                    {array.map((item, j)=><WordItem key={j} item={item} fontSize={fontSize} onFocus={this.onWordFocus}/>)}
                 </View>
             )
         });
@@ -166,14 +216,21 @@ module.exports = React.createClass({
         const {key} = e.nativeEvent;
         if (key === 'Backspace') {
             this.deleteFromSelected();
+        } else if (key === 'Enter') {
+            this.addNewLineFromSelected(key);
         } else {
             this.addFromSelected(key);
         }
     },
+    onContentSizeChange(contentWidth, contentHeight) {
+        const {lineHeight, fontSize} = this.props;
+        contentHeight = this.getInputContainerHeight(contentHeight);
+        const {inputHeight} = this.state;
+        // if () {
+        //
+        // }
+    },
     render() {
-        var
-        lineHeight= 14*2,
-        fontSize= 14;
         const {assistText} = this.state;
         return (
             <View style={styles.container}>
@@ -185,9 +242,12 @@ module.exports = React.createClass({
                     onKeyPress={this.onKeyPress}
                     value={assistText}
                     />
-                <View style={[styles.inputPanel, {width:308}]}>
-                    <ScrollView>
-                        {this.showInputPanelContent(lineHeight, fontSize)}
+                <View style={styles.inputPanel}>
+                    <ScrollView
+                        ref={(ref)=>this.inputScroll = ref}
+                        onContentSizeChange={this.onContentSizeChange}
+                        >
+                        {this.showInputPanelContent()}
                     </ScrollView>
                 </View>
             </View>
@@ -203,7 +263,7 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
     },
     inputPanel: {
-        height: 40,
+        height: 30,
         width: sr.w-60,
         backgroundColor: '#FFFFFF',
     },
@@ -215,6 +275,7 @@ var styles = StyleSheet.create({
     },
     inputRow: {
         flexDirection: 'row',
+        alignItems: 'center',
     },
     emojiKeyboard: {
         width: sr.w,
