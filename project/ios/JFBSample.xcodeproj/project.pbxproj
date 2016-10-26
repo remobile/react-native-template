@@ -29,7 +29,6 @@
 		3201A8C21C858B8F00AA7980 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 3201A8BA1C858B8F00AA7980 /* RSADataSigner.m */; };
 		3201A8C81C858C2900AA7980 /* CDVWxpay.m in Sources */ = {isa = PBXBuildFile; fileRef = 3201A8C41C858C2900AA7980 /* CDVWxpay.m */; };
 		3202B37E1C72C97700AA4EE8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3202B37D1C72C97700AA4EE8 /* libz.tbd */; };
-		320AB03C1DB49FF00019A31D /* libRCTBatteryStatus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AB01E1DB49FC80019A31D /* libRCTBatteryStatus.a */; };
 		3233C90E1C892F6900E360AB /* AudioRecorderAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3233C90D1C892F6900E360AB /* AudioRecorderAPI.m */; };
 		32411CFB1D98BB22001B328E /* libRCTQRCodeLocalImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32411CFA1D98BB18001B328E /* libRCTQRCodeLocalImage.a */; };
 		32411D841D990420001B328E /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B2F5201CD201530066B824 /* libRCTCamera.a */; };
@@ -86,6 +85,8 @@
 		32B2F5941CD202E40066B824 /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B2F58F1CD202E40066B824 /* Overlay.png */; };
 		32B2F5951CD202E40066B824 /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B2F5901CD202E40066B824 /* Overlay@2x.png */; };
 		32B9343A1D8C0AE500BFD0E5 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3201A8C51C858C2900AA7980 /* libWeChatSDK.a */; };
+		32C6D6FD1DBF851900525BB9 /* libRCTBatteryStatus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32C6D6FC1DBF84D100525BB9 /* libRCTBatteryStatus.a */; };
+		32C6D6FE1DBF852700525BB9 /* libRCTCapture.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32C6D6DD1DBF84C000525BB9 /* libRCTCapture.a */; };
 		48AD543A4C4D2087AF72C633 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5773755A6FF3A351DB3B1FA9 /* libPods.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		FE1C69281C8D6A7500B45AAF /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1C69271C8D6A7500B45AAF /* libstdc++.tbd */; };
@@ -148,13 +149,6 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		320AB01D1DB49FC80019A31D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320AB0161DB49FC70019A31D /* RCTBatteryStatus.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32A87E981BF598330048D713;
-			remoteInfo = RCTBatteryStatus;
-		};
 		32411CD31D98A82E001B328E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 32411CCB1D98A82E001B328E /* RCTCamera.xcodeproj */;
@@ -189,13 +183,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
 			remoteInfo = RNFS;
-		};
-		32B25F111D9113A900C56855 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32A87E981BF598330048D713;
-			remoteInfo = RCTCapture;
 		};
 		32B2F5131CD201400066B824 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -309,6 +296,20 @@
 			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
 			remoteInfo = RCTZip;
 		};
+		32C6D6DC1DBF84C000525BB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32C6D6D21DBF84C000525BB9 /* RCTCapture.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32A87E981BF598330048D713;
+			remoteInfo = RCTCapture;
+		};
+		32C6D6FB1DBF84D100525BB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32C6D6F71DBF84D100525BB9 /* RCTBatteryStatus.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32A87E981BF598330048D713;
+			remoteInfo = RCTBatteryStatus;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -362,7 +363,6 @@
 		3201A8C71C858C2900AA7980 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		3202B37D1C72C97700AA4EE8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		3202B37F1C72C98100AA4EE8 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		320AB0161DB49FC70019A31D /* RCTBatteryStatus.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBatteryStatus.xcodeproj; path = "/Users/fang/rn/react-native-template/project/App/node_modules/@remobile/react-native-splashscreen/ios/../../react-native-battery-status/ios/RCTBatteryStatus.xcodeproj"; sourceTree = "<absolute>"; };
 		3233C90C1C892F6900E360AB /* AudioRecorderAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecorderAPI.h; sourceTree = "<group>"; };
 		3233C90D1C892F6900E360AB /* AudioRecorderAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderAPI.m; sourceTree = "<group>"; };
 		32411CCB1D98A82E001B328E /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../App/node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
@@ -393,7 +393,6 @@
 		329758F11C9D31C100785683 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		32AF4DB81CD1F91500A215B4 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../App/node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		32B25E361D8F950900C56855 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVNotification.bundle; path = "../App/node_modules/@remobile/react-native-dialogs/ios/RCTDialogs/CDVNotification.bundle"; sourceTree = "<group>"; };
-		32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCapture.xcodeproj; path = "/Users/fang/rn/react-native-template/project/App/node_modules/@remobile/react-native-camera/ios/../../react-native-capture/ios/RCTCapture.xcodeproj"; sourceTree = "<absolute>"; };
 		32B25F2A1D9113CE00C56855 /* CDVCapture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVCapture.bundle; path = "../App/node_modules/@remobile/react-native-capture/ios/RCTCapture/CDVCapture.bundle"; sourceTree = "<group>"; };
 		32B25F2D1D911B0300C56855 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		32B25F2E1D911B0300C56855 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -420,6 +419,8 @@
 		32B2F58E1CD202E40066B824 /* ELCAssetTablePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetTablePicker.xib; sourceTree = "<group>"; };
 		32B2F58F1CD202E40066B824 /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
 		32B2F5901CD202E40066B824 /* Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Overlay@2x.png"; sourceTree = "<group>"; };
+		32C6D6D21DBF84C000525BB9 /* RCTCapture.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCapture.xcodeproj; path = "../App/node_modules/@remobile/react-native-capture/ios/RCTCapture.xcodeproj"; sourceTree = "<group>"; };
+		32C6D6F71DBF84D100525BB9 /* RCTBatteryStatus.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBatteryStatus.xcodeproj; path = "../App/node_modules/@remobile/react-native-battery-status/ios/RCTBatteryStatus.xcodeproj"; sourceTree = "<group>"; };
 		549F1C9F634A6C002C03A83C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5773755A6FF3A351DB3B1FA9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -475,9 +476,10 @@
 				3201A8BC1C858B8F00AA7980 /* AlipaySDK.framework in Frameworks */,
 				48AD543A4C4D2087AF72C633 /* libPods.a in Frameworks */,
 				32411D841D990420001B328E /* libRCTCamera.a in Frameworks */,
+				32C6D6FE1DBF852700525BB9 /* libRCTCapture.a in Frameworks */,
 				327AECB61DADD04500805B1C /* libRCTMarqueeLabel.a in Frameworks */,
 				32411D851D990423001B328E /* libRCTVendorCamera.a in Frameworks */,
-				320AB03C1DB49FF00019A31D /* libRCTBatteryStatus.a in Frameworks */,
+				32C6D6FD1DBF851900525BB9 /* libRCTBatteryStatus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,11 +629,11 @@
 				32B2F5271CD2015E0066B824 /* RCTCordova.xcodeproj */,
 				32B2F5211CD201590066B824 /* RCTContacts.xcodeproj */,
 				32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */,
-				32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */,
+				32C6D6D21DBF84C000525BB9 /* RCTCapture.xcodeproj */,
 				32B25F2A1D9113CE00C56855 /* CDVCapture.bundle */,
 				32B2F5151CD2014B0066B824 /* RCTCall.xcodeproj */,
 				32B2F50F1CD201400066B824 /* RCTAudio.xcodeproj */,
-				320AB0161DB49FC70019A31D /* RCTBatteryStatus.xcodeproj */,
+				32C6D6F71DBF84D100525BB9 /* RCTBatteryStatus.xcodeproj */,
 			);
 			name = RemobileLibraries;
 			sourceTree = "<group>";
@@ -644,14 +646,6 @@
 				32AF4DB81CD1F91500A215B4 /* RNFS.xcodeproj */,
 			);
 			name = VendorLibraries;
-			sourceTree = "<group>";
-		};
-		320AB0171DB49FC70019A31D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				320AB01E1DB49FC80019A31D /* libRCTBatteryStatus.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3233C90B1C892F6900E360AB /* audioRecorder */ = {
@@ -736,14 +730,6 @@
 			isa = PBXGroup;
 			children = (
 				32AF4DBD1CD1F91500A215B4 /* libRNFS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		32B25F091D9113A900C56855 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				32B25F121D9113A900C56855 /* libRCTCapture.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -887,6 +873,22 @@
 			);
 			name = Resources;
 			path = "../App/node_modules/@remobile/react-native-image-picker/ios/RCTImagePicker/Resources";
+			sourceTree = "<group>";
+		};
+		32C6D6D31DBF84C000525BB9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32C6D6DD1DBF84C000525BB9 /* libRCTCapture.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32C6D6F81DBF84D100525BB9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32C6D6FC1DBF84D100525BB9 /* libRCTBatteryStatus.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		748A4B5CC9EFD3A1B9430D67 /* Frameworks */ = {
@@ -1042,8 +1044,8 @@
 					ProjectRef = 32B2F50F1CD201400066B824 /* RCTAudio.xcodeproj */;
 				},
 				{
-					ProductGroup = 320AB0171DB49FC70019A31D /* Products */;
-					ProjectRef = 320AB0161DB49FC70019A31D /* RCTBatteryStatus.xcodeproj */;
+					ProductGroup = 32C6D6F81DBF84D100525BB9 /* Products */;
+					ProjectRef = 32C6D6F71DBF84D100525BB9 /* RCTBatteryStatus.xcodeproj */;
 				},
 				{
 					ProductGroup = 32B2F5161CD2014B0066B824 /* Products */;
@@ -1058,8 +1060,8 @@
 					ProjectRef = 32B2F51B1CD201530066B824 /* RCTCamera.xcodeproj */;
 				},
 				{
-					ProductGroup = 32B25F091D9113A900C56855 /* Products */;
-					ProjectRef = 32B25F081D9113A900C56855 /* RCTCapture.xcodeproj */;
+					ProductGroup = 32C6D6D31DBF84C000525BB9 /* Products */;
+					ProjectRef = 32C6D6D21DBF84C000525BB9 /* RCTCapture.xcodeproj */;
 				},
 				{
 					ProductGroup = 32B2F5221CD201590066B824 /* Products */;
@@ -1226,13 +1228,6 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		320AB01E1DB49FC80019A31D /* libRCTBatteryStatus.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTBatteryStatus.a;
-			remoteRef = 320AB01D1DB49FC80019A31D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		32411CD41D98A82E001B328E /* libRCTVendorCamera.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1266,13 +1261,6 @@
 			fileType = archive.ar;
 			path = libRNFS.a;
 			remoteRef = 32AF4DBC1CD1F91500A215B4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		32B25F121D9113A900C56855 /* libRCTCapture.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTCapture.a;
-			remoteRef = 32B25F111D9113A900C56855 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		32B2F5141CD201400066B824 /* libRCTAudio.a */ = {
@@ -1385,6 +1373,20 @@
 			fileType = archive.ar;
 			path = libRCTZip.a;
 			remoteRef = 32B2F5791CD201C30066B824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32C6D6DD1DBF84C000525BB9 /* libRCTCapture.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCapture.a;
+			remoteRef = 32C6D6DC1DBF84C000525BB9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32C6D6FC1DBF84D100525BB9 /* libRCTBatteryStatus.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTBatteryStatus.a;
+			remoteRef = 32C6D6FB1DBF84D100525BB9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
