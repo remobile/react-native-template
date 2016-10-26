@@ -12,10 +12,10 @@ class Input extends Component {
         };
     }
     componentWillMount() {
-        const {maxLines, style} = this.props;
+        const {maxLines, style, maxHeight} = this.props;
         const {height, lineHeight, fontSize} = StyleSheet.flatten(style);
         this.defaultHeight = height;
-        this.maxHeight = maxLines ? maxLines*(lineHeight ? lineHeight : fontSize*1.5) : 99999;
+        this.maxHeight = maxLines ? (maxLines*(lineHeight ? lineHeight : fontSize*1.5)) : maxHeight || 99999;
         if (this.defaultHeight) {
             this.setState({height:this.defaultHeight});
         }
