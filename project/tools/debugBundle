@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$1" = "ios" ];then
+    wget -O index.ios.bundle "http://localhost:8081/index.ios.bundle?platform=android&dev=true"
+else
+    wget -O index.android.bundle "http://localhost:8081/index.android.bundle?platform=android&dev=true"
+fi
