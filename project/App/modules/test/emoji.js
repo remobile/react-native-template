@@ -27,8 +27,8 @@ module.exports = React.createClass({
     },
     render() {
         return (
-            <View style={styles.container} {...this._panResponder.panHandlers}>
-                <View style={{flex:1, backgroundColor:'blue'}} />
+            <View style={styles.container}>
+                <View style={{flex:1, backgroundColor:'blue'}}  {...this._panResponder.panHandlers}/>
                 <EmojiInputBox ref={(ref)=>this.emojiInputBox = ref} />
             </View>
         );

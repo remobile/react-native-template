@@ -40,11 +40,11 @@ function genkey() {
             \"*如果和密钥库口令相同*\" {send \"\r\"; exp_continue}
         }
     "
-    mv $file.keystore ../android/app/
+    mv $file.keystore ../android/keystores/release.keystore.properties
 }
 
 
-[ -a ../android/app/$file.keystore ]||genkey
+[ -a ../android/keystores/release.keystore.properties ]||genkey
 [ -z "`grep signingConfigs ${gradlefile}`" ] && vim -e -s ${gradlefile} \
     -c "%s/buildTypes.*{/signingConfigs {\r ${tap2}release {\r ${tap3}storeFile file(\"${file}.keystore\")\r ${tap3}storePassword \"${password}\"\r ${tap3}keyAlias \"${file}\"\r ${tap3}keyPassword \"${password}\"\r ${tap2}}\r ${tap}}\r${tap}&/" \
     -c "%s/proguardFiles.*/&\r${tap3}signingConfig signingConfigs.release/" \
@@ -54,4 +54,4 @@ function genkey() {
 cd ../android
 ./gradlew assembleRelease
 #./gradlew installRelease
-mv app/build/outputs/apk/app-armeabi-v7a-release.apk ../../localServer/public/download/jfbsample.apk
+mv app/build/outputs/apk/app-release.apk ../../localServer/public/download/jfbsample.apk

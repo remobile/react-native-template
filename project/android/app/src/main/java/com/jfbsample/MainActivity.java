@@ -1,7 +1,6 @@
 package com.jfbsample;
 
 import android.app.Activity;
-
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {

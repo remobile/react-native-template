@@ -7,7 +7,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 
 import com.facebook.react.shell.MainReactPackage;
-import com.remobile.RCTRemobilePackage;
 import com.remobile.splashscreen.RCTSplashScreenPackage;
 import com.remobile.toast.RCTToastPackage;
 import com.remobile.dialogs.RCTDialogsPackage;
@@ -55,7 +54,6 @@ public class MainApplication extends Application implements ReactApplication {
 
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-                    new RCTRemobilePackage(MainActivity.activity),
                     //RemobileLibraries
                     new RCTSplashScreenPackage(MainActivity.activity),
                     new RCTToastPackage(),

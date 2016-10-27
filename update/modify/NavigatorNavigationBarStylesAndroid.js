@@ -29,31 +29,28 @@
 var buildStyleInterpolator = require('buildStyleInterpolator');
 var merge = require('merge');
 
-var NAV_BAR_HEIGHT = 44;
-var STATUS_BAR_HEIGHT = 12;
+var NAV_BAR_HEIGHT = 56;
 var Dimensions = require('Dimensions');
 var _height = Dimensions.get('window').height;
 var _width = Dimensions.get('window').width;
 var _rate = (667-375/_width*_height)/667;
 if (_rate > 0) {
-    NAV_BAR_HEIGHT = 44*(1-_rate);
-    STATUS_BAR_HEIGHT = 12*(1-_rate);
+    NAV_BAR_HEIGHT = NAV_BAR_HEIGHT*(1-_rate);
 }
-var NAV_HEIGHT = NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT;
 
 var BASE_STYLES = {
   Title: {
     position: 'absolute',
-    top: STATUS_BAR_HEIGHT,
+    bottom: 0,
     left: 0,
     right: 0,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     height: NAV_BAR_HEIGHT,
     backgroundColor: 'transparent',
   },
   LeftButton: {
     position: 'absolute',
-    top: STATUS_BAR_HEIGHT,
+    top: 0,
     left: 0,
     overflow: 'hidden',
     opacity: 1,
@@ -62,7 +59,7 @@ var BASE_STYLES = {
   },
   RightButton: {
     position: 'absolute',
-    top: STATUS_BAR_HEIGHT,
+    top: 0,
     right: 0,
     overflow: 'hidden',
     opacity: 1,
@@ -171,7 +168,7 @@ module.exports = {
   General: {
     NavBarHeight: NAV_BAR_HEIGHT,
     StatusBarHeight: 0,
-    TotalNavHeight: NAV_HEIGHT,
+    TotalNavHeight: NAV_BAR_HEIGHT,
   },
   Interpolators,
   Stages,

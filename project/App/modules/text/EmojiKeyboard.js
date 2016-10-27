@@ -39,11 +39,11 @@ module.exports = React.createClass({
         this.props.onMounted(false);
     },
     render() {
-        const size = sr.ws(30), height = sr.ws(220);
+        const size = sr.ws(30), height = 220;
         const {isBlank, onEmojiPress, onPressDelete} = this.props;
         return (
             isBlank ?
-            <View style={styles.blank} />
+            <View style={{height: height}} />
             :
             <View style={styles.emojiKeyboard}>
                 <Carousel height={height}>
@@ -78,9 +78,6 @@ module.exports = React.createClass({
 
 
 var styles = StyleSheet.create({
-    blank: {
-        height: 220,
-    },
     emojiKeyboard: {
         backgroundColor: '#FFFFFF',
     },

@@ -314,6 +314,7 @@ module.exports = React.createClass({
                     <View style={[styles.inputBox, {height: inputHeight}]}>
                         <ScrollView
                             ref={(ref)=>this.inputScroll = ref}
+                            keyboardShouldPersistTaps={true}
                             onContentSizeChange={this.onContentSizeChange}
                             >
                             {this.showInputPanelContent()}
