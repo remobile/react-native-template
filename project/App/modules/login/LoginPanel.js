@@ -13,7 +13,6 @@ var {
 
 var ForgetPassword = require('./ForgetPassword.js');
 var Home = require('../home/index.js');
-var Umeng = require('../../native/index.js').Umeng;
 
 var {Button} = COMPONENTS;
 
@@ -136,8 +135,8 @@ module.exports = React.createClass({
             password: "",
             dataSource: ds.cloneWithRows(app.login.list),
             showList: false,
-            weixininstalled: false,//Umeng.isWeixinInstalled,
-            qqinstalled: false,//Umeng.isQQInstalled,
+            weixininstalled: false,
+            qqinstalled: false,
         };
     },
     onPhoneTextInputLayout(e) {

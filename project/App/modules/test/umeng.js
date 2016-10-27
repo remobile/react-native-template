@@ -1,51 +1,62 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
+var React = require('react');
+var ReactNative = require('react-native');
 var {
+    KeyboardAvoidingView,
+    Modal,
+    SegmentedControlIOS,
     StyleSheet,
+    Text,
+    TextInput,
+    TouchableHighlight,
     View,
+    ScrollView,
 } = ReactNative;
 
+var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
-var Umeng = require('../../native/index.js').Umeng;
-
-
 
 module.exports = React.createClass({
-    doActionSheetShare() {
-        Umeng.shareWithActionSheet({
-            url: "http://www.baidu.com",
-            title: "title",
-            text: "text",
-        }, (result)=>{
-            console.log("success", result);
-        });
-    },
-    doSingleShare() {
-        Umeng.shareSingle(Umeng.platforms.UMShareToWechatSession, {
-            url: "http://www.baidu.com",
-            title: "title",
-            text: "text",
-        }, (result)=>{
-            console.log("success", result);
-        });
+    componentWillMount() {
+        SplashScreen.hide();
+        app.toggleNavigationBar(true);
     },
     render() {
         return (
-            <View style={styles.container}>
-                <Button onPress={this.doActionSheetShare}>默认分享</Button>
-                <Button onPress={this.doSingleShare}>单独分享</Button>
-            </View>
+            <KeyboardAvoidingView behavior={'position'} style={styles.container} keyboardVerticalOffset={100}>
+
+                    <View style={styles.upContainer}>
+                        <Text>
+                            fang
+                        </Text>
+                    </View>
+                <TextInput style={styles.textInput} placeholder="1"/>
+                <TextInput style={styles.textInput} placeholder="1"/>
+            </KeyboardAvoidingView>
         );
     }
 });
 
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'transparent',
-        justifyContent: 'space-around',
-        paddingVertical: 150,
+        marginTop: 10,
+        paddingHorizontal: 20,
+        paddingTop: 1,
+        backgroundColor: 'blue',
+        overflow: 'hidden',
+    },
+    upContainer: {
+        height: sr.h-200,
+        backgroundColor:'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textInput: {
+        borderRadius: 5,
+        borderWidth: 1,
+        height: 44,
+        paddingHorizontal: 10,
     },
 });
