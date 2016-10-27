@@ -14,6 +14,7 @@ var {
     ScrollView,
 } = ReactNative;
 
+import { GiftedChat } from 'react-native-gifted-chat';
 var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
 
@@ -22,20 +23,40 @@ module.exports = React.createClass({
         SplashScreen.hide();
         app.toggleNavigationBar(true);
     },
+    getInitialState() {
+        return {
+            messages: [
+                {
+                    _id: 1,
+                    text: 'Hello developer',
+                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                    user: {
+                        _id: 2,
+                        name: 'React Native',
+                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+                    },
+                },
+            ]
+        };
+    },
+    onSend(messages = []) {
+        this.setState((previousState) => {
+            return {
+                messages: GiftedChat.append(previousState.messages, messages),
+            };
+        });
+    },
     render() {
         return (
-            <KeyboardAvoidingView behavior={'position'} style={styles.container} keyboardVerticalOffset={100}>
-
-                    <View style={styles.upContainer}>
-                        <Text>
-                            fang
-                        </Text>
-                    </View>
-                <TextInput style={styles.textInput} placeholder="1"/>
-                <TextInput style={styles.textInput} placeholder="1"/>
-            </KeyboardAvoidingView>
+            <GiftedChat
+                messages={this.state.messages}
+                onSend={this.onSend}
+                user={{
+                    _id: 1,
+                }}
+                />
         );
-    }
+    },
 });
 
 const styles = StyleSheet.create({
@@ -46,17 +67,5 @@ const styles = StyleSheet.create({
         paddingTop: 1,
         backgroundColor: 'blue',
         overflow: 'hidden',
-    },
-    upContainer: {
-        height: sr.h-200,
-        backgroundColor:'red',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textInput: {
-        borderRadius: 5,
-        borderWidth: 1,
-        height: 44,
-        paddingHorizontal: 10,
     },
 });
