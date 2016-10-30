@@ -15,6 +15,7 @@ var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
 var EmojiInputBox = require('../text/index.js');
 
+
 module.exports = React.createClass({
     componentWillMount() {
         SplashScreen.hide();

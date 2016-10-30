@@ -19,6 +19,7 @@ const dismissKeyboard = require('dismissKeyboard');
 const EmojiKeyboard = require('./EmojiKeyboard.js');
 const FONT_SCALE = require('./FontScale.json');
 const images = require('./expressions').images;
+const audioIcon = require('./img/audio.png');
 const moreIcon = require('./img/more.png');
 const emojiIcon = require('./img/emoji.png');
 const keyboardIcon = require('./img/keyboard.png');
@@ -26,7 +27,9 @@ const keyboardIcon = require('./img/keyboard.png');
 const
 NO_KEYBOARD_TYPE = 0,
 SYSTEM_KEYBOARD_TYPE = 1,
-EMOJI_KEYBOARD_TYPE = 2;
+EMOJI_KEYBOARD_TYPE = 2,
+AUDIO_KEYBOARD_TYPE = 3,
+MORE_KEYBOARD_TYPE = 4;
 
 const
 ENGLISH_TYPE = 0,
@@ -34,6 +37,9 @@ CHINESE_TYPE = 1,
 EMOJI_TYPE = 2,
 NEW_LINE_TYPE = 3,
 END_TYPE = 4;
+
+const UN_SELECTION =  {start: -1, end: -1};
+const INIT_SELECTION =  {start: 0, end: 0};
 
 var WordItem = React.createClass({
     componentWillMount() {
@@ -91,7 +97,8 @@ module.exports = React.createClass({
         this.wordsList = [
             {type: END_TYPE, width: 10},
         ];
-        this.selection = {start: 0, end: 0};
+        this.lastSelection = UN_SELECTION;
+        this.selection = UN_SELECTION;
         return {
             showList: this.getShowList(),
             assistText: '',
@@ -103,7 +110,7 @@ module.exports = React.createClass({
         this.wordsList = [
             {type: END_TYPE, width: 10},
         ];
-        this.selection = {start: 0, end: 0};
+        this.selection = UN_SELECTION;
         this.setState({
             showList: this.getShowList(),
             assistText: '',
@@ -115,16 +122,13 @@ module.exports = React.createClass({
         const {keyboardShowType} = this.state;
         switch (keyboardShowType) {
             case NO_KEYBOARD_TYPE:
-                this.setState({keyboardShowType: EMOJI_KEYBOARD_TYPE});
-                dismissKeyboard();
+                this.showEmojiKeyboard();
                 break;
             case EMOJI_KEYBOARD_TYPE:
-                this.setState({keyboardShowType: SYSTEM_KEYBOARD_TYPE});
-                this.assistInput.focus();
+                this.showSystemKeyboard(true);
                 break;
             default:
-                this.setState({keyboardShowType: EMOJI_KEYBOARD_TYPE});
-                dismissKeyboard();
+                this.showEmojiKeyboard(true);
 
         }
     },
@@ -194,7 +198,6 @@ module.exports = React.createClass({
         this.setState({showList: this.getShowList()});
     },
     getShowList() {
-        const MAX_WIDTH = sr.ws(sr.w-110);
         const {wordsList, selection} = this;
         const {start, end} = selection;
         let width = 0, list = [], array = [];
@@ -219,7 +222,7 @@ module.exports = React.createClass({
                 col = 0;
             } else {
                 width += item.width + 2;
-                if (width >= MAX_WIDTH) {
+                if (width >= this.MAX_WIDTH) {
                     list.push(array);
                     width = item.width;
                     array = [];
@@ -246,6 +249,8 @@ module.exports = React.createClass({
         });
     },
     onChangeText(text) {
+        this.setState({assistText: ''});
+        text = text.substr(text.length-1);
         const charCode = text.charCodeAt(0);
         const isChinese = charCode > 256;
         if (charCode === 10) {
@@ -253,7 +258,6 @@ module.exports = React.createClass({
         } else {
             this.addTextFromSelected(text, isChinese);
         }
-        this.setState({assistText: ''});
     },
     onKeyPress(e) {
         const {key} = e.nativeEvent;
@@ -270,26 +274,48 @@ module.exports = React.createClass({
     onEmojiKeyboardMounted(mounted) {
         this.emojiKeyboardMounted = mounted;
     },
-    showMorePanel() {
-    },
-    hideKeyboard() {
-        const {keyboardShowType} = this.state;
-        this.setState({keyboardShowType: NO_KEYBOARD_TYPE});
-        dismissKeyboard();
-    },
-    switchKeyboard() {
-        const {keyboardShowType} = this.state;
-        this.switchKeyboardPress = true;
-        if (keyboardShowType === NO_KEYBOARD_TYPE) {
-            this.setState({keyboardShowType: EMOJI_KEYBOARD_TYPE});
-            dismissKeyboard();
-        } else if (keyboardShowType === EMOJI_KEYBOARD_TYPE) {
-            this.setState({keyboardShowType: SYSTEM_KEYBOARD_TYPE});
-            this.assistInput.focus();
+    switchAudioAndInput() {
+        let {keyboardShowType} = this.state;
+        if (keyboardShowType===AUDIO_KEYBOARD_TYPE) {
+            this.showSystemKeyboard();
+        } else if (keyboardShowType===SYSTEM_KEYBOARD_TYPE || keyboardShowType===EMOJI_KEYBOARD_TYPE) {
+            this.hideKeyboard(AUDIO_KEYBOARD_TYPE);
         } else {
+            this.setState({keyboardShowType: AUDIO_KEYBOARD_TYPE});
+        }
+    },
+    startRecordAudio() {
+
+    },
+    stopRecordAudio() {
+
+    },
+    sendTextMessage() {
+
+    },
+    showSystemKeyboard(fromEmojiKeyboard) {
+        this.assistInput.focus();
+        if (fromEmojiKeyboard) {
+            this.setState({keyboardShowType: SYSTEM_KEYBOARD_TYPE});
+        } else {
+            this.selection = _.isEqual(this.lastSelection, UN_SELECTION) ? INIT_SELECTION : this.lastSelection;
+            this.setState({keyboardShowType: SYSTEM_KEYBOARD_TYPE, showList: this.getShowList()});
+        }
+    },
+    showEmojiKeyboard(fromSystemKeyboard) {
+        if (fromSystemKeyboard) {
             this.setState({keyboardShowType: EMOJI_KEYBOARD_TYPE});
             dismissKeyboard();
+        } else {
+            this.selection = _.isEqual(this.lastSelection, UN_SELECTION) ? INIT_SELECTION : this.lastSelection;
+            this.setState({keyboardShowType: EMOJI_KEYBOARD_TYPE, showList: this.getShowList()});
         }
+    },
+    hideKeyboard(keyboardShowType=NO_KEYBOARD_TYPE) {
+        this.lastSelection = this.selection;
+        this.selection = UN_SELECTION;
+        this.setState({keyboardShowType, showList: this.getShowList()});
+        dismissKeyboard();
     },
     onContentSizeChange(contentWidth, contentHeight) {
         const {lineHeight, fontSize, maxLines} = this.props;
@@ -300,32 +326,57 @@ module.exports = React.createClass({
         }
         this.scrollToSelected();
     },
+    onLayout(e) {
+        var {width} = e.nativeEvent.layout;
+        this.MAX_WIDTH = width;
+    },
     render() {
-        const {assistText, inputHeight, keyboardShowType} = this.state;
+        let {assistText, inputHeight, keyboardShowType, canSend} = this.state;
         const {keyboardType} = this.props;
-
-        keyboardShowType!==NO_KEYBOARD_TYPE
         return (
             <View>
-                <View style={styles.inputContainer}>
-                    <TouchableOpacity onPress={this.showMorePanel}>
-                        <Image resizeMode='stretch' source={moreIcon} style={styles.iconButton} />
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={this.switchAudioAndInput}>
+                        <Image resizeMode='stretch' source={keyboardShowType===AUDIO_KEYBOARD_TYPE?keyboardIcon: audioIcon} style={styles.iconButton} />
                     </TouchableOpacity>
-                    <View style={[styles.inputBox, {height: inputHeight}]}>
-                        <ScrollView
-                            ref={(ref)=>this.inputScroll = ref}
-                            keyboardShouldPersistTaps={true}
-                            onContentSizeChange={this.onContentSizeChange}
-                            >
-                            {this.showInputPanelContent()}
-                        </ScrollView>
+                    {
+                        keyboardShowType===AUDIO_KEYBOARD_TYPE ?
+                        <View style={styles.audioContainer}>
+                            <TouchableOpacity onPress={this.startRecordAudio} style={styles.audioInnerContainer}>
+                                <Text>按住 说话</Text>
+                            </TouchableOpacity>
+                        </View>
+                        :
+                        <View style={styles.inputContainer}>
+                            <View style={{flex:1, height: inputHeight}} onLayout={this.onLayout}>
+                                <ScrollView
+                                    ref={(ref)=>this.inputScroll = ref}
+                                    keyboardShouldPersistTaps={true}
+                                    onContentSizeChange={this.onContentSizeChange}
+                                    >
+                                    {this.showInputPanelContent()}
+                                </ScrollView>
+                            </View>
+                            <TouchableOpacity onPress={this.switchKeyboard}>
+                                <Image resizeMode='stretch' source={keyboardShowType===EMOJI_KEYBOARD_TYPE?keyboardIcon:emojiIcon} style={styles.iconButtonRight} />
+                            </TouchableOpacity>
+                        </View>
+                    }
+                    <View style={styles.rightContainer}>
+                        {
+                            canSend ?
+                            <TouchableOpacity onPress={this.sendTextMessage}>
+                                <Text style={styles.send}>发送</Text>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={this.showMorePanel}>
+                                <Image resizeMode='stretch' source={moreIcon} style={styles.innerIconButton} />
+                            </TouchableOpacity>
+                        }
                     </View>
-                    <TouchableOpacity onPress={this.switchKeyboard}>
-                        <Image resizeMode='stretch' source={keyboardShowType===EMOJI_KEYBOARD_TYPE?keyboardIcon:emojiIcon} style={styles.iconButton} />
-                    </TouchableOpacity>
                 </View>
                 <View style={styles.makeupContainer}>
-                    <View style={styles.line} />
+                    {keyboardShowType!==AUDIO_KEYBOARD_TYPE && <View style={styles.line} />}
                     <TextInput
                         ref={(ref)=>this.assistInput = ref}
                         autoCorrect={false}
@@ -338,7 +389,7 @@ module.exports = React.createClass({
                         multiline
                         />
                         {
-                            keyboardShowType!==NO_KEYBOARD_TYPE &&
+                            (keyboardShowType!==NO_KEYBOARD_TYPE && keyboardShowType!==AUDIO_KEYBOARD_TYPE) &&
                             <EmojiKeyboard
                                 isBlank={keyboardShowType===SYSTEM_KEYBOARD_TYPE&&!this.emojiKeyboardMounted}
                                 onEmojiPress={this.onEmojiPress}
@@ -353,19 +404,38 @@ module.exports = React.createClass({
 
 
 var styles = StyleSheet.create({
-    inputContainer: {
+    container: {
         flexDirection: 'row',
         paddingTop: 10,
         alignItems: 'flex-end',
     },
-    inputBox: {
-        width: sr.w - 100,
+    audioContainer: {
+        flex: 1,
+        height: 30,
+        borderWidth: 1,
+        borderColor: '#AAAAAA',
+        borderRadius: 4,
+        backgroundColor: '#FFFFFF',
+    },
+    audioInnerContainer: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    inputContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
     },
     line: {
-        width: sr.w - 100,
         marginTop: 4,
-        marginLeft: 50,
         height: 1,
+        marginLeft: 50,
+        marginRight: 105,
         backgroundColor: 'green',
     },
     assistInput: {
@@ -391,7 +461,27 @@ var styles = StyleSheet.create({
         width: 30,
         height: 30,
         marginHorizontal: 10,
-        justifyContent: 'flex-end',
+    },
+    iconButtonRight: {
+        width: 30,
+        height: 30,
+        marginLeft: 10,
+        marginRight: 5,
+    },
+    innerIconButton: {
+        width: 30,
+        height: 30,
+    },
+    rightContainer: {
+        width: 55,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    send: {
+        fontSize: 18,
+        fontWeight: '500',
+        color: 'green',
     },
     makeupContainer: {
         marginBottom: 10,
