@@ -1,0 +1,32 @@
+{
+    "name": "@remobile/react-native-indexed-listview",
+    "version": "1.0.0",
+    "description": "A indexed listview in chat app like contacts list",
+    "main": "index.js",
+    "author": {
+        "name": "YunJiang.Fang",
+        "email": "42550564@qq.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "react-native",
+        "react-component",
+        "react-native-component",
+        "ios",
+        "android",
+        "chat",
+        "indexed",
+        "listview",
+        "contacts",
+        "remobile",
+        "mobile"
+    ],
+    "homepage": "https://github.com/remobile/react-native-indexed-listview",
+    "bugs": {
+        "url": "https://github.com/remobile/react-native-indexed-listview/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/remobile/react-native-indexed-listview.git"
+    }
+}
