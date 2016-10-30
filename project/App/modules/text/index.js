@@ -105,6 +105,7 @@ module.exports = React.createClass({
             assistText: '',
             keyboardShowType: NO_KEYBOARD_TYPE,
             inputHeight: lineHeight,
+            canSend: false,
         };
     },
     clear() {
@@ -117,21 +118,8 @@ module.exports = React.createClass({
             assistText: '',
             keyboardShowType: NO_KEYBOARD_TYPE,
             inputHeight: lineHeight,
+            canSend: false,
         });
-    },
-    switchKeyboard() {
-        const {keyboardShowType} = this.state;
-        switch (keyboardShowType) {
-            case NO_KEYBOARD_TYPE:
-                this.showEmojiKeyboard();
-                break;
-            case EMOJI_KEYBOARD_TYPE:
-                this.showSystemKeyboard(true);
-                break;
-            default:
-                this.showEmojiKeyboard(true);
-
-        }
     },
     deleteFromSelected() {
         const {start, end} = this.selection;
@@ -196,7 +184,7 @@ module.exports = React.createClass({
         this.scrollToSelected();
     },
     updateShowList() {
-        this.setState({showList: this.getShowList()});
+        this.setState({showList: this.getShowList(), canSend: this.wordsList.length > 1});
     },
     getShowList() {
         const {wordsList, selection} = this;
@@ -278,6 +266,22 @@ module.exports = React.createClass({
     onEmojiKeyboardMounted(mounted) {
         this.emojiKeyboardMounted = mounted;
     },
+    switchKeyboard() {
+        const {keyboardShowType} = this.state;
+        switch (keyboardShowType) {
+            case NO_KEYBOARD_TYPE:
+                this.showEmojiKeyboard();
+                break;
+            case EMOJI_KEYBOARD_TYPE:
+                this.showSystemKeyboard(true);
+                break;
+            case MORE_KEYBOARD_TYPE:
+                this.showEmojiKeyboard();
+                break;
+            default:
+                this.showEmojiKeyboard(true);
+        }
+    },
     switchAudioAndInput() {
         let {keyboardShowType} = this.state;
         if (keyboardShowType===AUDIO_KEYBOARD_TYPE) {
@@ -327,7 +331,7 @@ module.exports = React.createClass({
             if (keyboardShowType === SYSTEM_KEYBOARD_TYPE) {
                 dismissKeyboard();
             }
-        } else if (keyboardShowType === MORE_KEYBOARD_TYPE) {
+        } else if (keyboardShowType===MORE_KEYBOARD_TYPE && nextKeyboardShowType!==MORE_KEYBOARD_TYPE) {
             this.setState({keyboardShowType:nextKeyboardShowType});
         }
     },
