@@ -17,6 +17,7 @@ var {
 
 const dismissKeyboard = require('dismissKeyboard');
 const EmojiKeyboard = require('./EmojiKeyboard.js');
+const MorePanel = require('./MorePanel.js');
 const FONT_SCALE = require('./FontScale.json');
 const images = require('./expressions').images;
 const audioIcon = require('./img/audio.png');
@@ -268,6 +269,9 @@ module.exports = React.createClass({
     onEmojiPress(index) {
         this.addImageFromSelected(index);
     },
+    onMenuPress(index) {
+        Toast(index+'');
+    },
     onPressDelete() {
         this.deleteFromSelected();
     },
@@ -293,6 +297,9 @@ module.exports = React.createClass({
     sendTextMessage() {
 
     },
+    showMorePanel() {
+        this.hideKeyboard(MORE_KEYBOARD_TYPE);
+    },
     showSystemKeyboard(fromEmojiKeyboard) {
         this.assistInput.focus();
         if (fromEmojiKeyboard) {
@@ -311,11 +318,18 @@ module.exports = React.createClass({
             this.setState({keyboardShowType: EMOJI_KEYBOARD_TYPE, showList: this.getShowList()});
         }
     },
-    hideKeyboard(keyboardShowType=NO_KEYBOARD_TYPE) {
-        this.lastSelection = this.selection;
-        this.selection = UN_SELECTION;
-        this.setState({keyboardShowType, showList: this.getShowList()});
-        dismissKeyboard();
+    hideKeyboard(nextKeyboardShowType=NO_KEYBOARD_TYPE) {
+        let {keyboardShowType} = this.state;
+        if (keyboardShowType === SYSTEM_KEYBOARD_TYPE || keyboardShowType === EMOJI_KEYBOARD_TYPE) {
+            this.lastSelection = this.selection;
+            this.selection = UN_SELECTION;
+            this.setState({keyboardShowType:nextKeyboardShowType, showList: this.getShowList()});
+            if (keyboardShowType === SYSTEM_KEYBOARD_TYPE) {
+                dismissKeyboard();
+            }
+        } else if (keyboardShowType === MORE_KEYBOARD_TYPE) {
+            this.setState({keyboardShowType:nextKeyboardShowType});
+        }
     },
     onContentSizeChange(contentWidth, contentHeight) {
         const {lineHeight, fontSize, maxLines} = this.props;
@@ -389,12 +403,16 @@ module.exports = React.createClass({
                         multiline
                         />
                         {
-                            (keyboardShowType!==NO_KEYBOARD_TYPE && keyboardShowType!==AUDIO_KEYBOARD_TYPE) &&
+                            (keyboardShowType!==NO_KEYBOARD_TYPE && keyboardShowType!==AUDIO_KEYBOARD_TYPE && keyboardShowType!==MORE_KEYBOARD_TYPE) &&
                             <EmojiKeyboard
                                 isBlank={keyboardShowType===SYSTEM_KEYBOARD_TYPE&&!this.emojiKeyboardMounted}
                                 onEmojiPress={this.onEmojiPress}
                                 onPressDelete={this.onPressDelete}
                                 onMounted={this.onEmojiKeyboardMounted} />
+                        }
+                        {
+                            keyboardShowType===MORE_KEYBOARD_TYPE &&
+                            <MorePanel onMenuPress={this.onMenuPress}/>
                         }
                 </View>
             </View>
