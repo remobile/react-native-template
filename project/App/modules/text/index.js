@@ -33,11 +33,10 @@ AUDIO_KEYBOARD_TYPE = 3,
 MORE_KEYBOARD_TYPE = 4;
 
 const
-ENGLISH_TYPE = 0,
-CHINESE_TYPE = 1,
-EMOJI_TYPE = 2,
-NEW_LINE_TYPE = 3,
-END_TYPE = 4;
+TEXT_TYPE = 0,
+EMOJI_TYPE = 1,
+NEW_LINE_TYPE = 2,
+END_TYPE = 3;
 
 const UN_SELECTION =  {start: -1, end: -1};
 const INIT_SELECTION =  {start: 0, end: 0};
@@ -105,7 +104,7 @@ module.exports = React.createClass({
             assistText: '',
             keyboardShowType: NO_KEYBOARD_TYPE,
             inputHeight: lineHeight,
-            canSend: false,
+            isTextEmpty: true,
         };
     },
     clear() {
@@ -118,8 +117,14 @@ module.exports = React.createClass({
             assistText: '',
             keyboardShowType: NO_KEYBOARD_TYPE,
             inputHeight: lineHeight,
-            canSend: false,
+            isTextEmpty: true,
         });
+    },
+    getTextWidth(char, charCode) {
+        const isChinese = (charCode===undefined ? char.charCodeAt(0) : charCode)  > 256;
+        const {fontSize} = this.props;
+        const fontScale = isChinese ? FONT_SCALE['chinese'] : FONT_SCALE[char] ? FONT_SCALE[char] : 1;
+        return Math.ceil(fontScale*fontSize*1.1);
     },
     deleteFromSelected() {
         const {start, end} = this.selection;
@@ -134,14 +139,11 @@ module.exports = React.createClass({
             this.updateShowList();
         }
     },
-    addTextFromSelected(val, isChinese) {
+    addTextFromSelected(val, charCode) {
         const {start, end} = this.selection;
-        const {fontSize} = this.props;
         const newStart = start+1, length = end-start;
-        const fontScale = isChinese ? FONT_SCALE['chinese'] : FONT_SCALE[val] ? FONT_SCALE[val] : 1;
-        const width = Math.ceil(fontScale*fontSize*1.1);
-
-        this.wordsList.splice(start, length, {type: isChinese?CHINESE_TYPE:ENGLISH_TYPE, val, width});
+        const width = this.getTextWidth(val, charCode);
+        this.wordsList.splice(start, length, {type: TEXT_TYPE, val, width});
         this.selection = {start:newStart, end:newStart};
         this.updateShowList();
     },
@@ -184,7 +186,7 @@ module.exports = React.createClass({
         this.scrollToSelected();
     },
     updateShowList() {
-        this.setState({showList: this.getShowList(), canSend: this.wordsList.length > 1});
+        this.setState({showList: this.getShowList(), isTextEmpty: this.wordsList.length === 1});
     },
     getShowList() {
         const {wordsList, selection} = this;
@@ -241,11 +243,10 @@ module.exports = React.createClass({
         this.setState({assistText: ''});
         text = text.substr(text.length-1);
         const charCode = text.charCodeAt(0);
-        const isChinese = charCode > 256;
         if (charCode === 10) {
             this.addNewLineFromSelected();
         } else {
-            this.addTextFromSelected(text, isChinese);
+            this.addTextFromSelected(text, charCode);
         }
     },
     onKeyPress(e) {
@@ -298,8 +299,65 @@ module.exports = React.createClass({
     stopRecordAudio() {
 
     },
+    parseWordsListFromText(text) {
+        const {fontSize} = this.props;
+        let wordsList = [];
+        let hasEscapeStart = false, escapeText = '';
+        for(var i = 0, len = text.length; i < text.length; i++) {
+            let char = text.charAt(i);
+            if (char === '\n') {
+                wordsList.push({type: NEW_LINE_TYPE});
+            } else if (char === ':') {
+                if (!hasEscapeStart) {
+                    hasEscapeStart = true;
+                } else {
+                    if (!escapeText) {
+                        let width = this.getTextWidth(':');
+                        wordsList.push({type: TEXT_TYPE, val:':', width});
+                    } else {
+                        wordsList.push({type: EMOJI_TYPE, val:escapeText, width:fontSize});
+                    }
+                    hasEscapeStart = false;
+                    escapeText = '';
+                }
+            } else {
+                if (hasEscapeStart) {
+                    escapeText += char;
+                } else {
+                    let width = this.getTextWidth(char);
+                    wordsList.push({type: TEXT_TYPE, val:char, width});
+                }
+            }
+        }
+        return wordsList;
+    },
+    getTextFromWordsList(wordsList) {
+        let text = '';
+        for (let i in wordsList) {
+            let item = wordsList[i];
+            if (item.type === EMOJI_TYPE) {
+                text += ':'+item.val+':';
+            } else if (item.type === NEW_LINE_TYPE) {
+                text += '\n';
+            } else if (item.type === TEXT_TYPE) {
+                if (item.val === ':') {
+                    text += '::';
+                } else {
+                    text += item.val;
+                }
+            }
+        }
+        return text;
+    },
     sendTextMessage() {
-
+        const text = this.getTextFromWordsList(this.wordsList);
+        if (!text) {
+            Toast('不能发送空消息');
+            return;
+        }
+        console.log(text);
+        var wordsList = this.parseWordsListFromText(text);
+        console.log(wordsList);
     },
     showMorePanel() {
         this.hideKeyboard(MORE_KEYBOARD_TYPE);
@@ -349,7 +407,7 @@ module.exports = React.createClass({
         this.MAX_WIDTH = width;
     },
     render() {
-        let {assistText, inputHeight, keyboardShowType, canSend} = this.state;
+        let {assistText, inputHeight, keyboardShowType, isTextEmpty} = this.state;
         const {keyboardType} = this.props;
         return (
             <View>
@@ -382,8 +440,8 @@ module.exports = React.createClass({
                     }
                     <View style={styles.rightContainer}>
                         {
-                            canSend ?
-                            <TouchableOpacity onPress={this.sendTextMessage}>
+                            !isTextEmpty &&  (keyboardShowType!==AUDIO_KEYBOARD_TYPE)?
+                            <TouchableOpacity style={styles.sendContainer}  onPress={this.sendTextMessage}>
                                 <Text style={styles.send}>发送</Text>
                             </TouchableOpacity>
                             :
@@ -500,10 +558,17 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    sendContainer: {
+        width: 46,
+        height: 30,
+        backgroundColor: '#29A220',
+        borderRadius: 4,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     send: {
-        fontSize: 18,
-        fontWeight: '500',
-        color: 'green',
+        fontSize: 14,
+        color: '#FFFFFF',
     },
     makeupContainer: {
         marginBottom: 10,
