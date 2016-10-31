@@ -360,7 +360,14 @@ module.exports = React.createClass({
         console.log(wordsList);
     },
     showMorePanel() {
-        this.hideKeyboard(MORE_KEYBOARD_TYPE);
+        let {keyboardShowType} = this.state;
+        if (keyboardShowType === MORE_KEYBOARD_TYPE) {
+            this.showSystemKeyboard();
+        } else if (keyboardShowType === SYSTEM_KEYBOARD_TYPE || keyboardShowType === EMOJI_KEYBOARD_TYPE) {
+            this.hideKeyboard(MORE_KEYBOARD_TYPE);
+        } else {
+            this.setState({keyboardShowType:MORE_KEYBOARD_TYPE});
+        }
     },
     showSystemKeyboard(fromEmojiKeyboard) {
         this.assistInput.focus();
@@ -389,7 +396,7 @@ module.exports = React.createClass({
             if (keyboardShowType === SYSTEM_KEYBOARD_TYPE) {
                 dismissKeyboard();
             }
-        } else if (keyboardShowType===MORE_KEYBOARD_TYPE && nextKeyboardShowType!==MORE_KEYBOARD_TYPE) {
+        } else if (keyboardShowType===MORE_KEYBOARD_TYPE) {
             this.setState({keyboardShowType:nextKeyboardShowType});
         }
     },
@@ -409,6 +416,7 @@ module.exports = React.createClass({
     render() {
         let {assistText, inputHeight, keyboardShowType, isTextEmpty} = this.state;
         const {keyboardType} = this.props;
+        console.log(keyboardShowType);
         return (
             <View>
                 <View style={styles.container}>
@@ -440,7 +448,7 @@ module.exports = React.createClass({
                     }
                     <View style={styles.rightContainer}>
                         {
-                            !isTextEmpty &&  (keyboardShowType!==AUDIO_KEYBOARD_TYPE)?
+                            !isTextEmpty &&  (keyboardShowType!==AUDIO_KEYBOARD_TYPE && keyboardShowType!==MORE_KEYBOARD_TYPE )?
                             <TouchableOpacity style={styles.sendContainer}  onPress={this.sendTextMessage}>
                                 <Text style={styles.send}>发送</Text>
                             </TouchableOpacity>
