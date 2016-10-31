@@ -41,6 +41,15 @@ END_TYPE = 3;
 const UN_SELECTION =  {start: -1, end: -1};
 const INIT_SELECTION =  {start: 0, end: 0};
 
+var FocusLine = React.createClass({
+    render() {
+        const {lineHeight} = this.props;
+        return (
+            <View style={{width:1, height:lineHeight, backgroundColor: 'black', position:'absolute', left:0, top: 0,}}/>
+        )
+    }
+});
+
 var WordItem = React.createClass({
     componentWillMount() {
         this._panResponder = PanResponder.create({
@@ -54,28 +63,22 @@ var WordItem = React.createClass({
         const {item, lineHeight, fontSize} = this.props;
         const {type, val, width, selected} = item;
         const height = fontSize;
-        if (type===END_TYPE) {
+        if (type===END_TYPE || type===NEW_LINE_TYPE) {
             return (
                 <View style={[styles.zeroLineContainer, {height:lineHeight}]} {...this._panResponder.panHandlers}>
-                    <View style={{marginLeft: 1, width:1, height, backgroundColor: selected?'black':'transparent'}}/>
-                </View>
-            )
-        } else if (type===NEW_LINE_TYPE) {
-            return (
-                <View style={[styles.zeroLineContainer, {height:lineHeight}]} {...this._panResponder.panHandlers}>
-                    <View style={{marginLeft: 1, width:1, height, backgroundColor: selected?'black':'transparent'}}/>
+                    {selected && <FocusLine lineHeight={lineHeight}/>}
                 </View>
             )
         } else {
             return (
-                <View style={[styles.lineContainer, {width: width+2, height:lineHeight}]} {...this._panResponder.panHandlers}>
-                    <View style={{width:1, height, marginRight: 1, backgroundColor: selected?'black':'transparent'}}/>
+                <View style={[styles.lineContainer, {width: width, height:lineHeight}]} {...this._panResponder.panHandlers}>
                     {
                         type===EMOJI_TYPE ?
-                        <Image resizeMode='stretch' source={images[val]} style={{width, height:width}} />
+                        <Image resizeMode='stretch' source={images[val]} style={{width:fontSize, height:fontSize}} />
                         :
                         <Text style={{fontSize}}>{val}</Text>
                     }
+                    {selected && <FocusLine lineHeight={lineHeight}/>}
                 </View>
             )
         }
@@ -108,6 +111,7 @@ module.exports = React.createClass({
         };
     },
     clear() {
+        const {lineHeight} = this.props;
         this.wordsList = [
             {type: END_TYPE, width: 10},
         ];
@@ -121,10 +125,14 @@ module.exports = React.createClass({
         });
     },
     getTextWidth(char, charCode) {
-        const isChinese = (charCode===undefined ? char.charCodeAt(0) : charCode)  > 256;
         const {fontSize} = this.props;
+        const isChinese = (charCode===undefined ? char.charCodeAt(0) : charCode)  > 256;
         const fontScale = isChinese ? FONT_SCALE['chinese'] : FONT_SCALE[char] ? FONT_SCALE[char] : 1;
-        return Math.ceil(fontScale*fontSize*1.1);
+        return Math.ceil(fontScale*fontSize);
+    },
+    getEmojiWidth() {
+        const {fontSize} = this.props;
+        return fontSize+2;
     },
     deleteFromSelected() {
         const {start, end} = this.selection;
@@ -152,7 +160,7 @@ module.exports = React.createClass({
         const {fontSize} = this.props;
         const newStart = start+1, length = end-start;
 
-        this.wordsList.splice(start, length, {type: EMOJI_TYPE, val:index, width:fontSize});
+        this.wordsList.splice(start, length, {type: EMOJI_TYPE, val:index, width:this.getEmojiWidth()});
         this.selection = {start:newStart, end:newStart};
         this.updateShowList();
     },
@@ -212,7 +220,7 @@ module.exports = React.createClass({
                 row++;
                 col = 0;
             } else {
-                width += item.width + 2;
+                width += item.width;
                 if (width >= this.MAX_WIDTH) {
                     list.push(array);
                     width = item.width;
@@ -315,7 +323,7 @@ module.exports = React.createClass({
                         let width = this.getTextWidth(':');
                         wordsList.push({type: TEXT_TYPE, val:':', width});
                     } else {
-                        wordsList.push({type: EMOJI_TYPE, val:escapeText, width:fontSize});
+                        wordsList.push({type: EMOJI_TYPE, val:escapeText, width:this.getEmojiWidth()});
                     }
                     hasEscapeStart = false;
                     escapeText = '';
@@ -416,7 +424,6 @@ module.exports = React.createClass({
     render() {
         let {assistText, inputHeight, keyboardShowType, isTextEmpty} = this.state;
         const {keyboardType} = this.props;
-        console.log(keyboardShowType);
         return (
             <View>
                 <View style={styles.container}>
