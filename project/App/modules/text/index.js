@@ -166,11 +166,10 @@ module.exports = React.createClass({
         this.wordsList = [
             {type: END_TYPE, width: 10},
         ];
-        this.selection = UN_SELECTION;
+        this.lastSelection = UN_SELECTION;
+        this.selection = {start:0, end: 0};
         this.setState({
             showList: this.getShowList(),
-            assistText: '',
-            keyboardShowType: NO_KEYBOARD_TYPE,
             inputHeight: lineHeight,
             isTextEmpty: true,
         });
@@ -416,6 +415,7 @@ module.exports = React.createClass({
             Toast('不能发送空消息');
             return;
         }
+        this.clear();
         console.log(text);
         var wordsList = this.parseWordsListFromText(text);
         console.log(wordsList);
