@@ -11,16 +11,13 @@ var {
     ListView,
 } = ReactNative;
 
-var MessageBox = require('./MessageBox.js');
-var SplashScreen = require('@remobile/react-native-splashscreen');
-
-const {STATUS_TEXT_HIDE, STATUS_START_LOAD, STATUS_HAVE_MORE, STATUS_NO_DATA, STATUS_ALL_LOADED, STATUS_LOAD_ERROR} = CONSTANTS.LISTVIEW_INFINITE.STATUS;
+var MessageContainer = require('./MessageContainer.js');
 
 var DATA = [
     {
         avatar: app.img.login_alipay_button,
         name: '阿三',
-        text: 'fangyunjiang:::9::8::7:方运江',
+        text: 'fangyunjiang\n:::9::8::7:方运江2342342342342342342342342342342342342342342342343\n12123',
         time: '2016-09-04 12:11:00',
     },
     {
@@ -52,9 +49,6 @@ var DATA = [
 ];
 
 module.exports = React.createClass({
-    componentWillMount() {
-        SplashScreen.hide();
-    },
     getInitialState() {
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         return {
@@ -62,18 +56,18 @@ module.exports = React.createClass({
         };
     },
     renderRow(obj) {
+        const {avatar, name, text, time, send} = obj;
+        const wordsList = this.props.parseWordsListFromText(obj.text);
         return (
-            <MessageBox backgroundColor='#A6DC3E' style={styles.message}>
-                <Text>还好吧！！sadfsadfsadfjhasdkjfhsadkjfhsadkjfhsadkjfhsadkjfhsadkjfhsadkjfhkj</Text>
-                <Text>还好吧！！</Text>
-                <Text>还好吧！！</Text>
-                <Text>还好吧！！</Text>
-                <Text>还好吧！！</Text>
-                <Text>还好吧！！</Text>
-                <Text>还好吧！！</Text>
-                <Text>还好吧！！</Text>
-                <Text>还好吧！！</Text>
-            </MessageBox>
+            <View style={styles.row}>
+                { !send && <Image resizeMode='stretch' source={avatar} style={styles.avatar} /> }
+                <View style={{flex:1}}>
+                    <MessageContainer style={styles.message} send={send}>
+                    {wordsList}
+                    </MessageContainer>
+                </View>
+                { send && <Image resizeMode='stretch' source={avatar} style={styles.avatar} /> }
+            </View>
         )
     },
     render() {
@@ -84,7 +78,7 @@ module.exports = React.createClass({
                     keyboardShouldPersistTaps={true}
                     automaticallyAdjustContentInsets={false}
                     initialListSize={20}
-                    pageSize={20}
+                    pageSize={1}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow}
                     />
@@ -99,6 +93,19 @@ var styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    row: {
+        width: sr.w,
+        flexDirection: 'row',
+        paddingVertical: 10,
+        // backgroundColor: 'red',
+        // justifyContent: 'flex-end',
+    },
+    avatar: {
+        height: 40,
+        width: 40,
+        borderRadius: 20,
+        marginHorizontal: 4,
     },
     message: {
         width: sr.w*2/3,

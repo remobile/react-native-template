@@ -75,7 +75,7 @@ app.configureScene = function(route) {
     return sceneConfig;
 };
 
-var Splash = require('./modules/message/index.js');
+var Splash = require('./modules/test/emoji.js');
 
 var NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, navState) {

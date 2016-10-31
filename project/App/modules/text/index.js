@@ -15,12 +15,14 @@ var {
     TouchableOpacity,
     PanResponder,
     Platform,
+    ListView,
 } = ReactNative;
 
 const dismissKeyboard = require('dismissKeyboard');
 const EmojiKeyboard = require('./EmojiKeyboard.js');
 const MorePanel = require('./MorePanel.js');
 const LetterWidth = require('./LetterWidth.js');
+const MessageList = require('./MessageList.js');
 const images = require('./expressions').images;
 const audioIcon = require('./img/audio.png');
 const moreIcon = require('./img/more.png');
@@ -145,6 +147,12 @@ module.exports = React.createClass({
         };
     },
     componentWillMount() {
+        this._panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: (e, gestureState) => true,
+            onPanResponderGrant: (e, gestureState) => {
+                this.hideKeyboard();
+            },
+        });
         if (Platform.OS === 'ios') {
             this.subscriptions = [
                 Keyboard.addListener('keyboardWillChangeFrame', this.onKeyboardChange),
@@ -360,22 +368,25 @@ module.exports = React.createClass({
 
     },
     parseWordsListFromText(text) {
-        const {fontSize} = this.props;
-        let wordsList = [];
+        const {fontSize, lineHeight} = this.props;
+        const textStyle = {style:{fontSize}};
+        const rowStyle = {style:{lineHeight:lineHeight}};
+        const emojiStyle = {style:{width:fontSize, height:fontSize, marginHorizontal:1, alignSelf:'center'}};
+        let rows = [], line = [];
         let hasEscapeStart = false, escapeText = '';
-        for(var i = 0, len = text.length; i < text.length; i++) {
+        for(var i = 0, len = text.length; i < len; i++) {
             let char = text.charAt(i);
             if (char === '\n') {
-                wordsList.push({type: NEW_LINE_TYPE});
+                rows.push(<Text key={i} {...rowStyle}>{line.length?line:[<Text {...textStyle} />]}</Text>);
+                line = [];
             } else if (char === ':') {
                 if (!hasEscapeStart) {
                     hasEscapeStart = true;
                 } else {
                     if (!escapeText) {
-                        let width = this.getTextWidth(':');
-                        wordsList.push({type: TEXT_TYPE, val:':', width});
+                        line.push(<Text key={i} {...textStyle}>:</Text>);
                     } else {
-                        wordsList.push({type: EMOJI_TYPE, val:escapeText, width:this.getEmojiWidth()});
+                        line.push(<Image key={i} resizeMode='stretch' source={images[escapeText]} {...emojiStyle} />);
                     }
                     hasEscapeStart = false;
                     escapeText = '';
@@ -384,12 +395,13 @@ module.exports = React.createClass({
                 if (hasEscapeStart) {
                     escapeText += char;
                 } else {
-                    let width = this.getTextWidth(char);
-                    wordsList.push({type: TEXT_TYPE, val:char, width});
+                    line.push(<Text key={i} {...textStyle}>{char}</Text>);
                 }
             }
         }
-        return wordsList;
+        rows.push(<Text key={i} {...rowStyle}>{line.length?line:[<Text {...textStyle} />]}</Text>);
+
+        return rows;
     },
     getTextFromWordsList(wordsList) {
         let text = '';
@@ -478,7 +490,10 @@ module.exports = React.createClass({
         let {assistText, inputHeight, keyboardShowType, isTextEmpty, keyboardHeight} = this.state;
         const {keyboardType} = this.props;
         return (
-            <View>
+            <View style={{flex: 1}}>
+                <View style={{flex:1}} >
+                    <MessageList parseWordsListFromText={this.parseWordsListFromText} />
+                </View>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={this.switchAudioAndInput}>
                         <Image resizeMode='stretch' source={keyboardShowType===AUDIO_KEYBOARD_TYPE?keyboardIcon: audioIcon} style={styles.iconButton} />

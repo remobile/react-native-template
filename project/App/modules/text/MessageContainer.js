@@ -9,19 +9,15 @@ var {
 } = ReactNative;
 
 module.exports = React.createClass({
-    getDefaultProps() {
-        return {
-            backgroundColor: '#FFFFFF',
-        };
-    },
     render() {
-        const {children, left, backgroundColor, style} = this.props;
+        let {children, send, backgroundColor, style} = this.props;
+        backgroundColor = backgroundColor || (send?'#A6DC3E':'#FFFFFF');
         return (
-            <View style={[styles.messageContainer, style]}>
-                <View style={[styles.contentContainer, left?styles.contentContainerLeft:styles.contentContainerRight, {backgroundColor}]} >
+            <View style={[styles.messageContainer, style, send && {justifyContent: 'flex-end', alignSelf: 'flex-end'}]}>
+                <View style={[styles.contentContainer, send?styles.contentContainerRight:styles.contentContainerLeft, {backgroundColor}]} >
                     {children}
                 </View>
-                <View style={[styles.triangleContainer, left?styles.triangleContainerLeft:styles.triangleContainerRight]} >
+                <View style={[styles.triangleContainer, send?styles.triangleContainerRight:styles.triangleContainerLeft]} >
                     <View style={[styles.triangle, styles.triangleOuter]} >
                         <View style={[styles.triangle, styles.triangleInner, {borderBottomColor: backgroundColor}]} />
                     </View>
