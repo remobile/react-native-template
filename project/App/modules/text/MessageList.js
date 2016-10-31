@@ -11,9 +11,106 @@ var {
     ListView,
 } = ReactNative;
 
+var InvertibleScrollView = require('react-native-invertible-scroll-view');
 var MessageContainer = require('./MessageContainer.js');
 
 var DATA = [
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang\n:::9::8::7:方运江2342342342342342342342342342342342342342342342343\n12123',
+        time: '2016-09-04 12:11:00',
+    },
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+    },
+    {
+        avatar: app.img.login_qq_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+        send: true,
+    },
+    {
+        avatar: app.img.login_qq_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+        send: true,
+    },
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+    },
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang\n:::9::8::7:方运江2342342342342342342342342342342342342342342342343\n12123',
+        time: '2016-09-04 12:11:00',
+    },
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+    },
+    {
+        avatar: app.img.login_qq_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+        send: true,
+    },
+    {
+        avatar: app.img.login_qq_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+        send: true,
+    },
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+    },
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang\n:::9::8::7:方运江2342342342342342342342342342342342342342342342343\n12123',
+        time: '2016-09-04 12:11:00',
+    },
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+    },
+    {
+        avatar: app.img.login_qq_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+        send: true,
+    },
+    {
+        avatar: app.img.login_qq_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+        send: true,
+    },
+    {
+        avatar: app.img.login_alipay_button,
+        name: '阿三',
+        text: 'fangyunjiang:::9::8::7:方运江',
+        time: '2016-09-04 12:11:00',
+    },
     {
         avatar: app.img.login_alipay_button,
         name: '阿三',
@@ -70,6 +167,34 @@ module.exports = React.createClass({
             </View>
         )
     },
+    onTouchStart() {
+        this._touchStarted = true;
+    },
+    onTouchMove() {
+        this._touchStarted = false;
+    },
+    onTouchEnd() {
+        if (this._touchStarted) {
+            this.props.hideKeyboard();
+        }
+        this._touchStarted = false;
+    },
+    scrollTo(options) {
+        this._invertibleScrollViewRef.scrollTo(options);
+    },
+    renderScrollComponent(props) {
+        const {invertibleScrollViewProps} = this.props;
+        return (
+            <InvertibleScrollView
+                {...props}
+                inverted
+                onTouchStart={this.onTouchStart}
+                onTouchMove={this.onTouchMove}
+                onTouchEnd={this.onTouchEnd}
+                ref={component => this._invertibleScrollViewRef = component}
+            />
+        );
+    },
     render() {
         return (
             <View style={styles.container}>
@@ -81,6 +206,7 @@ module.exports = React.createClass({
                     pageSize={1}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow}
+                    renderScrollComponent={this.renderScrollComponent}
                     />
             </View>
         );
@@ -98,8 +224,6 @@ var styles = StyleSheet.create({
         width: sr.w,
         flexDirection: 'row',
         paddingVertical: 10,
-        // backgroundColor: 'red',
-        // justifyContent: 'flex-end',
     },
     avatar: {
         height: 40,

@@ -147,12 +147,6 @@ module.exports = React.createClass({
         };
     },
     componentWillMount() {
-        this._panResponder = PanResponder.create({
-            onStartShouldSetPanResponder: (e, gestureState) => true,
-            onPanResponderGrant: (e, gestureState) => {
-                this.hideKeyboard();
-            },
-        });
         if (Platform.OS === 'ios') {
             this.subscriptions = [
                 Keyboard.addListener('keyboardWillChangeFrame', this.onKeyboardChange),
@@ -492,7 +486,7 @@ module.exports = React.createClass({
         return (
             <View style={{flex: 1}}>
                 <View style={{flex:1}} >
-                    <MessageList parseWordsListFromText={this.parseWordsListFromText} />
+                    <MessageList parseWordsListFromText={this.parseWordsListFromText} hideKeyboard={this.hideKeyboard}/>
                 </View>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={this.switchAudioAndInput}>
