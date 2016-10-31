@@ -89,7 +89,7 @@ module.exports = React.createClass({
         callback(0);
     },
     checkJSCodeUpdate() {
-        if (CONSTANTS.TEST) {
+        if (CONSTANTS.LOCAL_TEST) {
             this.setTimeout(()=>{this.changeToNextPage()}, app.isandroid?1000:500);
         } else {
             if (!app.isandroid && CONSTANTS.ISSUE_IOS) {

@@ -270,16 +270,16 @@ module.exports = React.createClass({
         const {keyboardShowType} = this.state;
         switch (keyboardShowType) {
             case NO_KEYBOARD_TYPE:
-                this.showEmojiKeyboard();
-                break;
+            this.showEmojiKeyboard();
+            break;
             case EMOJI_KEYBOARD_TYPE:
-                this.showSystemKeyboard(true);
-                break;
+            this.showSystemKeyboard(true);
+            break;
             case MORE_KEYBOARD_TYPE:
-                this.showEmojiKeyboard();
-                break;
+            this.showEmojiKeyboard();
+            break;
             default:
-                this.showEmojiKeyboard(true);
+            this.showEmojiKeyboard(true);
         }
     },
     switchAudioAndInput() {
@@ -406,18 +406,18 @@ module.exports = React.createClass({
                         value={assistText}
                         multiline
                         />
-                        {
-                            (keyboardShowType!==NO_KEYBOARD_TYPE && keyboardShowType!==AUDIO_KEYBOARD_TYPE && keyboardShowType!==MORE_KEYBOARD_TYPE) &&
-                            <EmojiKeyboard
-                                isBlank={keyboardShowType===SYSTEM_KEYBOARD_TYPE&&!this.emojiKeyboardMounted}
-                                onEmojiPress={this.onEmojiPress}
-                                onPressDelete={this.onPressDelete}
-                                onMounted={this.onEmojiKeyboardMounted} />
-                        }
-                        {
-                            keyboardShowType===MORE_KEYBOARD_TYPE &&
-                            <MorePanel onMenuPress={this.onMenuPress}/>
-                        }
+                    {
+                        (keyboardShowType!==NO_KEYBOARD_TYPE && keyboardShowType!==AUDIO_KEYBOARD_TYPE && keyboardShowType!==MORE_KEYBOARD_TYPE) &&
+                        <EmojiKeyboard
+                            isBlank={keyboardShowType===SYSTEM_KEYBOARD_TYPE&&!this.emojiKeyboardMounted}
+                            onEmojiPress={this.onEmojiPress}
+                            onPressDelete={this.onPressDelete}
+                            onMounted={this.onEmojiKeyboardMounted} />
+                    }
+                    {
+                        keyboardShowType===MORE_KEYBOARD_TYPE &&
+                        <MorePanel onMenuPress={this.onMenuPress}/>
+                    }
                 </View>
             </View>
         );

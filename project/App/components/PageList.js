@@ -42,6 +42,11 @@ module.exports = React.createClass({
             infiniteLoadStatus: this.props.infiniteLoadStatus,
         };
     },
+    componentDidUpdate(prevProps, prevState) {
+        if (!_.isEqual(prevProps.listParam, this.props.listParam)) {
+            this.refresh();
+        }
+    },
     getList(wait){
         var param = {
             ...this.props.listParam,

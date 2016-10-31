@@ -19,7 +19,7 @@ var {Button, DImage, WebviewMessageBox} = COMPONENTS;
 const CHILD_PAGES = [
     {strict:true, title:'个人资料', module: EditPersonInfo, img:app.img.personal_info, info:''},
     {seprator:true, title:'设置', module: Settings, img:app.img.personal_settings, info:''},
-    {hidden:!CONSTANTS.TEST, title:'查看存储', module: Store, img:app.img.personal_settings, info:''},
+    {hidden:!CONSTANTS.LOCAL_TEST, title:'查看存储', module: Store, img:app.img.personal_settings, info:''},
 ];
 
 
