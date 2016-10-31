@@ -19,7 +19,7 @@ var {
 const dismissKeyboard = require('dismissKeyboard');
 const EmojiKeyboard = require('./EmojiKeyboard.js');
 const MorePanel = require('./MorePanel.js');
-const FONT_SCALE = require('./FontScale.json');
+const LetterWidth = require('./LetterWidth.js');
 const images = require('./expressions').images;
 const audioIcon = require('./img/audio.png');
 const moreIcon = require('./img/more.png');
@@ -120,7 +120,7 @@ module.exports = React.createClass({
     getDefaultProps() {
         const SIZE = 14;
         return {
-            lineHeight: SIZE*FONT_SCALE['lineHeight'],
+            lineHeight: SIZE*1.5,
             fontSize: SIZE,
             maxLines: 3,
             keyboardType: 'default',
@@ -133,6 +133,7 @@ module.exports = React.createClass({
         ];
         this.lastSelection = UN_SELECTION;
         this.selection = UN_SELECTION;
+        this.lettersWidth = {};
         return {
             showList: this.getShowList(),
             assistText: '',
@@ -155,11 +156,13 @@ module.exports = React.createClass({
             isTextEmpty: true,
         });
     },
+    setLetterWidth(key, width) {
+        this.lettersWidth[key] = width;
+    },
     getTextWidth(char, charCode) {
         const {fontSize} = this.props;
         const isChinese = (charCode===undefined ? char.charCodeAt(0) : charCode)  > 256;
-        const fontScale = isChinese ? FONT_SCALE['chinese'] : FONT_SCALE[char] ? FONT_SCALE[char] : 1;
-        return Math.ceil(fontScale*fontSize);
+        return isChinese ? fontSize : this.lettersWidth[char] ? this.lettersWidth[char] : fontSize;
     },
     getEmojiWidth() {
         const {fontSize} = this.props;
@@ -523,6 +526,7 @@ module.exports = React.createClass({
                         <MorePanel onMenuPress={this.onMenuPress}/>
                     }
                 </View>
+                <LetterWidth setLetterWidth={this.setLetterWidth}/>
             </View>
         );
     }
