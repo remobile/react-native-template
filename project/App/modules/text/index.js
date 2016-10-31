@@ -11,6 +11,7 @@ var {
     TextInput,
     Keyboard,
     ScrollView,
+    Animated,
     TouchableOpacity,
     PanResponder,
 } = ReactNative;
@@ -42,10 +43,40 @@ const UN_SELECTION =  {start: -1, end: -1};
 const INIT_SELECTION =  {start: 0, end: 0};
 
 var FocusLine = React.createClass({
+    getDefaultProps() {
+        return {
+            blinkSpeed: 400,
+        };
+    },
+    getInitialState() {
+        return {
+            opacity: new Animated.Value(1)
+        };
+    },
+    componentDidMount() {
+        this.blink();
+    },
+    blink() {
+        const {blinkSpeed} = this.props;
+        Animated.sequence([
+            Animated.timing(this.state.opacity, {
+                toValue: 0.2,
+                duration: blinkSpeed
+            }),
+            Animated.timing(this.state.opacity, {
+                toValue: 1,
+                duration: blinkSpeed,
+                delay: blinkSpeed
+            })
+        ]).start(() => {
+            this.blink();
+        });
+    },
     render() {
         const {lineHeight} = this.props;
+        const {opacity} = this.state;
         return (
-            <View style={{width:1, height:lineHeight, backgroundColor: 'black', position:'absolute', left:0, top: 0,}}/>
+            <Animated.View style={{width:1, height:lineHeight, opacity, backgroundColor: 'black', position:'absolute', left:0, top: 0}}/>
         )
     }
 });
