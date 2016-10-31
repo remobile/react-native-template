@@ -36,6 +36,56 @@ module.exports = React.createClass({
                         avatar: 'https://facebook.github.io/react/img/logo_og.png',
                     },
                 },
+                {
+                    _id: 2,
+                    text: 'Hello developer',
+                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                    user: {
+                        _id: 2,
+                        name: 'React Native',
+                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+                    },
+                },
+                {
+                    _id: 3,
+                    text: 'Hello developer',
+                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                    user: {
+                        _id: 2,
+                        name: 'React Native',
+                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+                    },
+                },
+                {
+                    _id: 4,
+                    text: 'Hello developer',
+                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                    user: {
+                        _id: 2,
+                        name: 'React Native',
+                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+                    },
+                },
+                {
+                    _id: 5,
+                    text: 'Hello developer',
+                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                    user: {
+                        _id: 2,
+                        name: 'React Native',
+                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+                    },
+                },
+                {
+                    _id: 6,
+                    text: 'Hello developer',
+                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                    user: {
+                        _id: 2,
+                        name: 'React Native',
+                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+                    },
+                },
             ]
         };
     },

@@ -26,11 +26,11 @@ var MenuItem = React.createClass({
 
 module.exports = React.createClass({
     render() {
-        const size = sr.ws(30), height = 220;
-        const {onMenuPress} = this.props;
+        const size = sr.ws(30);
+        const {onMenuPress, keyboardHeight} = this.props;
         return (
             <View style={styles.menuKeyboard}>
-                <Carousel height={height}>
+                <Carousel height={keyboardHeight}>
                 {
                     data.map((page, p)=> {
                         return (

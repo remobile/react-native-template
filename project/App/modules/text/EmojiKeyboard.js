@@ -39,14 +39,14 @@ module.exports = React.createClass({
         this.props.onMounted(false);
     },
     render() {
-        const size = sr.ws(30), height = 220;
-        const {isBlank, onEmojiPress, onPressDelete} = this.props;
+        const size = sr.ws(30);
+        const {isBlank, onEmojiPress, onPressDelete, keyboardHeight} = this.props;
         return (
             isBlank ?
-            <View style={{height: height}} />
+            <View style={{height: keyboardHeight}} />
             :
             <View style={styles.emojiKeyboard}>
-                <Carousel height={height}>
+                <Carousel height={keyboardHeight}>
                 {
                     data.map((page, p)=> {
                         return (

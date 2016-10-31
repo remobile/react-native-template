@@ -14,6 +14,7 @@ var {
     Animated,
     TouchableOpacity,
     PanResponder,
+    Platform,
 } = ReactNative;
 
 const dismissKeyboard = require('dismissKeyboard');
@@ -140,7 +141,25 @@ module.exports = React.createClass({
             keyboardShowType: NO_KEYBOARD_TYPE,
             inputHeight: lineHeight,
             isTextEmpty: true,
+            keyboardHeight: 216,
         };
+    },
+    componentWillMount() {
+        if (Platform.OS === 'ios') {
+            this.subscriptions = [
+                Keyboard.addListener('keyboardWillChangeFrame', this.onKeyboardChange),
+            ];
+        } else {
+            this.subscriptions = [
+                Keyboard.addListener('keyboardDidShow', this.onKeyboardChange),
+            ];
+        }
+    },
+    onKeyboardChange(e) {
+        if (e) {
+            this.subscriptions.forEach((sub) => sub.remove());
+            this.setState({keyboardHeight: e.endCoordinates ? e.endCoordinates.height : e.end.height});
+        }
     },
     clear() {
         const {lineHeight} = this.props;
@@ -456,7 +475,7 @@ module.exports = React.createClass({
         this.MAX_WIDTH = width;
     },
     render() {
-        let {assistText, inputHeight, keyboardShowType, isTextEmpty} = this.state;
+        let {assistText, inputHeight, keyboardShowType, isTextEmpty, keyboardHeight} = this.state;
         const {keyboardType} = this.props;
         return (
             <View>
@@ -519,11 +538,13 @@ module.exports = React.createClass({
                             isBlank={keyboardShowType===SYSTEM_KEYBOARD_TYPE&&!this.emojiKeyboardMounted}
                             onEmojiPress={this.onEmojiPress}
                             onPressDelete={this.onPressDelete}
-                            onMounted={this.onEmojiKeyboardMounted} />
+                            onMounted={this.onEmojiKeyboardMounted}
+                            keyboardHeight={keyboardHeight}
+                            />
                     }
                     {
                         keyboardShowType===MORE_KEYBOARD_TYPE &&
-                        <MorePanel onMenuPress={this.onMenuPress}/>
+                        <MorePanel onMenuPress={this.onMenuPress} keyboardHeight={keyboardHeight}/>
                     }
                 </View>
                 <LetterWidth setLetterWidth={this.setLetterWidth}/>
