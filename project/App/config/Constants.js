@@ -30,7 +30,7 @@ module.exports = {
     //IOS的appid
     IOS_APPID: '',
     //web服务器
-    DES_KEY:"SV#Y!jAz", //DES加密KEY
+    DES_KEY:"ABCDEFGH", //DES加密KEY
     SERVER: 'http://'+BASE_SERVER+'/JFBSample/api/', //web服务器地址
     BASE_SERVER: 'http://'+BASE_SERVER+'/',//程序更新下载地址
     //获取验证码的超时时间

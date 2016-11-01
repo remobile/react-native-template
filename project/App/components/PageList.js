@@ -59,7 +59,7 @@ module.exports = React.createClass({
         this.props.onGetList && this.props.onGetList(data, this.pageNo);
         if (data.success) {
             var list = data.context[this.props.listName];
-            var infiniteLoadStatus = (!list.length && this.pageNo===0) ? STATUS_NO_DATA : (!list.length && this.pageNo===0) ? STATUS_NO_DATA : list.length < CONSTANTS.PER_PAGE_COUNT ? STATUS_ALL_LOADED : STATUS_TEXT_HIDE;
+            var infiniteLoadStatus = (!list.length && this.pageNo===0) ? STATUS_NO_DATA : list.length < CONSTANTS.PER_PAGE_COUNT ? STATUS_ALL_LOADED : STATUS_TEXT_HIDE;
             this.list = this.list.concat(list);
             this.setState({
                 dataSource: this.ds.cloneWithRows(this.list),

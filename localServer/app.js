@@ -1,61 +1,48 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-// var contentType = require('content-type');
-// var getRawBody = require('raw-body');
-// var qs = require('qs');
 
-// var des = require('./utils/des.js');
-var des = {
-    encode: (text, key)=>(text),
-    decode: (code, key)=>(code),
-};
+var des = require('./utils/des.js');
+var deskey = "ABCDEFGH";
 
-var deskey = "SV#Y!jAz";
 var app = express();
 
 app.TIMEOUT = 100;
 var modules = [
     'main',
+    'chat',
 ];
 
 app.use(express.static(__dirname + '/public'));
-
-// app.use(function (req, res, next) {
-//     getRawBody(req, {
-//         length: req.headers['content-length'],
-//         limit: '200mb',
-//         encoding: contentType.parse(req).parameters.charset
-//     }, function (err, string) {
-//         if (err) return next(err)
-//         req.text = string
-//         req.body = qs.parse(req.text.toString());
-//         next()
-//     })
-// });
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-app.send = function(req, res, str) {
-    console.log("recv:", des.decode(req.body, deskey));
+app.send = function(res, str) {
     setTimeout(function() {
-        // console.log("send:", str);
+        console.log("send:", str);
         res.send(des.encode(str, deskey));
     }, app.TIMEOUT);
 };
 
-app.sendFile = function(req, res, filename) {
-    app.send(req, res, fs.readFileSync(filename, 'utf8'));
+app.sendFile = function(res, filename) {
+    app.send(res, fs.readFileSync(filename, 'utf8'));
 };
 
-app.sendObj = function(req, res, obj) {
-    app.send(req, res, JSON.stringify(obj));
+app.sendObj = function(res, obj) {
+    app.send(res, JSON.stringify(obj));
 };
 
 app.subPost = function(url, callback) {
-    app.post('/JFBSample/api'+url, callback);
+    app.post('/JFBSample/api'+url, function(req, res) {
+        try {
+            var data = JSON.parse(des.decode(req.body, deskey));
+            console.log("recv:", data);
+            callback(res, data);
+        } catch (e) {
+            app.sendObj(res, {success: false, msg: '参数不正确'});
+        }
+    });
 };
 
 for (var i in modules) {

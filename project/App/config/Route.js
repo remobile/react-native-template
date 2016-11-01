@@ -14,6 +14,9 @@ module.exports = {
     ROUTE_UPDATE_PERSONAL_INFO: SERVER+'updatePersonalInfo', //修改个人信息
     ROUTE_SUBMIT_FEEDBACK: SERVER+'submitFeedback', //提交信息反馈
 
+    //个人中心
+    ROUTE_GET_MESSAGE_LIST: SERVER+'getMessageList', //拉取聊天列表
+
     //网页地址
     ROUTE_USER_PROTOCOL: BASE_SERVER+'helper/protocal.html', //用户协议
     ROUTE_SOFTWARE_LICENSE: BASE_SERVER+'helper/protocal.html',//获取软件许可协议

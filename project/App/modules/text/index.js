@@ -422,9 +422,7 @@ module.exports = React.createClass({
             return;
         }
         this.clear();
-        console.log(text);
-        var wordsList = this.parseWordsListFromText(text);
-        console.log(wordsList);
+        this.messageList.sendMessage({type:'text', text});
     },
     showMorePanel() {
         let {keyboardShowType} = this.state;
@@ -486,7 +484,11 @@ module.exports = React.createClass({
         return (
             <View style={{flex: 1}}>
                 <View style={{flex:1}} >
-                    <MessageList parseWordsListFromText={this.parseWordsListFromText} hideKeyboard={this.hideKeyboard}/>
+                    <MessageList
+                        ref={(ref)=>this.messageList = ref}
+                        parseWordsListFromText={this.parseWordsListFromText}
+                        hideKeyboard={this.hideKeyboard}
+                        />
                 </View>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={this.switchAudioAndInput}>
@@ -568,6 +570,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop: 10,
         alignItems: 'flex-end',
+        borderTopWidth: 1,
+        borderTopColor: '#CCCCCC',
     },
     audioContainer: {
         flex: 1,

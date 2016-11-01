@@ -13,15 +13,14 @@ module.exports = (url, parameter, success, failed, wait)=>{
     if (wait) {
         app.showProgressHud();
     }
-    Des.encrypt(qs.stringify(parameter), KEY, (base64)=>{
-        var param = base64;
+    Des.encrypt(JSON.stringify(parameter), KEY, (base64)=>{
         fetch(url,  {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'text/plain',
             },
-            body: param,
+            body: base64,
         })
         .then((response)=>response.text())
         .then((base64)=>{

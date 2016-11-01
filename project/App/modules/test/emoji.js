@@ -39,6 +39,7 @@ module.exports = React.createClass({
 var styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: 44,
         backgroundColor: 'white',
     },
 });
