@@ -79,7 +79,7 @@ var Splash = require('./modules/test/emoji.js');
 
 var NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, navState) {
-        var leftButton = route.leftButton===null ? null : (route.leftButton||route.component.leftButton);
+        var leftButton = route.leftButton||route.component.leftButton;
         if (index===0 && !leftButton) {
             return null;
         }
@@ -97,7 +97,7 @@ var NavigationBarRouteMapper = {
         );
     },
     RightButton(route, navigator, index, navState) {
-        var rightButton = route.rightButton===null ? null : (route.rightButton||route.component.rightButton);
+        var rightButton = route.rightButton||route.component.rightButton;
         if (!rightButton) {
             return <View style={styles.navBarRightEmptyButton}/>;
         }

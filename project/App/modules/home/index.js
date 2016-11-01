@@ -30,7 +30,7 @@ var HomeTabBar = React.createClass({
     componentWillMount() {
         app.showMainScene = (i)=> {
             var {title, leftButton, rightButton} = _.find(ROUTE_STACK, (o)=>o.index===i).component;
-            Object.assign(app.getCurrentRoute(), {
+            Object.assign(app.getCurrentRoute().component, {
                 title: title,
                 leftButton: leftButton,
                 rightButton: rightButton,
@@ -44,7 +44,7 @@ var HomeTabBar = React.createClass({
     },
     getInitialState() {
         return {
-            tabIndex: this.props.initTabIndex
+            tabIndex: this.props.initTabIndex,
         };
     },
     handleWillFocus(route) {
