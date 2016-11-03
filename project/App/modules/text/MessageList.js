@@ -11,8 +11,30 @@ var {
     ActivityIndicator,
 } = ReactNative;
 
+var moment = require('moment');
 var InvertibleScrollView = require('react-native-invertible-scroll-view');
 var MessageContainer = require('./MessageContainer.js');
+
+moment.locale('zh-cn', {
+    monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+    weekdaysShort : '周日_周一_周二_周三_周四_周五_周六'.split('_'),
+    meridiem : function (hour, minute, isLower) {
+        var hm = hour * 100 + minute;
+        if (hm < 600) {
+            return '凌晨';
+        } else if (hm < 900) {
+            return '早上';
+        } else if (hm < 1130) {
+            return '上午';
+        } else if (hm < 1230) {
+            return '中午';
+        } else if (hm < 1800) {
+            return '下午';
+        } else {
+            return '晚上';
+        }
+    },
+});
 
 /*loading more status change graph
 *
@@ -69,7 +91,7 @@ module.exports = React.createClass({
         if (data.success) {
             var list = data.list;
             var loadStatus = (!list.length && this.pageNo===0) ? STATUS_NO_DATA : list.length < perPageCount ? STATUS_ALL_LOADED : STATUS_NONE;
-            this.list = this.list.concat(list);
+            this.list = this.list.concat(this.getListWithTimeLabel(list));
             this.setState({
                 dataSource: this.ds.cloneWithRows(this.list),
                 loadStatus: loadStatus
@@ -88,6 +110,39 @@ module.exports = React.createClass({
         }
         this.pageNo++;
         this.getList();
+    },
+    getTimeLabel(item) {
+        let now = moment(), time = moment(item.time);
+        console.log(item.time);
+        if (now.isSame(time, 'day')) {
+            return time.format('A HH:mm');
+        } else if (now.startOf('day').diff(time.startOf('day'), 'day') == 1) {
+            return time.format('昨天 A HH:mm');
+        } else if (now.isSame(time, 'week')) {
+            return time.format('ddd A HH:mm');
+        }
+        return time.format('MMMD日 A HH:mm');
+    },
+    getListWithTimeLabel(list) {
+        let lastItem = _.last(this.list)||{};
+        let lastTimeLabel = lastItem.timeLabel;
+        list.forEach((item)=>{
+            let timeLabel = this.getTimeLabel(item);
+            if (lastTimeLabel === timeLabel) {
+                if (lastItem.timeLabel) {
+                    lastItem.timeLabel = undefined;
+                }
+            } else {
+                lastItem.timeLabel = lastTimeLabel;
+            }
+            lastItem = item;
+            lastTimeLabel = timeLabel;
+        });
+        lastItem = _.last(list);
+        if (lastItem) {
+            lastItem.timeLabel = lastTimeLabel;
+        }
+        return list;
     },
     sendMessage(obj) {
         this.list.unshift({
@@ -123,16 +178,16 @@ module.exports = React.createClass({
         }
         return (
             <View style={styles.footer}>
-                {
-                    loadStatus === STATUS_LOADING ?
-                    <ActivityIndicator
-                      color='gray'
-                      size='small'
-                      style={[styles.activityIndicator, this.props.activityIndicatorStyle]}
-                    />
-                    :
-                    <Text style={styles.errorText}>加载错误</Text>
-                }
+            {
+                loadStatus === STATUS_LOADING ?
+                <ActivityIndicator
+                color='gray'
+                size='small'
+                style={[styles.activityIndicator, this.props.activityIndicatorStyle]}
+                />
+                :
+                <Text style={styles.errorText}>加载错误</Text>
+            }
             </View>
         )
     },
@@ -140,47 +195,57 @@ module.exports = React.createClass({
         const {invertibleScrollViewProps} = this.props;
         return (
             <InvertibleScrollView
-                {...props}
-                inverted
-                onTouchStart={this.onTouchStart}
-                onTouchMove={this.onTouchMove}
-                onTouchEnd={this.onTouchEnd}
-                ref={component => this.scrollRef = component}
+            {...props}
+            inverted
+            onTouchStart={this.onTouchStart}
+            onTouchMove={this.onTouchMove}
+            onTouchEnd={this.onTouchEnd}
+            ref={component => this.scrollRef = component}
             />
         );
     },
     renderRow(obj) {
-        const {avatar, name, text, time, send} = obj;
+        const {avatar, name, text, time, send, timeLabel} = obj;
         const wordsList = this.props.parseWordsListFromText(obj.text);
         const source = _.isString(avatar) ? {uri: avatar} : avatar;
         return (
-            <View style={styles.row}>
-                { !send && <Image resizeMode='stretch' source={source} style={styles.avatar} /> }
-                <View style={{flex:1}}>
-                    <MessageContainer style={styles.message} send={send}>
-                    {wordsList}
-                    </MessageContainer>
+            <View>
+            {
+                timeLabel &&
+                <View style={styles.timeLabelRow}>
+                <View style={styles.timeLabelContainer}>
+                <Text style={styles.timeLabel}>{timeLabel}</Text>
                 </View>
-                { !!send && <Image resizeMode='stretch' source={source} style={styles.avatar} /> }
+                </View>
+            }
+            <View style={styles.row}>
+            { !send && <Image resizeMode='stretch' source={source} style={styles.avatar} /> }
+            <View style={{flex:1}}>
+            <MessageContainer style={styles.message} send={send}>
+            {wordsList}
+            </MessageContainer>
+            </View>
+            { !!send && <Image resizeMode='stretch' source={source} style={styles.avatar} /> }
+            </View>
             </View>
         )
     },
     render() {
         return (
             <View style={styles.container}>
-                <ListView
-                    onEndReached={this.onEndReached}
-                    onEndReachedThreshold={100}
-                    enableEmptySections={true}
-                    keyboardShouldPersistTaps={true}
-                    automaticallyAdjustContentInsets={false}
-                    initialListSize={20}
-                    pageSize={1}
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow}
-                    renderFooter={this.renderFooter}
-                    renderScrollComponent={this.renderScrollComponent}
-                    />
+            <ListView
+            onEndReached={this.onEndReached}
+            onEndReachedThreshold={100}
+            enableEmptySections={true}
+            keyboardShouldPersistTaps={true}
+            automaticallyAdjustContentInsets={false}
+            initialListSize={20}
+            pageSize={1}
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow}
+            renderFooter={this.renderFooter}
+            renderScrollComponent={this.renderScrollComponent}
+            />
             </View>
         );
     }
@@ -200,6 +265,20 @@ var styles = StyleSheet.create({
     errorText: {
         fontSize: 12,
         color: 'red',
+    },
+    timeLabelRow: {
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    timeLabelContainer: {
+        backgroundColor: '#C2BFC3',
+        padding: 5,
+        borderRadius: 2,
+    },
+    timeLabel: {
+        color: '#FFFFFF',
+        fontSize: 14,
     },
     row: {
         width: sr.w,
