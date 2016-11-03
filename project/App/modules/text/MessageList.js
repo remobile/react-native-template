@@ -113,7 +113,6 @@ module.exports = React.createClass({
     },
     getTimeLabel(item) {
         let now = moment(), time = moment(item.time);
-        console.log(item.time);
         if (now.isSame(time, 'day')) {
             return time.format('A HH:mm');
         } else if (now.startOf('day').diff(time.startOf('day'), 'day') == 1) {
@@ -210,42 +209,42 @@ module.exports = React.createClass({
         const source = _.isString(avatar) ? {uri: avatar} : avatar;
         return (
             <View>
-            {
-                timeLabel &&
-                <View style={styles.timeLabelRow}>
-                <View style={styles.timeLabelContainer}>
-                <Text style={styles.timeLabel}>{timeLabel}</Text>
+                {
+                    timeLabel &&
+                    <View style={styles.timeLabelRow}>
+                    <View style={styles.timeLabelContainer}>
+                    <Text style={styles.timeLabel}>{timeLabel}</Text>
+                    </View>
+                    </View>
+                }
+                <View style={styles.row}>
+                    { !send && <Image resizeMode='stretch' source={source} style={styles.avatar} /> }
+                <View style={{flex:1}}>
+                <MessageContainer style={styles.message} send={send}>
+                    {wordsList}
+                </MessageContainer>
                 </View>
+                    { !!send && <Image resizeMode='stretch' source={source} style={styles.avatar} /> }
                 </View>
-            }
-            <View style={styles.row}>
-            { !send && <Image resizeMode='stretch' source={source} style={styles.avatar} /> }
-            <View style={{flex:1}}>
-            <MessageContainer style={styles.message} send={send}>
-            {wordsList}
-            </MessageContainer>
-            </View>
-            { !!send && <Image resizeMode='stretch' source={source} style={styles.avatar} /> }
-            </View>
             </View>
         )
     },
     render() {
         return (
             <View style={styles.container}>
-            <ListView
-            onEndReached={this.onEndReached}
-            onEndReachedThreshold={100}
-            enableEmptySections={true}
-            keyboardShouldPersistTaps={true}
-            automaticallyAdjustContentInsets={false}
-            initialListSize={20}
-            pageSize={1}
-            dataSource={this.state.dataSource}
-            renderRow={this.renderRow}
-            renderFooter={this.renderFooter}
-            renderScrollComponent={this.renderScrollComponent}
-            />
+                <ListView
+                    onEndReached={this.onEndReached}
+                    onEndReachedThreshold={100}
+                    enableEmptySections={true}
+                    keyboardShouldPersistTaps={true}
+                    automaticallyAdjustContentInsets={false}
+                    initialListSize={20}
+                    pageSize={1}
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderRow}
+                    renderFooter={this.renderFooter}
+                    renderScrollComponent={this.renderScrollComponent}
+                    />
             </View>
         );
     }

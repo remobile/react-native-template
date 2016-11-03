@@ -531,7 +531,8 @@ module.exports = React.createClass({
                     </View>
                 </View>
                 <View style={styles.makeupContainer}>
-                    {keyboardShowType!==AUDIO_KEYBOARD_TYPE && <View style={styles.line} />}
+                    {keyboardShowType!==AUDIO_KEYBOARD_TYPE && <View style={[styles.line,
+                        keyboardShowType===SYSTEM_KEYBOARD_TYPE||keyboardShowType===EMOJI_KEYBOARD_TYPE?{backgroundColor: 'green'}:{backgroundColor: '#C2BFC3'}]} />}
                     <TextInput
                         ref={(ref)=>this.assistInput = ref}
                         autoCorrect={false}
@@ -600,7 +601,6 @@ var styles = StyleSheet.create({
         height: 1,
         marginLeft: 50,
         marginRight: 105,
-        backgroundColor: 'green',
     },
     assistInput: {
         top: -20,
