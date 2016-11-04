@@ -72,3 +72,7 @@ project(':react-native-fileupload').projectDir = new File(settingsDir, '../App/n
 
 include ':react-native-barcodescanner'
 project(':react-native-barcodescanner').projectDir = new File(rootProject.projectDir, '../App/node_modules/react-native-barcodescanner/android')
+
+include ':react-native-webview-bridge'
+project(':react-native-webview-bridge').projectDir = new File(rootProject.projectDir, '../App/node_modules/react-native-webview-bridge/android')
+

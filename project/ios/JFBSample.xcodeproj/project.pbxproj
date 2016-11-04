@@ -18,6 +18,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		3215495F1DCC323000748630 /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3215495B1DCC320400748630 /* libReact-Native-Webview-Bridge.a */; };
 		322894DD1DC1A824009EC2B5 /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 322894C71DC1A824009EC2B5 /* icon-40.png */; };
 		322894DE1DC1A824009EC2B5 /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 322894C81DC1A824009EC2B5 /* icon-40@2x.png */; };
 		322894DF1DC1A824009EC2B5 /* icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 322894C91DC1A824009EC2B5 /* icon-50.png */; };
@@ -129,6 +130,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		3215495A1DCC320400748630 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 321549321DCC320300748630 /* React-Native-Webview-Bridge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4114DC4C1C187C3A003CD988;
+			remoteInfo = "React-Native-Webview-Bridge";
 		};
 		3228948A1DC19F88009EC2B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -363,6 +371,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = JFBSample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = JFBSample/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		321549321DCC320300748630 /* React-Native-Webview-Bridge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "React-Native-Webview-Bridge.xcodeproj"; path = "../App/node_modules/react-native-webview-bridge/ios/React-Native-Webview-Bridge.xcodeproj"; sourceTree = "<group>"; };
 		322894C71DC1A824009EC2B5 /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		322894C81DC1A824009EC2B5 /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40@2x.png"; sourceTree = "<group>"; };
 		322894C91DC1A824009EC2B5 /* icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-50.png"; sourceTree = "<group>"; };
@@ -456,6 +465,7 @@
 				322895B31DC1AD82009EC2B5 /* libRCTCall.a in Frameworks */,
 				322895B41DC1AD88009EC2B5 /* libRCTQRCodeLocalImage.a in Frameworks */,
 				322895B51DC1AD8E009EC2B5 /* libRCTMarqueeLabel.a in Frameworks */,
+				3215495F1DCC323000748630 /* libReact-Native-Webview-Bridge.a in Frameworks */,
 				322895B61DC1AD95009EC2B5 /* libRCTBatteryStatus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,6 +555,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		321549331DCC320300748630 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3215495B1DCC320400748630 /* libReact-Native-Webview-Bridge.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		322894C61DC1A824009EC2B5 /* icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +635,7 @@
 			children = (
 				322894F41DC1A8FD009EC2B5 /* FileUpload.m */,
 				322895021DC1A92B009EC2B5 /* RNFS.xcodeproj */,
+				321549321DCC320300748630 /* React-Native-Webview-Bridge.xcodeproj */,
 				322894F61DC1A911009EC2B5 /* RCTCamera.xcodeproj */,
 			);
 			name = VendorLibraries;
@@ -1039,6 +1058,10 @@
 					ProjectRef = 3228952E1DC1AAAD009EC2B5 /* RCTZip.xcodeproj */;
 				},
 				{
+					ProductGroup = 321549331DCC320300748630 /* Products */;
+					ProjectRef = 321549321DCC320300748630 /* React-Native-Webview-Bridge.xcodeproj */;
+				},
+				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
@@ -1109,6 +1132,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3215495B1DCC320400748630 /* libReact-Native-Webview-Bridge.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libReact-Native-Webview-Bridge.a";
+			remoteRef = 3215495A1DCC320400748630 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3228948B1DC19F88009EC2B5 /* libRCTImage-tvOS.a */ = {

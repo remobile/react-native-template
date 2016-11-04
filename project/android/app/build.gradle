@@ -165,6 +165,7 @@ dependencies {
     compile project(':react-native-fs')
     compile project(':react-native-fileupload')
     compile project(':react-native-barcodescanner')
+    compile project(':react-native-webview-bridge')
 }
 
 // Run this once to be able to run the application with BUCK
