@@ -185,7 +185,7 @@ module.exports = React.createClass({
                 style={[styles.activityIndicator, this.props.activityIndicatorStyle]}
                 />
                 :
-                <Text style={styles.errorText}>加载错误</Text>
+                null
             }
             </View>
         )
@@ -233,6 +233,7 @@ module.exports = React.createClass({
         return (
             <View style={styles.container}>
                 <ListView
+                    style={styles.list}
                     onEndReached={this.onEndReached}
                     onEndReachedThreshold={100}
                     enableEmptySections={true}
@@ -257,13 +258,13 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    list: {
+        flex: 1,
+        width: sr.w,
+    },
     footer: {
         height: 20,
         alignItems: 'center',
-    },
-    errorText: {
-        fontSize: 12,
-        color: 'red',
     },
     timeLabelRow: {
         height: 30,

@@ -6,27 +6,31 @@ var {
     StyleSheet,
     View,
     Image,
+    Text,
     TouchableOpacity,
 } = ReactNative;
 import { Carousel } from 'antd-mobile';
-const data = require('./expressions').data;
-const menuIcon = require('./img/emoji.png');
+const data = require('./menu').data;
 
 var MenuItem = React.createClass({
     render() {
         const {item, size, onPress} = this.props;
-        const {img, index} = item;
+        const {icon, index} = item;
         return (
+            icon!=null ?
             <TouchableOpacity style={styles.menuItem} onPress={onPress.bind(null, index)}>
-                <Image resizeMode='stretch' source={menuIcon} style={{width:size, height:size}} />
+                <Image resizeMode='stretch' source={icon.img} style={{width:size, height:size}} />
+                <Text style={styles.label}>{icon.text}</Text>
             </TouchableOpacity>
+            :
+            <View style={styles.menuItem} />
         )
     }
 });
 
 module.exports = React.createClass({
     render() {
-        const size = sr.ws(30);
+        const size = sr.ws(50);
         const {onMenuPress, keyboardHeight} = this.props;
         return (
             <View style={styles.menuKeyboard}>
@@ -66,12 +70,17 @@ var styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     menuRow: {
-        height: 60,
+        height: 90,
         flexDirection: 'row',
     },
     menuItem: {
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
+    },
+    label: {
+        fontSize: 16,
+        marginTop: 4,
+        color: '#8C8C8C',
     },
 });

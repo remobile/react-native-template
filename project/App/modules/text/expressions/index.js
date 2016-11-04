@@ -117,12 +117,12 @@ for (var i = 0; i < count; i++) {
         rowList.push({isDelete:true});
         page.push(rowList);
         data.push(page);
-        rowList = [{index: i, img: img}];
+        rowList = [{index: i, img}];
         page = [];
         col = 1;
         row = 0;
     } else {
-        rowList.push({index: i, img: img});
+        rowList.push({index: i, img});
         if (col === COLS-1) {
             page.push(rowList);
             row++;
