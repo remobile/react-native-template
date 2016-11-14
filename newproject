@@ -5,6 +5,13 @@ oldname="JFBSample"
 project_old="project"
 project_new="project_new"
 
+function clean() {
+    find -name "build"|grep "android"|xargs -I bbbb rm -fr bbbb
+    find -name "*xcuser*" -exec rm -fr {} \;
+    find -name "*xcshared*" -exec rm -fr {} \;
+    find -name ".DS_*" -exec rm -f {} \;
+}
+
 [ -z "$newname" ]&&echo "input newname[e.g:YXjqd]"&&exit
 [ -d "${project_new}" ]&&echo "${project_new} have exist"&&exit
 
@@ -14,6 +21,7 @@ loldname=$(echo ${oldname}|tr '[A-Z]' '[a-z]')
 mkdir ${project_new}
 cp -r ./${project_old}/App ./${project_new}/App
 pushd ./${project_new}/App
+clean
 xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
 popd
 pushd ./${project_new}/App/node_modules/@remobile/react-native-local-notifications
@@ -22,6 +30,7 @@ popd
 
 cp -r ./${project_old}/android ./${project_new}/android
 pushd ./${project_new}/android
+clean
 xfind -n "*${loldname}*" -r "${loldname}:${lnewname}"
 xfind -t "${oldname}" -v "-c \"%s/${oldname}/${newname}/g\""
 xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
@@ -29,6 +38,7 @@ popd
 
 cp -r ./${project_old}/ios ./${project_new}/ios
 pushd ./${project_new}/ios
+clean
 find -name "xcshareddata" -exec rm -fr {} \;
 find -name "xcuserdata" -exec rm -fr {} \;
 xfind -n "*${oldname}*" -r "${oldname}:${newname}"

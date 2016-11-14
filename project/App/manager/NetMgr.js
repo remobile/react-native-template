@@ -1,5 +1,6 @@
 'use strict';
-var React = require('react');var ReactNative = require('react-native');
+var React = require('react');
+var ReactNative = require('react-native');
 var {
     Platform,
     NetInfo,
@@ -9,25 +10,27 @@ var EventEmitter = require('EventEmitter');
 class Manager extends EventEmitter {
     constructor() {
         super();
+        this._init = false;
         this.info = {
             connect: false, //是否连接
             fee: false, //是否收费
         };
     }
     register() {
-        NetInfo.addEventListener(
-            'change',
-            this._handleConnectionInfoChange
-        );
-        NetInfo.fetch().done((o) => {
-            this.updateConnectionInfo(o);
-        });
+        if (!this._init) {
+            this._init = true;
+            NetInfo.addEventListener(
+                'change',
+                this._handleConnectionInfoChange.bind(this)
+            );
+        }
     }
     unregister() {
         NetInfo.removeEventListener(
             'change',
-            this._handleConnectionInfoChange
+            this._handleConnectionInfoChange.bind(this)
         );
+        this._init = false;
     }
     _handleConnectionInfoChange(o) {
         this.updateConnectionInfo(o);
@@ -50,7 +53,11 @@ class Manager extends EventEmitter {
                 this.info = {connect: false, fee: false};
             }
         }
-        app.mediaFileMgr.onNetChange(this.info);
+        app.connect = this.info.connect;
+        if (!app.connect) {
+            Toast('当前设备已离线，请检查您的网络是否可用');
+            app.phoneMgr.deviceNetOffline();
+        }
     }
 }
 

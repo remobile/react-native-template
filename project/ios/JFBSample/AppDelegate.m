@@ -11,6 +11,7 @@
 
 #import "RCTSplashScreen.h"
 #import "RCTUpdate.h"
+#import "RCTJPush.h"
 
 @implementation AppDelegate
 
@@ -18,7 +19,7 @@
 {
   
 #ifdef DEBUG
-  NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.137:8081/index.ios.bundle?platform=ios&dev=true"];
 #else //DEBUG
   NSURL *jsCodeLocation = [RCTUpdate getBundleUrl];
 #endif //DEBUG
@@ -34,13 +35,25 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  [RCTJPush application:application didFinishLaunchingWithOptions:launchOptions];
+  
   return YES;
 }
 
-- (void)application:(UIApplication*)application didReceiveLocalNotification:(UILocalNotification*)notification
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-  // re-post ( broadcast )
-  [[NSNotificationCenter defaultCenter] postNotificationName:@"CDVLocalNotification" object:notification];
+  [RCTJPush application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
+{
+  [RCTJPush application:application didReceiveRemoteNotification:notification];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+  [RCTJPush application:application didReceiveRemoteNotification:notification];
+  completionHandler(UIBackgroundFetchResultNewData);
 }
 
 @end

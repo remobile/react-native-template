@@ -30,6 +30,8 @@ import com.remobile.batteryStatus.RCTBatteryStatusPackage;
 import com.rnfs.RNFSPackage;
 import com.yoloci.fileupload.FileUploadPackage;
 import com.eguma.barcodescanner.BarcodeScanner;
+import cn.reactnative.modules.jpush.JPushPackage;
+import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -77,7 +79,9 @@ public class MainApplication extends Application implements ReactApplication {
                     //VendorLibraries
                     new RNFSPackage(),
                     new FileUploadPackage(),
-                    new BarcodeScanner()
+                    new BarcodeScanner(),
+                    new JPushPackage(),
+                    new WebViewBridgePackage()
             );
         }
     };

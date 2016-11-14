@@ -70,6 +70,9 @@ project(':react-native-fs').projectDir = new File(settingsDir, '../App/node_modu
 include ':react-native-fileupload'
 project(':react-native-fileupload').projectDir = new File(settingsDir, '../App/node_modules/react-native-fileupload/android')
 
+include ':react-native-jpush'
+project(':react-native-jpush').projectDir = new File(settingsDir, '../App/node_modules/react-native-jpush/android')
+
 include ':react-native-barcodescanner'
 project(':react-native-barcodescanner').projectDir = new File(rootProject.projectDir, '../App/node_modules/react-native-barcodescanner/android')
 

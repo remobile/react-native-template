@@ -35,6 +35,7 @@ var img = require('./resource/image.js');
 var aud = require('./resource/audio.js');
 var PersonalInfoMgr = require('./manager/PersonalInfoMgr.js');
 var NetMgr = require('./manager/NetMgr.js');
+var JPushMgr = require('./manager/JPushMgr.js');
 var SettingMgr = require('./manager/SettingMgr.js');
 var LoginMgr = require('./manager/LoginMgr.js');
 var MediaFileMgr = require('./manager/MediaFileMgr.js');
@@ -47,6 +48,7 @@ global.app = {
     data: {},
     personal: PersonalInfoMgr,
     net: NetMgr,
+    jpush: JPushMgr,
     setting: SettingMgr,
     login: LoginMgr,
     mediaFileMgr: MediaFileMgr,
@@ -75,7 +77,7 @@ app.configureScene = function(route) {
     return sceneConfig;
 };
 
-var Splash = require('./modules/test/emoji.js');
+var Splash = require('./modules/splash/index.js');
 
 var NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, navState) {
@@ -257,8 +259,9 @@ module.exports = React.createClass({
             });
         }
     },
-    componentWillUnmount: function() {
-        app.net.unregister();
+    componentDidMount: function() {
+        app.net.register();
+        app.jpush.register();
     },
     configureScene(route){
         return app.configureScene(route);
