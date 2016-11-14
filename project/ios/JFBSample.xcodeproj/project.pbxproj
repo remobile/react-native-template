@@ -52,7 +52,6 @@
 		3228959C1DC1AC5F009EC2B5 /* ELCAssetTablePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 322895971DC1AC5F009EC2B5 /* ELCAssetTablePicker.xib */; };
 		3228959D1DC1AC5F009EC2B5 /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 322895981DC1AC5F009EC2B5 /* Overlay.png */; };
 		3228959E1DC1AC5F009EC2B5 /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 322895991DC1AC5F009EC2B5 /* Overlay@2x.png */; };
-		322895A01DC1AC83009EC2B5 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3228959F1DC1AC83009EC2B5 /* CDVNotification.bundle */; };
 		322895A21DC1ACA4009EC2B5 /* CDVCapture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 322895A11DC1ACA4009EC2B5 /* CDVCapture.bundle */; };
 		322895A31DC1ACCE009EC2B5 /* libRCTSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3228950F1DC1AA38009EC2B5 /* libRCTSplashScreen.a */; };
 		322895A41DC1ACD6009EC2B5 /* libRCTToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 322895151DC1AA49009EC2B5 /* libRCTToast.a */; };
@@ -427,7 +426,6 @@
 		322895971DC1AC5F009EC2B5 /* ELCAssetTablePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetTablePicker.xib; sourceTree = "<group>"; };
 		322895981DC1AC5F009EC2B5 /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
 		322895991DC1AC5F009EC2B5 /* Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Overlay@2x.png"; sourceTree = "<group>"; };
-		3228959F1DC1AC83009EC2B5 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVNotification.bundle; path = "../App/node_modules/@remobile/react-native-dialogs/ios/RCTDialogs/CDVNotification.bundle"; sourceTree = "<group>"; };
 		322895A11DC1ACA4009EC2B5 /* CDVCapture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CDVCapture.bundle; path = "../App/node_modules/@remobile/react-native-capture/ios/RCTCapture/CDVCapture.bundle"; sourceTree = "<group>"; };
 		322895B91DC1AED5009EC2B5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -623,7 +621,6 @@
 				3228950A1DC1AA38009EC2B5 /* RCTSplashScreen.xcodeproj */,
 				322895101DC1AA49009EC2B5 /* RCTToast.xcodeproj */,
 				3228951C1DC1AA6E009EC2B5 /* RCTDialogs.xcodeproj */,
-				3228959F1DC1AC83009EC2B5 /* CDVNotification.bundle */,
 				322895281DC1AA9B009EC2B5 /* RCTCordova.xcodeproj */,
 				3228952E1DC1AAAD009EC2B5 /* RCTZip.xcodeproj */,
 				322895341DC1AABD009EC2B5 /* RCTSqlite.xcodeproj */,
@@ -1400,7 +1397,6 @@
 				322894E71DC1A824009EC2B5 /* icon-76@2x.png in Resources */,
 				322894E91DC1A824009EC2B5 /* icon-small@2x.png in Resources */,
 				3228959E1DC1AC5F009EC2B5 /* Overlay@2x.png in Resources */,
-				322895A01DC1AC83009EC2B5 /* CDVNotification.bundle in Resources */,
 				322894E41DC1A824009EC2B5 /* icon-72.png in Resources */,
 				3228959C1DC1AC5F009EC2B5 /* ELCAssetTablePicker.xib in Resources */,
 				322894DF1DC1A824009EC2B5 /* icon-50.png in Resources */,
@@ -1428,7 +1424,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
