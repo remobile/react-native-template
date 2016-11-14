@@ -40,7 +40,11 @@ var HomeTabBar = React.createClass({
         }
     },
     componentDidMount() {
+        app.hasLoadMainPage = true;
         app.toggleNavigationBar(true);
+    },
+    componentWillUnmount() {
+        app.hasLoadMainPage = false;
     },
     getInitialState() {
         return {

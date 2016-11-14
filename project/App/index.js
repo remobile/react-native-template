@@ -55,6 +55,12 @@ global.app = {
     isandroid: Platform.OS==="android",
 };
 
+global.SceneMixin = {
+    componentWillMount() {
+        app.scene = this;
+    }
+};
+
 app.configureScene = function(route) {
     route = route||{};
     var sceneConfig = route.sceneConfig;
@@ -139,11 +145,11 @@ var NavigationBarRouteMapper = {
                 </View>
             );
         } else {
-          return (
-            <View style={styles.titleContainer}>
-                {title}
-            </View>
-          )
+            return (
+                <View style={styles.titleContainer}>
+                    {title}
+                </View>
+            )
         }
     },
 };
@@ -249,10 +255,10 @@ module.exports = React.createClass({
                     }
                     return true;
                 }
-                if (!app.willExitAndroid) {
+                if (!this.willExitAndroid) {
                     Toast("再按一次返回键退出程序");
-                    app.willExitAndroid = true;
-                    this.setTimeout(()=>{app.willExitAndroid = false}, 3000);
+                    this.willExitAndroid = true;
+                    this.setTimeout(()=>{this.willExitAndroid = false}, 3000);
                     return true;
                 }
                 return false;
@@ -303,6 +309,7 @@ module.exports = React.createClass({
                         var ref = route.ref;
                         var getChildScene = ref && ref.getChildScene;
                         //注意：app.scene调用的时候一定需要使用封装函数，如：{handler: ()=>{app.scene.toggleEdit()}}，不能直接使用 handler: app.scene.toggleEdit.
+                        //在动画加载完成前 app.scene 还没有被赋值， 需要使用 SceneMixin 来设置 app.scene
                         var scene = app.scene = getChildScene ? getChildScene() : ref;
                         if (getChildScene && !scene.hasMouted) {
                             scene.hasMouted = true;

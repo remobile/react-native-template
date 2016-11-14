@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.remobile.RCTRemobilePackage;
 
 import com.facebook.react.shell.MainReactPackage;
 import com.remobile.splashscreen.RCTSplashScreenPackage;
@@ -56,6 +57,7 @@ public class MainApplication extends Application implements ReactApplication {
 
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new RCTRemobilePackage(MainActivity.activity),
                     //RemobileLibraries
                     new RCTSplashScreenPackage(MainActivity.activity),
                     new RCTToastPackage(),

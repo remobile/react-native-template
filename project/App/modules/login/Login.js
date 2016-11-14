@@ -24,6 +24,10 @@ module.exports = React.createClass({
     },
     componentDidMount() {
         app.toggleNavigationBar(true);
+        app.hasLoadMainPage = true;
+    },
+    componentWillUnmount() {
+        app.hasLoadMainPage = false;
     },
     changeToLoginPanel(phone) {
         this.setState({tabIndex: 0, phone});

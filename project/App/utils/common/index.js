@@ -1,4 +1,16 @@
 module.exports = {
+    until(test, iterator, callback) {
+        if (!test()) {
+            iterator((err)=>{
+                if (err) {
+                    return callback(err);
+                }
+                this.until(test, iterator, callback);
+            });
+        } else {
+            callback();
+        }
+    },
     date2str(date) {
         var year = date.getFullYear();
         var month = date.getMonth()+1;

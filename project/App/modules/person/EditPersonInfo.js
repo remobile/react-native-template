@@ -20,7 +20,7 @@ var {MessageBox, DImage}=  COMPONENTS;
 const DEFAULT_OPACITY = 0.5;
 
 module.exports = React.createClass({
-    mixins: [Subscribable.Mixin],
+    mixins: [Subscribable.Mixin, SceneMixin],
     statics: {
         title: '个人资料',
         leftButton: {handler: ()=>{app.scene.goBack()}},
