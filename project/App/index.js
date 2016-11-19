@@ -35,6 +35,7 @@ var img = require('./resource/image.js');
 var aud = require('./resource/audio.js');
 var PersonalInfoMgr = require('./manager/PersonalInfoMgr.js');
 var NetMgr = require('./manager/NetMgr.js');
+var UpdateMgr = require('./manager/UpdateMgr.js');
 var JPushMgr = require('./manager/JPushMgr.js');
 var SettingMgr = require('./manager/SettingMgr.js');
 var LoginMgr = require('./manager/LoginMgr.js');
@@ -50,6 +51,7 @@ global.app = {
     net: NetMgr,
     jpush: JPushMgr,
     setting: SettingMgr,
+    updateMgr:UpdateMgr,
     login: LoginMgr,
     mediaFileMgr: MediaFileMgr,
     isandroid: Platform.OS==="android",

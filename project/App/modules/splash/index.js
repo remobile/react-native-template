@@ -5,20 +5,21 @@ var {
     StyleSheet,
     View,
     Image,
-    Animated,
     Text,
+    TouchableOpacity,
 } = ReactNative;
 
+import Swiper from 'react-native-swiper';
 var TimerMixin = require('react-timer-mixin');
 var SplashScreen = require('@remobile/react-native-splashscreen');
 var Login = require('../login/Login.js');
-// var Login = require('../remobile/index.js');
 var Home = require('../home/index.js');
 var Update = require('@remobile/react-native-update');
 
 var {ProgressBar} = COMPONENTS;
 
-var STATUS_NONE = 0,
+var
+STATUS_NONE = 0,
 STATUS_DOWNLOAD_JS_PROGESS = 1,
 STATUS_UNZIP_JS_PROGESS = 2,
 STATUS_UPDATE_END = 3;
@@ -47,9 +48,9 @@ module.exports = React.createClass({
     mixins: [TimerMixin],
     getInitialState() {
         return {
-            opacity: new Animated.Value(1),
             status: STATUS_NONE,
             progress: 0,
+            renderSplashType: 0,
         };
     },
     updateJSCode() {
@@ -75,8 +76,8 @@ module.exports = React.createClass({
     onError() {
         this.getInfoError();
     },
-    needUpdateApp(oldVersion, newVersion, callback) {
-        console.log("needUpdateApp", oldVersion, newVersion);
+    needUpdateApp(oldVersion, newVersion, description, callback) {
+        console.log("needUpdateApp", oldVersion, newVersion, description);
         callback(1);
         this.changeToNextPage();
     },
@@ -84,43 +85,28 @@ module.exports = React.createClass({
         console.log("onNewestVerion");
         this.changeToNextPage();
     },
-    needUpdateJS(oldVersion, newVersion, callback) {
-        console.log("needUpdateJS", oldVersion, newVersion);
+    needUpdateJS(oldVersion, newVersion, description, callback) {
+        console.log("needUpdateJS", oldVersion, newVersion, description);
         callback(0);
     },
     checkJSCodeUpdate() {
-        if (CONSTANTS.LOCAL_TEST) {
+        if (CONSTANTS.NOT_NEED_UPDATE_JS_START) {
             this.setTimeout(()=>{this.changeToNextPage()}, app.isandroid?1000:500);
         } else {
-            if (!app.isandroid && CONSTANTS.ISSUE_IOS) {
-                console.log("checkJSCodeUpdate, ISSUE_IOS");
-                this.getUpdateInfo();
-            } else {
-                console.log("checkJSCodeUpdate");
-                this.updateJSCode();
-            }
-        }
-    },
-    getUpdateInfo() {
-        var param = {};
-        POST(app.route.ROUTE_CHECK_JS_UPDATE, param, this.getUpdateInfoSuccess, this.getInfoError);
-    },
-    getUpdateInfoSuccess(data) {
-        if (data.success) {
+            console.log("checkJSCodeUpdate");
             this.updateJSCode();
-        } else {
-            this.changeToNextPage();
         }
     },
     doGetPersonalInfo() {
         var param = {
-            phone: app.personal.info.phone,
+            userID: app.personal.info.userID,
         };
         POST(app.route.ROUTE_GET_PERSONAL_INFO, param, this.getPersonalInfoSuccess, this.getInfoError);
     },
     getPersonalInfoSuccess(data) {
         if (data.success) {
             var context = data.context;
+            context['userID'] = app.personal.info.userID;
             context['phone'] = app.personal.info.phone;
             app.personal.set(context);
             this.changeToHomePage();
@@ -132,18 +118,37 @@ module.exports = React.createClass({
         app.personal.clear();
         this.changeToLoginPage();
     },
-    changeToLoginPage() {
+    enterLoginPage() {
         app.navigator.replace({
-            title: '登录'+CONSTANTS.APP_NAME,
             component: Login,
         });
-        this.closeSplash();
     },
-    changeToHomePage() {
+    changeToLoginPage() {
+        if (app.updateMgr.needShowSplash) {
+            this.setState({renderSplashType: 1});
+        } else {
+            this.enterLoginPage();
+        }
+    },
+    enterHomePage() {
         app.navigator.replace({
             component: Home,
         });
-        this.closeSplash();
+    },
+    changeToHomePage() {
+        if (app.updateMgr.needShowSplash) {
+            this.setState({renderSplashType: 2});
+        } else {
+            this.enterHomePage();
+        }
+    },
+    enterNextPage() {
+        app.updateMgr.setNeedShowSplash(false);
+        if (this.state.renderSplashType===1) {
+            this.enterLoginPage();
+        } else {
+            this.enterHomePage();
+        }
     },
     changeToNextPage() {
         if (app.personal.info) {
@@ -152,26 +157,13 @@ module.exports = React.createClass({
             this.changeToLoginPage();
         }
     },
-    closeSplash() {
-        Animated.timing(this.state.opacity, {
-            toValue: 0,
-            duration: 500,
-        }).start(()=>{
-            app.closeModal();
-        });
-    },
     componentDidMount() {
-        SplashScreen.hide();
-        app.showModal(
-            <Animated.View style={[styles.container, {width: sr.tw,height: sr.th-sr.statusBarHeight, opacity: this.state.opacity}]}>
-            </Animated.View>,
-            '',
-            'rgba(0, 0, 0, 0)'
-        );
-        // this.checkJSCodeUpdate();
-        this.setTimeout(()=>{this.changeToNextPage()}, app.isandroid?1000:500);
+        this.checkJSCodeUpdate();
+        setTimeout(()=>{
+            SplashScreen.hide();
+        }, 1000);
     },
-    render() {
+    renderUpdateSplash() {
         var components = {};
         components[STATUS_DOWNLOAD_JS_PROGESS] = (
             <ProgressInfo
@@ -190,32 +182,55 @@ module.exports = React.createClass({
             <Image
                 resizeMode='stretch'
                 source={app.img.splash_splash}
-                style={[styles.splash, {width: sr.tw,height: sr.th-sr.statusBarHeight}]}
-                onLoad={()=>{SplashScreen.hide()}}>
+                style={styles.splash}>
                 <View style={styles.functionContainer}>
                     {components[this.state.status]}
                 </View>
             </Image>
         );
-    }
+    },
+    renderSwiperSplash() {
+        return (
+            <Swiper
+                paginationStyle={styles.paginationStyle}
+                dot={<View style={{backgroundColor:'#FFFFFF', width: 8, height: 8,borderRadius: 4, marginLeft: 8, marginRight: 8,}} />}
+                height={sr.th}>
+                {
+                    [1,2,3,4].map((i)=>{
+                        return (
+                            <Image
+                                key={i}
+                                resizeMode='stretch'
+                                source={app.img["splash_splash"+i]}
+                                style={styles.bannerImage}>
+                                {
+                                    i===4 &&
+                                    <TouchableOpacity
+                                        style={styles.enterButtonContainer}
+                                        onPress={this.enterNextPage}>
+                                        <Text style={styles.enterButton}>
+                                            开始学习
+                                        </Text>
+                                   </TouchableOpacity>
+                                }
+                            </Image>
+                        )
+                    })
+                }
+            </Swiper>
+        );
+    },
+    render() {
+        return this.state.renderSplashType===0 ? this.renderUpdateSplash() : this.renderSwiperSplash();
+    },
 });
 
 
 var PROGRESS_WIDTH = sr.tw*0.7;
 var styles = StyleSheet.create({
-    container: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-    },
-    upperCover: {
-        width: sr.w,
-        backgroundColor: '#FFFFFF',
-    },
     splash: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
+        width: sr.w,
+        height: sr.h,
     },
     functionContainer: {
         position: 'absolute',
@@ -226,5 +241,30 @@ var styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         width: sr.w*0.7,
+    },
+    paginationStyle: {
+        bottom: 30,
+    },
+    bannerImage: {
+        width: sr.w,
+        height: sr.h,
+    },
+    enterButtonContainer: {
+        position: 'absolute',
+        width: 165,
+        height: 40,
+        left: (sr.w-165)/2,
+        bottom: 50,
+        backgroundColor: '#79CCD0',
+        alignItems:'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        borderColor: 'white',
+        borderWidth: 2,
+    },
+    enterButton: {
+        fontSize: 18,
+        color: 'white',
+        fontWeight: '600',
     },
 });
