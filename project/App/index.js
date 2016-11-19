@@ -92,17 +92,30 @@ var NavigationBarRouteMapper = {
             return null;
         }
         var image = leftButton&&leftButton.image||app.img.common_back;
+        var title = leftButton&&leftButton.title||'';
         var handler = leftButton&&leftButton.handler||navigator.pop;
-        return (
-            <DelayTouchableOpacity
-                onPress={handler}
-                style={styles.navBarButton}>
-                <Image
-                    resizeMode='stretch'
-                    source={image}
-                    style={styles.navBarIcon} />
-            </DelayTouchableOpacity>
-        );
+        if (image&&!title) {
+            return (
+                <DelayTouchableOpacity
+                    onPress={handler}
+                    style={styles.navBarButton}>
+                    <Image
+                        resizeMode='stretch'
+                        source={image}
+                        style={styles.navBarIcon} />
+                </DelayTouchableOpacity>
+            );
+        } else {
+            return (
+                <DelayTouchableOpacity
+                    onPress={handler}
+                    style={styles.navBarButton}>
+                    <Text style={styles.navBarButtonText}>
+                        {leftButton.title}
+                    </Text>
+                </DelayTouchableOpacity>
+            );
+        }
     },
     RightButton(route, navigator, index, navState) {
         var rightButton = route.rightButton||route.component.rightButton;
