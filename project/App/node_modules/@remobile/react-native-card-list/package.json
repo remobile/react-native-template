@@ -1,0 +1,29 @@
+{
+    "name": "@remobile/react-native-card-list",
+    "version": "1.0.0",
+    "description": "A react-native card list write in js",
+    "main": "index.js",
+    "author": {
+        "name": "YunJiang.Fang",
+        "email": "42550564@qq.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "react-native",
+        "react-component",
+        "ios",
+        "android",
+        "card",
+        "list",
+        "remobile",
+        "mobile"
+    ],
+    "homepage": "https://github.com/remobile/react-native-card-list",
+    "bugs": {
+        "url": "https://github.com/remobile/react-native-card-list/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/remobile/react-native-card-list.git"
+    }
+}
