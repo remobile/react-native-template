@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports = {
     until(test, iterator, callback) {
         if (!test()) {
@@ -11,28 +13,57 @@ module.exports = {
             callback();
         }
     },
-    date2str(date) {
-        var year = date.getFullYear();
-        var month = date.getMonth()+1;
-        var day = date.getDate();
-        (month<10)&&(month='0'+month);
-        (day<10)&&(day='0'+day);
-        return year+'-'+month+'-'+day;
+    chineseWeekDay(day) {
+        return ['日','一','二','三','四','五','六'][day];
     },
-    dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1, //月份
-            "d+": date.getDate(), //日
-            "h+": date.getHours(), //小时
-            "m+": date.getMinutes(), //分
-            "s+": date.getSeconds(), //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds() //毫秒
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
+    chineseNumber(n) {
+        return ['一','二','三','四','五','六','七','八','九','十'][n-1]||n;
+    },
+    numberFormat(n) {
+        return (n<10?'0':'')+n;
+    },
+    timeFormat(hour, minute, second) {
+        if (second===undefined) { second = minute; minute = hour; hour = undefined; }
+        return (hour===undefined?'':(hour<10?'0':'')+hour+':')+(minute<10?'0':'')+minute+':'+(second<10?'0':'')+second;
+    },
+    createDateData(now) {
+        let date = {};
+        let iy = now.year(), im = now.month()+1, id = now.date();
+        for(let y = iy; y <= iy+1; y++) {
+            let month = {};
+            let mm = [0, 31, (!(y%4)&(!!(y%100)))|(!(y%400))?29:28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            let iim = (y==iy) ? im : 1;
+            for(let m = iim; m <= 12; m++) {
+                let day = [];
+                let iid = (y==iy && m==im) ? id : 1;
+                for(let d = iid; d <= mm[m]; d++) {
+                    day.push(d+'日');
+                }
+                month[m+'月'] = day;
+            }
+            date[y+'年'] = month;
+        }
+        return date;
+    },
+    //获取生日
+    createBirthdayData(now) {
+        let date = {};
+        let iy = now.year(), im = now.month()+1, id = now.date();
+        for(let y = 1916; y <= iy; y++) {
+            let month = {};
+            let mm = [0, 31, (!(y%4)&(!!(y%100)))|(!(y%400))?29:28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            let iim = (y==iy) ? im : 12;
+            for(let m = 1; m <= iim; m++) {
+                let day = [];
+                let iid = (y==iy && m==im) ? id : mm[m];
+                for(let d = 1; d <= iid; d++) {
+                    day.push(d+'日');
+                }
+                month[m+'月'] = day;
+            }
+            date[y+'年'] = month;
+        }
+        return date;
     },
     getVisibleText(text, n) {
         var realLength = 0, len = text.length, preLen = -1, charCode = -1, needCut = false;
@@ -76,23 +107,43 @@ module.exports = {
         }
         return text;
     },
-    getCurrentDateStr() {
-        var date = new Date();
-        var year = date.getFullYear();
-        var month = date.getMonth()+1;
-        var day = date.getDate();
-        (month<10)&&(month='0'+month);
-        (day<10)&&(day='0'+day);
-        return year+'-'+month+'-'+day;
+    getCurrentDateString() {
+        return moment().format('YYYY年MM月DD日');
     },
-    str2date(str) {
-        return new Date(str);
+    getCurrentTimeString() {
+        return moment().format('YYYY-MM-DD HH:mm:ss');
+    },
+    getJetlagString(str) {
+        var now = moment();
+        var time = moment(str);
+        var sec = now.diff(time, 'seconds')
+        var ret;
+        if (sec< 3600*24) {
+            var min = Math.floor(sec/60);
+            sec -= min*60;
+            var hour = Math.floor(min/60);
+            min -= hour*60;
+            ret = ((hour?hour+'小时':'')+(min?min+'分钟前':''))||'刚刚';
+        } else {
+            ret = time.format('YYYY-MM-DD HH:mm:ss')
+        }
+        return ret;
+    },
+    getStrlen(str){
+        var len = 0;
+        for (var i=0; i<str.length; i++) {
+            var c = str.charCodeAt(i);
+            //单字节加1
+            if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+                len++;
+            } else {
+                len+=2;
+            }
+        }
+        return len;
     },
     checkPhone(phone) {
         return /^1\d{10}$/.test(phone);
-    },
-    checkIdentifyNumber(number) {
-        return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(number);
     },
     checkPassword(pwd) {
         return /^[\d\w_]{6,20}$/.test(pwd);
@@ -103,8 +154,15 @@ module.exports = {
     checkNumberCode(code) {
         return /^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/.test(code);
     },
-    checkMailAddress(code) {
-      var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-      return reg.test(code);
+    checkBankCardCode(code) {
+        return /^(\d{16}|\d{19})$/.test(code);
+    },
+    checkEmailCode(code) {
+        var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
+        if(re.test(code)){
+            return true;
+        }else{
+            return false;
+        }
     },
 };
