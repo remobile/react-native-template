@@ -1,0 +1,29 @@
+{
+    "name": "@remobile/react-native-image-crop",
+    "version": "1.0.0",
+    "description": "A component for react-native crop image, such as edit user head",
+    "main": "index.js",
+    "author": {
+        "name": "YunJiang.Fang",
+        "email": "42550564@qq.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "react-native",
+        "react-component",
+        "ios",
+        "android",
+        "crop",
+        "image",
+        "remobile",
+        "mobile"
+    ],
+    "homepage": "https://github.com/remobile/react-native-image-crop",
+    "bugs": {
+        "url": "https://github.com/remobile/react-native-image-crop/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/remobile/react-native-image-crop.git"
+    }
+}
