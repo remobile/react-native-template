@@ -1,41 +1,89 @@
 var React = require('react');var ReactNative = require('react-native');
 var {
     StyleSheet,
+    Text,
     View,
 } = ReactNative;
 
-var ImagePicker = require('@remobile/react-native-image-picker');
-var Button = require('@remobile/react-native-simple-button');
-var Dialogs = require('@remobile/react-native-dialogs');
+import CameraRollPicker from '@remobile/react-native-camera-rool-picker';
+var SplashScreen = require('@remobile/react-native-splashscreen');
 
 module.exports = React.createClass({
-    onOpen() {
-        var options = {maximumImagesCount: 10, width: 400};
-        ImagePicker.getPictures(options, function(results) {
-            var msg = '';
-            for (var i = 0; i < results.length; i++) {
-                msg += 'Image URI: ' + results[i] + '\n';
-            }
-            Dialogs.alert(msg);
-        }, function (error) {
-            Dialogs.alert('Error: ' + error);
+    componentWillMount() {
+        SplashScreen.hide();
+    },
+    getInitialState() {
+        return {
+            num: 0,
+            selected: [],
+        };
+    },
+    onSelectedImages(images, current) {
+        var num = images.length;
+
+        this.setState({
+            num: num,
+            selected: images,
         });
+
+        console.log(current);
+        console.log(this.state.selected);
+    },
+    openCamera() {
+        console.log("open camera here");
     },
     render() {
         return (
             <View style={styles.container}>
-                <Button onPress={this.onOpen}>Photo</Button>
+                <View style={styles.content}>
+                    <Text style={styles.text}>
+                        <Text style={styles.bold}>
+                            {this.state.num}
+                        </Text>
+                        images has been selected
+                    </Text>
+                </View>
+                <CameraRollPicker
+                    scrollRenderAheadDistance={500}
+                    initialListSize={1}
+                    pageSize={3}
+                    removeClippedSubviews={false}
+                    groupTypes='SavedPhotos'
+                    batchSize={5}
+                    maximum={1}
+                    selected={this.state.selected}
+                    assetType='Photos'
+                    imagesPerRow={3}
+                    imageMargin={5}
+                    onSelectedImages={this.onSelectedImages}
+                    openCamera={this.openCamera} />
             </View>
         );
     },
 });
 
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#F6AE2D',
+    },
+    content: {
+        marginTop: 15,
+        height: 50,
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'transparent',
+        flexWrap: 'wrap',
+    },
+    text: {
+        fontSize: 16,
+        alignItems: 'center',
+        color: '#fff',
+    },
+    bold: {
+        fontWeight: 'bold',
+    },
+    info: {
+        fontSize: 12,
     },
 });
