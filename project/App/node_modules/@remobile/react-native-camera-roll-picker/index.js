@@ -141,7 +141,7 @@ class CameraRollPicker extends Component {
                 imagesPerRow={imagesPerRow}
                 containerWidth={containerWidth}
                 selectImage={this._selectImage.bind(this)}
-                openCamera={this.props.openCamera.bind(this)}
+                openCamera={this.props.openCamera}
                 />
         );
     }

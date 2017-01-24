@@ -19,7 +19,7 @@ module.exports = React.createClass({
         };
     },
     componentWillMount() {
-        const {editRectWidth, editRectHeight} = this.props;
+        const {editRectWidth, editRectHeight, imageWidth, imageHeight} = this.props;
         // 上次/当前/动画 x 位移
         this.lastGestureDx = null;
         this.translateX = 0;
@@ -37,7 +37,14 @@ module.exports = React.createClass({
         this.currentZoomDistance = 0;
 
         //图片大小
-        this.imageSize =  Math.floor(Math.sqrt(editRectWidth * editRectWidth + editRectHeight * editRectHeight));
+        if (imageWidth < imageHeight) {
+            this.imageMinWidth = editRectWidth;
+            this.imageMinHeight = imageHeight/imageWidth * editRectHeight;
+        } else {
+            this.imageMinWidth = imageWidth / imageHeight * editRectWidth;
+            this.imageMinHeight = editRectHeight;
+        }
+        this.imageMinSize =  Math.floor(Math.sqrt(this.imageMinWidth * this.imageMinWidth + this.imageMinHeight * this.imageMinHeight));
 
         this.imagePanResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -65,7 +72,7 @@ module.exports = React.createClass({
                     this.currentZoomDistance = Math.floor(Math.sqrt(widthDistance * widthDistance + heightDistance * heightDistance));
 
                     if (this.lastZoomDistance !== null) {
-                        let scale = this.scale + (this.currentZoomDistance - this.lastZoomDistance) * this.scale / this.imageSize;
+                        let scale = this.scale + (this.currentZoomDistance - this.lastZoomDistance) * this.scale / this.imageMinSize;
                         if (scale < 1) {
                             scale = 1;
                         }
@@ -82,8 +89,9 @@ module.exports = React.createClass({
     },
     updateTranslate() {
         const {editRectWidth, editRectHeight} = this.props;
-        const xOffest = (editRectWidth - editRectWidth / this.scale) / 2;
-        const yOffest = (editRectHeight - editRectHeight / this.scale) /2;
+        const xOffest = (this.imageMinWidth - editRectWidth / this.scale) / 2;
+        const yOffest = (this.imageMinHeight - editRectHeight / this.scale) /2;
+
         if (this.translateX > xOffest) {
             this.translateX = xOffest;
         }
@@ -101,12 +109,12 @@ module.exports = React.createClass({
     },
     getCropData() {
         const {editRectWidth, editRectHeight, imageWidth, imageHeight} = this.props;
-        const ratioX = imageWidth / editRectWidth;
-        const ratioY = imageHeight / editRectHeight;
+        const ratioX = imageWidth / this.imageMinWidth;
+        const ratioY = imageHeight / this.imageMinHeight;
         const width = editRectWidth / this.scale;
         const height = editRectHeight / this.scale;
-        const x = editRectWidth / 2 - (width / 2 + this.translateX );
-        const y = editRectHeight / 2 - (height  / 2 + this.translateY);
+        const x = this.imageMinWidth / 2 - (width / 2 + this.translateX);
+        const y = this.imageMinHeight / 2 - (height  / 2 + this.translateY);
         return {
             offset: {x: x*ratioX, y: y*ratioY},
             size: {width: width*ratioX, height: height*ratioY},
@@ -126,7 +134,7 @@ module.exports = React.createClass({
         return (
             <View style={[styles.container, style]} {...this.imagePanResponder.panHandlers}>
                 <Animated.View style={animatedStyle}>
-                    <Image style={{width:editRectWidth, height:editRectHeight}} source={source}/>
+                    <Image resizeMode='contain' style={{width:this.imageMinWidth, height:this.imageMinHeight}} source={source}/>
                 </Animated.View>
                 <View style={styles.editboxContainer}>
                     <View style={{flex: 1, backgroundColor: overlayColor}} />

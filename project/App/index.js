@@ -85,7 +85,7 @@ app.configureScene = function(route) {
     return sceneConfig;
 };
 
-var Splash = require('./modules/splash/index.js');
+var Splash = require('./modules/test/userHead.js');
 
 var NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, navState) {
