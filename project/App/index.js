@@ -85,7 +85,7 @@ app.configureScene = function(route) {
     return sceneConfig;
 };
 
-var Splash = require('./modules/test/imagePicker.js');
+var Splash = require('./modules/splash/index.js');
 
 var NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, navState) {
@@ -331,6 +331,8 @@ module.exports = React.createClass({
                             return;
                         }
                         scene && scene.onDidFocus && scene.onDidFocus();
+                        //如果时主页面，需要检测主页面和其子页面的回调
+                        ref && ref!==scene && ref.onDidFocus && ref.onDidFocus();
                     }}
                     onWillFocus={(route)=>{
                         var preRoute = app.navigator && app.getCurrentRoute();
@@ -339,11 +341,15 @@ module.exports = React.createClass({
                             var preGetChildScene = preRef && preRef.getChildScene;
                             var preScene = preGetChildScene ? preGetChildScene() : preRef;
                             preScene && preScene.onWillHide && preScene.onWillHide();
+                            //如果时主页面，需要检测主页面和其子页面的回调
+                            preRef && preRef!==preScene && preRef.onWillHide && preRef.onWillHide();
                         }
                         var ref = route.ref;
                         var getChildScene = ref && ref.getChildScene;
                         var scene = getChildScene ? getChildScene() : ref;
+                        //如果时主页面，需要检测主页面和其子页面的回调
                         scene && scene.onWillFocus && scene.onWillFocus();//注意：在首次加载的时候页面没有被加载，route.ref为空，不会调用该函数，需要在该页面的componentWillMount里面处理首次逻辑，只有从上页面返回的时候才能被调用
+                        ref && ref!==scene && ref.onWillFocus && ref.onWillFocus();
                     }}
                     navigationBar={this.state.showNavBar ? navigationBar : null}
                     />
@@ -368,7 +374,7 @@ var NAVBAR_HEIGHT = sr.rws(Navigator.NavigationBar.Styles.General.NavBarHeight);
 var styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor:'#EEEEEE'
+        backgroundColor:'#FEFCFD'
     },
     navBarBack: {
         height:sr.totalNavHeight,

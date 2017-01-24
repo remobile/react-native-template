@@ -5,7 +5,7 @@ var {
     View,
 } = ReactNative;
 
-import CameraRollPicker from '@remobile/react-native-camera-rool-picker';
+var CameraRollPicker = require('@remobile/react-native-camera-roll-picker');
 var SplashScreen = require('@remobile/react-native-splashscreen');
 
 module.exports = React.createClass({

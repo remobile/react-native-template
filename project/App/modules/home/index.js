@@ -57,10 +57,10 @@ var HomeTabBar = React.createClass({
     },
     render() {
         var menus = [
-            {index: 0, title: '场景1', icon: app.img.home_menu1, selected: app.img.home_menu1},
-            {index: 1, title: '场景2', icon: app.img.home_menu2, selected: app.img.home_menu2},
-            {index: 2, title: '场景3', icon: app.img.home_menu3, selected: app.img.home_menu3},
-            {index: 3, title: '场景4', icon: app.img.home_menu4, selected: app.img.home_menu4},
+            {index: 0, title: '首页', icon: app.img.home_home, selected: app.img.home_home_press},
+            {index: 1, title: 'Remobile', icon: app.img.home_remobile, selected: app.img.home_remobile_press},
+            {index: 2, title: '测试', icon: app.img.home_test, selected: app.img.home_test_press},
+            {index: 3, title: '更多', icon: app.img.home_personal, selected: app.img.home_personal_press},
         ];
         if (CONSTANTS.ISSUE_IOS) {
             _.remove(menus, (o)=>o.index===3);
@@ -72,6 +72,7 @@ var HomeTabBar = React.createClass({
                     selected={this.state.tabIndex === item.index}
                     title={item.title}
                     titleStyle={styles.titleStyle}
+                    selectedTitleStyle={styles.titleSelectedStyle}
                     renderIcon={() =>
                         <Image
                             resizeMode='stretch'
@@ -141,7 +142,7 @@ module.exports = React.createClass({
                         }
                     }
                     var ref = route.ref;
-                    ref && ref.onWillFocus && ref.onWillFocus(); //注意：因为有initialRouteStack，在mounted的时候所有的页面都会加载，因此只有第一个页面首次不会调用，需要在componentDidMount中调用，其他页面可以调用
+                    ref && ref.onWillFocus && ref.onWillFocus(true); //注意：因为有initialRouteStack，在mounted的时候所有的页面都会加载，因此只有第一个页面首次不会调用，需要在componentDidMount中调用，其他页面可以调用
                 }}
                 configureScene={(route) => ({
                     ...app.configureScene(route),
@@ -166,26 +167,33 @@ var styles = StyleSheet.create({
         flex: 1,
     },
     tabs: {
-        height: 60,
+        height: 50,
         width: sr.w,
         position: 'absolute',
         left: 0,
-        top: sr.rws(sr.th-sr.totalNavHeight-sr.statusBarHeight)-60,
+        top: sr.ch-50,
     },
     titleStyle: {
-        fontSize:16,
-        color: '#FFFFFF',
+        fontSize:10,
+        color: '#929292',
+    },
+    titleSelectedStyle: {
+        fontSize:10,
+        color: '#DF3932',
     },
     tabBarStyle: {
-        height:60,
-        backgroundColor: '#7A7A7A',
+        borderColor: '#EEEEEE',
+        borderTopWidth: 1,
+        height:50,
+        backgroundColor: '#FEFCFD',
+        alignItems: 'center',
     },
     tabBarShadowStyle: {
         height: 0,
-        backgroundColor: '#7A7A7A',
+        backgroundColor: '#EEEEEE',
     },
     icon: {
-        width:30,
-        height:30
+        width:22,
+        height:22
     },
 });
