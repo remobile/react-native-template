@@ -10,6 +10,19 @@ var {
     Easing,
 } = ReactNative;
 
+function until(test, iterator, callback) {
+    if (!test()) {
+        iterator((err)=>{
+            if (err) {
+                return callback(err);
+            }
+            until(test, iterator, callback);
+        });
+    } else {
+        callback();
+    }
+}
+
 module.exports = React.createClass({
     propTypes: {
         children: React.PropTypes.string.isRequired,
@@ -18,7 +31,7 @@ module.exports = React.createClass({
     },
     getDefaultProps() {
         return {
-            speed: 10,
+            speed: 30,
             spaceRatio: 0.5
         };
     },
@@ -33,6 +46,7 @@ module.exports = React.createClass({
     componentWillReceiveProps(nextProps) {
         if (this.props.children != nextProps.children) {
             this.animateEnable = false;
+            this.width = 0;
             this.state.left1.stopAnimation(()=>{
                 this.state.left2.stopAnimation(()=>{
                     Animated.timing(this.state.left1, {
@@ -56,20 +70,26 @@ module.exports = React.createClass({
             this.twidth = _.sum(_.values(this.alpha));
             this.alpha = {};
             if (!this.animateEnable) {
-                this.startMoveFirstLabelHead();
+                this.animateEnable = true;
+                until(
+                    ()=>this.width > 0,
+                    (cb)=>setTimeout(cb, 100),
+                    ()=>this.startMoveFirstLabelHead()
+                );
             }
         }
     },
     onLayoutContainer(e) {
-        this.width = e.nativeEvent.layout.width;
-        this.spaceWidth = this.props.spaceRatio * this.width;
-        this.setState({left1: new Animated.Value(0)});
-        this.setState({left2: new Animated.Value(this.width)});
+        if (!this.width) {
+            this.width = e.nativeEvent.layout.width;
+            this.spaceWidth = this.props.spaceRatio * this.width;
+            this.setState({left1: new Animated.Value(0)});
+            this.setState({left2: new Animated.Value(this.width)});
+        }
     },
     startMoveFirstLabelHead() {
         const {width, twidth, props} = this;
         const {speed} = props;
-        this.animateEnable = true;
         Animated.timing(this.state.left1, {
             toValue: -twidth+this.spaceWidth,
             duration: (twidth-this.spaceWidth)*speed,
