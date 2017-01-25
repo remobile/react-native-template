@@ -92,7 +92,8 @@ module.exports = React.createClass({
 var styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor: '#ececec',
+        paddingTop: 200,
+        // backgroundColor: 'red',
     },
     ItemBg2: {
         marginTop: 20,

@@ -1,0 +1,30 @@
+{
+    "name": "@remobile/react-native-3d-panel",
+    "version": "1.0.0",
+    "description": "A 3d left menu like old version QQ",
+    "main": "index.js",
+    "author": {
+        "name": "YunJiang.Fang",
+        "email": "42550564@qq.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "react-native",
+        "react-component",
+        "ios",
+        "android",
+        "3d",
+        "QQ",
+        "panel",
+        "remobile",
+        "mobile"
+    ],
+    "homepage": "https://github.com/remobile/react-native-3d-panel",
+    "bugs": {
+        "url": "https://github.com/remobile/react-native-3d-panel/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/remobile/react-native-3d-panel.git"
+    }
+}

@@ -9,6 +9,7 @@ var {
     Animated,
     Easing,
 } = ReactNative;
+var _ = require('lodash');
 
 function until(test, iterator, callback) {
     if (!test()) {

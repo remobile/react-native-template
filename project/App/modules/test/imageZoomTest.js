@@ -27,7 +27,7 @@ module.exports = React.createClass({
     edit() {
         const cropData = this.imageCrop.getCropData();
         ImageEditor.cropImage(
-            'http://192.168.1.129:3001/1.png',
+            'http://192.168.43.39:3001/splash.png ',
             cropData,
             (croppedImageURI) => {
                 this.setState({croppedImageURI})
@@ -40,11 +40,11 @@ module.exports = React.createClass({
             <View style={styles.container}>
                 <Button onPress={this.edit}>编辑</Button>
                 <ImageCrop
-                    imageWidth={1080}
-                    imageHeight={1920}
+                    imageWidth={320}
+                    imageHeight={568}
                     editRectRadius={0}
                     ref={(ref)=>this.imageCrop = ref}
-                    source={{uri:'http://192.168.1.129:3001/1.png'}} />
+                    source={{uri:'http://192.168.43.39:3001/splash.png '}} />
                 <View style={styles.imageContainer}>
                     <Image
                         source={{uri: this.state.croppedImageURI}}
