@@ -183,7 +183,7 @@ module.exports = {
               if (key === 'lineHeight' || key=== 'fontSize') {
                   return Math.round(value*FONT_SCALE);
               } else {
-                  return value*WIDTH_SCALE;
+                  return Math.round(value*WIDTH_SCALE);
               }
           }
           return value;

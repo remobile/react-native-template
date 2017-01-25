@@ -1,0 +1,30 @@
+{
+    "name": "@remobile/react-native-camera-roll-picker",
+    "version": "1.0.0",
+    "description": "A React Native component providing images selection from camera roll",
+    "main": "index.js",
+    "author": {
+        "name": "YunJiang.Fang",
+        "email": "42550564@qq.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "react-native",
+        "react-component",
+        "ios",
+        "android",
+        "camera",
+        "roll",
+        "picker",
+        "remobile",
+        "mobile"
+    ],
+    "homepage": "https://github.com/remobile/react-native-camera-roll-picker",
+    "bugs": {
+        "url": "https://github.com/remobile/react-native-camera-roll-picker/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/remobile/react-native-camera-roll-picker.git"
+    }
+}

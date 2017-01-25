@@ -1,52 +1,44 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
+var React = require('react');var ReactNative = require('react-native');
 var {
     StyleSheet,
     View,
-    Text,
     Image,
-    ImageEditor,
 } = ReactNative;
 
 var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
-var ImageCrop = require('@remobile/react-native-image-crop');
+var ImagePicker = require('../userHead/imagePicker');
 
 module.exports = React.createClass({
-
-    componentDidMount() {
+    componentWillMount() {
         SplashScreen.hide();
+        app.toggleNavigationBar(true);
     },
     getInitialState() {
         return {
-            croppedImageURI: '',
+            croppedImageURI: 'http://192.168.1.129:3001/1.png',
         };
     },
-    edit() {
-        const cropData = this.imageCrop.getCropData();
-        ImageEditor.cropImage(
-            'http://192.168.1.129:3001/1.png',
-            cropData,
-            (croppedImageURI) => {
-                this.setState({croppedImageURI})
-            },
-            (error) => console.log(error)
-        );
+    onCropImage(croppedImageURI) {
+        this.setState({croppedImageURI});
+    },
+    setUserHead() {
+        app.navigator.push({
+            component: ImagePicker,
+            passProps: {
+                onCropImage: this.onCropImage
+            }
+        });
     },
     render() {
         return (
             <View style={styles.container}>
-                <Button onPress={this.edit}>编辑</Button>
-                <ImageCrop
-                    imageWidth={1080}
-                    imageHeight={1920}
-                    editRectRadius={0}
-                    ref={(ref)=>this.imageCrop = ref}
-                    source={{uri:'http://192.168.1.129:3001/1.png'}} />
+                <Button onPress={this.setUserHead}>设置头像</Button>
                 <View style={styles.imageContainer}>
                     <Image
+                        resizeMode='contain'
                         source={{uri: this.state.croppedImageURI}}
                         style={styles.image}
                         />
@@ -56,17 +48,22 @@ module.exports = React.createClass({
     }
 });
 
+
 var styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'transparent',
+        justifyContent: 'space-around',
+        paddingVertical: 150,
     },
     imageContainer: {
         height: 200,
         marginTop: 20,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
     },
     image: {
         marginLeft: sr.w/2-100,
+        backgroundColor: 'black',
         width: 200,
         height: 200,
     },
