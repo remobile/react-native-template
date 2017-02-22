@@ -8,6 +8,7 @@
 /**/npm-debug.log
 /**/node_modules
 !/project/App/node_modules/
+/project/App/node_modules/@remobile
 /**/*.iml
 /**/build
 /**/*shared*

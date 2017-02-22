@@ -3,8 +3,8 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-#import "RCTBridgeModule.h"
-#import "RCTLog.h"
+#import <React/RCTBridgeModule.h>
+#import <React/RCTLog.h>
 
 @interface FileUpload : NSObject <RCTBridgeModule>
 @end

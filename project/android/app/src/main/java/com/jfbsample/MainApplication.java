@@ -1,13 +1,15 @@
 package com.jfbsample;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.remobile.RCTRemobilePackage;
-
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.soloader.SoLoader;
 import com.remobile.splashscreen.RCTSplashScreenPackage;
 import com.remobile.toast.RCTToastPackage;
 import com.remobile.dialogs.RCTDialogsPackage;
@@ -42,7 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
-        protected boolean getUseDeveloperSupport() {
+        public boolean getUseDeveloperSupport() {
             return BuildConfig.DEBUG;
         }
 
@@ -56,34 +58,34 @@ public class MainApplication extends Application implements ReactApplication {
             mUpdateMgr = new RCTUpdateMgr(MainActivity.activity);
 
             return Arrays.<ReactPackage>asList(
-                    new MainReactPackage(),
-                    new RCTRemobilePackage(MainActivity.activity),
-                    //RemobileLibraries
-                    new RCTSplashScreenPackage(MainActivity.activity),
-                    new RCTToastPackage(),
-                    new RCTDialogsPackage(),
-                    new RCTLocalNotificationsPackage(),
-                    new RCTZipPackage(),
-                    new RCTSqlitePackage(),
-                    new RCTDesPackage(),
-                    mUpdateMgr.getReactPackage(),
-                    new RCTContactsPackage(),
-                    new RCTCameraPackage(),
-                    new RCTCapturePackage(),
-                    new RCTImagePickerPackage(),
-                    new RCTVideoPackage(),
-                    new RCTAudioPackage(),
-                    new RCTFileTransferPackage(),
-                    new RCTCallPackage(),
-                    new RCTQRCodeLocalImagePackage(),
-                    new RCTMarqueeLabelPackage(),
-                    new RCTBatteryStatusPackage(),
-                    //VendorLibraries
-                    new RNFSPackage(),
-                    new FileUploadPackage(),
-                    new BarcodeScanner(),
-                    new JPushPackage(),
-                    new WebViewBridgePackage()
+                new MainReactPackage(),
+                new RCTRemobilePackage(MainActivity.activity),
+                //RemobileLibraries
+                new RCTSplashScreenPackage(MainActivity.activity),
+                new RCTToastPackage(),
+                new RCTDialogsPackage(),
+                new RCTLocalNotificationsPackage(),
+                new RCTZipPackage(),
+                new RCTSqlitePackage(),
+                new RCTDesPackage(),
+                mUpdateMgr.getReactPackage(),
+                new RCTContactsPackage(),
+                new RCTCameraPackage(),
+                new RCTCapturePackage(),
+                new RCTImagePickerPackage(),
+                new RCTVideoPackage(),
+                new RCTAudioPackage(),
+                new RCTFileTransferPackage(),
+                new RCTCallPackage(),
+                new RCTQRCodeLocalImagePackage(),
+                new RCTMarqueeLabelPackage(),
+                new RCTBatteryStatusPackage(),
+                //VendorLibraries
+                new RNFSPackage(),
+                new FileUploadPackage(),
+                new BarcodeScanner(),
+                new JPushPackage(),
+                new WebViewBridgePackage()
             );
         }
     };
@@ -91,5 +93,11 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
     }
 }

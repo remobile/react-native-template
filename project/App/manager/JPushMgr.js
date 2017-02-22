@@ -19,7 +19,7 @@ class Manager extends EventEmitter {
     }
     register() {
         if (!this.pushlisteners) {
-            // JPush.requestPermissions();
+            JPush.requestPermissions();
             this.pushlisteners = [
                 JPush.addEventListener(JpushEventReceiveMessage, this.onReceiveMessage.bind(this)),
                 JPush.addEventListener(JpushEventOpenMessage, this.onOpenMessage.bind(this)),
