@@ -11,6 +11,7 @@ var {
     Navigator,
 } = ReactNative;
 
+var SplashScreen = require('@remobile/react-native-splashscreen');
 var PersonInfo = require('../person/PersonInfo.js');
 var Dialogs = require('./react-native-dialogs');
 var Camera = require('./react-native-camera');
@@ -19,8 +20,10 @@ var Contacts = require('./react-native-contacts');
 var FileTransfer = require('./react-native-file-transfer');
 var MarqueeLabel = require('./react-native-marquee-label');
 var Zip = require('./react-native-zip');
+var RefreshInfiniteListview = require('./react-native-refresh-infinite-listview');
 
 var modules = [
+    {title:'react-native-refresh-infinite-listview', image: app.img.common_point, module:RefreshInfiniteListview},
     {title:'react-native-dialogs', image: app.img.common_point, module:Dialogs},
     {title:'react-native-camera', image: app.img.common_point, module:Camera},
     {title:'react-native-sqlite-storage', image: app.img.common_point, module:Sqlite},
@@ -40,6 +43,9 @@ module.exports = React.createClass({
                 fromLeft: true,
             });
         }},
+    },
+    componentWillMount() {
+        SplashScreen.hide();
     },
     getInitialState: function() {
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

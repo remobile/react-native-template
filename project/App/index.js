@@ -13,8 +13,6 @@ var {
     Image,
     NativeModules,
 } = ReactNative;
-console.log("==", ReactNative);
-
 
 global._ = require('lodash');
 global.sr = require('./config/Screen.js');
@@ -86,7 +84,7 @@ app.configureScene = function(route) {
     return sceneConfig;
 };
 
-var Splash = require('./modules/splash/index.js');
+var Splash = require('./modules/remobile/index.js');
 
 var NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, navState) {
