@@ -24,8 +24,10 @@ var RefreshInfiniteListview = require('./react-native-refresh-infinite-listview'
 var Panel = require('./react-native-3d-panel');
 var Marquee = require('./react-native-marquee');
 var CameraRollPicker = require('./react-native-camera-roll-picker');
+var ImageCrop = require('./react-native-image-crop');
 
 var modules = [
+    {title:'react-native-image-crop', image: app.img.common_point, module:ImageCrop},
     {title:'react-native-camera-roll-picker', image: app.img.common_point, module:CameraRollPicker},
     {title:'react-native-marquee', image: app.img.common_point, module:Marquee},
     {title:'react-native-3d-panel', image: app.img.common_point, module:Panel},
