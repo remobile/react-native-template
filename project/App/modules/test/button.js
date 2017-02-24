@@ -4,38 +4,36 @@ var React = require('react');
 var ReactNative = require('react-native');
 var {
     StyleSheet,
-    Image,
+    View,
 } = ReactNative;
 
-app.personal = {info:{}};
 var SplashScreen = require('@remobile/react-native-splashscreen');
-var Panel = require('@remobile/react-native-3d-panel');
-var Menu = require('../person/Settings');
-var image = require('./1.jpg');
+var Button = require('@remobile/react-native-simple-button');
 
 module.exports = React.createClass({
     componentWillMount() {
         SplashScreen.hide();
     },
+    async test() {
+        let response = await fetch('https://facebook.github.io/react-native/movies.json');
+        let responseJson = await response.json();
+        console.log(responseJson);
+    },
     render() {
-        const menu = (
-            <Menu />
-        );
         return (
-            <Panel leftMenu={menu}>
-                <Image
-                    resizeMode='stretch'
-                    source={image}
-                    style={styles.image}>
-                </Image>
-            </Panel>
-        )
+            <View style={styles.container}>
+                <Button onPress={this.test}>测试</Button>
+            </View>
+        );
     }
 });
 
+
 var styles = StyleSheet.create({
-    image: {
-        width: sr.w,
-        height: sr.h,
+    container: {
+        flex: 1,
+        backgroundColor: 'transparent',
+        justifyContent: 'space-around',
+        paddingVertical: 150,
     },
 });

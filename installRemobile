@@ -1,0 +1,48 @@
+#!/bin/bash
+
+modules=(
+react-native-3d-panel
+react-native-action-sheet
+react-native-audio
+react-native-battery-status
+react-native-cache-image
+react-native-call
+react-native-camera
+react-native-camera-roll-picker
+react-native-capture
+react-native-card-list
+react-native-clip-rect
+react-native-contacts
+react-native-cordova
+react-native-datetime-picker
+react-native-des
+react-native-dialogs
+react-native-file
+react-native-file-transfer
+react-native-image-animation
+react-native-image-crop
+react-native-image-picker
+react-native-indexed-listview
+react-native-local-notifications
+react-native-marquee
+react-native-marquee-label
+react-native-mongoose
+react-native-qrcode
+react-native-qrcode-local-image
+react-native-refresh-infinite-listview
+react-native-simple-button
+react-native-splashscreen
+react-native-sqlite
+react-native-toast
+react-native-update
+react-native-video
+react-native-zip
+)
+
+curdir=`pwd`
+
+for module in  ${modules[@]};do
+    if ! [ -d "${curdir}/project/App/node_modules/@remobile/${module}" ];then
+        echo "exit"
+    fi
+done
