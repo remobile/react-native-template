@@ -12,7 +12,7 @@ var {
 
 var EditPersonInfo = require('./EditPersonInfo.js');
 var Settings = require('./Settings');
-var Store = require('../test/store.js');
+var Store = require('./Store.js');
 
 var {Button, DImage, WebviewMessageBox} = COMPONENTS;
 
@@ -69,6 +69,7 @@ module.exports = React.createClass({
         return app.personal.info!=null;
     },
     render() {
+        const info = app.personal.info||{};
         return (
             <View style={styles.container}>
                 <Image
@@ -89,7 +90,7 @@ module.exports = React.createClass({
                 <ScrollView >
                     {
                         CHILD_PAGES.map((item, i)=>{
-                            if (!app.personal.info.phone && item.strict) {
+                            if (!info.phone && item.strict) {
                                 return null;
                             }
                             return (
@@ -99,7 +100,7 @@ module.exports = React.createClass({
                         })
                     }
                 </ScrollView>
-                <Button onPress={this.doExit} style={styles.btnExit}>{app.personal.info.phone?'安全退出':'没有身份的人生是不完整的'}</Button>
+                <Button onPress={this.doExit} style={styles.btnExit}>{info.phone?'安全退出':'没有身份的人生是不完整的'}</Button>
             </View>
         );
     }
