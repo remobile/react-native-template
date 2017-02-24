@@ -13,6 +13,7 @@ var {
 var EditPersonInfo = require('./EditPersonInfo.js');
 var Settings = require('./Settings');
 var Store = require('./Store.js');
+var ImagePicker = require('../userHead/imagePicker');
 
 var {Button, DImage, WebviewMessageBox} = COMPONENTS;
 
@@ -58,6 +59,11 @@ module.exports = React.createClass({
     statics: {
         title: '个人中心',
     },
+    getInitialState() {
+        return {
+            userHead: '',
+        };
+    },
     doExit() {
         app.navigator.resetTo({
             title: '登录'+CONSTANTS.APP_NAME,
@@ -65,24 +71,33 @@ module.exports = React.createClass({
         }, 0);
         app.personal.clear();
     },
-    shouldComponentUpdate(nextProps, nextState) {
-        return app.personal.info!=null;
+    onCropImage(uri) {
+        this.setState({userHead: uri});
+    },
+    setUserHead() {
+        app.navigator.push({
+            component: ImagePicker,
+            passProps: {
+                onCropImage: this.onCropImage
+            }
+        });
     },
     render() {
         const info = app.personal.info||{};
+        const {userHead} = this.state;
         return (
             <View style={styles.container}>
                 <Image
                     resizeMode='stretch'
                     style={styles.headImgBg}
                     source={app.img.home_background}>
-                    <View>
-                        <DImage
+                    <TouchableOpacity onPress={this.setUserHead}>
+                        <Image
                             resizeMode='cover'
-                            source={app.img.splash_logo}
+                            source={userHead ? {uri: userHead} : app.img.splash_logo}
                             style={styles.headStyle}
                             />
-                    </View>
+                    </TouchableOpacity>
                     <Text style={styles.info}>
                         <Text style={[styles.bigInfo, {color: '#EE3B3B'}]}>人人</Text>监督    <Text style={[styles.bigInfo, {color: '#436EEE'}]}>监督</Text>人人
                     </Text>

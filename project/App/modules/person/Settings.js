@@ -64,9 +64,6 @@ module.exports = React.createClass({
     statics: {
         title: '设置',
     },
-    shouldComponentUpdate(nextProps, nextState) {
-        return app.personal.info != null;
-    },
     render() {
         var info = app.personal.info||{};
         return (
