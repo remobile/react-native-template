@@ -28,8 +28,10 @@ var ImageCrop = require('./react-native-image-crop');
 var IndexedListview = require('./react-native-indexed-listview');
 var ClipRect = require('./react-native-clip-rect');
 var CardList = require('./react-native-card-list');
+var QRCode = require('./react-native-qrcode-local-image');
 
 var modules = [
+    {title:'react-native-qrcode-local-image', image: app.img.common_point, module:QRCode},
     {title:'react-native-card-list', image: app.img.common_point, module:CardList},
     {title:'react-native-clip-rect', image: app.img.common_point, module:ClipRect},
     {title:'react-native-indexed-listview', image: app.img.common_point, module:IndexedListview},

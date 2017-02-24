@@ -1,6 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
+var React = require('react');
+var ReactNative = require('react-native');
 var {
     StyleSheet,
     View,
@@ -9,14 +10,9 @@ var {
 } = ReactNative;
 
 var Button = require('@remobile/react-native-simple-button');
-var SplashScreen = require('@remobile/react-native-splashscreen');
 var QRCode = require('@remobile/react-native-qrcode-local-image');
 
-
 module.exports = React.createClass({
-    componentWillMount() {
-        SplashScreen.hide();
-    },
     getInitialState() {
         return {text: ''}
     },
