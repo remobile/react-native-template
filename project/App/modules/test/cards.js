@@ -68,6 +68,6 @@ module.exports = React.createClass({
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: sr.rws(50),
+        padding: sr.rs(50),
     },
 });

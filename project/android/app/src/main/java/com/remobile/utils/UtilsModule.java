@@ -33,24 +33,6 @@ public class UtilsModule extends CordovaPlugin {
         return "UtilsModule";
     }
 
-    public Map<String, Object> getConstants() {
-        Map<String, Object> constants = new HashMap<>();
-
-        constants.put("statusBarHeight", getStatusBarHeight());
-
-        return constants;
-    }
-
-
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = activity.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
     @ReactMethod
     public void lockScreen() {
         PowerManager powerManager = (PowerManager)(activity.getSystemService(Context.POWER_SERVICE));

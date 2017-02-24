@@ -369,7 +369,7 @@ module.exports = React.createClass({
     },
 });
 
-var NAVBAR_HEIGHT = sr.rws(Navigator.NavigationBar.Styles.General.NavBarHeight);
+var NAVBAR_HEIGHT = sr.rs(Navigator.NavigationBar.Styles.General.NavBarHeight);
 var styles = StyleSheet.create({
     container: {
         flex:1,

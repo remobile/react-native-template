@@ -6,7 +6,7 @@ var {
     Dimensions,
     PixelRatio,
     Platform,
-    NativeModules,
+    StatusBar,
 } = ReactNative;
 
 var SCREEN_WIDTH_BASE = 375;
@@ -15,7 +15,7 @@ var {width, height} = Dimensions.get('screen')||Dimensions.get('window'),
     pxielRatio = PixelRatio.get();
 
 var {TotalNavHeight} = Navigator.NavigationBar.Styles.General;
-var statusBarHeight = (Platform.OS === "android")?NativeModules.UtilsModule.statusBarHeight/pxielRatio:0;
+var statusBarHeight = (Platform.OS === "android")?StatusBar.currentHeight:0;
 
 module.exports = {
     w: SCREEN_WIDTH_BASE, //屏幕的宽度
@@ -31,6 +31,6 @@ module.exports = {
     totalNavHeight: TotalNavHeight*SCREEN_WIDTH_BASE/width, //导航栏的高度
     trueTotalNavHeight: TotalNavHeight, //导航栏的真实高度
     pr: pxielRatio,
-    ws: (w)=>{return w*width/SCREEN_WIDTH_BASE},
-    rws: (w)=>{return w*SCREEN_WIDTH_BASE/width},
+    s: (w)=>{return w*width/SCREEN_WIDTH_BASE},
+    rs: (w)=>{return w*SCREEN_WIDTH_BASE/width},
 };

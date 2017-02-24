@@ -13,7 +13,7 @@ const ViewPager = React.createClass({
     },
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
-            this.scrollView.scrollTo({x: sr.ws(160)});
+            this.scrollView.scrollTo({x: sr.s(160)});
         });
     },
     onScroll(e) {
