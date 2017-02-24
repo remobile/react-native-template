@@ -8,13 +8,9 @@ var {
     View,
 } = ReactNative;
 
-var SplashScreen = require('@remobile/react-native-splashscreen');
 var ClipRect = require('@remobile/react-native-clip-rect');
 
 module.exports = React.createClass({
-    componentWillMount() {
-        SplashScreen.hide();
-    },
     render() {
         const overlayColor = 'rgba(0, 0, 0, 0.5)';
         return (
