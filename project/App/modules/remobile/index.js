@@ -22,8 +22,10 @@ var MarqueeLabel = require('./react-native-marquee-label');
 var Zip = require('./react-native-zip');
 var RefreshInfiniteListview = require('./react-native-refresh-infinite-listview');
 var Panel = require('./react-native-3d-panel');
+var Marquee = require('./react-native-marquee');
 
 var modules = [
+    {title:'react-native-marquee', image: app.img.common_point, module:Marquee},
     {title:'react-native-3d-panel', image: app.img.common_point, module:Panel},
     {title:'react-native-refresh-infinite-listview', image: app.img.common_point, module:RefreshInfiniteListview},
     {title:'react-native-dialogs', image: app.img.common_point, module:Dialogs},
@@ -47,6 +49,7 @@ module.exports = React.createClass({
         }},
     },
     componentWillMount() {
+        app.toggleNavigationBar(true);
         SplashScreen.hide();
     },
     getInitialState: function() {
@@ -110,7 +113,6 @@ var styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 30,
     },
     row: {
         height:60,
