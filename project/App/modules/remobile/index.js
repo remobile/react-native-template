@@ -21,8 +21,10 @@ var FileTransfer = require('./react-native-file-transfer');
 var MarqueeLabel = require('./react-native-marquee-label');
 var Zip = require('./react-native-zip');
 var RefreshInfiniteListview = require('./react-native-refresh-infinite-listview');
+var Panel = require('./react-native-3d-panel');
 
 var modules = [
+    {title:'react-native-3d-panel', image: app.img.common_point, module:Panel},
     {title:'react-native-refresh-infinite-listview', image: app.img.common_point, module:RefreshInfiniteListview},
     {title:'react-native-dialogs', image: app.img.common_point, module:Dialogs},
     {title:'react-native-camera', image: app.img.common_point, module:Camera},

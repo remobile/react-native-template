@@ -68,13 +68,13 @@ module.exports = React.createClass({
         return app.personal.info != null;
     },
     render() {
-        var info = app.personal.info;
+        var info = app.personal.info||{};
         return (
             <View style={styles.container}>
                 <ScrollView>
                     {
                         CHILD_PAGES.map((item, i)=>{
-                            if (!app.personal.info.phone && item.strict) {
+                            if (!info.phone && item.strict) {
                                 return null;
                             }
                             return (
