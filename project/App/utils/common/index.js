@@ -13,6 +13,13 @@ module.exports = {
             callback();
         }
     },
+    toThousands(num) {
+        return (num||0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    },
+    getPercentages(list) {
+        const sum = _.sum(list);
+        return list.map((v)=>Math.round(v*100/sum)+'%');
+    },
     chineseWeekDay(day) {
         return ['日','一','二','三','四','五','六'][day];
     },
