@@ -5,7 +5,7 @@ var qs = require('qs');
 var KEY = CONSTANTS.DES_KEY;
 
 module.exports = (url, parameter, success, failed, wait)=>{
-    console.log("send:", url, parameter);
+    console.log("send:["+url+"]", parameter);
     if (typeof failed === 'boolean') {
         wait = failed;
         failed = null;
@@ -38,7 +38,7 @@ module.exports = (url, parameter, success, failed, wait)=>{
                         }
         			}
                 }
-                console.log("recv:", json);
+                console.log("recv:["+url+"]", json);
                 app.dismissProgressHud();
                 success(json);
             }, ()=>{
