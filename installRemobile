@@ -17,6 +17,7 @@ react-native-cordova
 react-native-datetime-picker
 react-native-des
 react-native-dialogs
+react-native-echarts
 react-native-file
 react-native-file-transfer
 react-native-image-animation
@@ -39,10 +40,13 @@ react-native-video
 react-native-zip
 )
 
-curdir=`pwd`
-
+cd project/App/node_modules/@remobile
 for module in  ${modules[@]};do
-    if ! [ -d "${curdir}/project/App/node_modules/@remobile/${module}" ];then
-        echo "exit"
+    if ! [ -d "${module}" ];then
+        echo "================================="
+        echo "install ${module} start"
+        git clone "https://github.com/remobile/${module}"
+        echo "install ${module} success"
+        echo "================================="
     fi
 done
