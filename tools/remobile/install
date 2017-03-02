@@ -40,7 +40,7 @@ react-native-video
 react-native-zip
 )
 
-cd project/App/node_modules/@remobile
+cd ../../project/App/node_modules/@remobile
 for module in  ${modules[@]};do
     if ! [ -d "${module}" ];then
         echo "================================="

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+oldname=$1
+newname=$2
+
+[ -z "$newname" ]&&echo "input oldname newname"&&exit
+
+find -name "xcshareddata" -exec rm -fr {} \;
+find -name "xcuserdata" -exec rm -fr {} \;
+xfind -n "*${oldname}*" -r "${oldname}:${newname}"
+xfind -v "-c \"%s/${oldname}/${newname}/g\""

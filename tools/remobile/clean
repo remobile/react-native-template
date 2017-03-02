@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd ../../project/App/node_modules/@remobile/${1}
+
+find -name ".DS_*" -exec rm -fr {} \;
+find -name "*.iml" -exec rm -fr {} \;
+find -name ".gradle" -exec rm -fr {} \;
+find -name ".idea" -exec rm -fr {} \;
+find -name "*xcuser*" -exec rm -fr {} \;
+find -name "*xcshared*" -exec rm -fr {} \;
+find -name "build" -exec rm -fr {} \;

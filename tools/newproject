@@ -2,14 +2,14 @@
 
 newname=$1
 oldname="JFBSample"
-project_old="project"
+project_old="../project"
 project_new="project_new"
 
 function clean() {
-    find -name "build"|grep "android"|xargs -I bbbb rm -fr bbbb
-    find -name "*xcuser*" -exec rm -fr {} \;
-    find -name "*xcshared*" -exec rm -fr {} \;
-    find -name ".DS_*" -exec rm -f {} \;
+    find -name "build"|grep "android"|xargs -I bbbb rm -fr bbbb >/dev/null 2>&1
+    find -name "*xcuser*" -exec rm -fr {} \; >/dev/null 2>&1
+    find -name "*xcshared*" -exec rm -fr {} \; >/dev/null 2>&1
+    find -name ".DS_*" -exec rm -f {} \; >/dev/null 2>&1
 }
 
 [ -z "$newname" ]&&echo "input newname[e.g:YXjqd]"&&exit
@@ -19,25 +19,25 @@ lnewname=$(echo ${newname}|tr '[A-Z]' '[a-z]')
 loldname=$(echo ${oldname}|tr '[A-Z]' '[a-z]')
 
 mkdir ${project_new}
-cp -r ./${project_old}/App ./${project_new}/App
-pushd ./${project_new}/App
+cp -r ${project_old}/App ${project_new}/App
+pushd ${project_new}/App
 clean
 xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
 popd
-pushd ./${project_new}/App/node_modules/@remobile/react-native-local-notifications
+pushd ${project_new}/App/node_modules/@remobile/react-native-local-notifications
 xfind -t "${oldname}" -v "-c \"%s/${oldname}/${newname}/g\""
 popd
 
-cp -r ./${project_old}/android ./${project_new}/android
-pushd ./${project_new}/android
+cp -r ${project_old}/android ${project_new}/android
+pushd ${project_new}/android
 clean
 xfind -n "*${loldname}*" -r "${loldname}:${lnewname}"
 xfind -t "${oldname}" -v "-c \"%s/${oldname}/${newname}/g\""
 xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
 popd
 
-cp -r ./${project_old}/ios ./${project_new}/ios
-pushd ./${project_new}/ios
+cp -r ${project_old}/ios ${project_new}/ios
+pushd ${project_new}/ios
 clean
 find -name "xcshareddata" -exec rm -fr {} \;
 find -name "xcuserdata" -exec rm -fr {} \;
@@ -48,14 +48,14 @@ xfind -n "${project_old}.pbxproj" -v "-c \"%s/${loldname}/${lnewname}/g\""
 xfind -n "contents.xcworkspacedata" -v "-c \"%s/${oldname}/${newname}/g\""
 popd
 
-cp -r ./${project_old}/tools ./${project_new}/tools
-pushd ./${project_new}/tools
+cp -r ${project_old}/tools ${project_new}/tools
+pushd ${project_new}/tools
 xfind -t "${oldname}" -v "-c \"%s/${oldname}/${newname}/g\""
 xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
 popd
 
-cp -r ./${project_old}/index.android.js ./${project_new}/index.android.js
-vim "./${project_new}/index.android.js" -e -s -c "%s/${oldname}/${newname}/g" -c "normal ZZ"
+cp -r ${project_old}/index.android.js ${project_new}/index.android.js
+vim "${project_new}/index.android.js" -e -s -c "%s/${oldname}/${newname}/g" -c "normal ZZ"
 
-cp -r ./${project_old}/index.ios.js ./${project_new}/index.ios.js
-vim "./${project_new}/index.ios.js" -e -s -c "%s/${oldname}/${newname}/g" -c "normal ZZ"
+cp -r ${project_old}/index.ios.js ${project_new}/index.ios.js
+vim "${project_new}/index.ios.js" -e -s -c "%s/${oldname}/${newname}/g" -c "normal ZZ"

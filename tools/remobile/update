@@ -1,0 +1,15 @@
+#!/bin/bash
+cd cd ../../project/App/node_modules/@remobile
+dirs=(`ls`)
+curdir=`pwd`
+
+for dir in ${dirs[@]};do
+    [ $dir = "tools" ]&&continue
+    echo ===============================${dir}=============================
+    cd ${curdir}/${dir}
+    git pl
+    cd ${curdir}
+    echo
+    echo
+    echo
+done
