@@ -1,0 +1,2 @@
+#!/bin/bash
+./node_modules/react-native/packager/packager.sh --root `pwd` --port 8088

@@ -1,43 +1,42 @@
 package com.jfbsample;
 
 import android.app.Application;
-import android.util.Log;
 
+import com.eguma.barcodescanner.BarcodeScanner;
 import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.remobile.RCTRemobilePackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.remobile.splashscreen.RCTSplashScreenPackage;
-import com.remobile.toast.RCTToastPackage;
-import com.remobile.dialogs.RCTDialogsPackage;
-import com.remobile.localNotifications.RCTLocalNotificationsPackage;
-import com.remobile.zip.RCTZipPackage;
-import com.remobile.sqlite.RCTSqlitePackage;
-import com.remobile.des.RCTDesPackage;
-import com.remobile.update.RCTUpdateMgr;
-import com.remobile.contacts.RCTContactsPackage;
+import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
+import com.remobile.RCTRemobilePackage;
+import com.remobile.audio.RCTAudioPackage;
+import com.remobile.batteryStatus.RCTBatteryStatusPackage;
+import com.remobile.call.RCTCallPackage;
 import com.remobile.camera.RCTCameraPackage;
 import com.remobile.capture.RCTCapturePackage;
-import com.remobile.imagePicker.RCTImagePickerPackage;
-import com.remobile.video.RCTVideoPackage;
-import com.remobile.audio.RCTAudioPackage;
+import com.remobile.contacts.RCTContactsPackage;
+import com.remobile.des.RCTDesPackage;
+import com.remobile.dialogs.RCTDialogsPackage;
 import com.remobile.filetransfer.RCTFileTransferPackage;
-import com.remobile.call.RCTCallPackage;
-import com.remobile.qrcodeLocalImage.RCTQRCodeLocalImagePackage;
+import com.remobile.imagePicker.RCTImagePickerPackage;
+import com.remobile.localNotifications.RCTLocalNotificationsPackage;
 import com.remobile.marqueeLabel.RCTMarqueeLabelPackage;
-import com.remobile.batteryStatus.RCTBatteryStatusPackage;
-
+import com.remobile.module.RCTModulePackage;
+import com.remobile.qrcodeLocalImage.RCTQRCodeLocalImagePackage;
+import com.remobile.splashscreen.RCTSplashScreenPackage;
+import com.remobile.sqlite.RCTSqlitePackage;
+import com.remobile.toast.RCTToastPackage;
+import com.remobile.update.RCTUpdateMgr;
+import com.remobile.video.RCTVideoPackage;
+import com.remobile.zip.RCTZipPackage;
 import com.rnfs.RNFSPackage;
 import com.yoloci.fileupload.FileUploadPackage;
-import com.eguma.barcodescanner.BarcodeScanner;
-import cn.reactnative.modules.jpush.JPushPackage;
-import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 
 import java.util.Arrays;
 import java.util.List;
+
+import cn.reactnative.modules.jpush.JPushPackage;
 
 public class MainApplication extends Application implements ReactApplication {
     private RCTUpdateMgr mUpdateMgr;
@@ -80,6 +79,7 @@ public class MainApplication extends Application implements ReactApplication {
                 new RCTQRCodeLocalImagePackage(),
                 new RCTMarqueeLabelPackage(),
                 new RCTBatteryStatusPackage(),
+                new RCTModulePackage(),
                 //VendorLibraries
                 new RNFSPackage(),
                 new FileUploadPackage(),

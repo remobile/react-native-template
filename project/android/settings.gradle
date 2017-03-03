@@ -63,6 +63,9 @@ project(':react-native-marquee-label').projectDir = new File(settingsDir, '../Ap
 include ':react-native-battery-status'
 project(':react-native-battery-status').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-battery-status/android')
 
+include ':react-native-module'
+project(':react-native-module').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-module/android')
+
 //VendorLibraries
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(settingsDir, '../App/node_modules/react-native-fs/android')

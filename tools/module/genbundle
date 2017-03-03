@@ -1,0 +1,41 @@
+#!/bin/bash
+
+function buildIos() {
+    mkdir -p www/ios
+    rm -fr www/ios/*
+    react-native bundle \
+        --platform ios \
+        --reset-cache \
+        --verbose \
+        --entry-file index.ios.js \
+        --bundle-output ./www/ios/index.ios.bundle \
+        --assets-dest ./www/ios \
+        --dev false
+}
+
+function buildAndroid() {
+    mkdir -p www/android
+    rm -fr www/android/*
+    react-native bundle \
+        --platform android \
+        --reset-cache \
+        --verbose \
+        --entry-file index.android.js \
+        --bundle-output ./www/android/index.android.bundle \
+        --assets-dest ./www/android \
+        --dev false
+}
+
+function main() {
+    mkdir -p www
+    if [ "$1" = "android" ];then
+        buildAndroid
+    elif [ "$1" = "ios" ];then
+        buildIos
+    else
+        buildAndroid
+        buildIos
+    fi
+}
+
+main $@
