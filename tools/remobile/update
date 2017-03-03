@@ -1,5 +1,5 @@
 #!/bin/bash
-cd cd ../../project/App/node_modules/@remobile
+cd ../../project/App/node_modules/@remobile
 dirs=(`ls`)
 curdir=`pwd`
 
