@@ -5,10 +5,12 @@ react-native-3d-panel
 react-native-action-sheet
 react-native-battery-status
 react-native-cache-image
+react-native-cache-module
 react-native-camera
 react-native-camera-roll-picker
 react-native-capture
 react-native-card-list
+react-native-card-swiper
 react-native-clip-rect
 react-native-contacts
 react-native-cordova

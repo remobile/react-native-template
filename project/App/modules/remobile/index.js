@@ -32,8 +32,10 @@ var QRCode = require('./react-native-qrcode-local-image');
 var CardSwiper = require('./react-native-card-swiper');
 var Echarts = require('./react-native-echarts');
 var Module = require('./react-native-module');
+var CacheModule = require('./react-native-cache-module');
 
 var modules = [
+    {title:'react-native-cache-module', image: app.img.common_point, module:CacheModule},
     {title:'react-native-module', image: app.img.common_point, module:Module},
     {title:'react-native-echarts', image: app.img.common_point, module:Echarts},
     {title:'react-native-card-swiper', image: app.img.common_point, module:CardSwiper},
