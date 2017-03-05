@@ -10,9 +10,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 import com.remobile.RCTRemobilePackage;
-import com.remobile.audio.RCTAudioPackage;
 import com.remobile.batteryStatus.RCTBatteryStatusPackage;
-import com.remobile.call.RCTCallPackage;
 import com.remobile.camera.RCTCameraPackage;
 import com.remobile.capture.RCTCapturePackage;
 import com.remobile.contacts.RCTContactsPackage;
@@ -73,9 +71,7 @@ public class MainApplication extends Application implements ReactApplication {
                 new RCTCapturePackage(),
                 new RCTImagePickerPackage(),
                 new RCTVideoPackage(),
-                new RCTAudioPackage(),
                 new RCTFileTransferPackage(),
-                new RCTCallPackage(),
                 new RCTQRCodeLocalImagePackage(),
                 new RCTMarqueeLabelPackage(),
                 new RCTBatteryStatusPackage(),

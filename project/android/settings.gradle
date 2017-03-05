@@ -45,14 +45,8 @@ project(':react-native-image-picker').projectDir = new File(settingsDir, '../App
 include ':react-native-video'
 project(':react-native-video').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-video/android')
 
-include ':react-native-audio'
-project(':react-native-audio').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-audio/android')
-
 include ':react-native-file-transfer'
 project(':react-native-file-transfer').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-file-transfer/android')
-
-include ':react-native-call'
-project(':react-native-call').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-call/android')
 
 include ':react-native-qrcode-local-image'
 project(':react-native-qrcode-local-image').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-qrcode-local-image/android')
