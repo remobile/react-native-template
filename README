@@ -5,6 +5,7 @@
 4. di update/modify/StyleSheet.js project/node_modules/react-native/Libraries/StyleSheet/StyleSheet.js
 5. di update/modify/assetPathUtils.js project/node_modules/react-native/local-cli/bundle/assetPathUtils.js
 6. di update/modify/minify.js project/node_modules/react-native/packager/src/JSTransformer/worker/minify.js
+7. di update/modify/buildBundle.js project/node_modules/react-native/local-cli/bundle/buildBundle.js
 
 二、发布大版本
     只有添加java或者object-c的代码的时候才发布大版本

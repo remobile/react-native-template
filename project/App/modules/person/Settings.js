@@ -20,20 +20,14 @@ var CommonSetting = require('./CommonSetting.js');
 
 var {Button, WebviewMessageBox} = COMPONENTS;
 
-const CHILD_PAGES = [
-    {title:'基础设置', module: CommonSetting, img:app.img.common_point, info:''},
-    {strict:true, title:'修改密码', module: ModifyPassword, img:app.img.common_point, info:''},
-    {seprator:true, title:'在线更新', module: Update, img:app.img.common_point, info:''},
-    {title:'意见反馈', module: Feedback, img:app.img.common_point, info:''},
-    {seprator:true, title:'软件许可协议', module: Help, img:app.img.common_point, info:''},
-    {title:'关于我们', module: About, img:app.img.common_point, info:''},
-];
-
 var MenuItem = React.createClass({
     showChildPage() {
-        const {module} = this.props.page;
+        const {module, method} = this.props.page;
+        if (method) {
+            return method();
+        }
         app.navigator.push({
-            component: this.props.page.module,
+            component: module,
         });
     },
     render() {
@@ -64,13 +58,43 @@ module.exports = React.createClass({
     statics: {
         title: '设置',
     },
+    getInitialState() {
+        return {
+            options: null
+        };
+    },
+    componentWillMount() {
+        Update.checkVersion({
+            versionUrl: app.route.ROUTE_VERSION_INFO_URL,
+            iosAppId: CONSTANTS.IOS_APPID,
+        }).then((options)=>{
+            this.setState({options});
+        })
+    },
+    getChildPages() {
+        const {options} = this.state;
+        return [
+            {title:'基础设置', module: CommonSetting, img:app.img.common_point, info:''},
+            {strict:true, title:'修改密码', module: ModifyPassword, img:app.img.common_point, info:''},
+            {seprator:false, title:'在线更新', method: ()=>{
+                app.navigator.push({
+                    title: '在线更新',
+                    component: UpdatePage,
+                    passProps: {options},
+                });
+            }, info: options===null ? '正在获取版本号...' : options===undefined ? '获取版本号失败': options.newVersion ? ('有最新'+options.newVersion+'版本') : ''},
+            {title:'意见反馈', module: Feedback, img:app.img.common_point, info:''},
+            {seprator:true, title:'软件许可协议', module: Help, img:app.img.common_point, info:''},
+            {title:'关于我们', module: About, img:app.img.common_point, info:''},
+        ];
+    },
     render() {
         var info = app.personal.info||{};
         return (
             <View style={styles.container}>
                 <ScrollView>
                     {
-                        CHILD_PAGES.map((item, i)=>{
+                        this.getChildPages().map((item, i)=>{
                             if (!info.phone && item.strict) {
                                 return null;
                             }

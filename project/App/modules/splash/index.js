@@ -14,88 +14,13 @@ var TimerMixin = require('react-timer-mixin');
 var SplashScreen = require('@remobile/react-native-splashscreen');
 var Login = require('../login/Login.js');
 var Home = require('../home/index.js');
-var Update = require('@remobile/react-native-update');
-
-var {ProgressBar} = COMPONENTS;
-
-var
-STATUS_NONE = 0,
-STATUS_DOWNLOAD_JS_PROGESS = 1,
-STATUS_UNZIP_JS_PROGESS = 2,
-STATUS_UPDATE_END = 3;
-
-var ProgressInfo = React.createClass({
-    render() {
-        return (
-            <View style={styles.progressInfo}>
-                <Text>{this.props.title} [{this.props.progress}%]</Text>
-                <ProgressBar
-                    fillStyle={{}}
-                    backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
-                    style={{marginTop: 10, width:PROGRESS_WIDTH}}
-                    progress={this.props.progress/100.0}
-                    />
-                <View style={styles.progressText}>
-                    <Text>0</Text>
-                    <Text>100</Text>
-                </View>
-            </View>
-        );
-    }
-});
 
 module.exports = React.createClass({
     mixins: [TimerMixin],
     getInitialState() {
         return {
-            status: STATUS_NONE,
-            progress: 0,
             renderSplashType: 0,
         };
-    },
-    updateJSCode() {
-        console.log("updateJSCode");
-        var update = new Update({
-            versionUrl: app.route.ROUTE_VERSION_INFO_URL,
-            jsbundleUrl:app.isandroid?app.route.ROUTE_JS_ANDROID_URL:app.route.ROUTE_JS_IOS_URL,
-            androidApkUrl:app.route.ROUTE_APK_URL,
-            androidApkDownloadDestPath:'/sdcard/jfbsample.apk',
-            iosAppId: CONSTANTS.IOS_APPID,
-            needUpdateApp: this.needUpdateApp,
-            needUpdateJS: this.needUpdateJS,
-            onDownloadJSStart:()=>{this.setState({status: STATUS_DOWNLOAD_JS_PROGESS,progress:0})},
-            onDownloadJSProgress:(progress)=>{this.setState({status: STATUS_DOWNLOAD_JS_PROGESS,progress:progress})},
-            onUnzipJSStart:()=>{this.setState({status: STATUS_DOWNLOAD_JS_PROGESS,progress:0})},
-            onUnzipJSProgress:(progress)=>{this.setState({status: STATUS_UNZIP_JS_PROGESS,progress:progress})},
-            onUnzipJSEnd:()=>{this.setState({status: STATUS_UPDATE_END})},
-            onNewestVerion: this.onNewestVerion,
-            onError:(errCode)=>{this.onError(errCode)},
-        })
-        update.start();
-    },
-    onError() {
-        this.getInfoError();
-    },
-    needUpdateApp(oldVersion, newVersion, description, callback) {
-        console.log("needUpdateApp", oldVersion, newVersion, description);
-        callback(1);
-        this.changeToNextPage();
-    },
-    onNewestVerion() {
-        console.log("onNewestVerion");
-        this.changeToNextPage();
-    },
-    needUpdateJS(oldVersion, newVersion, description, callback) {
-        console.log("needUpdateJS", oldVersion, newVersion, description);
-        callback(0);
-    },
-    checkJSCodeUpdate() {
-        if (CONSTANTS.NOT_NEED_UPDATE_JS_START) {
-            this.setTimeout(()=>{this.changeToNextPage()}, app.isandroid?1000:500);
-        } else {
-            console.log("checkJSCodeUpdate");
-            this.updateJSCode();
-        }
     },
     doGetPersonalInfo() {
         var param = {
@@ -119,9 +44,11 @@ module.exports = React.createClass({
         this.changeToLoginPage();
     },
     enterLoginPage() {
-        app.navigator.replace({
-            component: Login,
-        });
+        this.setTimeout(()=>{
+            app.navigator.replace({
+                component: Login,
+            });
+        }, 600);
     },
     changeToLoginPage() {
         if (app.updateMgr.needShowSplash) {
@@ -131,9 +58,11 @@ module.exports = React.createClass({
         }
     },
     enterHomePage() {
-        app.navigator.replace({
-            component: Home,
-        });
+        this.setTimeout(()=>{
+            app.navigator.replace({
+                component: Home,
+            });
+        }, 600);
     },
     changeToHomePage() {
         if (app.updateMgr.needShowSplash) {
@@ -158,43 +87,34 @@ module.exports = React.createClass({
         }
     },
     componentDidMount() {
-        this.checkJSCodeUpdate();
-        setTimeout(()=>{
+        app.utils.until(
+            ()=>app.updateMgr.initialized,
+            (cb)=>setTimeout(cb, 100),
+            ()=>this.changeToNextPage()
+        );
+        this.setTimeout(()=>{
             SplashScreen.hide();
-        }, 1000);
+        }, 100);
     },
-    renderUpdateSplash() {
-        var components = {};
-        components[STATUS_DOWNLOAD_JS_PROGESS] = (
-            <ProgressInfo
-                title="正在更新版本..."
-                progress={this.state.progress} />
-        );
-        components[STATUS_UNZIP_JS_PROGESS] = (
-            <ProgressInfo
-                title="正在检测文件..."
-                progress={this.state.progress} />
-        );
-        components[STATUS_UPDATE_END] = (
-            <Text>更新完成，请稍后...</Text>
-        );
+    componentWillUnmount() {
+        app.updateMgr.checkUpdate();
+    },
+    renderCommonSplash() {
         return (
             <Image
                 resizeMode='stretch'
                 source={app.img.splash_splash}
-                style={styles.splash}>
-                <View style={styles.functionContainer}>
-                    {components[this.state.status]}
-                </View>
-            </Image>
+                style={styles.splash} />
         );
     },
     renderSwiperSplash() {
         return (
             <Swiper
                 paginationStyle={styles.paginationStyle}
-                dot={<View style={{backgroundColor:'#FFFFFF', width: 8, height: 8,borderRadius: 4, marginLeft: 8, marginRight: 8,}} />}
-                height={sr.th}>
+                dot={<View style={{backgroundColor:'#FFFCF4', width: 8, height: 8,borderRadius: 4, marginLeft: 8, marginRight: 8,}} />}
+                activeDot={<View style={{backgroundColor:'#FFCD53', width: 16, height: 8,borderRadius: 4, marginLeft: 8, marginRight: 8,}} />}
+                height={sr.th}
+                loop={false}>
                 {
                     [1,2,3,4].map((i)=>{
                         return (
@@ -208,10 +128,8 @@ module.exports = React.createClass({
                                     <TouchableOpacity
                                         style={styles.enterButtonContainer}
                                         onPress={this.enterNextPage}>
-                                        <Text style={styles.enterButton}>
-                                            开始学习
-                                        </Text>
-                                   </TouchableOpacity>
+                                        <Image resizeMode='stretch' style={styles.enterButton} source={app.img.splash_start} />
+                                    </TouchableOpacity>
                                 }
                             </Image>
                         )
@@ -221,26 +139,14 @@ module.exports = React.createClass({
         );
     },
     render() {
-        return this.state.renderSplashType===0 ? this.renderUpdateSplash() : this.renderSwiperSplash();
+        return this.state.renderSplashType===0 ? this.renderCommonSplash() : this.renderSwiperSplash();
     },
 });
 
-
-var PROGRESS_WIDTH = sr.tw*0.7;
 var styles = StyleSheet.create({
     splash: {
         width: sr.w,
         height: sr.h,
-    },
-    functionContainer: {
-        position: 'absolute',
-        top: sr.h*0.6,
-        left: sr.w*0.15,
-    },
-    progressText: {
-        flexDirection:'row',
-        justifyContent:'space-between',
-        width: sr.w*0.7,
     },
     paginationStyle: {
         bottom: 30,
@@ -254,17 +160,12 @@ var styles = StyleSheet.create({
         width: 165,
         height: 40,
         left: (sr.w-165)/2,
-        bottom: 50,
-        backgroundColor: '#79CCD0',
+        bottom: 110,
         alignItems:'center',
         justifyContent: 'center',
-        borderRadius: 10,
-        borderColor: 'white',
-        borderWidth: 2,
     },
     enterButton: {
-        fontSize: 18,
-        color: 'white',
-        fontWeight: '600',
+        width: 140,
+        height: 36,
     },
 });

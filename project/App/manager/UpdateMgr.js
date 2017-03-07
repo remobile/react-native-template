@@ -6,6 +6,8 @@ var {
 var EventEmitter = require('EventEmitter');
 
 const ITEM_NAME = "NEED_SHOW_SPLASH";
+const Update = require('@remobile/react-native-update');
+const UpdateInfoBox = require('../modules/update/UpdateInfoBox');
 
 class Manager extends EventEmitter {
 	constructor() {
@@ -13,6 +15,16 @@ class Manager extends EventEmitter {
         this.needShowSplash = true;
         this.getNeedShowSplash();
 	}
+    checkUpdate() {
+        Update.checkVersion({
+            versionUrl: app.route.ROUTE_VERSION_INFO_URL,
+            iosAppId: CONSTANTS.IOS_APPID,
+        }).then((options)=>{
+            if (options && options.newVersion) {
+                app.showModal(<UpdateInfoBox options={options} />)
+            }
+        })
+    }
     getNeedShowSplash() {
         return new Promise(async(resolve, reject)=>{
             var needShowSplash;
@@ -23,6 +35,7 @@ class Manager extends EventEmitter {
             } catch(e) {
             }
             this.needShowSplash = needShowSplash==null ? true : needShowSplash;
+            this.initialized = true;
         });
     }
     setNeedShowSplash(needShowSplash) {
