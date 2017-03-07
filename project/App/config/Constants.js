@@ -27,14 +27,12 @@ module.exports = {
     APP_NAME: '疾风步',
     THEME_COLORS: ['#2F4F4F', '#A62045', '#239FDB'],
     ISSUE_IOS: CONFIG.ISSUE_IOS,
-    NOT_NEED_UPDATE_JS_START: !(CONFIG.ISSUE || TEST_CONFIG.ISSUE), //启动时不需要更新小版本
     MINIFY: CONFIG.ISSUE, //是否压缩js文件，我们采取测试服务器为了查找问题不用压缩js文件，正式服务器需要压缩js文件，并且不能看到调试信息
     CHANNEL: CONFIG.CHANNEL,
     //IOS的appid
     IOS_APPID: '',
     //web服务器
     DES_KEY:"ABCDEFGH", //DES加密KEY
-    SERVER: 'http://'+BASE_SERVER+'/JFBSample/api/', //web服务器地址
     BASE_SERVER: 'http://'+BASE_SERVER+'/',//程序更新下载地址
     //获取验证码的超时时间
     DEFAULT_CODE_TIMEOUT: 90,
