@@ -95,7 +95,7 @@ module.exports = React.createClass({
             Update.updateApp({
                 trackViewUrl,
                 androidApkUrl:app.route.ROUTE_APK_URL,
-                androidApkDownloadDestPath:'/Users/fang/work/client/project/yxjqd.apk',
+                androidApkDownloadDestPath:'/sdcard/yxjqd.apk',
                 onDownloadAPKProgress:(progress)=>{this.setState({status: STATUS_DOWNLOAD_APK_PROGESS,progress})},
                 onError:(errCode)=>{this.onError(errCode)},
             });
@@ -231,7 +231,7 @@ var styles = StyleSheet.create({
         marginTop: 15,
         width: sr.w-60,
         height: 1,
-        backgroundColor: '#F1F1F1'
+        backgroundColor: '#DE3031'
     },
     buttonStyleContain: {
         width: 120,
@@ -261,7 +261,7 @@ var styles = StyleSheet.create({
         fontFamily: 'STHeitiSC-Medium',
     },
     title: {
-        color: '#151515',
+        color: '#DE3031',
         fontSize: 18,
         textAlign: 'center',
         overflow: 'hidden',

@@ -1,4 +1,5 @@
 'use strict';
+var React = require('react');
 var ReactNative = require('react-native');
 var {
     AsyncStorage,
@@ -21,7 +22,7 @@ class Manager extends EventEmitter {
             iosAppId: CONSTANTS.IOS_APPID,
         }).then((options)=>{
             if (options && options.newVersion) {
-                app.showModal(<UpdateInfoBox options={options} />)
+                app.showModal(<UpdateInfoBox options={options} />, {backgroundColor:'rgba(0, 0, 0, 0.6)'})
             }
         })
     }

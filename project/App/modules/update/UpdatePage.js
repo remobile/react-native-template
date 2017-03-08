@@ -118,7 +118,7 @@ module.exports = React.createClass({
         var components = {};
         const {currentVersion, newVersion, description} = this.state.options||{currentVersion:Update.getVersion()};
         components[STATUS_GET_VERSION] = (
-            <Text style={styles.textInfo}>正在获取版本</Text>
+            <Text style={styles.textInfo}>正在获取版本号</Text>
         );
         components[STATUS_HAS_NOT_VEW_VERSION] = (
             <Text style={styles.textInfo}>当前版本已经是最新版本</Text>
