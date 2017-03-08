@@ -60,6 +60,9 @@ project(':react-native-battery-status').projectDir = new File(settingsDir, '../A
 include ':react-native-module'
 project(':react-native-module').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-module/android')
 
+include ':react-native-echarts'
+project(':react-native-echarts').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-echarts/android')
+
 //VendorLibraries
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(settingsDir, '../App/node_modules/react-native-fs/android')

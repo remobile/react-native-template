@@ -56,4 +56,4 @@ cd ../android
 #./gradlew installRelease
 CHANNEL=$(grep "CHANNEL: '" ../App/config/Constants.js|sed "s/.*'\(.*\)'.*/\1/")
 mv app/build/outputs/apk/app-release.apk ../../localServer/public/download/jfbsample_${CHANNEL}.apk
-echo "../../server/public/download/apks/admin/apks/apk/jfbsample_${CHANNEL}.apk"
+echo "../../localServer/public/download/jfbsample_${CHANNEL}.apk"

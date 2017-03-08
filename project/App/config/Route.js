@@ -1,7 +1,7 @@
 'use strict';
 
 const {BASE_SERVER} = CONSTANTS;
-const SERVER = BASE_SERVER+'/JFBSample/api/', //web服务器地址
+const SERVER = BASE_SERVER+'/JFBSample/api/'; //web服务器地址
 
 
 module.exports = {
