@@ -231,7 +231,7 @@ var styles = StyleSheet.create({
         marginTop: 15,
         width: sr.w-60,
         height: 1,
-        backgroundColor: '#DE3031'
+        backgroundColor: '#2F4F4F'
     },
     buttonStyleContain: {
         width: 120,
@@ -239,7 +239,7 @@ var styles = StyleSheet.create({
         marginLeft: 30,
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor: '#DE3031',
+        backgroundColor: '#2F4F4F',
     },
     buttonStyleContainCannel: {
         width: 120,
@@ -248,7 +248,7 @@ var styles = StyleSheet.create({
         alignItems:'center',
         backgroundColor: 'white',
         borderWidth: 1,
-        borderColor: '#DE3031',
+        borderColor: '#2F4F4F',
     },
     buttonStyle: {
         fontSize: 16,
@@ -257,11 +257,11 @@ var styles = StyleSheet.create({
     },
     buttonStyleCannel: {
         fontSize: 16,
-        color: '#DE3031',
+        color: '#2F4F4F',
         fontFamily: 'STHeitiSC-Medium',
     },
     title: {
-        color: '#DE3031',
+        color: '#2F4F4F',
         fontSize: 18,
         textAlign: 'center',
         overflow: 'hidden',

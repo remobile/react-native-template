@@ -36,6 +36,7 @@ var CacheModule = require('./react-native-cache-module');
 var SmartKeyboard = require('./react-native-smart-keyboard');
 
 var modules = [
+    {title:'react-native-3d-panel', image: app.img.common_point, module:Panel},
     {title:'react-native-smart-keyboard', image: app.img.common_point, module:SmartKeyboard},
     {title:'react-native-cache-module', image: app.img.common_point, module:CacheModule},
     {title:'react-native-module', image: app.img.common_point, module:Module},

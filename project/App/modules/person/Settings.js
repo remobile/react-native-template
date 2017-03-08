@@ -11,12 +11,13 @@ var {
     ScrollView,
 } = ReactNative;
 
+var Update = require('@remobile/react-native-update');
 var Help = require('./Help.js');
 var About = require('./About.js');
-var Update = require('./Update.js');
 var Feedback = require('./Feedback');
 var ModifyPassword = require('./ModifyPassword.js');
 var CommonSetting = require('./CommonSetting.js');
+var UpdatePage = require('../update/UpdatePage.js');
 
 var {Button, WebviewMessageBox} = COMPONENTS;
 

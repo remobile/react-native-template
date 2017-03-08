@@ -160,7 +160,7 @@ var styles = StyleSheet.create({
         width: 165,
         height: 40,
         left: (sr.w-165)/2,
-        bottom: 110,
+        bottom: 80,
         alignItems:'center',
         justifyContent: 'center',
     },

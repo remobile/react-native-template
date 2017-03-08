@@ -40,6 +40,7 @@ module.exports = {
     splash_splash2:require('./image/splash/splash2.png'),
     splash_splash3:require('./image/splash/splash3.png'),
     splash_splash4:require('./image/splash/splash4.png'),
+    splash_start:require('./image/splash/start.png'),
     task_close:require('./image/task/close.png'),
     task_edit:require('./image/task/edit.png'),
     task_enlarge:require('./image/task/enlarge.png'),
