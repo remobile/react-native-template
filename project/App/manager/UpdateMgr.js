@@ -21,7 +21,7 @@ class Manager extends EventEmitter {
             versionUrl: app.route.ROUTE_VERSION_INFO_URL,
             iosAppId: CONSTANTS.IOS_APPID,
         }).then((options)=>{
-            if (options && options.newVersion) {
+            if (options && options.newVersion && (app.scene||{}).pageName !== 'UpdatePage') {
                 app.showModal(<UpdateInfoBox options={options} />, {backgroundColor:'rgba(0, 0, 0, 0.6)'})
             }
         })

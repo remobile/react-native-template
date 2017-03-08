@@ -64,6 +64,7 @@ var ProgressInfo = React.createClass({
 });
 
 module.exports = React.createClass({
+    pageName: 'UpdatePage',
     getInitialState() {
         const {options} = this.props;
         return {

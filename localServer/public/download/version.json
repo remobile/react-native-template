@@ -1,7 +1,13 @@
 {
-    "versionName":"1.0",
-    "versionCode":10,
+    "iosPassed": true,
     "iosJsVersionCode":0,
+    "iosDescription":["修正bug", "添加新功能"],
+    "androidPassed": {
+        "baidu": false,
+        "default": true
+    },
+    "versionName":"1.0",
+    "versionCode": 1048576,
     "androidJsVersionCode":0,
-    "description":"第一版本"
+    "androidDescription": ["修改bug", "添加新功能"]
 }
