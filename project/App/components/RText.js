@@ -8,14 +8,14 @@ var {
 } = ReactNative;
 
 var RText = React.createClass({
-    render() {
-        const {children, style, ...props} = this.props;
+    render () {
+        const { children, style, ...props } = this.props;
         const s = StyleSheet.flatten(style);
-        const {lineHeight, fontSize} = s;
-        const paddingVertical = (lineHeight-fontSize)/2;
+        const { lineHeight, fontSize } = s;
+        const paddingVertical = (lineHeight - fontSize) / 2;
         return (
             <Text
-                style={[{paddingVertical}, style]}
+                style={[{ paddingVertical }, style]}
                 testID={this.props.testID}
                 {...props}
                 >
@@ -25,4 +25,4 @@ var RText = React.createClass({
     },
 });
 
-module.exports = Platform.OS==='android' ?  RText : Text;
+module.exports = Platform.OS === 'android' ? RText : Text;

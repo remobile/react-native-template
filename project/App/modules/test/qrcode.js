@@ -3,19 +3,19 @@ import React from 'react';
 import {
     StyleSheet,
     Text,
-    View
+    View,
 } from 'react-native';
 
 import BarcodeScanner from 'react-native-barcode-scanner-universal';
 
 module.exports = React.createClass({
-    onBarCodeRead(code) {
-        var {data} = code;
+    onBarCodeRead (code) {
+        var { data } = code;
         try {
             data = JSON.parse(data);
             Toast(data);
         } catch (e) {
-            Toast("扫描失败");
+            Toast('扫描失败');
             return;
         }
     },
@@ -48,8 +48,8 @@ module.exports = React.createClass({
                     }
                 </BarcodeScanner>
             </View>
-        )
-    }
+        );
+    },
 });
 
 var OVERLAY = 'rgba(0, 0, 0, 0.2)';

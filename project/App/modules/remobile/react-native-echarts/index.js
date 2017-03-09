@@ -43,28 +43,28 @@ const statistics = {
 };
 
 module.exports = React.createClass({
-    getInitialState(){
-        return{
+    getInitialState () {
+        return {
             currentIndex: 0,
-        }
+        };
     },
-    onPress(index){
-        this.setState({currentIndex: index})
+    onPress (index) {
+        this.setState({ currentIndex: index });
     },
-    headItem(itemStr, i){
-        return(
+    headItem (itemStr, i) {
+        return (
             <TouchableOpacity
                 onPress={this.onPress.bind(null, i)}
                 style={styles.itemView}>
-                <Text style={this.state.currentIndex === i?styles.selectText:styles.text}>
+                <Text style={this.state.currentIndex === i ? styles.selectText : styles.text}>
                     {itemStr}
                 </Text>
-                {this.state.currentIndex === i&&<View style={styles.lineView}/>}
+                {this.state.currentIndex === i && <View style={styles.lineView} />}
             </TouchableOpacity>
         );
     },
-    headView(){
-        return(
+    headView () {
+        return (
             <View style={styles.textView}>
                 {this.headItem(CHILD_ITEM[0], 0)}
                 {this.headItem(CHILD_ITEM[1], 1)}
@@ -73,26 +73,26 @@ module.exports = React.createClass({
             </View>
         );
     },
-    render() {
-        const {currentIndex} = this.state;
+    render () {
+        const { currentIndex } = this.state;
         return (
             <View style={styles.container}>
                 <this.headView />
-                <View style={currentIndex===0?styles.containerWebView:styles.containerWebViewHide}>
-                    <ReleaseCardInfo data={statistics.releaseCardInfo}/>
+                <View style={currentIndex === 0 ? styles.containerWebView : styles.containerWebViewHide}>
+                    <ReleaseCardInfo data={statistics.releaseCardInfo} />
                 </View>
-                <View style={currentIndex===1?styles.containerWebView:styles.containerWebViewHide}>
-                    <ConsumeInfo data={statistics.consumeInfo}/>
+                <View style={currentIndex === 1 ? styles.containerWebView : styles.containerWebViewHide}>
+                    <ConsumeInfo data={statistics.consumeInfo} />
                 </View>
-                <View style={currentIndex===2?styles.containerWebView:styles.containerWebViewHide}>
-                    <UserSexInfo data={statistics.userSexInfo}/>
+                <View style={currentIndex === 2 ? styles.containerWebView : styles.containerWebViewHide}>
+                    <UserSexInfo data={statistics.userSexInfo} />
                 </View>
-                <View style={currentIndex===3?styles.containerWebView:styles.containerWebViewHide}>
-                    <UserAgeInfo data={statistics.userAgeInfo}/>
+                <View style={currentIndex === 3 ? styles.containerWebView : styles.containerWebViewHide}>
+                    <UserAgeInfo data={statistics.userAgeInfo} />
                 </View>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -115,7 +115,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
     },
     itemView: {
-        width: sr.w/4,
+        width: sr.w / 4,
         height: 43,
     },
     lineView: {

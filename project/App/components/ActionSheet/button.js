@@ -1,15 +1,15 @@
-'use strict'
+'use strict';
 
 var React = require('react');var ReactNative = require('react-native');
 var {
     StyleSheet,
     Text,
     TouchableOpacity,
-    View
+    View,
 } = ReactNative;
 
 module.exports = React.createClass({
-    render() {
+    render () {
         return (
             <TouchableOpacity
                 activeOpacity={0.5}
@@ -20,14 +20,14 @@ module.exports = React.createClass({
                 </Text>
             </TouchableOpacity>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
     buttonText: {
         color: '#A1A2A3',
         alignSelf: 'center',
-        fontSize: 18
+        fontSize: 18,
     },
     button: {
         height: 50,
@@ -35,6 +35,6 @@ var styles = StyleSheet.create({
         borderColor: '#EDEEEF',
         borderBottomWidth: 1,
         alignSelf: 'stretch',
-        justifyContent: 'center'
-    }
+        justifyContent: 'center',
+    },
 });

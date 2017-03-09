@@ -8,20 +8,20 @@ var {
     Text,
 } = ReactNative;
 
-var {Button, Label} = COMPONENTS;
+var { Button, Label } = COMPONENTS;
 
 module.exports = React.createClass({
     statics: {
         title: '忘记密码',
     },
-    getInitialState() {
+    getInitialState () {
         return {
-            phone: this.props.phone||'',
+            phone: this.props.phone || '',
             email: '',
         };
     },
-    doSubmit() {
-        const {phone, email} = this.state;
+    doSubmit () {
+        const { phone, email } = this.state;
         if (!app.utils.checkPhone(phone)) {
             Toast('请填写正确的手机号码');
             return;
@@ -36,7 +36,7 @@ module.exports = React.createClass({
         };
         POST(app.route.ROUTE_RETRIEVE_PASSWORD, param, this.doSubmitSuccess, true);
     },
-    doSubmitSuccess(data) {
+    doSubmitSuccess (data) {
         if (data.success) {
             Toast('新的密码已经发送到您的邮箱，请注意查收');
             app.navigator.pop();
@@ -44,7 +44,7 @@ module.exports = React.createClass({
             Toast(data.msg);
         }
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <View style={styles.upContainer}>
@@ -56,7 +56,7 @@ module.exports = React.createClass({
                         <Text style={styles.text_phone_header}>+86</Text>
                         <TextInput
                             placeholder='手机号码'
-                            onChangeText={(text) => this.setState({phone: text})}
+                            onChangeText={(text) => this.setState({ phone: text })}
                             defaultValue={this.props.phone}
                             style={styles.text_input}
                             keyboardType='phone-pad'
@@ -66,7 +66,7 @@ module.exports = React.createClass({
                     <View style={styles.inputContainer}>
                         <TextInput
                             placeholder='密码找回邮箱'
-                            onChangeText={(text) => this.setState({email: text})}
+                            onChangeText={(text) => this.setState({ email: text })}
                             style={styles.text_input2}
                             />
                     </View>
@@ -74,7 +74,7 @@ module.exports = React.createClass({
                 <Button onPress={this.doSubmit} style={styles.btnSubmit}>确   定</Button>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -123,7 +123,7 @@ var styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     btnSubmit: {
-        width: sr.w-20,
+        width: sr.w - 20,
         height: 40,
         marginBottom: 40,
         borderRadius: 5,

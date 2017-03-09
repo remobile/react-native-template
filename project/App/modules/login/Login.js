@@ -13,46 +13,46 @@ var {
 } = ReactNative;
 
 module.exports = React.createClass({
-    changeTab(tabIndex) {
-        this.setState({tabIndex});
+    changeTab (tabIndex) {
+        this.setState({ tabIndex });
     },
-    getInitialState() {
+    getInitialState () {
         return {
             phone: '',
             tabIndex: 0,
         };
     },
-    componentDidMount() {
+    componentDidMount () {
         app.toggleNavigationBar(true);
         app.hasLoadMainPage = true;
     },
-    componentWillUnmount() {
+    componentWillUnmount () {
         app.hasLoadMainPage = false;
     },
-    changeToLoginPanel(phone) {
-        this.setState({tabIndex: 0, phone});
+    changeToLoginPanel (phone) {
+        this.setState({ tabIndex: 0, phone });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
-                <View style={[styles.tabContainer, {borderColor: app.THEME_COLOR}]}>
+                <View style={[styles.tabContainer, { borderColor: app.THEME_COLOR }]}>
                     <TouchableOpacity
                         onPress={this.changeTab.bind(null, 0)}
-                        style={[styles.tabButton, this.state.tabIndex===0?{backgroundColor:app.THEME_COLOR}:null]}>
-                        <Text style={[styles.tabText, this.state.tabIndex===0?{color:'#FFFFFF'}:null]} >已有账号</Text>
-                        {this.state.tabIndex===0&&<View style={[styles.makeup, {backgroundColor:app.THEME_COLOR, right:0}]}></View>}
+                        style={[styles.tabButton, this.state.tabIndex === 0 ? { backgroundColor:app.THEME_COLOR } : null]}>
+                        <Text style={[styles.tabText, this.state.tabIndex === 0 ? { color:'#FFFFFF' } : null]} >已有账号</Text>
+                        {this.state.tabIndex === 0 && <View style={[styles.makeup, { backgroundColor:app.THEME_COLOR, right:0 }]} />}
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={this.changeTab.bind(null, 1)}
-                        style={[styles.tabButton, this.state.tabIndex===1?{backgroundColor:app.THEME_COLOR}:null]}>
-                        <Text style={[styles.tabText, this.state.tabIndex===1?{color:'#FFFFFF'}:null]} >手机注册</Text>
-                        {this.state.tabIndex===1&&<View style={[styles.makeup, {backgroundColor:app.THEME_COLOR, left:0}]}></View>}
+                        style={[styles.tabButton, this.state.tabIndex === 1 ? { backgroundColor:app.THEME_COLOR } : null]}>
+                        <Text style={[styles.tabText, this.state.tabIndex === 1 ? { color:'#FFFFFF' } : null]} >手机注册</Text>
+                        {this.state.tabIndex === 1 && <View style={[styles.makeup, { backgroundColor:app.THEME_COLOR, left:0 }]} />}
                     </TouchableOpacity>
                 </View>
-                {this.state.tabIndex===0 ? <LoginPanel phone={this.state.phone}/> : <RegisterPanel changeToLoginPanel={this.changeToLoginPanel}/>}
+                {this.state.tabIndex === 0 ? <LoginPanel phone={this.state.phone} /> : <RegisterPanel changeToLoginPanel={this.changeToLoginPanel} />}
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -82,6 +82,6 @@ var styles = StyleSheet.create({
         top: 0,
         width: 10,
         height: 50,
-        position: 'absolute'
+        position: 'absolute',
     },
 });

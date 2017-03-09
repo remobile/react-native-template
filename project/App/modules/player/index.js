@@ -14,26 +14,26 @@ var Player = require('./Player.js');
 var SplashScreen = require('@remobile/react-native-splashscreen');
 
 module.exports = React.createClass({
-    componentWillMount() {
+    componentWillMount () {
         SplashScreen.hide();
     },
-    onComplete() {
-        console.log("=onComplete");
+    onComplete () {
+        console.log('=onComplete');
     },
-    fullScreenListener(isFullScreen) {
-        console.log("fullScreenListener", isFullScreen);
+    fullScreenListener (isFullScreen) {
+        console.log('fullScreenListener', isFullScreen);
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Player
-                    uri="http://192.168.1.137:3000/video/test.m3u8"
+                    uri='http://192.168.1.137:3000/video/test.m3u8'
                     fullScreenListener={this.fullScreenListener}
                     onComplete={this.onComplete}
                     />
             </View>
         );
-    }
+    },
 });
 
 const styles = StyleSheet.create({

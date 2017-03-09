@@ -12,15 +12,15 @@ var {
 var Button = require('@remobile/react-native-simple-button');
 var Camera = require('@remobile/react-native-camera');
 var Capture = require('@remobile/react-native-capture');
-var {DImage} = COMPONENTS;
+var { DImage } = COMPONENTS;
 
 module.exports = React.createClass({
-    getInitialState() {
+    getInitialState () {
         return {
             filePath: '',
         };
     },
-    takePicture(i) {
+    takePicture (i) {
         var options = [{
             quality: 30,
             allowEdit: true,
@@ -66,22 +66,22 @@ module.exports = React.createClass({
         }];
         Camera.getPicture((filePath) => {
             console.log(filePath);
-            this.setState({filePath:'file://'+filePath});
+            this.setState({ filePath:'file://' + filePath });
         }, null, options[i]);
     },
-    taskVideo() {
-        Capture.captureVideo((mediaFiles)=>{
+    taskVideo () {
+        Capture.captureVideo((mediaFiles) => {
             let filePath = mediaFiles[0].fullPath;
-            this.setState({filePath});
-        }, ()=>{
+            this.setState({ filePath });
+        }, () => {
             Toast('录制失败');
-        }, {limit:1});
+        }, { limit:1 });
     },
     cleanup () {
         Camera.cleanup();
     },
-    render() {
-        const {filePath} = this.state;
+    render () {
+        const { filePath } = this.state;
         return (
             <View style={styles.container}>
                 <Button onPress={this.takePicture.bind(null, 0)}>照相可编辑(30)</Button>
@@ -97,22 +97,22 @@ module.exports = React.createClass({
                 <Image
                     resizeMode='stretch'
                     defaultSource={app.img.common_default}
-                    source={{uri: filePath}}
+                    source={{ uri: filePath }}
                     style={styles.image} />
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     image: {
-        width: sr.w-40,
+        width: sr.w - 40,
         height: 200,
         backgroundColor: 'gray',
-    }
+    },
 });

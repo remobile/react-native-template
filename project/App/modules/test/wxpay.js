@@ -9,8 +9,6 @@ var {
 var Button = require('@remobile/react-native-simple-button');
 var Wxpay = require('../../native/index.js').WeixinPay;
 
-
-
 module.exports = React.createClass({
     /*
     * 注：订单总金额，只能为整数，单位为【分】，参数值不能带小数。
@@ -22,26 +20,25 @@ module.exports = React.createClass({
     * timestamp: 时间戳
     * sign: 签名
     */
-    doPay() {
+    doPay () {
         Wxpay.pay({
-            appid: "wx18d0597c9febcd0d",
-            noncestr: "6E19AACCBF1947C6B4174002AA4A0880",
-            package: "Sign=WXPay",
-            partnerid: "1319502301",
-            prepayid: "wx201604261017572078a543080024071363",
-            timestamp:"1461637077",
-            sign: "D33D5A6FAE941D5253DF998247B1C75A",
-        }, function(results){console.log('success:', results)}, function(results){'error:', console.log(results)});
+            appid: 'wx18d0597c9febcd0d',
+            noncestr: '6E19AACCBF1947C6B4174002AA4A0880',
+            package: 'Sign=WXPay',
+            partnerid: '1319502301',
+            prepayid: 'wx201604261017572078a543080024071363',
+            timestamp:'1461637077',
+            sign: 'D33D5A6FAE941D5253DF998247B1C75A',
+        }, function (results) { console.log('success:', results); }, function (results) { console.log('error:', results); });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.doPay}>微信支付</Button>
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {

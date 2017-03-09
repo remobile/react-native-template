@@ -11,17 +11,17 @@ var {
 } = ReactNative;
 
 module.exports = React.createClass({
-    getDefaultProps() {
+    getDefaultProps () {
         return {
-            backgroundColor: 'rgba(0, 0, 0, 0.2)'
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
         };
     },
-    getInitialState() {
+    getInitialState () {
         return {
             opacity: new Animated.Value(0),
         };
     },
-    componentWillMount() {
+    componentWillMount () {
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (e, gestureState) => true,
             onPanResponderGrant: (e, gestureState) => {
@@ -29,30 +29,30 @@ module.exports = React.createClass({
             },
         });
     },
-    componentDidMount() {
+    componentDidMount () {
         Animated.timing(this.state.opacity, {
-                toValue: 1,
-                duration: 500,
-            }
+            toValue: 1,
+            duration: 500,
+        }
         ).start();
     },
-    closeModal() {
+    closeModal () {
         Animated.timing(this.state.opacity, {
-                toValue: 0,
-                duration: 500,
-            }
-        ).start(()=>{
+            toValue: 0,
+            duration: 500,
+        }
+        ).start(() => {
             app.removeModal();
         });
     },
-    render() {
-        var {modalTouchHide} = this.props;
+    render () {
+        var { modalTouchHide } = this.props;
         return (
-            <Animated.View style={[styles.container, {backgroundColor: this.props.backgroundColor, opacity: this.state.opacity}]} {...(modalTouchHide?this._panResponder.panHandlers:{})}>
+            <Animated.View style={[styles.container, { backgroundColor: this.props.backgroundColor, opacity: this.state.opacity }]} {...(modalTouchHide ? this._panResponder.panHandlers : {})}>
                 {
                     !!this.props.title &&
-                    <View style={[styles.title, {backgroundColor:app.THEME_COLOR}]}>
-                        <View style={[styles.titleContainer, {marginTop: Navigator.NavigationBar.Styles.General.StatusBarHeight}]}>
+                    <View style={[styles.title, { backgroundColor:app.THEME_COLOR }]}>
+                        <View style={[styles.titleContainer, { marginTop: Navigator.NavigationBar.Styles.General.StatusBarHeight }]}>
                             <Text style={styles.titleText}>
                                 {this.props.title}
                             </Text>
@@ -85,5 +85,5 @@ var styles = StyleSheet.create({
         fontSize: 18,
         color: '#FFFFFF',
         fontWeight: '500',
-    }
+    },
 });

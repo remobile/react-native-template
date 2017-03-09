@@ -19,16 +19,15 @@ var BaiduMap = require('react-native-baidu-map');
 var {
     MapView,
     MapTypes,
-    MapModule
-}  = BaiduMap;
-
+    MapModule,
+} = BaiduMap;
 
 module.exports = React.createClass({
-    componentWillMount() {
+    componentWillMount () {
         this.zoom = 10;
         SplashScreen.hide();
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <MapView
@@ -37,64 +36,62 @@ module.exports = React.createClass({
                     style={styles.map}
                     onMapClick={(e) => {
                     }}
-                    >
-                </MapView>
+                     />
                 <View style={styles.row}>
                     <Button onPress={() => {
-                            MapModule.setMapType(MapTypes.NORMAL);
-                        }} >
+                        MapModule.setMapType(MapTypes.NORMAL);
+                    }} >
                         普通地图
                     </Button>
                     <Button onPress={() => {
-                            MapModule.setMapType(MapTypes.SATELLITE);
-                        }} >
+                        MapModule.setMapType(MapTypes.SATELLITE);
+                    }} >
                         卫星地图
                     </Button>
                 </View>
                 <Button onPress={() => {
-                        MapModule.getCurrentPosition()
+                    MapModule.getCurrentPosition()
                         .then(data => {
                             MainToast.showLongBottom(JSON.stringify(data));
                             MapModule.moveToCenter(data.latitude, data.longitude, 15);
                             MapModule.setMarker(data.latitude, data.longitude);
-                            MapModule.reverseGeoCode(data.latitude, data.longitude).then(resp=> {
-                                    MainToast.showLongBottom(JSON.stringify(resp));
-                            })
-                        }).catch(e =>{
+                            MapModule.reverseGeoCode(data.latitude, data.longitude).then(resp => {
+                                MainToast.showLongBottom(JSON.stringify(resp));
+                            });
+                        }).catch(e => {
                             MainToast.showLongBottom(JSON.stringify(e));
                         })
-                        .catch(e =>{
-                            console.warn(e)
-                        })
-                    }}  >
+                        .catch(e => {
+                            console.warn(e);
+                        });
+                }} >
                     定位
                 </Button>
                 <View style={styles.row}>
                     <Button onPress={() => {
-                            this.zoom++;
-                            MapModule.setZoom(this.zoom);
-                        }}  >
+                        this.zoom++;
+                        MapModule.setZoom(this.zoom);
+                    }} >
                         放大
                     </Button>
                     <Button onPress={() => {
-                            if(this.zoom > 0) {
-                                this.zoom--;
-                                MapModule.setZoom(this.zoom);
-                            }
-
-                        }} >
+                        if (this.zoom > 0) {
+                            this.zoom--;
+                            MapModule.setZoom(this.zoom);
+                        }
+                    }} >
                         缩小
                     </Button>
                 </View>
             </View>
         );
-    }
+    },
 });
 
 const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
     },
     btn: {
         height: 48,
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#cccccc',
-        margin: 4
+        margin: 4,
     },
     container: {
         flex: 1,
@@ -114,6 +111,6 @@ const styles = StyleSheet.create({
     map: {
         width: sr.w,
         height: sr.h - 200,
-        marginBottom: 16
-    }
+        marginBottom: 16,
+    },
 });

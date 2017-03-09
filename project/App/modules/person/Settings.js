@@ -19,11 +19,11 @@ var ModifyPassword = require('./ModifyPassword.js');
 var CommonSetting = require('./CommonSetting.js');
 var UpdatePage = require('../update/UpdatePage.js');
 
-var {Button, WebviewMessageBox} = COMPONENTS;
+var { Button, WebviewMessageBox } = COMPONENTS;
 
 var MenuItem = React.createClass({
-    showChildPage() {
-        const {module, method} = this.props.page;
+    showChildPage () {
+        const { module, method } = this.props.page;
         if (method) {
             return method();
         }
@@ -31,8 +31,8 @@ var MenuItem = React.createClass({
             component: module,
         });
     },
-    render() {
-        const {title, img, info, seprator} = this.props.page;
+    render () {
+        const { title, img, info, seprator } = this.props.page;
         return (
             <TouchableOpacity
                 activeOpacity={0.6}
@@ -42,73 +42,73 @@ var MenuItem = React.createClass({
                     <Image
                         resizeMode='stretch'
                         source={img}
-                        style={[styles.icon_item, {tintColor:app.THEME_COLOR}]}  />
+                        style={[styles.icon_item, { tintColor:app.THEME_COLOR }]} />
                     <Text style={styles.itemNameText}>{title}</Text>
                     <Text style={styles.itemNoticeText}>{info}</Text>
                 </View>
                 <Image
                     resizeMode='stretch'
                     source={app.img.common_go}
-                    style={styles.icon_go}  />
+                    style={styles.icon_go} />
             </TouchableOpacity>
-        )
-    }
+        );
+    },
 });
 
 module.exports = React.createClass({
     statics: {
         title: '设置',
     },
-    getInitialState() {
+    getInitialState () {
         return {
-            options: null
+            options: null,
         };
     },
-    componentWillMount() {
+    componentWillMount () {
         Update.checkVersion({
             versionUrl: app.route.ROUTE_VERSION_INFO_URL,
             iosAppId: CONSTANTS.IOS_APPID,
-        }).then((options)=>{
-            this.setState({options});
-        })
+        }).then((options) => {
+            this.setState({ options });
+        });
     },
-    getChildPages() {
-        const {options} = this.state;
+    getChildPages () {
+        const { options } = this.state;
         return [
-            {title:'基础设置', module: CommonSetting, img:app.img.common_point, info:''},
-            {strict:true, title:'修改密码', module: ModifyPassword, img:app.img.common_point, info:''},
-            {seprator:false, title:'在线更新', method: ()=>{
+            { title:'基础设置', module: CommonSetting, img:app.img.common_point, info:'' },
+            { strict:true, title:'修改密码', module: ModifyPassword, img:app.img.common_point, info:'' },
+            { seprator:false, title:'在线更新', method: () => {
                 app.navigator.push({
                     title: '在线更新',
                     component: UpdatePage,
-                    passProps: {options},
+                    passProps: { options },
                 });
-            }, info: options===null ? '正在获取版本号...' : options===undefined ? '获取版本号失败': options.newVersion ? ('有最新'+options.newVersion+'版本') : ''},
-            {title:'意见反馈', module: Feedback, img:app.img.common_point, info:''},
-            {seprator:true, title:'软件许可协议', module: Help, img:app.img.common_point, info:''},
-            {title:'关于我们', module: About, img:app.img.common_point, info:''},
+            }, info: options === null ? '正在获取版本号...' : options === undefined ? '获取版本号失败' : options.newVersion ? ('有最新' + options.newVersion + '版本') : '' },
+            { title:'意见反馈', module: Feedback, img:app.img.common_point, info:'' },
+            { seprator:true, title:'软件许可协议', module: Help, img:app.img.common_point, info:'' },
+            { title:'关于我们', module: About, img:app.img.common_point, info:'' },
         ];
     },
-    render() {
-        var info = app.personal.info||{};
+    render () {
+        var info = app.personal.info || {};
         return (
             <View style={styles.container}>
                 <ScrollView>
                     {
-                        this.getChildPages().map((item, i)=>{
+                        this.getChildPages().map((item, i) => {
                             if (!info.phone && item.strict) {
                                 return null;
                             }
                             return (
-                                !item.hidden&&
-                                <MenuItem page={item} key={i}/>
-                            )
+                                !item.hidden &&
+                                <MenuItem page={item} key={i} />
+                            );
                         })
                     }
                 </ScrollView>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({

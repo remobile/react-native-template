@@ -13,19 +13,19 @@ module.exports = React.createClass({
     statics: {
         title: '基础设置',
     },
-    getInitialState() {
+    getInitialState () {
         return {
             onlyWifiUpload: !!app.setting.data.onlyWifiUpload,
         };
     },
-    onValueChange(value) {
-        this.setState({onlyWifiUpload: value});
+    onValueChange (value) {
+        this.setState({ onlyWifiUpload: value });
         app.setting.setOnlyWifiUpload(value);
     },
-    selectThemeColor(color) {
+    selectThemeColor (color) {
         app.setting.setThemeColor(color);
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <View style={styles.row}>
@@ -39,21 +39,21 @@ module.exports = React.createClass({
                     <Text style={styles.title}>主题颜色</Text>
                     <View style={styles.colorContainer}>
                         {
-                            CONSTANTS.THEME_COLORS.map((color, i)=> {
+                            CONSTANTS.THEME_COLORS.map((color, i) => {
                                 return (
                                     <TouchableOpacity
                                         key={i}
                                         onPress={this.selectThemeColor.bind(null, color)}
-                                        style={[styles.color, {backgroundColor: color}]}
+                                        style={[styles.color, { backgroundColor: color }]}
                                         />
-                                )
+                                );
                             })
                         }
                     </View>
                 </View>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({

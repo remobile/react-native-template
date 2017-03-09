@@ -10,15 +10,15 @@ module.exports = React.createClass({
     statics: {
         title: '软件许可协议',
     },
-    render() {
+    render () {
         return (
             <WebView
                 style={styles.container}
-                source={{uri:app.route.ROUTE_SOFTWARE_LICENSE}}
-                scalesPageToFit={true}
+                source={{ uri:app.route.ROUTE_SOFTWARE_LICENSE }}
+                scalesPageToFit
                 />
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({

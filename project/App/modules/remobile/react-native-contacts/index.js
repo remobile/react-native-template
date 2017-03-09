@@ -16,25 +16,25 @@ var {
 } = RCTContacts;
 
 module.exports = React.createClass({
-    testFind() {
+    testFind () {
         // display the address information for all contacts
-        function onSuccess(contacts) {
+        function onSuccess (contacts) {
             for (var i = 0; i < contacts.length; i++) {
                 var item = contacts[i];
                 console.log(item);
             }
         };
-        function onError(contactError) {
-            alert('onError!');
+        function onError (contactError) {
+            console.log('onError!');
         };
         // find all contacts
         var options = new ContactFindOptions();
-        options.filter = "";
+        options.filter = '';
         options.multiple = false;
-        var fields = ["displayName", "addresses"];
+        var fields = ['displayName', 'addresses'];
         contacts.find(fields, onSuccess, onError, options);
     },
-    testSave() {
+    testSave () {
         // create a new contact
         var contact = contacts.create();
 
@@ -44,51 +44,51 @@ module.exports = React.createClass({
         phoneNumbers[1] = new ContactField('mobile', '917-555-5432', true); // preferred number
         phoneNumbers[2] = new ContactField('home', '203-555-7890', false);
         contact.phoneNumbers = phoneNumbers;
-        contact.nickname = "fang";
+        contact.nickname = 'fang';
 
         // save the contact
         contact.save();
     },
-    testRemove() {
+    testRemove () {
         // display the address information for all contacts
-        function onSuccess(contacts) {
+        function onSuccess (contacts) {
             for (var i = 0; i < contacts.length; i++) {
                 var item = contacts[i];
                 item.remove();
             }
         };
-        function onError(contactError) {
-            alert('onError!');
+        function onError (contactError) {
+            console.log('onError!');
         };
         // find all contacts
         var options = new ContactFindOptions();
-        options.filter = "fang";
+        options.filter = 'fang';
         options.multiple = true;
-        var fields = ["nickname"];
+        var fields = ['nickname'];
         contacts.find(fields, onSuccess, onError, options);
     },
-    pickContact() {
-        contacts.pickContact(function(contact){
+    pickContact () {
+        contacts.pickContact(function (contact) {
             console.log('The following contact has been selected:', contact);
-        },function(err){
+        }, function (err) {
             console.log('Error: ' + err);
         });
     },
-    chooseContact() {
-        contacts.chooseContact(function(contact){
+    chooseContact () {
+        contacts.chooseContact(function (contact) {
             console.log('The following contact has been selected:', contact);
-        },function(err){
+        }, function (err) {
             console.log('Error: ' + err);
         });
     },
-    newContactUI() {
-        contacts.newContactUI(function(contact){
+    newContactUI () {
+        contacts.newContactUI(function (contact) {
             console.log('The following contact has been selected:', contact);
-        },function(err){
+        }, function (err) {
             console.log('Error: ' + err);
         });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.testFind}>
@@ -114,12 +114,11 @@ module.exports = React.createClass({
     },
 });
 
-
 var styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'transparent',
-    }
+    },
 });

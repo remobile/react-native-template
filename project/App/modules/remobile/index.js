@@ -36,70 +36,69 @@ var CacheModule = require('./react-native-cache-module');
 var SmartKeyboard = require('./react-native-smart-keyboard');
 
 var modules = [
-    {title:'react-native-3d-panel', image: app.img.common_point, module:Panel},
-    {title:'react-native-smart-keyboard', image: app.img.common_point, module:SmartKeyboard},
-    {title:'react-native-cache-module', image: app.img.common_point, module:CacheModule},
-    {title:'react-native-module', image: app.img.common_point, module:Module},
-    {title:'react-native-echarts', image: app.img.common_point, module:Echarts},
-    {title:'react-native-card-swiper', image: app.img.common_point, module:CardSwiper},
-    {title:'react-native-qrcode-local-image', image: app.img.common_point, module:QRCode},
-    {title:'react-native-card-list', image: app.img.common_point, module:CardList},
-    {title:'react-native-clip-rect', image: app.img.common_point, module:ClipRect},
-    {title:'react-native-indexed-listview', image: app.img.common_point, module:IndexedListview},
-    {title:'react-native-image-crop', image: app.img.common_point, module:ImageCrop},
-    {title:'react-native-camera-roll-picker', image: app.img.common_point, module:CameraRollPicker},
-    {title:'react-native-marquee', image: app.img.common_point, module:Marquee},
-    {title:'react-native-3d-panel', image: app.img.common_point, module:Panel},
-    {title:'react-native-refresh-infinite-listview', image: app.img.common_point, module:RefreshInfiniteListview},
-    {title:'react-native-dialogs', image: app.img.common_point, module:Dialogs},
-    {title:'react-native-camera', image: app.img.common_point, module:Camera},
-    {title:'react-native-sqlite-storage', image: app.img.common_point, module:Sqlite},
-    {title:'react-native-contacts', image: app.img.common_point, module:Contacts},
-    {title:'react-native-file-transfer', image: app.img.common_point, module:FileTransfer},
-    {title:'react-native-zip', image: app.img.common_point, module:Zip},
-    {title:'react-native-marquee-label', image: app.img.common_point, module:MarqueeLabel},
+    { title:'react-native-3d-panel', image: app.img.common_point, module:Panel },
+    { title:'react-native-smart-keyboard', image: app.img.common_point, module:SmartKeyboard },
+    { title:'react-native-cache-module', image: app.img.common_point, module:CacheModule },
+    { title:'react-native-module', image: app.img.common_point, module:Module },
+    { title:'react-native-echarts', image: app.img.common_point, module:Echarts },
+    { title:'react-native-card-swiper', image: app.img.common_point, module:CardSwiper },
+    { title:'react-native-qrcode-local-image', image: app.img.common_point, module:QRCode },
+    { title:'react-native-card-list', image: app.img.common_point, module:CardList },
+    { title:'react-native-clip-rect', image: app.img.common_point, module:ClipRect },
+    { title:'react-native-indexed-listview', image: app.img.common_point, module:IndexedListview },
+    { title:'react-native-image-crop', image: app.img.common_point, module:ImageCrop },
+    { title:'react-native-camera-roll-picker', image: app.img.common_point, module:CameraRollPicker },
+    { title:'react-native-marquee', image: app.img.common_point, module:Marquee },
+    { title:'react-native-3d-panel', image: app.img.common_point, module:Panel },
+    { title:'react-native-refresh-infinite-listview', image: app.img.common_point, module:RefreshInfiniteListview },
+    { title:'react-native-dialogs', image: app.img.common_point, module:Dialogs },
+    { title:'react-native-camera', image: app.img.common_point, module:Camera },
+    { title:'react-native-sqlite-storage', image: app.img.common_point, module:Sqlite },
+    { title:'react-native-contacts', image: app.img.common_point, module:Contacts },
+    { title:'react-native-file-transfer', image: app.img.common_point, module:FileTransfer },
+    { title:'react-native-zip', image: app.img.common_point, module:Zip },
+    { title:'react-native-marquee-label', image: app.img.common_point, module:MarqueeLabel },
 ];
-
 
 module.exports = React.createClass({
     statics: {
         title: CONSTANTS.APP_NAME,
-        leftButton: { image: app.img.common_left_menu, handler: ()=>{
+        leftButton: { image: app.img.common_left_menu, handler: () => {
             app.navigator.push({
                 component: PersonInfo,
                 fromLeft: true,
             });
-        }},
+        } },
     },
-    componentWillMount() {
+    componentWillMount () {
         app.toggleNavigationBar(true);
         SplashScreen.hide();
     },
-    getInitialState: function() {
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    getInitialState: function () {
+        var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return {
             dataSource: ds.cloneWithRows(modules),
 
         };
     },
-    _onPressRow(obj) {
+    _onPressRow (obj) {
         var route = {
             title: obj.title,
             component: obj.module,
         };
         app.navigator.push(route);
     },
-    renderSeparator(sectionID, rowID) {
+    renderSeparator (sectionID, rowID) {
         return (
-            <View style={styles.separator} key={rowID}/>
+            <View style={styles.separator} key={rowID} />
         );
     },
-    renderRow(obj, sectionID, rowID) {
+    renderRow (obj, sectionID, rowID) {
         return (
             <View key={rowID}>
                 <TouchableOpacity
                     onPress={this._onPressRow.bind(null, obj)}
-                    underlayColor="#EEB422">
+                    underlayColor='#EEB422'>
                     <View style={styles.row}>
                         <Image
                             resizeMode='stretch'
@@ -115,9 +114,9 @@ module.exports = React.createClass({
                     </View>
                 </TouchableOpacity>
             </View>
-        )
+        );
     },
-    render: function() {
+    render: function () {
         return (
             <View style={styles.container}>
                 <ListView
@@ -128,7 +127,7 @@ module.exports = React.createClass({
                     />
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -144,7 +143,7 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     list: {
-        alignSelf:'stretch'
+        alignSelf:'stretch',
     },
     icon: {
         marginLeft: 10,
@@ -153,11 +152,11 @@ var styles = StyleSheet.create({
         marginRight: 10,
     },
     title: {
-        width:sr.w-70
+        width:sr.w - 70,
     },
     separator: {
         height: 1,
-        backgroundColor: '#CCC'
+        backgroundColor: '#CCC',
     },
     arrow: {
         width: 15,

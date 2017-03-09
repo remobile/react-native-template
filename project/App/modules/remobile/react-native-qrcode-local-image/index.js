@@ -13,15 +13,15 @@ var Button = require('@remobile/react-native-simple-button');
 var QRCode = require('@remobile/react-native-qrcode-local-image');
 
 module.exports = React.createClass({
-    getInitialState() {
-        return {text: ''}
+    getInitialState () {
+        return { text: '' };
     },
-    onPress() {
-        QRCode.decode(!app.isandroid?'/Users/fang/Desktop/qr.png':'/sdcard/qr.png', (error, result)=>{
-            this.setState({text: JSON.stringify({error, result})});
+    onPress () {
+        QRCode.decode(!app.isandroid ? '/Users/fang/Desktop/qr.png' : '/sdcard/qr.png', (error, result) => {
+            this.setState({ text: JSON.stringify({ error, result }) });
         });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.onPress}>测试</Button>
@@ -30,9 +30,8 @@ module.exports = React.createClass({
                 </Text>
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {

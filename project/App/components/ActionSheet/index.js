@@ -11,20 +11,19 @@ var Button = require('./button.js');
 var Overlay = require('./overlay.js');
 var Sheet = require('./sheet.js');
 
-module.exports =  React.createClass({
-    getDefaultProps() {
+module.exports = React.createClass({
+    getDefaultProps () {
         return {
             cancelText: 'Cancel',
         };
     },
-    render() {
+    render () {
         return (
             <Overlay visible={this.props.visible}>
                 <View style={styles.actionSheetContainer}>
                     <TouchableOpacity
-                        style={{flex:1}}
-                        onPress={this.props.onCancel}>
-                    </TouchableOpacity>
+                        style={{ flex:1 }}
+                        onPress={this.props.onCancel} />
                     <Sheet visible={this.props.visible}>
                         <View style={styles.buttonContainer}>
                             {this.props.children}
@@ -46,7 +45,7 @@ var styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         paddingBottom: 6,
-        justifyContent: "flex-end",
+        justifyContent: 'flex-end',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     buttonContainer: {
@@ -62,5 +61,5 @@ var styles = StyleSheet.create({
     },
     cancelText: {
         color:'#FFFFFF',
-    }
+    },
 });

@@ -15,7 +15,7 @@ module.exports = React.createClass({
     statics: {
         title: '选择头像',
     },
-    cropImage(image) {
+    cropImage (image) {
         app.navigator.replace({
             component: ImageCrop,
             passProps: {
@@ -24,19 +24,19 @@ module.exports = React.createClass({
             },
         });
     },
-    onSelectedImages(images, image) {
+    onSelectedImages (images, image) {
         this.cropImage(image);
     },
-    openCamera() {
+    openCamera () {
         Camera.getPicture((filePath) => {
-            const uri = 'file://'+filePath;
-            Image.getSize(uri, (width, height)=>{
+            const uri = 'file://' + filePath;
+            Image.getSize(uri, (width, height) => {
                 this.cropImage({
                     uri,
                     width,
                     height,
                 });
-            })
+            });
         }, null, {
             quality: 100,
             allowEdit: false,
@@ -44,7 +44,7 @@ module.exports = React.createClass({
             destinationType: Camera.DestinationType.FILE_URI,
         });
     },
-    render() {
+    render () {
         return (
             <CameraRollPicker selected={[]} onSelectedImages={this.onSelectedImages} openCamera={this.openCamera} maximum={1} />
         );

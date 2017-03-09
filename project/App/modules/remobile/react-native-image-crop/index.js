@@ -14,23 +14,23 @@ var Button = require('@remobile/react-native-simple-button');
 var ImageCrop = require('@remobile/react-native-image-crop');
 
 module.exports = React.createClass({
-    getInitialState() {
+    getInitialState () {
         return {
             croppedImageURI: '',
         };
     },
-    edit() {
+    edit () {
         const cropData = this.imageCrop.getCropData();
         ImageEditor.cropImage(
             'http://localhost:3001/1.png',
             cropData,
             (croppedImageURI) => {
-                this.setState({croppedImageURI})
+                this.setState({ croppedImageURI });
             },
             (error) => console.log(error)
         );
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.edit}>编辑</Button>
@@ -38,17 +38,17 @@ module.exports = React.createClass({
                     imageWidth={375}
                     imageHeight={667}
                     editRectRadius={0}
-                    ref={(ref)=>this.imageCrop = ref}
-                    source={{uri:'http://localhost:3001/1.png'}} />
+                    ref={(ref) => { this.imageCrop = ref; }}
+                    source={{ uri:'http://localhost:3001/1.png' }} />
                 <View style={styles.imageContainer}>
                     <Image
-                        source={{uri: this.state.croppedImageURI}}
+                        source={{ uri: this.state.croppedImageURI }}
                         style={styles.image}
                         />
                 </View>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -61,7 +61,7 @@ var styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     image: {
-        marginLeft: sr.w/2-80,
+        marginLeft: sr.w / 2 - 80,
         width: 160,
         height: 160,
     },

@@ -14,15 +14,15 @@ module.exports = React.createClass({
     mixins: [SceneMixin],
     statics: {
         title: '编辑头像',
-        rightButton: { title: '完成', handler: ()=>{
-            app.scene.cropImage()
-        }},
+        rightButton: { title: '完成', handler: () => {
+            app.scene.cropImage();
+        } },
     },
-    goBack() {
+    goBack () {
         app.navigator.pop();
     },
-    cropImage() {
-        const {image, onCropImage} = this.props;
+    cropImage () {
+        const { image, onCropImage } = this.props;
         const cropData = this.imageCrop.getCropData();
         ImageEditor.cropImage(
             image.uri,
@@ -36,19 +36,19 @@ module.exports = React.createClass({
             }
         );
     },
-    render() {
-        const {image} = this.props;
+    render () {
+        const { image } = this.props;
         return (
             <View style={styles.container}>
                 <ImageCrop
                     imageWidth={image.width}
                     imageHeight={image.height}
                     editRectRadius={0}
-                    ref={(ref)=>this.imageCrop = ref}
-                    source={{uri: image.uri}} />
+                    ref={(ref) => { this.imageCrop = ref; }}
+                    source={{ uri: image.uri }} />
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({

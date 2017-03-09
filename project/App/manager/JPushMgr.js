@@ -6,74 +6,71 @@ var {
     NetInfo,
 } = ReactNative;
 var EventEmitter = require('EventEmitter');
-import JPush , {JpushEventReceiveMessage, JpushEventOpenMessage} from 'react-native-jpush';
+import JPush, { JpushEventReceiveMessage, JpushEventOpenMessage } from 'react-native-jpush';
 const
-MESSAGE_TYPE_SYSTEM_NOTICE = 0,
-MESSAGE_TYPE_SPECOPS_NEW_VIDEO = 1,
-MESSAGE_TYPE_SPECOPS_NEW_LIVE = 2,
-MESSAGE_TYPE_SPECOPS_NEW_ROOM = 3;
+    MESSAGE_TYPE_SYSTEM_NOTICE = 0,
+    MESSAGE_TYPE_SPECOPS_NEW_VIDEO = 1,
+    MESSAGE_TYPE_SPECOPS_NEW_LIVE = 2,
+    MESSAGE_TYPE_SPECOPS_NEW_ROOM = 3;
 
 class Manager extends EventEmitter {
-    constructor() {
-        super();
-    }
-    register() {
+    register () {
         if (!this.pushlisteners) {
             JPush.requestPermissions();
             this.pushlisteners = [
                 JPush.addEventListener(JpushEventReceiveMessage, this.onReceiveMessage.bind(this)),
                 JPush.addEventListener(JpushEventOpenMessage, this.onOpenMessage.bind(this)),
-            ]
+            ];
         }
     }
-    unregister() {
+    unregister () {
         if (this.pushlisteners) {
-            this.pushlisteners.forEach(listener=> {
+            this.pushlisteners.forEach(listener => {
                 JPush.removeEventListener(listener);
             });
         }
     }
-    getMessageText(message) {
+    getMessageText (message) {
         let text = '';
-        if (Platform.OS==="android" && message._data) {
+        if (Platform.OS === 'android' && message._data) {
             text = message._data['cn.jpush.android.ALERT'];
-        } else if (Platform.OS==="ios" && message._data && message._data.aps) {
+        } else if (Platform.OS === 'ios' && message._data && message._data.aps) {
             text = message._data.aps.alert;
         }
         return text;
     }
-    getMessageType(message) {
+    getMessageType (message) {
         let type = '';
-        if (Platform.OS==="android" && message._data && message._data['cn.jpush.android.EXTRA']) {
+        if (Platform.OS === 'android' && message._data && message._data['cn.jpush.android.EXTRA']) {
             try {
-                type= JSON.parse(message._data['cn.jpush.android.EXTRA']).type;
+                type = JSON.parse(message._data['cn.jpush.android.EXTRA']).type;
             } catch (e) {}
-        } else if (Platform.OS==="ios" && message._data) {
+        } else if (Platform.OS === 'ios' && message._data) {
             type = message._data.type;
         }
-        return type*1;
+        return type * 1;
     }
-    onReceiveMessage(message) {
+    onReceiveMessage (message) {
         console.log('onReceiveMessage', message);
         const text = this.getMessageText(message);
-        if (text && typeof text==='string') {
+        if (text && typeof text === 'string') {
             Toast(text);
         }
     }
-    onOpenMessage(message) {
+    onOpenMessage (message) {
         console.log('onOpenMessage', message);
         app.utils.until(
-            ()=>app.hasLoadMainPage,
-            (cb)=>setTimeout(cb, 1000),
-            ()=>this.doOpenMessage(message)
+            () => app.hasLoadMainPage,
+            (cb) => setTimeout(cb, 1000),
+            () => this.doOpenMessage(message)
         );
     }
-    doOpenMessage(message) {
+    doOpenMessage (message) {
         const type = this.getMessageType(message);
         switch (type) {
             case MESSAGE_TYPE_SYSTEM_NOTICE:
                 app.navigator.push({
-                    component: require('../modules/login/ForgetPassword.js')
+                    component: require('../modules/login/ForgetPassword.js'),
                 });
                 break;
             case MESSAGE_TYPE_SPECOPS_NEW_VIDEO:

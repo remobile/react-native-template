@@ -8,35 +8,35 @@ var {
     StyleSheet,
 } = ReactNative;
 
-var {PageList} = COMPONENTS;
+var { PageList } = COMPONENTS;
 var SplashScreen = require('@remobile/react-native-splashscreen');
 
 module.exports = React.createClass({
-    componentDidMount() {
+    componentDidMount () {
         SplashScreen.hide();
     },
-    renderRow(obj) {
+    renderRow (obj) {
         return (
             <View>
                 <Text>图{obj}</Text>
                 <Image
                     resizeMode='stretch'
-                    source={{uri:'http://localhost:3000/images/'+((obj%7)+1)+'.png'}}
+                    source={{ uri:'http://localhost:3000/images/' + ((obj % 7) + 1) + '.png' }}
                     style={styles.icon_item} />
             </View>
-        )
+        );
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <PageList
                     renderRow={this.renderRow}
-                    listParam={{userID:'123'}}
-                    listName="list"
-                    listUrl="http://localhost:3000/getTestList"
+                    listParam={{ userID:'123' }}
+                    listName='list'
+                    listUrl='http://localhost:3000/getTestList'
                     />
             </View>
-        )
+        );
     },
 });
 

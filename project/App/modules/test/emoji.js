@@ -15,9 +15,8 @@ var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
 var EmojiInputBox = require('../text/index.js');
 
-
 module.exports = React.createClass({
-    componentWillMount() {
+    componentWillMount () {
         SplashScreen.hide();
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (e, gestureState) => true,
@@ -26,15 +25,14 @@ module.exports = React.createClass({
             },
         });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <EmojiInputBox />
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {

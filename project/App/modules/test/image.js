@@ -11,38 +11,37 @@ var {
 
 var Button = require('@remobile/react-native-simple-button');
 
-var DImage =  React.createClass({
-    getInitialState() {
-        return {showDefault: true}
+var DImage = React.createClass({
+    getInitialState () {
+        return { showDefault: true };
     },
-    onLoad() {
-        this.setState({showDefault: false});
+    onLoad () {
+        this.setState({ showDefault: false });
     },
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps (nextProps) {
         var pre = this.props.source, post = nextProps.source;
         var preuri = pre.uri, posturi = post.uri;
         var preT = typeof posturi === 'string', postT = typeof posturi === 'string';
-        if ((!(preT^postT)) && preuri !== posturi) {
-            this.setState({showDefault: true});
+        if ((!(preT ^ postT)) && preuri !== posturi) {
+            this.setState({ showDefault: true });
         }
     },
-    render() {
-        var {source, defaultSource, ...other} = this.props;
-        var {showDefault} = this.state;
+    render () {
+        var { source, defaultSource, ...other } = this.props;
+        var { showDefault } = this.state;
         return (
             showDefault ?
-            <Image source={defaultSource} {...other}>
-                <Image
-                    source={source}
-                    onLoad={this.onLoad}
-                    style={{width:1,height:1}}/>
-            </Image>
+                <Image source={defaultSource} {...other}>
+                    <Image
+                        source={source}
+                        onLoad={this.onLoad}
+                        style={{ width:1, height:1 }} />
+                </Image>
             :
-            <Image source={source} {...other} />
-        )
-    }
+                <Image source={source} {...other} />
+        );
+    },
 });
-
 
 module.exports = React.createClass({
     // getInitialState() {
@@ -75,7 +74,7 @@ module.exports = React.createClass({
     //         </View>
     //     );
     // },
-    getInitialState() {
+    getInitialState () {
         this.ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2,
         });
@@ -83,41 +82,40 @@ module.exports = React.createClass({
             dataSource: this.ds.cloneWithRows(['']),
         };
     },
-    renderRow(obj, sectionID, rowID) {
+    renderRow (obj, sectionID, rowID) {
         return (
             <View>
                 <DImage
                     resizeMode='cover'
                     defaultSource={app.img.personal_default_head}
-                    source={{uri:obj}}
+                    source={{ uri:obj }}
                     style={styles.headImage} />
             </View>
-        )
+        );
     },
-    changePicture() {
+    changePicture () {
         this.setState({
-                dataSource: this.ds.cloneWithRows([
-                    'http://localhost:3000/images/1.png',
-                    '',
-                    'http://localhost:3000/images/2.png',
-                ]),
-            });
+            dataSource: this.ds.cloneWithRows([
+                'http://localhost:3000/images/1.png',
+                '',
+                'http://localhost:3000/images/2.png',
+            ]),
+        });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
-            <Button onPress={this.changePicture}>更换图片</Button>
-            <ListView
-                    enableEmptySections={true}
+                <Button onPress={this.changePicture}>更换图片</Button>
+                <ListView
+                    enableEmptySections
                     style={styles.listView}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow}
                     />
             </View>
-        )
-    }
+        );
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {

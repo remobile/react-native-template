@@ -11,7 +11,7 @@ var alert = Dialogs.alert;
 
 module.exports = React.createClass({
     testAlert () {
-        function alertDismissed() {
+        function alertDismissed () {
             alert('You selected button');
         }
         Dialogs.alert(
@@ -22,46 +22,46 @@ module.exports = React.createClass({
         );
     },
     testConfirm () {
-        function onConfirm(buttonIndex) {
+        function onConfirm (buttonIndex) {
             alert('You selected button ' + buttonIndex);
         }
         Dialogs.confirm(
             'You are the winner!', // message
             onConfirm,            // callback to invoke with index of button pressed
             'Game Over',           // title
-            ['Restart','Exit']     // buttonLabels
+            ['Restart', 'Exit']     // buttonLabels
         );
     },
     testPrompt () {
-        function onPrompt(results) {
+        function onPrompt (results) {
             alert('You selected button number ' + results.buttonIndex + ' and entered ' + results.input1);
         }
         Dialogs.prompt(
             'Please enter your name',  // message
             onPrompt,                  // callback to invoke
             'Registration',            // title
-            ['Ok','Exit'],             // buttonLabels
+            ['Ok', 'Exit'],             // buttonLabels
             'Jane Doe'                 // defaultText
         );
     },
     testBeep () {
         Dialogs.beep(2);
     },
-    testActivityStart() {
+    testActivityStart () {
         Dialogs.activityStart('fang', 'fangyunjiang');
     },
-    testProgressStart() {
+    testProgressStart () {
         Dialogs.progressStart('fang', 'fangyunjiang');
     },
-    render() {
-        var additional = app.isandroid?[
+    render () {
+        var additional = app.isandroid ? [
             <Button onPress={this.testActivityStart} key='testActivityStart'>
                 Test ActivityStart
             </Button>,
             <Button onPress={this.testProgressStart} key='testProgressStart'>
                 Test ProgressStart
             </Button>,
-        ]:null;
+        ] : null;
         return (
             <View style={styles.container}>
                 <Button onPress={this.testAlert}>
@@ -81,7 +81,6 @@ module.exports = React.createClass({
         );
     },
 });
-
 
 var styles = StyleSheet.create({
     container: {

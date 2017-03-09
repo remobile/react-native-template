@@ -19,11 +19,11 @@ var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
 
 module.exports = React.createClass({
-    componentWillMount() {
+    componentWillMount () {
         SplashScreen.hide();
         app.toggleNavigationBar(true);
     },
-    getInitialState() {
+    getInitialState () {
         return {
             messages: [
                 {
@@ -86,17 +86,17 @@ module.exports = React.createClass({
                         avatar: 'https://facebook.github.io/react/img/logo_og.png',
                     },
                 },
-            ]
+            ],
         };
     },
-    onSend(messages = []) {
+    onSend (messages = []) {
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
             };
         });
     },
-    render() {
+    render () {
         return (
             <GiftedChat
                 messages={this.state.messages}

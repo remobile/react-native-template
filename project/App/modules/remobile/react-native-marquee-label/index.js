@@ -4,13 +4,13 @@ var React = require('react');
 var ReactNative = require('react-native');
 var {
     StyleSheet,
-    View
+    View,
 } = ReactNative;
 
 var MarqueeLabel = require('@remobile/react-native-marquee-label');
 
 module.exports = React.createClass({
-    render: function() {
+    render: function () {
         return (
             <View style={styles.container}>
                 <MarqueeLabel style={styles.marqueeLabel}
@@ -20,7 +20,7 @@ module.exports = React.createClass({
                 </MarqueeLabel>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -38,5 +38,5 @@ var styles = StyleSheet.create({
         fontSize:30,
         fontWeight:'800',
         color:'white',
-    }
+    },
 });

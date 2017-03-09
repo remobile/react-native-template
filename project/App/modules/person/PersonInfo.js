@@ -15,24 +15,23 @@ var Settings = require('./Settings');
 var Store = require('./Store.js');
 var ImagePicker = require('../userHead/imagePicker');
 
-var {Button, DImage, WebviewMessageBox} = COMPONENTS;
+var { Button, DImage, WebviewMessageBox } = COMPONENTS;
 
 const CHILD_PAGES = [
-    {strict:true, title:'个人资料', module: EditPersonInfo, img:app.img.personal_info, info:''},
-    {seprator:true, title:'设置', module: Settings, img:app.img.personal_settings, info:''},
-    {hidden:!CONSTANTS.NOT_NEED_UPDATE_JS_START, title:'查看存储', module: Store, img:app.img.personal_settings, info:''},
+    { strict:true, title:'个人资料', module: EditPersonInfo, img:app.img.personal_info, info:'' },
+    { seprator:true, title:'设置', module: Settings, img:app.img.personal_settings, info:'' },
+    { hidden:!CONSTANTS.NOT_NEED_UPDATE_JS_START, title:'查看存储', module: Store, img:app.img.personal_settings, info:'' },
 ];
 
-
 var MenuItem = React.createClass({
-    showChildPage() {
-        const {module} = this.props.page;
+    showChildPage () {
+        const { module } = this.props.page;
         app.navigator.push({
             component: this.props.page.module,
         });
     },
-    render() {
-        const {title, img, info, seprator} = this.props.page;
+    render () {
+        const { title, img, info, seprator } = this.props.page;
         return (
             <TouchableOpacity
                 activeOpacity={0.6}
@@ -42,49 +41,49 @@ var MenuItem = React.createClass({
                     <Image
                         resizeMode='stretch'
                         source={img}
-                        style={styles.icon_item}  />
+                        style={styles.icon_item} />
                     <Text style={styles.itemNameText}>{title}</Text>
                     <Text style={styles.itemNoticeText}>{info}</Text>
                 </View>
                 <Image
                     resizeMode='stretch'
                     source={app.img.common_go}
-                    style={styles.icon_go}  />
+                    style={styles.icon_go} />
             </TouchableOpacity>
-        )
-    }
+        );
+    },
 });
 
 module.exports = React.createClass({
     statics: {
         title: '个人中心',
     },
-    getInitialState() {
+    getInitialState () {
         return {
             userHead: '',
         };
     },
-    doExit() {
+    doExit () {
         app.navigator.resetTo({
-            title: '登录'+CONSTANTS.APP_NAME,
+            title: '登录' + CONSTANTS.APP_NAME,
             component: require('../login/Login.js'),
         }, 0);
         app.personal.clear();
     },
-    onCropImage(uri) {
-        this.setState({userHead: uri});
+    onCropImage (uri) {
+        this.setState({ userHead: uri });
     },
-    setUserHead() {
+    setUserHead () {
         app.navigator.push({
             component: ImagePicker,
             passProps: {
-                onCropImage: this.onCropImage
-            }
+                onCropImage: this.onCropImage,
+            },
         });
     },
-    render() {
-        const info = app.personal.info||{};
-        const {userHead} = this.state;
+    render () {
+        const info = app.personal.info || {};
+        const { userHead } = this.state;
         return (
             <View style={styles.container}>
                 <Image
@@ -94,31 +93,34 @@ module.exports = React.createClass({
                     <TouchableOpacity onPress={this.setUserHead}>
                         <Image
                             resizeMode='cover'
-                            source={userHead ? {uri: userHead} : app.img.splash_logo}
+                            source={userHead ? { uri: userHead } : app.img.splash_logo}
                             style={styles.headStyle}
                             />
                     </TouchableOpacity>
                     <Text style={styles.info}>
-                        <Text style={[styles.bigInfo, {color: '#EE3B3B'}]}>人人</Text>监督    <Text style={[styles.bigInfo, {color: '#436EEE'}]}>监督</Text>人人
+                        <Text style={[styles.bigInfo, { color: '#EE3B3B' }]}>人人</Text>
+                        监督
+                        <Text style={[styles.bigInfo, { color: '#436EEE' }]}>监督</Text>
+                        人人
                     </Text>
                 </Image>
                 <ScrollView >
                     {
-                        CHILD_PAGES.map((item, i)=>{
+                        CHILD_PAGES.map((item, i) => {
                             if (!info.phone && item.strict) {
                                 return null;
                             }
                             return (
-                                !item.hidden&&
-                                <MenuItem page={item} key={i}/>
-                            )
+                                !item.hidden &&
+                                <MenuItem page={item} key={i} />
+                            );
                         })
                     }
                 </ScrollView>
-                <Button onPress={this.doExit} style={styles.btnExit}>{info.phone?'安全退出':'没有身份的人生是不完整的'}</Button>
+                <Button onPress={this.doExit} style={styles.btnExit}>{info.phone ? '安全退出' : '没有身份的人生是不完整的'}</Button>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -195,7 +197,7 @@ var styles = StyleSheet.create({
     },
     btnExit: {
         position: 'absolute',
-        width: sr.w-40,
+        width: sr.w - 40,
         marginLeft: 20,
         height: 40,
         borderRadius: 5,

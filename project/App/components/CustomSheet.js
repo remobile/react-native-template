@@ -11,15 +11,14 @@ var {
 var Overlay = require('./ActionSheet/overlay.js');
 var Sheet = require('./ActionSheet/sheet.js');
 
-module.exports =  React.createClass({
-    render() {
+module.exports = React.createClass({
+    render () {
         return (
             <Overlay visible={this.props.visible}>
                 <View style={styles.actionSheetContainer}>
                     <TouchableOpacity
-                        style={{flex:1}}
-                        onPress={this.props.onCancel}>
-                    </TouchableOpacity>
+                        style={{ flex:1 }}
+                        onPress={this.props.onCancel} />
                     <Sheet visible={this.props.visible}>
                         {this.props.children}
                     </Sheet>
@@ -34,7 +33,7 @@ var styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         paddingBottom: 6,
-        justifyContent: "flex-end",
+        justifyContent: 'flex-end',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
 });

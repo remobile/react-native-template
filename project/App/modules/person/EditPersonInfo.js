@@ -15,7 +15,7 @@ var {
 var PersonalInfoMgr = require('../../manager/PersonalInfoMgr.js');
 var Subscribable = require('Subscribable');
 
-var {MessageBox, DImage}=  COMPONENTS;
+var { MessageBox, DImage } = COMPONENTS;
 
 const DEFAULT_OPACITY = 0.5;
 
@@ -23,29 +23,29 @@ module.exports = React.createClass({
     mixins: [Subscribable.Mixin, SceneMixin],
     statics: {
         title: '个人资料',
-        leftButton: {handler: ()=>{app.scene.goBack()}},
-        rightButton: { title: "编辑", handler: ()=>{app.scene.toggleEdit()}},
+        leftButton: { handler: () => { app.scene.goBack(); } },
+        rightButton: { title: '编辑', handler: () => { app.scene.toggleEdit(); } },
     },
-    goBack() {
+    goBack () {
         if (this.state.isEditting) {
-            this.setState({messageBoxType: 2});
+            this.setState({ messageBoxType: 2 });
         } else {
             app.navigator.pop();
         }
     },
-    toggleEdit() {
+    toggleEdit () {
         if (this.state.isEditting === true) {
-            this.setState({ messageBoxType: 1, });
-        }else{
-            this.setState({ isEditting: true, });
-            app.getCurrentRoute().rightButton = { title: '完成', handler: ()=>{app.scene.toggleEdit()}},
+            this.setState({ messageBoxType: 1 });
+        } else {
+            this.setState({ isEditting: true });
+            app.getCurrentRoute().rightButton = { title: '完成', handler: () => { app.scene.toggleEdit(); } };
             app.forceUpdateNavbar();
         }
     },
-    getInitialState() {
+    getInitialState () {
         var info = app.personal.info;
         return {
-            messageBoxType: 0, //0：不显示，1：是否保存修改， 2：是否放弃修改
+            messageBoxType: 0, // 0：不显示，1：是否保存修改， 2：是否放弃修改
             isEditting: false,
             phone: info.phone,
             name: info.name,
@@ -57,21 +57,21 @@ module.exports = React.createClass({
             inputAddress: info.adress,
         };
     },
-    setPersonalInfo() {
+    setPersonalInfo () {
         var info = app.personal.info;
         info.name = this.state.name;
         info.identifyNumber = this.state.identifyNumber;
         info.address = this.state.address;
         app.personal.set(info);
     },
-    doCancel() {
-        const {messageBoxType} = this.state;
+    doCancel () {
+        const { messageBoxType } = this.state;
         if (messageBoxType === 1) {
             this.setState({
                 isEditting: false,
                 messageBoxType: 0,
             });
-            app.getCurrentRoute().rightButton = { title: '编辑', handler: ()=>{app.scene.toggleEdit()}},
+            app.getCurrentRoute().rightButton = { title: '编辑', handler: () => { app.scene.toggleEdit(); } };
             app.forceUpdateNavbar();
         } else if (messageBoxType === 2) {
             this.setState({
@@ -79,19 +79,19 @@ module.exports = React.createClass({
             });
         }
     },
-    doConfirm() {
-        const {messageBoxType} = this.state;
+    doConfirm () {
+        const { messageBoxType } = this.state;
         if (messageBoxType === 1) {
-            this.setState({messageBoxType: 0, isEditting: false});
+            this.setState({ messageBoxType: 0, isEditting: false });
             this.updatePersnalInfo();
 
-            app.getCurrentRoute().rightButton = { title: '编辑', handler: ()=>{app.scene.toggleEdit()}},
+            app.getCurrentRoute().rightButton = { title: '编辑', handler: () => { app.scene.toggleEdit(); } };
             app.forceUpdateNavbar();
         } else if (messageBoxType === 2) {
             app.navigator.pop();
         }
     },
-    updatePersnalInfo() {
+    updatePersnalInfo () {
         var param = {
             phone: this.state.phone,
             name: this.state.inputName,
@@ -99,11 +99,11 @@ module.exports = React.createClass({
         };
         POST(app.route.ROUTE_UPDATE_PERSONAL_INFO, param, this.updatePersnalInfoSuccess, this.updatePersnalInfoError, true);
     },
-    updatePersnalInfoSuccess(data) {
+    updatePersnalInfoSuccess (data) {
         if (data.success) {
             Toast('修改成功');
             this.setPersonalInfo();
-            this.setState({isEditting: false});
+            this.setState({ isEditting: false });
 
             this.setState({
                 name: this.state.inputName,
@@ -111,31 +111,30 @@ module.exports = React.createClass({
                 address: this.state.inputAddress,
             });
 
-            app.getCurrentRoute().rightButton = { title: '编辑', handler: ()=>{app.scene.toggleEdit()}},
+            app.getCurrentRoute().rightButton = { title: '编辑', handler: () => { app.scene.toggleEdit(); } };
             app.forceUpdateNavbar();
         } else {
             Toast(data.msg);
         }
     },
-    updatePersnalInfoError(error) {
+    updatePersnalInfoError (error) {
     },
-    render() {
-        const {messageBoxType, isEditting, name, identifyNumber, address} = this.state;
+    render () {
+        const { messageBoxType, isEditting, name, identifyNumber, address } = this.state;
         return (
             <View style={styles.container}>
                 <View>
-                    <View style={styles.separatorView}>
-                    </View>
+                    <View style={styles.separatorView} />
 
                     <View style={styles.itemView}>
                         <Text style={styles.itemKeyText}>姓名</Text>
                         {
                             !isEditting ?
-                            <Text style={styles.itemValueText}>{name}</Text>
+                                <Text style={styles.itemValueText}>{name}</Text>
                             :
-                            <TextInput style={styles.itemInputValueText}
-                                defaultValue={name}
-                                onChangeText={(text)=>this.setState({inputName: text})} />
+                                <TextInput style={styles.itemInputValueText}
+                                    defaultValue={name}
+                                    onChangeText={(text) => this.setState({ inputName: text })} />
                         }
                     </View>
                     <View style={styles.separatorView} />
@@ -143,38 +142,37 @@ module.exports = React.createClass({
                         <Text style={styles.itemKeyText}>身份证号</Text>
                         {
                             !isEditting ?
-                            <Text style={styles.itemValueText}>{identifyNumber}</Text>
+                                <Text style={styles.itemValueText}>{identifyNumber}</Text>
                             :
-                            <TextInput style={styles.itemInputValueText}
-                                defaultValue={identifyNumber}
-                                onChangeText={(text)=>this.setState({inputidentifyNumber: text})} />
+                                <TextInput style={styles.itemInputValueText}
+                                    defaultValue={identifyNumber}
+                                    onChangeText={(text) => this.setState({ inputidentifyNumber: text })} />
                         }
                     </View>
                     <View style={styles.itemView}>
                         <Text style={styles.itemKeyText}>地址</Text>
                         {
                             !isEditting ?
-                            <Text style={styles.itemValueText}>{address}</Text>
+                                <Text style={styles.itemValueText}>{address}</Text>
                             :
-                            <TextInput style={styles.itemInputValueText}
-                                defaultValue={address}
-                                onChangeText={(text)=>this.setState({inputAddress: text})} />
+                                <TextInput style={styles.itemInputValueText}
+                                    defaultValue={address}
+                                    onChangeText={(text) => this.setState({ inputAddress: text })} />
                         }
                     </View>
                 </View>
                 {
-                    messageBoxType!==0 &&
+                    messageBoxType !== 0 &&
                     <MessageBox
-                        content={messageBoxType===1 ? '是否保存修改?' : '是否放弃修改?'}
+                        content={messageBoxType === 1 ? '是否保存修改?' : '是否放弃修改?'}
                         doCancel={this.doCancel}
                         doConfirm={this.doConfirm}
                         />
                 }
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {
@@ -220,7 +218,7 @@ var styles = StyleSheet.create({
         paddingLeft: 20,
     },
     itemValueText: {
-        width: sr.w-125,
+        width: sr.w - 125,
         color: '#666666',
         fontSize: 15,
         fontWeight: '100',
@@ -229,7 +227,7 @@ var styles = StyleSheet.create({
         padding: 5,
     },
     itemInputValueText: {
-        width: sr.w-125,
+        width: sr.w - 125,
         color: '#666666',
         fontSize: 15,
         fontWeight: '100',
@@ -238,7 +236,7 @@ var styles = StyleSheet.create({
         padding: 5,
         borderWidth: 1,
         borderRadius: 5,
-        borderColor: '#DBDBDB'
+        borderColor: '#DBDBDB',
     },
     itemValueInput: {
         color: 'red',

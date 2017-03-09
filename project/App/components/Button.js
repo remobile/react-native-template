@@ -17,19 +17,19 @@ module.exports = React.createClass({
         textStyle: Text.propTypes.style,
         activeOpacity: PropTypes.number,
     },
-    render() {
+    render () {
         var touchableProps = {
-            activeOpacity: this.props.disable?1:this.props.activeOpacity?this.props.activeOpacity:DEFAULT_OPACITY,
+            activeOpacity: this.props.disable ? 1 : this.props.activeOpacity ? this.props.activeOpacity : DEFAULT_OPACITY,
         };
         if (!this.props.disable) {
             touchableProps.onPress = this.props.onPress;
         }
         return (
             <TouchableOpacity
-                style={[styles.container, {backgroundColor:app.THEME_COLOR}, this.props.style]} {...touchableProps}
+                style={[styles.container, { backgroundColor:app.THEME_COLOR }, this.props.style]} {...touchableProps}
                 testID={this.props.testID}>
                 <Text style={[styles.text, this.props.disable ? styles.disableText : null, this.props.textStyle]}
-                      numberOfLines={1}>
+                    numberOfLines={1}>
                     {this.props.children}
                 </Text>
             </TouchableOpacity>

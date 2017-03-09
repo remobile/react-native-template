@@ -10,22 +10,22 @@ var {
 var Button = require('./Button.js');
 
 module.exports = React.createClass({
-    render() {
+    render () {
         return (
             <View style={styles.overlayContainer}>
-                <View style={[styles.container, {top: sr.totalNavHeight+sr.statusBarHeight}]}>
+                <View style={[styles.container, { top: sr.totalNavHeight + sr.statusBarHeight }]}>
                     <WebView
                         style={styles.webview}
-                        source={{uri:this.props.webAddress}}
-                        scalesPageToFit={true}
+                        source={{ uri:this.props.webAddress }}
+                        scalesPageToFit
                         />
                     <Button
                         onPress={app.closeModal}
-                        style={[styles.contentButton, {backgroundColor:app.THEME_COLOR}]}>返回</Button>
+                        style={[styles.contentButton, { backgroundColor:app.THEME_COLOR }]}>返回</Button>
                 </View>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -40,21 +40,21 @@ var styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     container: {
-        width:sr.w*5/6,
-        height:sr.h*4/5,
+        width:sr.w * 5 / 6,
+        height:sr.h * 4 / 5,
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:'white',
         borderRadius:10,
         position: 'absolute',
-        left: sr.w*1/12,
+        left: sr.w * 1 / 12,
     },
     webview: {
-        width:sr.w*5/6,
-        height:sr.h*4/5-50,
+        width:sr.w * 5 / 6,
+        height:sr.h * 4 / 5 - 50,
     },
     contentButton: {
-        width:sr.w*5/6,
+        width:sr.w * 5 / 6,
         height:50,
         borderRadius:0,
     },

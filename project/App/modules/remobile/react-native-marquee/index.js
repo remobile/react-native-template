@@ -8,20 +8,20 @@ var {
     Text,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button'); 
+var Button = require('@remobile/react-native-simple-button');
 var MarqueeLabel = require('@remobile/react-native-marquee');
 
 module.exports = React.createClass({
-    getInitialState() {
+    getInitialState () {
         return {
             text:  '暗示健康等会拉时间段ksajdfkasdjkfasjdkfasldfjasdlf暗示健康等会拉',
             fontSize:  18,
-            width:  sr.tw/2,
+            width:  sr.tw / 2,
             lineHeight:  50,
             color:  'red',
         };
     },
-    changeContent() {
+    changeContent () {
         if (!this.a) {
             this.a = true;
             this.setState({
@@ -34,7 +34,7 @@ module.exports = React.createClass({
             });
         }
     },
-    changeStyle() {
+    changeStyle () {
         if (!this.b) {
             this.b = true;
             this.setState({
@@ -47,26 +47,25 @@ module.exports = React.createClass({
             this.b = false;
             this.setState({
                 fontSize:  18,
-                width:  sr.tw/2,
+                width:  sr.tw / 2,
                 lineHeight:  50,
                 color:  'red',
             });
         }
     },
-    render() {
-        const {text, fontSize, color, width, lineHeight} = this.state;
+    render () {
+        const { text, fontSize, color, width, lineHeight } = this.state;
         return (
             <View style={styles.container}>
-                <MarqueeLabel style={[styles.label, {fontSize, color, width, lineHeight}]}>
+                <MarqueeLabel style={[styles.label, { fontSize, color, width, lineHeight }]}>
                     {text}
                 </MarqueeLabel>
                 <Button onPress={this.changeContent}>改变内容</Button>
                 <Button onPress={this.changeStyle}>改变样式</Button>
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {
@@ -75,7 +74,7 @@ var styles = StyleSheet.create({
     },
     button: {
         backgroundColor: 'blue',
-        width: sr.w/2,
+        width: sr.w / 2,
         borderWidth: 0,
     },
     label: {
@@ -87,7 +86,7 @@ var styles = StyleSheet.create({
         lineHeight: 50,
         backgroundColor: 'green',
         paddingHorizontal: 20,
-        width: sr.w/2,
+        width: sr.w / 2,
         left: 100,
         overflow: 'hidden',
     },

@@ -11,7 +11,7 @@ var Menu = require('../../person/Settings');
 var Login = require('../../login/Login');
 
 module.exports = React.createClass({
-    render() {
+    render () {
         const menu = (
             <Menu />
         );
@@ -19,8 +19,8 @@ module.exports = React.createClass({
             <Panel leftMenu={menu}>
                 <Login />
             </Panel>
-        )
-    }
+        );
+    },
 });
 
 var styles = StyleSheet.create({

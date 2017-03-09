@@ -14,44 +14,44 @@ var Button = require('@remobile/react-native-simple-button');
 var FileTransfer = require('@remobile/react-native-file-transfer');
 
 module.exports = React.createClass({
-    componentDidMount() {
+    componentDidMount () {
         SplashScreen.hide();
     },
-    downloadApkFromServer() {
+    downloadApkFromServer () {
         var oldval;
         var fileTransfer = new FileTransfer();
         fileTransfer.onprogress = (progress) => {
-            var val = parseInt(progress.loaded*100/progress.total);
+            var val = parseInt(progress.loaded * 100 / progress.total);
             if (oldval !== val) {
                 console.log(val);
                 oldval = val;
             }
-        }
+        };
         fileTransfer.download(
             app.route.ROUTE_APK_URL,
             '/Users/fang/work/test/project/jfbsample.apk',
-            (result)=>{
+            (result) => {
                 console.log(result);
             },
-            (error)=>{
+            (error) => {
                 console.log(error);
             },
             true
         );
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.downloadApkFromServer}>下载</Button>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 });

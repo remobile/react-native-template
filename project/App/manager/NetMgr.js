@@ -8,15 +8,15 @@ var {
 var EventEmitter = require('EventEmitter');
 
 class Manager extends EventEmitter {
-    constructor() {
+    constructor () {
         super();
         this._init = false;
         this.info = {
-            connect: false, //是否连接
+            connect: false, // 是否连接
             fee: false, //是否收费
         };
     }
-    register() {
+    register () {
         if (!this._init) {
             this._init = true;
             NetInfo.addEventListener(
@@ -25,32 +25,32 @@ class Manager extends EventEmitter {
             );
         }
     }
-    unregister() {
+    unregister () {
         NetInfo.removeEventListener(
             'change',
             this._handleConnectionInfoChange.bind(this)
         );
         this._init = false;
     }
-    _handleConnectionInfoChange(o) {
+    _handleConnectionInfoChange (o) {
         this.updateConnectionInfo(o);
     }
-    updateConnectionInfo(o) {
+    updateConnectionInfo (o) {
         if (Platform.OS === 'android') {
-            if (o === 'WIFI'|| o === 'ETHERNET' || o === 'DUMMY') {
-                this.info = {connect: true, fee: false};
+            if (o === 'WIFI' || o === 'ETHERNET' || o === 'DUMMY') {
+                this.info = { connect: true, fee: false };
             } else if (/MOBILE.*/.test(o)) {
-                this.info = {connect: true, fee: true};
+                this.info = { connect: true, fee: true };
             } else {
-                this.info = {connect: false, fee: false};
+                this.info = { connect: false, fee: false };
             }
         } else {
             if (o === 'wifi') {
-                this.info = {connect: true, fee: false};
+                this.info = { connect: true, fee: false };
             } else if (o === 'cell') {
-                this.info = {connect: true, fee: true};
+                this.info = { connect: true, fee: true };
             } else {
-                this.info = {connect: false, fee: false};
+                this.info = { connect: false, fee: false };
             }
         }
         app.connect = this.info.connect;

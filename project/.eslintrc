@@ -1,0 +1,45 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "standard",
+        "standard-react"
+    ],
+    "plugins": [
+        "babel",
+        "react",
+        "promise"
+    ],
+    "globals": {
+        "app": true,
+        "sr": true,
+        "_": true,
+        "CONSTANTS": true,
+        "Toast": true,
+        "POST": true,
+        "fetch": true,
+        "COMPONENTS": true,
+        "SceneMixin": true,
+        "UPLOAD": true
+    },
+    "rules": {
+        "indent": [2, 4, { "SwitchCase": 1 }],
+        "react/jsx-indent": [2, 4],
+        "react/jsx-indent-props": [2, 4],
+        "key-spacing": 0,
+        "jsx-quotes": [2, "prefer-single"],
+        "max-len": 0,
+        "one-var": 0,
+        "no-undef": 0,
+        "handle-callback-err": 0,
+        "operator-linebreak": 0,
+        "camelcase": 0,
+        "no-unused-vars": 0,
+        "object-property-newline": 0,
+        "react/jsx-no-bind": 0,
+        "react/prop-types": 0,
+        "eqeqeq": 0,
+        "comma-dangle": [2, "always-multiline"],
+        'semi': [2, 'always'],
+        'object-curly-spacing': [2, 'always']
+    }
+}

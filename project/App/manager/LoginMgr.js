@@ -5,33 +5,33 @@ var {
 } = ReactNative;
 var EventEmitter = require('EventEmitter');
 
-const ITEM_NAME = "LOGIN_HISTORY_LIST";
+const ITEM_NAME = 'LOGIN_HISTORY_LIST';
 
 class Manager extends EventEmitter {
-	constructor() {
+    constructor () {
         super();
         this.list = [];
         this.get();
-	}
-    get() {
-        return new Promise(async(resolve, reject)=>{
+    }
+    get () {
+        return new Promise(async(resolve, reject) => {
             var list = [];
             try {
                 var infoStr = await AsyncStorage.getItem(ITEM_NAME);
                 list = JSON.parse(infoStr);
-            } catch(e) {
+            } catch (e) {
             }
-            this.list = list||[];
+            this.list = list || [];
         });
     }
-    set(list) {
-        return new Promise(async(resolve, reject)=>{
+    set (list) {
+        return new Promise(async(resolve, reject) => {
             this.list = list;
             await AsyncStorage.setItem(ITEM_NAME, JSON.stringify(list));
             resolve();
         });
     }
-    savePhone(phone) {
+    savePhone (phone) {
         var list = this.list;
         if (_.includes(list, phone)) {
             list = _.without(list, phone);
@@ -39,7 +39,7 @@ class Manager extends EventEmitter {
         list.unshift(phone);
         this.set(list);
     }
-    clear() {
+    clear () {
         this.list = [];
         AsyncStorage.removeItem(ITEM_NAME);
     }

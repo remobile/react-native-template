@@ -7,9 +7,8 @@ var {
     View,
 } = ReactNative;
 
-
 module.exports = React.createClass({
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <View style={styles.container1}>
@@ -18,7 +17,7 @@ module.exports = React.createClass({
                 </View>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -26,10 +25,10 @@ var styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
     },
     container1: {
-        width:sr.w*5/6,
+        width:sr.w * 5 / 6,
         height:100,
         alignItems:'center',
         justifyContent:'center',

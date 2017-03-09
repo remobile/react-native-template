@@ -9,8 +9,8 @@ var {
 } = ReactNative;
 
 module.exports = React.createClass({
-    render() {
-        const {img, children, style, textStyle} = this.props;
+    render () {
+        const { img, children, style, textStyle } = this.props;
         return (
             <View style={[styles.labelContainer, style]}>
                 {!!img && <Image resizeMode='stretch' source={img} style={styles.labelIcon} />}

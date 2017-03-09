@@ -11,12 +11,12 @@ var {
 } = ReactNative;
 
 var TimerMixin = require('react-timer-mixin');
-var {Button, WebviewMessageBox} = COMPONENTS;
+var { Button, WebviewMessageBox } = COMPONENTS;
 
 module.exports = React.createClass({
     mixins: [TimerMixin],
-    doRegister() {
-        const {protocalRead, phone, password, rePassword, email} = this.state;
+    doRegister () {
+        const { protocalRead, phone, password, rePassword, email } = this.state;
         if (!protocalRead) {
             Toast('注册前请先阅读用户协议');
             return;
@@ -44,7 +44,7 @@ module.exports = React.createClass({
         };
         POST(app.route.ROUTE_REGISTER, param, this.doRegisterSuccess, true);
     },
-    doRegisterSuccess(data) {
+    doRegisterSuccess (data) {
         if (data.success) {
             Toast('注册成功');
             this.props.changeToLoginPanel(this.state.phone);
@@ -52,13 +52,13 @@ module.exports = React.createClass({
             Toast(data.msg);
         }
     },
-    doShowProtocal() {
+    doShowProtocal () {
         app.showModal(
-            <WebviewMessageBox webAddress={app.route.ROUTE_USER_PROTOCOL}/>,
-            CONSTANTS.APP_NAME+'用户协议',
+            <WebviewMessageBox webAddress={app.route.ROUTE_USER_PROTOCOL} />,
+            CONSTANTS.APP_NAME + '用户协议',
         );
     },
-    getInitialState() {
+    getInitialState () {
         return {
             phone: '',
             password: '',
@@ -68,19 +68,19 @@ module.exports = React.createClass({
             overlayShow:false,
         };
     },
-    componentDidMount() {
+    componentDidMount () {
     },
-    changeProtocalState() {
-        this.setState({protocalRead: !this.state.protocalRead});
+    changeProtocalState () {
+        this.setState({ protocalRead: !this.state.protocalRead });
     },
-    render() {
+    render () {
         return (
-            <View style={{flex:1}}>
+            <View style={{ flex:1 }}>
                 <View style={[styles.inputContainer]}>
                     <Text style={styles.text_phone_header}>+86</Text>
                     <TextInput
                         placeholder='手机号码'
-                        onChangeText={(text) => this.setState({phone: text})}
+                        onChangeText={(text) => this.setState({ phone: text })}
                         style={styles.text_input}
                         keyboardType='phone-pad'
                         />
@@ -88,8 +88,8 @@ module.exports = React.createClass({
                 <View style={styles.inputContainer}>
                     <TextInput
                         placeholder='输入密码'
-                        secureTextEntry={true}
-                        onChangeText={(text) => this.setState({password: text})}
+                        secureTextEntry
+                        onChangeText={(text) => this.setState({ password: text })}
                         style={styles.text_input2}
                         keyboardType='number-pad'
                         />
@@ -97,15 +97,15 @@ module.exports = React.createClass({
                 <View style={styles.inputContainer}>
                     <TextInput
                         placeholder='再次输入密码'
-                        secureTextEntry={true}
-                        onChangeText={(text) => this.setState({rePassword: text})}
+                        secureTextEntry
+                        onChangeText={(text) => this.setState({ rePassword: text })}
                         style={styles.text_input2}
                         />
                 </View>
                 <View style={styles.inputContainer}>
                     <TextInput
                         placeholder='密码找回邮箱'
-                        onChangeText={(text) => this.setState({email: text})}
+                        onChangeText={(text) => this.setState({ email: text })}
                         style={styles.text_input2}
                         />
                 </View>
@@ -117,17 +117,17 @@ module.exports = React.createClass({
                         <TouchableOpacity onPress={this.changeProtocalState}>
                             <Image
                                 resizeMode='cover'
-                                source={this.state.protocalRead?app.img.common_check:app.img.common_no_check}
+                                source={this.state.protocalRead ? app.img.common_check : app.img.common_no_check}
                                 style={styles.protocal_icon}
                                 />
                         </TouchableOpacity>
                         <Text style={styles.protocal_text}>  我已阅读并同意 </Text>
-                        <Button onPress={this.doShowProtocal} style={styles.protocal_button} textStyle={[styles.protocal_button_text, {color: app.THEME_COLOR}]}>{CONSTANTS.APP_NAME+'用户协议'}</Button>
+                        <Button onPress={this.doShowProtocal} style={styles.protocal_button} textStyle={[styles.protocal_button_text, { color: app.THEME_COLOR }]}>{CONSTANTS.APP_NAME + '用户协议'}</Button>
                     </View>
                 </View>
             </View>
-        )
-    }
+        );
+    },
 });
 
 var styles = StyleSheet.create({
@@ -203,5 +203,5 @@ var styles = StyleSheet.create({
     },
     protocal_button_text: {
         fontSize: 13,
-    }
+    },
 });

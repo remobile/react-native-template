@@ -11,7 +11,7 @@ var {
 var MAX_STAR_NUM = 5;
 
 module.exports = React.createClass({
-    render() {
+    render () {
         var value = this.props.value;
         var starNum = Math.floor(value);
         var rest = value - starNum;
@@ -26,18 +26,18 @@ module.exports = React.createClass({
             }
         }
         return (
-            <View style={this.props.style?this.props.style:styles.scoreIconContainer}>
+            <View style={this.props.style ? this.props.style : styles.scoreIconContainer}>
                 {
-                    list.map((item, i)=>{
-                        var imgSource = app.img["actualCombat_star_"+item];
+                    list.map((item, i) => {
+                        var imgSource = app.img['actualCombat_star_' + item];
                         return (
                             <Image
                                 key={i}
                                 resizeMode='stretch'
                                 source={imgSource}
-                                style={this.props.starStyle?this.props.starStyle:styles.scoreIcon}
+                                style={this.props.starStyle ? this.props.starStyle : styles.scoreIcon}
                                 />
-                        )
+                        );
                     })
                 }
             </View>

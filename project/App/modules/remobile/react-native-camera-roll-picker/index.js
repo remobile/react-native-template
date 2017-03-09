@@ -9,13 +9,13 @@ var {
 var CameraRollPicker = require('@remobile/react-native-camera-roll-picker');
 
 module.exports = React.createClass({
-    getInitialState() {
+    getInitialState () {
         return {
             num: 0,
             selected: [],
         };
     },
-    onSelectedImages(images, current) {
+    onSelectedImages (images, current) {
         var num = images.length;
 
         this.setState({
@@ -26,10 +26,10 @@ module.exports = React.createClass({
         console.log(current);
         console.log(this.state.selected);
     },
-    openCamera() {
-        console.log("open camera here");
+    openCamera () {
+        console.log('open camera here');
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <View style={styles.content}>

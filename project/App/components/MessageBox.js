@@ -12,7 +12,7 @@ var {
 var Button = require('./Button.js');
 
 module.exports = React.createClass({
-    getDefaultProps: function() {
+    getDefaultProps: function () {
         return {
             title: '温馨提示',
             content: '确定要执行操作吗？',
@@ -20,62 +20,59 @@ module.exports = React.createClass({
             confirmText: '确定',
         };
     },
-    getInitialState() {
+    getInitialState () {
         return {
-            opacity: new Animated.Value(0)
+            opacity: new Animated.Value(0),
         };
     },
-    doCancel() {
-        this.closeModal(()=>{
+    doCancel () {
+        this.closeModal(() => {
             this.props.doCancel();
         });
     },
-    doConfirm() {
-        this.closeModal(()=>{
+    doConfirm () {
+        this.closeModal(() => {
             this.props.doConfirm();
         });
     },
-    componentDidMount() {
+    componentDidMount () {
         Animated.timing(this.state.opacity, {
             toValue: 1,
             duration: 500,
         }).start();
     },
-    closeModal(callback) {
+    closeModal (callback) {
         Animated.timing(this.state.opacity, {
             toValue: 0,
             duration: 500,
-        }).start(()=>{
+        }).start(() => {
             callback();
         });
     },
-    render() {
+    render () {
         return (
-            <Animated.View style={[styles.overlayContainer, {opacity: this.state.opacity}]}>
+            <Animated.View style={[styles.overlayContainer, { opacity: this.state.opacity }]}>
                 <View style={styles.container}>
                     <Text style={styles.title}>{this.props.title}</Text>
-                    <Text style={styles.redLine}>
-                    </Text>
+                    <Text style={styles.redLine} />
                     <Text style={styles.content}>
                         {this.props.content}
                     </Text>
-                    <Text style={styles.H_Line}>
-                    </Text>
+                    <Text style={styles.H_Line} />
                     <View style={styles.buttonViewStyle}>
                         {!!this.props.doCancel &&
                             <TouchableHighlight
-                                underlayColor="rgba(0, 0, 0, 0)"
+                                underlayColor='rgba(0, 0, 0, 0)'
                                 onPress={this.doCancel}
                                 style={styles.buttonStyleContain}>
                                 <Text style={styles.buttonStyle}>{this.props.cancelText}</Text>
                             </TouchableHighlight>
                         }
                         {!!this.props.doCancel &&
-                            <Text style={styles.line}>
-                            </Text>
+                            <Text style={styles.line} />
                         }
                         <TouchableHighlight
-                            underlayColor="rgba(0, 0, 0, 0)"
+                            underlayColor='rgba(0, 0, 0, 0)'
                             onPress={this.doConfirm}
                             style={styles.buttonStyleContain}>
                             <Text style={styles.buttonStyle} >{this.props.confirmText}</Text>
@@ -84,31 +81,31 @@ module.exports = React.createClass({
                 </View>
             </Animated.View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
     buttonViewStyle: {
         flexDirection: 'row',
-        width: sr.w*5/6-20,
+        width: sr.w * 5 / 6 - 20,
         height: 40,
     },
     H_Line: {
         marginTop: 10,
-        width: sr.w*5/6,
+        width: sr.w * 5 / 6,
         height: 1,
-        backgroundColor: '#b4b4b4'
+        backgroundColor: '#b4b4b4',
     },
     redLine: {
         marginTop: 10,
-        width: sr.w-110,
+        width: sr.w - 110,
         height: 1,
-        backgroundColor: '#ff3c30'
+        backgroundColor: '#ff3c30',
     },
     line: {
         width: 1,
         height: 50,
-        backgroundColor: '#b4b4b4'
+        backgroundColor: '#b4b4b4',
     },
     buttonStyleContain: {
         height: 50,
@@ -118,11 +115,11 @@ var styles = StyleSheet.create({
     },
     buttonStyle: {
         fontSize: 15,
-        color: '#000000'
+        color: '#000000',
     },
     container: {
-        width:sr.w*5/6,
-        height:sr.h/4,
+        width:sr.w * 5 / 6,
+        height:sr.h / 4,
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:'#FFFFFF',
@@ -147,6 +144,6 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         width:sr.w,
         height:sr.h,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)'
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
     },
 });

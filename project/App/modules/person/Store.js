@@ -15,59 +15,59 @@ module.exports = React.createClass({
     statics: {
         title: '查看存储',
     },
-    getInitialState() {
-        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    getInitialState () {
+        this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return {
             dataSource: this.ds.cloneWithRows([]),
         };
     },
-    doShowList() {
-        (async ()=>{
+    doShowList () {
+        (async () => {
             var list = [];
             var keys = await AsyncStorage.getAllKeys();
             for (var key of keys) {
                 var obj = await AsyncStorage.getItem(key);
                 console.log(key, JSON.parse(obj));
-                list.push(key+': '+obj);
+                list.push(key + ': ' + obj);
             }
-            this.setState({dataSource: this.ds.cloneWithRows(list)});
+            this.setState({ dataSource: this.ds.cloneWithRows(list) });
         })();
     },
-    doShowKeys() {
+    doShowKeys () {
         var list = [];
-        (async ()=>{
+        (async () => {
             var keys = await AsyncStorage.getAllKeys();
             console.log(keys);
             list = keys;
-            this.setState({dataSource: this.ds.cloneWithRows(list)});
+            this.setState({ dataSource: this.ds.cloneWithRows(list) });
         })();
     },
-    doClearItem() {
-        (async ()=>{
+    doClearItem () {
+        (async () => {
             await AsyncStorage.removeItem('mediaRecordeFiles');
         })();
     },
-    doClearAll() {
-        (async ()=>{
+    doClearAll () {
+        (async () => {
             var list = await AsyncStorage.getAllKeys();
             for (var i in list) {
                 await AsyncStorage.removeItem(list[i]);
             }
         })();
     },
-    renderRow(text, sectionID, rowID) {
+    renderRow (text, sectionID, rowID) {
         return (
             <Text style={styles.itemText} key={rowID}>
-              {text}
+                {text}
             </Text>
-        )
-    },
-    renderSeparator(sectionID, rowID) {
-        return (
-            <View style={styles.separator} key={rowID}/>
         );
     },
-    render() {
+    renderSeparator (sectionID, rowID) {
+        return (
+            <View style={styles.separator} key={rowID} />
+        );
+    },
+    render () {
         return (
             <View style={styles.container}>
                 <View style={styles.buttonContainer}>
@@ -78,17 +78,16 @@ module.exports = React.createClass({
                 </View>
                 <ListView
                     initialListSize={1}
-                    enableEmptySections={true}
+                    enableEmptySections
                     dataSource={this.state.dataSource}
-                    keyboardShouldPersistTaps={true}
+                    keyboardShouldPersistTaps
                     renderRow={this.renderRow}
                     renderSeparator={this.renderSeparator}
                     />
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {
@@ -103,7 +102,7 @@ var styles = StyleSheet.create({
         marginVertical:10,
     },
     separator: {
-      backgroundColor: '#DDDDDD',
-      height: 1,
+        backgroundColor: '#DDDDDD',
+        height: 1,
     },
 });

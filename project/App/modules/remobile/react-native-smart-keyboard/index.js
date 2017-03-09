@@ -13,72 +13,72 @@ var {
 const SmartKeyboard = require('@remobile/react-native-smart-keyboard');
 
 module.exports = React.createClass({
-    getInitialState() {
+    getInitialState () {
         return {
-            enable: true
+            enable: true,
         };
     },
-    switchEnable() {
-        const {enable} = this.state;
+    switchEnable () {
+        const { enable } = this.state;
         if (enable) {
             SmartKeyboard.disable();
         } else {
             SmartKeyboard.enable();
         }
-        this.setState({enable: !enable});
+        this.setState({ enable: !enable });
     },
-    render() {
-        const {enable} = this.state;
+    render () {
+        const { enable } = this.state;
         return (
             <ScrollView>
                 <TouchableOpacity onPress={this.switchEnable}>
                     <Text style={styles.instructions}>
-                        {enable?'关闭':'开启'}
+                        {enable ? '关闭' : '开启'}
                     </Text>
                 </TouchableOpacity>
                 <TextInput
-                    placeholder="您的手机号码1"
+                    placeholder='您的手机号码1'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码2"
+                    placeholder='您的手机号码2'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码3"
+                    placeholder='您的手机号码3'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码4"
+                    placeholder='您的手机号码4'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码5"
+                    placeholder='您的手机号码5'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码6"
+                    placeholder='您的手机号码6'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码7"
+                    placeholder='您的手机号码7'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码8"
+                    placeholder='您的手机号码8'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码9"
+                    placeholder='您的手机号码9'
                     style={styles.text_input}
                     />
                 <TextInput
-                    placeholder="您的手机号码10"
+                    placeholder='您的手机号码10'
                     style={styles.text_input}
                     />
             </ScrollView>
         );
-    }
+    },
 });
 
 const styles = StyleSheet.create({

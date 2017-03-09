@@ -10,58 +10,56 @@ var {
 } = ReactNative;
 
 var CardList = require('@remobile/react-native-card-list');
-var {width, height} = Dimensions.get('window');
+var { width, height } = Dimensions.get('window');
 
 var LIST = [
-    {color: 'red'},
-    {color: 'blue'},
-    {color: 'darkgray'},
-    {color: 'pink'},
-    {color: 'green'},
-    {color: 'yellow'},
-    {color: 'red'},
-    {color: 'blue'},
-    {color: 'darkgray'},
-    {color: 'pink'},
-    {color: 'green'},
-    {color: 'yellow'},
-    {color: 'red'},
-    {color: 'blue'},
-    {color: 'darkgray'},
-    {color: 'pink'},
-    {color: 'green'},
-    {color: 'yellow'}
+    { color: 'red' },
+    { color: 'blue' },
+    { color: 'darkgray' },
+    { color: 'pink' },
+    { color: 'green' },
+    { color: 'yellow' },
+    { color: 'red' },
+    { color: 'blue' },
+    { color: 'darkgray' },
+    { color: 'pink' },
+    { color: 'green' },
+    { color: 'yellow' },
+    { color: 'red' },
+    { color: 'blue' },
+    { color: 'darkgray' },
+    { color: 'pink' },
+    { color: 'green' },
+    { color: 'yellow' },
 ];
 
-
 module.exports = React.createClass({
-    onClickCard(i) {
-        Toast(i+'');
+    onClickCard (i) {
+        Toast(i + '');
     },
-    renderRow(data, i, width, height) {
+    renderRow (data, i, width, height) {
         return (
-            <View style={{width, height, backgroundColor:data.color, alignItems:'center'}}>
+            <View style={{ width, height, backgroundColor:data.color, alignItems:'center' }}>
                 <Text>{i}</Text>
             </View>
-        )
+        );
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <CardList
                     list={LIST}
                     renderRow={this.renderRow}
                     height={300}
-                    panelHeight={height-100}
-                    panelWidth={width-100}
+                    panelHeight={height - 100}
+                    panelWidth={width - 100}
                     offsetTop={50}
                     offsetLeft={50}
-                    onClickCard={this.onClickCard}/>
+                    onClickCard={this.onClickCard} />
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {

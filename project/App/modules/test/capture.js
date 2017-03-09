@@ -14,26 +14,25 @@ var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
 var Capture = require('@remobile/react-native-capture');
 
-
 module.exports = React.createClass({
-    componentDidMount() {
+    componentDidMount () {
         SplashScreen.hide();
     },
-    getInitialState() {
+    getInitialState () {
         return {
-            info: ''
+            info: '',
         };
     },
-    captureSuccess(mediaFiles) {
-        this.setState({info: JSON.stringify(mediaFiles)});
+    captureSuccess (mediaFiles) {
+        this.setState({ info: JSON.stringify(mediaFiles) });
     },
-    captureError(error) {
-        this.setState({info: JSON.stringify(error)});
+    captureError (error) {
+        this.setState({ info: JSON.stringify(error) });
     },
-    doCapture() {
-        Capture.captureVideo(this.captureSuccess, this.captureError, {limit:1});
+    doCapture () {
+        Capture.captureVideo(this.captureSuccess, this.captureError, { limit:1 });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.doCapture}>采集</Button>
@@ -42,13 +41,13 @@ module.exports = React.createClass({
                 </Text>
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 });

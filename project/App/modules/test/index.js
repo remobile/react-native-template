@@ -16,46 +16,45 @@ var TestImage = require('./image.js');
 var QRCode = require('./qrcode.js');
 
 var modules = [
-    {title:'图片', image: app.img.common_point, module:TestImage},
-    {title:'二维码', image: app.img.common_point, module:QRCode},
+    { title:'图片', image: app.img.common_point, module:TestImage },
+    { title:'二维码', image: app.img.common_point, module:QRCode },
 ];
-
 
 module.exports = React.createClass({
     statics: {
         title: CONSTANTS.APP_NAME,
-        leftButton: { image: app.img.common_left_menu, handler: ()=>{
+        leftButton: { image: app.img.common_left_menu, handler: () => {
             app.navigator.push({
                 component: PersonInfo,
                 fromLeft: true,
             });
-        }},
+        } },
     },
-    getInitialState: function() {
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    getInitialState: function () {
+        var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return {
             dataSource: ds.cloneWithRows(modules),
 
         };
     },
-    _onPressRow(obj) {
+    _onPressRow (obj) {
         var route = {
             title: obj.title,
             component: obj.module,
         };
         app.navigator.push(route);
     },
-    renderSeparator(sectionID, rowID) {
+    renderSeparator (sectionID, rowID) {
         return (
-            <View style={styles.separator} key={rowID}/>
+            <View style={styles.separator} key={rowID} />
         );
     },
-    renderRow(obj, sectionID, rowID) {
+    renderRow (obj, sectionID, rowID) {
         return (
             <View key={rowID}>
                 <TouchableOpacity
                     onPress={this._onPressRow.bind(null, obj)}
-                    underlayColor="#EEB422">
+                    underlayColor='#EEB422'>
                     <View style={styles.row}>
                         <Image
                             resizeMode='stretch'
@@ -71,9 +70,9 @@ module.exports = React.createClass({
                     </View>
                 </TouchableOpacity>
             </View>
-        )
+        );
     },
-    render: function() {
+    render: function () {
         return (
             <View style={styles.container}>
                 <ListView
@@ -84,7 +83,7 @@ module.exports = React.createClass({
                     />
             </View>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -101,7 +100,7 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     list: {
-        alignSelf:'stretch'
+        alignSelf:'stretch',
     },
     icon: {
         marginLeft: 10,
@@ -110,11 +109,11 @@ var styles = StyleSheet.create({
         marginRight: 10,
     },
     title: {
-        width:sr.w-70
+        width:sr.w - 70,
     },
     separator: {
         height: 1,
-        backgroundColor: '#CCC'
+        backgroundColor: '#CCC',
     },
     arrow: {
         width: 15,

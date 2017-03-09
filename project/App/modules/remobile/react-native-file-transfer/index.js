@@ -11,11 +11,11 @@ var FileTransfer = require('@remobile/react-native-file-transfer');
 var Button = require('@remobile/react-native-simple-button');
 
 module.exports = React.createClass({
-    testUpload() {
-        var fileURL = app.isandroid?'file:///sdcard/1/jsandroid.zip':'file:///Users/fang/rn/react-native-template/localServer/public/exhibition.apk';
+    testUpload () {
+        var fileURL = app.isandroid ? 'file:///sdcard/1/jsandroid.zip' : 'file:///Users/fang/rn/react-native-template/localServer/public/exhibition.apk';
         var options = {};
         options.fileKey = 'file';
-        options.fileName = fileURL.substr(fileURL.lastIndexOf('/')+1);
+        options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
         options.mimeType = 'text/plain';
         // options.chunkedMode = false;
 
@@ -25,32 +25,31 @@ module.exports = React.createClass({
 
         options.params = params;
         var fileTransfer = new FileTransfer();
-        fileTransfer.onprogress = (progress) => console.log("progress", progress.loaded+'/'+progress.total);
+        fileTransfer.onprogress = (progress) => console.log('progress', progress.loaded + '/' + progress.total);
 
-
-        fileTransfer.upload(fileURL, encodeURI('http://192.168.1.131:3000/app/api/uploadMediaFile'),(result)=>{
+        fileTransfer.upload(fileURL, encodeURI('http://192.168.1.131:3000/app/api/uploadMediaFile'), (result) => {
             console.log(result);
-        }, (error)=>{
+        }, (error) => {
             console.log(error);
         }, options);
     },
-    testDownload() {
+    testDownload () {
         var fileTransfer = new FileTransfer();
-          var uri = encodeURI("http://192.168.1.131:3000/medias/exhibition.apk");
-          fileTransfer.onprogress = (progress) => console.log("progress", progress.loaded+'/'+progress.total);
-          fileTransfer.download(
+        var uri = encodeURI('http://192.168.1.131:3000/medias/exhibition.apk');
+        fileTransfer.onprogress = (progress) => console.log('progress', progress.loaded + '/' + progress.total);
+        fileTransfer.download(
               uri,
-              app.isandroid?'/sdcard/1/xx.apk':'/Users/fang/rn/react-native-template/localServer/public/xx.apk',
-              function(result) {
+              app.isandroid ? '/sdcard/1/xx.apk' : '/Users/fang/rn/react-native-template/localServer/public/xx.apk',
+              function (result) {
                   console.log(result);
               },
-              function(error) {
+              function (error) {
                   console.log(error);
               },
               true
           );
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.testUpload}>
@@ -64,7 +63,6 @@ module.exports = React.createClass({
     },
 });
 
-
 var styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -72,5 +70,5 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'transparent',
         paddingVertical:200,
-    }
+    },
 });

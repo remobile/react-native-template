@@ -7,17 +7,17 @@ var {
 } = ReactNative;
 
 var Native = require('../../native/index.js');
-var {Button} = COMPONENTS;
+var { Button } = COMPONENTS;
 
 module.exports = React.createClass({
-    createWinCoinOrder() {
+    createWinCoinOrder () {
         var param = {
-            userID: "56e656d10cf2b97fb6c3b779",
-            winCoinID: "56e6314c0cf2a703c3fe7346",
+            userID: '56e656d10cf2b97fb6c3b779',
+            winCoinID: '56e6314c0cf2a703c3fe7346',
         };
         POST(app.route.ROUTE_CREATE_WIN_CONIN_ORDER, param, this.createWinCoinOrderSuccess);
     },
-    createWinCoinOrderSuccess(data) {
+    createWinCoinOrderSuccess (data) {
         if (data.success) {
             this.tradeNo = data.context.orderNo;
             this.getaliPayInfo();
@@ -25,17 +25,17 @@ module.exports = React.createClass({
             console.log(data.msg);
         }
     },
-    getaliPayInfo() {
+    getaliPayInfo () {
         var param = {
         };
         POST(app.route.ROUTE_GET_ALIPAY_INFO, param, this.getaliPayInfoSuccess);
     },
-    getaliPayInfoSuccess(data) {
+    getaliPayInfoSuccess (data) {
         if (data.success) {
             var context = data.context;
             this.partner = context.alipayPID;
             this.seller = context.alipayName;
-            this.privateKey = context.alipayPrivateKey ;
+            this.privateKey = context.alipayPrivateKey;
             this.notifyUrl = context.callbackUrl;
             this.doPay();
         } else {
@@ -53,29 +53,28 @@ module.exports = React.createClass({
     * function(successResults){} 是成功之后的回调函数
     * function(errorResults){} 是失败之后的回调函数
     */
-    doPay() {
+    doPay () {
         var obj = {
             partner: this.partner,
             seller: this.seller,
             privateKey: this.privateKey,
-        	tradeNo: this.tradeNo,
-        	subject: "购买赢销币",
-        	body: "我是测试内容",
-        	price: 0.01,
-        	notifyUrl: this.notifyUrl
+            tradeNo: this.tradeNo,
+            subject: '购买赢销币',
+            body: '我是测试内容',
+            price: 0.01,
+            notifyUrl: this.notifyUrl,
         };
         console.log(obj);
-        Native.Alipay.pay(obj, function(results){console.log('success:', results)}, function(results){'error:', console.log(results)});
+        Native.Alipay.pay(obj, function (results) { console.log('success:', results); }, function (results) { console.log('error:', results); });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.createWinCoinOrder}>支付宝支付</Button>
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {

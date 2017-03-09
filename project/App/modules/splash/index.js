@@ -17,18 +17,18 @@ var Home = require('../home/index.js');
 
 module.exports = React.createClass({
     mixins: [TimerMixin],
-    getInitialState() {
+    getInitialState () {
         return {
             renderSplashType: 0,
         };
     },
-    doGetPersonalInfo() {
+    doGetPersonalInfo () {
         var param = {
             userID: app.personal.info.userID,
         };
         POST(app.route.ROUTE_GET_PERSONAL_INFO, param, this.getPersonalInfoSuccess, this.getInfoError);
     },
-    getPersonalInfoSuccess(data) {
+    getPersonalInfoSuccess (data) {
         if (data.success) {
             var context = data.context;
             context['userID'] = app.personal.info.userID;
@@ -39,67 +39,67 @@ module.exports = React.createClass({
             this.getInfoError();
         }
     },
-    getInfoError() {
+    getInfoError () {
         app.personal.clear();
         this.changeToLoginPage();
     },
-    enterLoginPage() {
-        this.setTimeout(()=>{
+    enterLoginPage () {
+        this.setTimeout(() => {
             app.navigator.replace({
                 component: Login,
             });
         }, 600);
     },
-    changeToLoginPage() {
+    changeToLoginPage () {
         if (app.updateMgr.needShowSplash) {
-            this.setState({renderSplashType: 1});
+            this.setState({ renderSplashType: 1 });
         } else {
             this.enterLoginPage();
         }
     },
-    enterHomePage() {
-        this.setTimeout(()=>{
+    enterHomePage () {
+        this.setTimeout(() => {
             app.navigator.replace({
                 component: Home,
             });
         }, 600);
     },
-    changeToHomePage() {
+    changeToHomePage () {
         if (app.updateMgr.needShowSplash) {
-            this.setState({renderSplashType: 2});
+            this.setState({ renderSplashType: 2 });
         } else {
             this.enterHomePage();
         }
     },
-    enterNextPage() {
+    enterNextPage () {
         app.updateMgr.setNeedShowSplash(false);
-        if (this.state.renderSplashType===1) {
+        if (this.state.renderSplashType === 1) {
             this.enterLoginPage();
         } else {
             this.enterHomePage();
         }
     },
-    changeToNextPage() {
+    changeToNextPage () {
         if (app.personal.info) {
             this.doGetPersonalInfo();
         } else {
             this.changeToLoginPage();
         }
     },
-    componentDidMount() {
+    componentDidMount () {
         app.utils.until(
-            ()=>app.updateMgr.initialized,
-            (cb)=>setTimeout(cb, 100),
-            ()=>this.changeToNextPage()
+            () => app.updateMgr.initialized,
+            (cb) => setTimeout(cb, 100),
+            () => this.changeToNextPage()
         );
-        this.setTimeout(()=>{
+        this.setTimeout(() => {
             SplashScreen.hide();
         }, 100);
     },
-    componentWillUnmount() {
+    componentWillUnmount () {
         app.updateMgr.checkUpdate();
     },
-    renderCommonSplash() {
+    renderCommonSplash () {
         return (
             <Image
                 resizeMode='stretch'
@@ -107,24 +107,24 @@ module.exports = React.createClass({
                 style={styles.splash} />
         );
     },
-    renderSwiperSplash() {
+    renderSwiperSplash () {
         return (
             <Swiper
                 paginationStyle={styles.paginationStyle}
-                dot={<View style={{backgroundColor:'#FFFCF4', width: 8, height: 8,borderRadius: 4, marginLeft: 8, marginRight: 8,}} />}
-                activeDot={<View style={{backgroundColor:'#FFCD53', width: 16, height: 8,borderRadius: 4, marginLeft: 8, marginRight: 8,}} />}
+                dot={<View style={{ backgroundColor:'#FFFCF4', width: 8, height: 8, borderRadius: 4, marginLeft: 8, marginRight: 8 }} />}
+                activeDot={<View style={{ backgroundColor:'#FFCD53', width: 16, height: 8, borderRadius: 4, marginLeft: 8, marginRight: 8 }} />}
                 height={sr.th}
                 loop={false}>
                 {
-                    [1,2,3,4].map((i)=>{
+                    [1, 2, 3, 4].map((i) => {
                         return (
                             <Image
                                 key={i}
                                 resizeMode='stretch'
-                                source={app.img["splash_splash"+i]}
+                                source={app.img['splash_splash' + i]}
                                 style={styles.bannerImage}>
                                 {
-                                    i===4 &&
+                                    i === 4 &&
                                     <TouchableOpacity
                                         style={styles.enterButtonContainer}
                                         onPress={this.enterNextPage}>
@@ -132,14 +132,14 @@ module.exports = React.createClass({
                                     </TouchableOpacity>
                                 }
                             </Image>
-                        )
+                        );
                     })
                 }
             </Swiper>
         );
     },
-    render() {
-        return this.state.renderSplashType===0 ? this.renderCommonSplash() : this.renderSwiperSplash();
+    render () {
+        return this.state.renderSplashType === 0 ? this.renderCommonSplash() : this.renderSwiperSplash();
     },
 });
 
@@ -159,7 +159,7 @@ var styles = StyleSheet.create({
         position: 'absolute',
         width: 165,
         height: 40,
-        left: (sr.w-165)/2,
+        left: (sr.w - 165) / 2,
         bottom: 80,
         alignItems:'center',
         justifyContent: 'center',

@@ -6,24 +6,24 @@ var {
     StyleSheet,
     Text,
     View,
-    ScrollView
+    ScrollView,
 } = ReactNative;
 
 import Echarts from '@remobile/react-native-echarts';
 
 module.exports = React.createClass({
-    getInitialState() {
+    getInitialState () {
         return {
             data: this.props.data,
         };
     },
-    render() {
-        const {male, female} = this.state.data;
-        const malePercentage = Math.round(male*100/(male+female));
-        const femalePercentage = 100-malePercentage;
+    render () {
+        const { male, female } = this.state.data;
+        const malePercentage = Math.round(male * 100 / (male + female));
+        const femalePercentage = 100 - malePercentage;
         const sections = [
-            {name: '男', count: app.utils.toThousands(male), percentage: malePercentage+'%', color: '#C23531'},
-            {name: '女', count: app.utils.toThousands(female), percentage: femalePercentage+'%', color: '#2F4554'},
+            { name: '男', count: app.utils.toThousands(male), percentage: malePercentage + '%', color: '#C23531' },
+            { name: '女', count: app.utils.toThousands(female), percentage: femalePercentage + '%', color: '#2F4554' },
         ];
         const option = {
             series: [{
@@ -31,29 +31,29 @@ module.exports = React.createClass({
                 type: 'pie',
                 radius : '70%',
                 data: [
-                    {value:male, name:'男'},
-                    {value:female, name:'女' },
-                ]
-            }]
+                    { value:male, name:'男' },
+                    { value:female, name:'女' },
+                ],
+            }],
         };
         return (
             <ScrollView>
-                <Echarts option={option} height={sr.s(200)}/>
+                <Echarts option={option} height={sr.s(200)} />
                 <View style={styles.totalView}>
                     <Text style={styles.littleView}>
-                        总人数：{app.utils.toThousands(male+female)}
+                        总人数：{app.utils.toThousands(male + female)}
                     </Text>
                 </View>
                 <View style={styles.bottomView}>
                     {
-                        sections.map((item, i)=>{
-                            return(
+                        sections.map((item, i) => {
+                            return (
                                 <View key={i} style={styles.itemView}>
                                     <View style={styles.leftView}>
-                                        <Text style={[styles.littleView, {marginLeft:3,width: 20}]}>
-                                            {i+1}
+                                        <Text style={[styles.littleView, { marginLeft:3, width: 20 }]}>
+                                            {i + 1}
                                         </Text>
-                                        <View style={[styles.squirView, {backgroundColor: item.color}]}/>
+                                        <View style={[styles.squirView, { backgroundColor: item.color }]} />
                                         <Text style={styles.littleView}>
                                             {item.name}
                                         </Text>
@@ -61,18 +61,18 @@ module.exports = React.createClass({
                                     <Text style={styles.littleView}>
                                         {item.percentage}
                                     </Text>
-                                    <Text style={[styles.littleView, {marginRight: 39}]}>
+                                    <Text style={[styles.littleView, { marginRight: 39 }]}>
                                         {item.count}
                                     </Text>
-                                    <View style={styles.lineView}/>
+                                    <View style={styles.lineView} />
                                 </View>
-                            )
+                            );
                         })
                     }
                 </View>
             </ScrollView>
         );
-    }
+    },
 });
 
 var styles = StyleSheet.create({
@@ -112,7 +112,7 @@ var styles = StyleSheet.create({
     lineView: {
         position: 'absolute',
         height: 1,
-        width: sr.w-78,
+        width: sr.w - 78,
         bottom: 0,
         left: 39,
         backgroundColor: '#aab9ba',

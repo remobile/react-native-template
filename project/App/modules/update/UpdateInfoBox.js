@@ -12,38 +12,38 @@ var {
 var Update = require('@remobile/react-native-update');
 
 var
-STATUS_HAS_VEW_VERSION = 0,
-STATUS_DOWNLOAD_APK_PROGESS = 1,
-STATUS_DOWNLOAD_JS_PROGESS = 2,
-STATUS_UNZIP_JS_PROGESS = 3,
-STATUS_DOWNKOAD_APK_ERROR = 4,
-STATUS_DOWNKOAD_JS_ERROR = 5,
-STATUS_UNZIP_JS_ERROR = 6,
-STATUS_FAILED_INSTALL_ERROR = 7,
-STATUS_UPDATE_END = 8;
+    STATUS_HAS_VEW_VERSION = 0,
+    STATUS_DOWNLOAD_APK_PROGESS = 1,
+    STATUS_DOWNLOAD_JS_PROGESS = 2,
+    STATUS_UNZIP_JS_PROGESS = 3,
+    STATUS_DOWNKOAD_APK_ERROR = 4,
+    STATUS_DOWNKOAD_JS_ERROR = 5,
+    STATUS_UNZIP_JS_ERROR = 6,
+    STATUS_FAILED_INSTALL_ERROR = 7,
+    STATUS_UPDATE_END = 8;
 
 var
-ERROR_NULL = 0,
-ERROR_DOWNKOAD_APK = 1,
-ERROR_DOWNKOAD_JS = 2,
-ERROR_FAILED_INSTALL = 3,
-ERROR_UNZIP_JS = 4;
+    ERROR_NULL = 0,
+    ERROR_DOWNKOAD_APK = 1,
+    ERROR_DOWNKOAD_JS = 2,
+    ERROR_FAILED_INSTALL = 3,
+    ERROR_UNZIP_JS = 4;
 
-var PROGRESS_WIDTH = sr.tw*0.7;
-var {Button, ProgressBar} = COMPONENTS;
+var PROGRESS_WIDTH = sr.tw * 0.7;
+var { Button, ProgressBar } = COMPONENTS;
 
 var ProgressInfo = React.createClass({
-    render() {
+    render () {
         const { progress } = this.props;
         if (progress < 1000) {
             return (
-                <View style={[styles.functionContainer, {alignItems: 'center', paddingVertical: 30}]}>
+                <View style={[styles.functionContainer, { alignItems: 'center', paddingVertical: 30 }]}>
                     <Text>{this.props.title} [{progress}%]</Text>
                     <ProgressBar
                         fillStyle={{}}
-                        backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
-                        style={{marginTop: 10, width:PROGRESS_WIDTH}}
-                        progress={progress/100.0}
+                        backgroundStyle={{ backgroundColor: '#cccccc', borderRadius: 2 }}
+                        style={{ marginTop: 10, width:PROGRESS_WIDTH }}
+                        progress={progress / 100.0}
                         />
                     <View style={styles.progressText}>
                         <Text>0</Text>
@@ -52,71 +52,70 @@ var ProgressInfo = React.createClass({
                 </View>
             );
         } else {
-            let size = progress/1000/1024/1024;
+            let size = progress / 1000 / 1024 / 1024;
             return (
-                <View style={[styles.functionContainer, {alignItems: 'center', paddingVertical: 30}]}>
+                <View style={[styles.functionContainer, { alignItems: 'center', paddingVertical: 30 }]}>
                     <Text>{this.props.title} [ {size.toFixed(2)} M ]</Text>
                 </View>
             );
         }
-    }
+    },
 });
 
 module.exports = React.createClass({
-    getInitialState() {
+    getInitialState () {
         return {
             status:STATUS_HAS_VEW_VERSION,
             progress: 0,
         };
     },
-    onError(errCode) {
+    onError (errCode) {
         if (errCode == ERROR_DOWNKOAD_APK) {
-            this.setState({status: STATUS_DOWNKOAD_APK_ERROR});
+            this.setState({ status: STATUS_DOWNKOAD_APK_ERROR });
         } else if (errCode == ERROR_DOWNKOAD_JS) {
-            this.setState({status: STATUS_DOWNKOAD_JS_ERROR});
+            this.setState({ status: STATUS_DOWNKOAD_JS_ERROR });
         } else if (errCode == ERROR_FAILED_INSTALL) {
-            this.setState({status: STATUS_FAILED_INSTALL_ERROR});
+            this.setState({ status: STATUS_FAILED_INSTALL_ERROR });
         } else if (errCode == ERROR_UNZIP_JS) {
-            this.setState({status: STATUS_UNZIP_JS_ERROR});
+            this.setState({ status: STATUS_UNZIP_JS_ERROR });
         }
     },
-    doUpdate() {
-        const {jsVersionCode, trackViewUrl} = this.props.options;
+    doUpdate () {
+        const { jsVersionCode, trackViewUrl } = this.props.options;
         if (jsVersionCode !== undefined) {
             Update.updateJS({
                 jsVersionCode,
-                jsbundleUrl: app.isandroid?app.route.ROUTE_JS_ANDROID_URL:app.route.ROUTE_JS_IOS_URL,
-                onDownloadJSProgress:(progress)=>{this.setState({status: STATUS_DOWNLOAD_JS_PROGESS,progress})},
-                onUnzipJSProgress:(progress)=>{this.setState({status: STATUS_UNZIP_JS_PROGESS,progress})},
-                onUnzipJSEnd:()=>{this.setState({status: STATUS_UPDATE_END})},
-                onError:(errCode)=>{this.onError(errCode)},
+                jsbundleUrl: app.isandroid ? app.route.ROUTE_JS_ANDROID_URL : app.route.ROUTE_JS_IOS_URL,
+                onDownloadJSProgress:(progress) => { this.setState({ status: STATUS_DOWNLOAD_JS_PROGESS, progress }); },
+                onUnzipJSProgress:(progress) => { this.setState({ status: STATUS_UNZIP_JS_PROGESS, progress }); },
+                onUnzipJSEnd:() => { this.setState({ status: STATUS_UPDATE_END }); },
+                onError:(errCode) => { this.onError(errCode); },
             });
         } else {
             Update.updateApp({
                 trackViewUrl,
                 androidApkUrl:app.route.ROUTE_APK_URL,
                 androidApkDownloadDestPath:'/sdcard/yxjqd.apk',
-                onDownloadAPKProgress:(progress)=>{this.setState({status: STATUS_DOWNLOAD_APK_PROGESS,progress})},
-                onError:(errCode)=>{this.onError(errCode)},
+                onDownloadAPKProgress:(progress) => { this.setState({ status: STATUS_DOWNLOAD_APK_PROGESS, progress }); },
+                onError:(errCode) => { this.onError(errCode); },
             });
         }
     },
-    render() {
+    render () {
         const components = {};
-        const {newVersion, description} = this.props.options;
+        const { newVersion, description } = this.props.options;
         components[STATUS_HAS_VEW_VERSION] = (
             <View style={styles.functionContainer}>
                 <Text style={styles.title}>{`发现新版本(${newVersion})`}</Text>
-                <Text style={styles.redLine}>
-                </Text>
+                <Text style={styles.redLine} />
                 <Text style={styles.content}>
-                    {"更新内容："}
+                    {'更新内容：'}
                 </Text>
                 {
-                    description.map((item, i)=>{
+                    description.map((item, i) => {
                         return (
-                            <Text style={styles.contentItem} key={i}>{'- '+item}</Text>
-                        )
+                            <Text style={styles.contentItem} key={i}>{'- ' + item}</Text>
+                        );
                     })
                 }
                 <View style={styles.buttonViewStyle}>
@@ -134,7 +133,7 @@ module.exports = React.createClass({
             </View>
         );
         components[STATUS_DOWNKOAD_APK_ERROR] = (
-            <View style={[styles.functionContainer, {alignItems: 'center', paddingVertical: 30}]}>
+            <View style={[styles.functionContainer, { alignItems: 'center', paddingVertical: 30 }]}>
                 <Text style={styles.textInfo}>下载apk文件失败，请在设置里重新更新</Text>
                 <TouchableOpacity
                     onPress={app.closeModal}
@@ -144,7 +143,7 @@ module.exports = React.createClass({
             </View>
         );
         components[STATUS_DOWNKOAD_JS_ERROR] = (
-            <View style={[styles.functionContainer, {alignItems: 'center', paddingVertical: 30}]}>
+            <View style={[styles.functionContainer, { alignItems: 'center', paddingVertical: 30 }]}>
                 <Text style={styles.textInfo}>下载js bundle失败，请在设置里重新更新</Text>
                 <TouchableOpacity
                     onPress={app.closeModal}
@@ -154,7 +153,7 @@ module.exports = React.createClass({
             </View>
         );
         components[STATUS_UNZIP_JS_ERROR] = (
-            <View style={[styles.functionContainer, {alignItems: 'center', paddingVertical: 30}]}>
+            <View style={[styles.functionContainer, { alignItems: 'center', paddingVertical: 30 }]}>
                 <Text style={styles.textInfo}>解压js bundle失败，请在设置里重新更新</Text>
                 <TouchableOpacity
                     onPress={app.closeModal}
@@ -164,7 +163,7 @@ module.exports = React.createClass({
             </View>
         );
         components[STATUS_FAILED_INSTALL_ERROR] = (
-            <View style={[styles.functionContainer, {alignItems: 'center', paddingVertical: 30}]}>
+            <View style={[styles.functionContainer, { alignItems: 'center', paddingVertical: 30 }]}>
                 <Text style={styles.textInfo}>你放弃了安装</Text>
                 <TouchableOpacity
                     onPress={app.closeModal}
@@ -175,17 +174,17 @@ module.exports = React.createClass({
         );
         components[STATUS_DOWNLOAD_APK_PROGESS] = (
             <ProgressInfo
-                title="正在下载APK"
+                title='正在下载APK'
                 progress={this.state.progress} />
         );
         components[STATUS_DOWNLOAD_JS_PROGESS] = (
             <ProgressInfo
-                title="正在下载Bundle文件"
+                title='正在下载Bundle文件'
                 progress={this.state.progress} />
         );
         components[STATUS_UNZIP_JS_PROGESS] = (
             <ProgressInfo
-                title="正在解压Bundle文件"
+                title='正在解压Bundle文件'
                 progress={this.state.progress} />
         );
         components[STATUS_UPDATE_END] = (
@@ -199,7 +198,6 @@ module.exports = React.createClass({
     },
 });
 
-
 var styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -207,13 +205,13 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     functionContainer: {
-        width:sr.w-60,
+        width:sr.w - 60,
         backgroundColor:'#FFFFFF',
     },
     progressText: {
         flexDirection:'row',
         justifyContent:'space-between',
-        width: sr.w*0.7,
+        width: sr.w * 0.7,
     },
     textInfo: {
         color: '#000000',
@@ -223,15 +221,15 @@ var styles = StyleSheet.create({
     },
     buttonViewStyle: {
         flexDirection: 'row',
-        width: sr.w-40,
+        width: sr.w - 40,
         height: 60,
         justifyContent: 'center',
     },
     redLine: {
         marginTop: 15,
-        width: sr.w-60,
+        width: sr.w - 60,
         height: 1,
-        backgroundColor: '#2F4F4F'
+        backgroundColor: '#2F4F4F',
     },
     buttonStyleContain: {
         width: 120,

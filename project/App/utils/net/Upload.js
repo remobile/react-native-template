@@ -4,7 +4,7 @@ var Des = require('@remobile/react-native-des');
 var FileTransfer = require('@remobile/react-native-file-transfer');
 var KEY = CONSTANTS.DES_KEY;
 
-function UPLOAD(filePath, url, options, onprogress, success, failed, wait) {
+function UPLOAD (filePath, url, options, onprogress, success, failed, wait) {
     if (typeof failed === 'boolean') {
         wait = failed;
         failed = null;
@@ -13,13 +13,13 @@ function UPLOAD(filePath, url, options, onprogress, success, failed, wait) {
         app.showProgressHud();
     }
     var parameter = options.params;
-    Des.encrypt(parameter, KEY, function(base64) {
+    Des.encrypt(parameter, KEY, function (base64) {
         options.params = base64;
         var fileTransfer = new FileTransfer();
         fileTransfer.onprogress = onprogress;
-        fileTransfer.upload(filePath, url, (res)=>{
+        fileTransfer.upload(filePath, url, (res) => {
             var base64 = res.response;
-            Des.decrypt(base64, KEY, function(jsonString) {
+            Des.decrypt(base64, KEY, function (jsonString) {
                 var json = {};
                 try {
                     json = JSON.parse(jsonString);
@@ -29,23 +29,23 @@ function UPLOAD(filePath, url, options, onprogress, success, failed, wait) {
                         if (wait) {
                             app.dismissProgressHud();
                         }
-        			}
+                    }
                 }
-                console.log("recv:", json);
+                console.log('recv:', json);
                 app.dismissProgressHud();
                 success(json);
-            }, function() {
+            }, function () {
                 Toast('数据解密错误');
             });
-        }, (err)=>{
+        }, (err) => {
             if (!failed || !failed(err)) {
                 Toast('上传失败');
                 if (wait) {
                     app.dismissProgressHud();
                 }
-			}
+            }
         }, options);
-    }, function() {
+    }, function () {
         Toast('数据加密错误');
     });
 }

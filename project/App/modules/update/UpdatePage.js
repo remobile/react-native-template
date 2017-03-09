@@ -10,31 +10,31 @@ var {
 var Update = require('@remobile/react-native-update');
 
 var
-STATUS_GET_VERSION = 0,
-STATUS_HAS_VEW_VERSION = 1,
-STATUS_HAS_NOT_VEW_VERSION = 2,
-STATUS_DOWNLOAD_APK_PROGESS = 3,
-STATUS_DOWNLOAD_JS_PROGESS = 4,
-STATUS_UNZIP_JS_PROGESS = 5,
-STATUS_GET_VERSION_ERROR = 6,
-STATUS_DOWNKOAD_APK_ERROR = 7,
-STATUS_DOWNKOAD_JS_ERROR = 8,
-STATUS_UNZIP_JS_ERROR = 9,
-STATUS_FAILED_INSTALL_ERROR = 10,
-STATUS_UPDATE_END = 11;
+    STATUS_GET_VERSION = 0,
+    STATUS_HAS_VEW_VERSION = 1,
+    STATUS_HAS_NOT_VEW_VERSION = 2,
+    STATUS_DOWNLOAD_APK_PROGESS = 3,
+    STATUS_DOWNLOAD_JS_PROGESS = 4,
+    STATUS_UNZIP_JS_PROGESS = 5,
+    STATUS_GET_VERSION_ERROR = 6,
+    STATUS_DOWNKOAD_APK_ERROR = 7,
+    STATUS_DOWNKOAD_JS_ERROR = 8,
+    STATUS_UNZIP_JS_ERROR = 9,
+    STATUS_FAILED_INSTALL_ERROR = 10,
+    STATUS_UPDATE_END = 11;
 
 var
-ERROR_NULL = 0,
-ERROR_DOWNKOAD_APK = 1,
-ERROR_DOWNKOAD_JS = 2,
-ERROR_FAILED_INSTALL = 3,
-ERROR_UNZIP_JS = 4;
+    ERROR_NULL = 0,
+    ERROR_DOWNKOAD_APK = 1,
+    ERROR_DOWNKOAD_JS = 2,
+    ERROR_FAILED_INSTALL = 3,
+    ERROR_UNZIP_JS = 4;
 
-var PROGRESS_WIDTH = sr.tw*0.7;
-var {Button, ProgressBar} = COMPONENTS;
+var PROGRESS_WIDTH = sr.tw * 0.7;
+var { Button, ProgressBar } = COMPONENTS;
 
 var ProgressInfo = React.createClass({
-    render() {
+    render () {
         const { progress } = this.props;
         if (progress < 1000) {
             return (
@@ -42,9 +42,9 @@ var ProgressInfo = React.createClass({
                     <Text>{this.props.title} [{progress}%]</Text>
                     <ProgressBar
                         fillStyle={{}}
-                        backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
-                        style={{marginTop: 10, width:PROGRESS_WIDTH}}
-                        progress={progress/100.0}
+                        backgroundStyle={{ backgroundColor: '#cccccc', borderRadius: 2 }}
+                        style={{ marginTop: 10, width:PROGRESS_WIDTH }}
+                        progress={progress / 100.0}
                         />
                     <View style={styles.progressText}>
                         <Text>0</Text>
@@ -53,71 +53,71 @@ var ProgressInfo = React.createClass({
                 </View>
             );
         } else {
-            let size = progress/1000/1024/1024;
+            let size = progress / 1000 / 1024 / 1024;
             return (
-                <View style={{flex: 1, alignItems: 'center'}}>
+                <View style={{ flex: 1, alignItems: 'center' }}>
                     <Text>{this.props.title} [{size.toFixed(2)} M]</Text>
                 </View>
             );
         }
-    }
+    },
 });
 
 module.exports = React.createClass({
     pageName: 'UpdatePage',
-    getInitialState() {
-        const {options} = this.props;
+    getInitialState () {
+        const { options } = this.props;
         return {
             options,
             status: !options ? STATUS_GET_VERSION : options.newVersion ? STATUS_HAS_VEW_VERSION : STATUS_HAS_NOT_VEW_VERSION,
             progress: 0,
         };
     },
-    componentWillMount() {
+    componentWillMount () {
         if (!this.state.options) {
             Update.checkVersion({
                 versionUrl: app.route.ROUTE_VERSION_INFO_URL,
                 iosAppId: CONSTANTS.IOS_APPID,
-            }).then((options)=>{
-                this.setState({options, status: !options ? STATUS_GET_VERSION_ERROR : options.newVersion ? STATUS_HAS_VEW_VERSION : STATUS_HAS_NOT_VEW_VERSION});
-            })
+            }).then((options) => {
+                this.setState({ options, status: !options ? STATUS_GET_VERSION_ERROR : options.newVersion ? STATUS_HAS_VEW_VERSION : STATUS_HAS_NOT_VEW_VERSION });
+            });
         }
     },
-    onError(errCode) {
+    onError (errCode) {
         if (errCode == ERROR_DOWNKOAD_APK) {
-            this.setState({status: STATUS_DOWNKOAD_APK_ERROR});
+            this.setState({ status: STATUS_DOWNKOAD_APK_ERROR });
         } else if (errCode == ERROR_DOWNKOAD_JS) {
-            this.setState({status: STATUS_DOWNKOAD_JS_ERROR});
+            this.setState({ status: STATUS_DOWNKOAD_JS_ERROR });
         } else if (errCode == ERROR_FAILED_INSTALL) {
-            this.setState({status: STATUS_FAILED_INSTALL_ERROR});
+            this.setState({ status: STATUS_FAILED_INSTALL_ERROR });
         } else if (errCode == ERROR_UNZIP_JS) {
-            this.setState({status: STATUS_UNZIP_JS_ERROR});
+            this.setState({ status: STATUS_UNZIP_JS_ERROR });
         }
     },
-    doUpdate() {
-        const {jsVersionCode, trackViewUrl} = this.state.options;
+    doUpdate () {
+        const { jsVersionCode, trackViewUrl } = this.state.options;
         if (jsVersionCode !== undefined) {
             Update.updateJS({
                 jsVersionCode,
-                jsbundleUrl: app.isandroid?app.route.ROUTE_JS_ANDROID_URL:app.route.ROUTE_JS_IOS_URL,
-                onDownloadJSProgress:(progress)=>{this.setState({status: STATUS_DOWNLOAD_JS_PROGESS,progress})},
-                onUnzipJSProgress:(progress)=>{this.setState({status: STATUS_UNZIP_JS_PROGESS,progress})},
-                onUnzipJSEnd:()=>{this.setState({status: STATUS_UPDATE_END})},
-                onError:(errCode)=>{this.onError(errCode)},
+                jsbundleUrl: app.isandroid ? app.route.ROUTE_JS_ANDROID_URL : app.route.ROUTE_JS_IOS_URL,
+                onDownloadJSProgress:(progress) => { this.setState({ status: STATUS_DOWNLOAD_JS_PROGESS, progress }); },
+                onUnzipJSProgress:(progress) => { this.setState({ status: STATUS_UNZIP_JS_PROGESS, progress }); },
+                onUnzipJSEnd:() => { this.setState({ status: STATUS_UPDATE_END }); },
+                onError:(errCode) => { this.onError(errCode); },
             });
         } else {
             Update.updateApp({
                 trackViewUrl,
                 androidApkUrl:app.route.ROUTE_APK_URL,
                 androidApkDownloadDestPath:'/sdcard/yxjqd.apk',
-                onDownloadAPKProgress:(progress)=>{this.setState({status: STATUS_DOWNLOAD_APK_PROGESS,progress})},
-                onError:(errCode)=>{this.onError(errCode)},
+                onDownloadAPKProgress:(progress) => { this.setState({ status: STATUS_DOWNLOAD_APK_PROGESS, progress }); },
+                onError:(errCode) => { this.onError(errCode); },
             });
         }
     },
-    render() {
+    render () {
         var components = {};
-        const {currentVersion, newVersion, description} = this.state.options||{currentVersion:Update.getVersion()};
+        const { currentVersion, newVersion, description } = this.state.options || { currentVersion:Update.getVersion() };
         components[STATUS_GET_VERSION] = (
             <Text style={styles.textInfo}>正在获取版本号</Text>
         );
@@ -144,10 +144,10 @@ module.exports = React.createClass({
                 <Text style={styles.textInfo}>发现新版本{newVersion}</Text>
                 <View style={styles.descriptionContainer}>
                     {
-                        description && description.map((item, i)=>{
+                        description && description.map((item, i) => {
                             return (
-                                <Text style={styles.textInfo} key={i}>{(i+1)+'. '+item}</Text>
-                            )
+                                <Text style={styles.textInfo} key={i}>{(i + 1) + '. ' + item}</Text>
+                            );
                         })
                     }
                 </View>
@@ -156,17 +156,17 @@ module.exports = React.createClass({
         );
         components[STATUS_DOWNLOAD_APK_PROGESS] = (
             <ProgressInfo
-                title="正在下载APK"
+                title='正在下载APK'
                 progress={this.state.progress} />
         );
         components[STATUS_DOWNLOAD_JS_PROGESS] = (
             <ProgressInfo
-                title="正在下载Bundle文件"
+                title='正在下载Bundle文件'
                 progress={this.state.progress} />
         );
         components[STATUS_UNZIP_JS_PROGESS] = (
             <ProgressInfo
-                title="正在解压Bundle文件"
+                title='正在解压Bundle文件'
                 progress={this.state.progress} />
         );
         components[STATUS_UPDATE_END] = (
@@ -189,7 +189,6 @@ module.exports = React.createClass({
         );
     },
 });
-
 
 var styles = StyleSheet.create({
     container: {
@@ -218,7 +217,7 @@ var styles = StyleSheet.create({
         width:178,
         height:49,
         borderRadius: 4,
-        left: (sr.w-178)/2,
+        left: (sr.w - 178) / 2,
         position: 'absolute',
         bottom: 120,
         backgroundColor: '#DE3031',
@@ -233,7 +232,7 @@ var styles = StyleSheet.create({
     progressText: {
         flexDirection:'row',
         justifyContent:'space-between',
-        width: sr.w*0.7,
+        width: sr.w * 0.7,
     },
     textInfoContainer: {
         flex: 1,

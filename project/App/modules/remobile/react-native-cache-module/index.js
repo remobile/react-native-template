@@ -12,22 +12,21 @@ var CacheModule = require('@remobile/react-native-cache-module');
 var Module = require('@remobile/react-native-module');
 
 module.exports = React.createClass({
-    test() {
-        CacheModule.getModulePath('http://localhost:3001/fang').then((path)=>{
-            Module.load(path, 'SimpleApp', {fang:1, yun:2}, (result)=>{
+    test () {
+        CacheModule.getModulePath('http://localhost:3001/fang').then((path) => {
+            Module.load(path, 'SimpleApp', { fang:1, yun:2 }, (result) => {
                 Toast(JSON.stringify(result));
             });
         });
     },
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Button onPress={this.test}>测试</Button>
             </View>
         );
-    }
+    },
 });
-
 
 var styles = StyleSheet.create({
     container: {
