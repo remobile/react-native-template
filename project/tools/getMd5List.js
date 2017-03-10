@@ -31,23 +31,21 @@ async function getMapList(platform, distpath) {
         app = JSON.parse(fs.readFileSync(distpath+'/'+platform+'_md5.json'));
     } catch(e) {}
     const www = await getMd5List('./www', {});
-console.log(distpath+'/'+platform+'_md5.json')
-    console.log(app);
-    console.log(www);
     fs.writeFileSync('./'+platform+'_md5.json', JSON.stringify(www));
     return mapValues(www, (v, k)=>v===app[k]);
 }
 async function genNeedDownloadFiles(platform, distpath) {
     const list = await getMapList(platform, distpath);
-    fs.writeFileSync('./www/'+platform+'.json', JSON.stringify(list));
+    console.log(list);
+    const needCopyFiles = [];
     for (const key in list) {
         if (list[key]) {
-            console.log("[----]delete same file:", key);
+            needCopyFiles.push(key.replace(/^\.\/www\//, ''));
+            console.log("needCopyFiles file:", key);
             fs.unlinkSync(key);
-        } else {
-            console.log("[++++]store  diff file:", key);
         }
     }
+    fs.writeFileSync('./www/needCopyFiles.json', JSON.stringify(needCopyFiles));
 }
 
 module.exports = genNeedDownloadFiles;
