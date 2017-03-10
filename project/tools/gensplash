@@ -1,6 +1,6 @@
 #!/bin/bash
 
-src="$1"
+src="${1-./img/splash.png}"
 
 ffmpeg -i ${src} -s 640x1136 ../ios/JFBSample/splash/Default-568h@2x~iphone.png -y
 ffmpeg -i ${src} -s 750x1334 ../ios/JFBSample/splash/Default-667h.png -y

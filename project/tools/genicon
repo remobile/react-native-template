@@ -1,6 +1,6 @@
 #!/bin/bash
 
-src="$1"
+src="${1-./img/icon.png}"
 
 #ios
 ffmpeg -i ${src} -s 40x40 ../ios/JFBSample/icons/icon-40.png -y

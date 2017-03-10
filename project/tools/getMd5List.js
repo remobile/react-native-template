@@ -36,7 +36,6 @@ async function getMapList(platform, distpath) {
 }
 async function genNeedDownloadFiles(platform, distpath) {
     const list = await getMapList(platform, distpath);
-    console.log(list);
     const needCopyFiles = [];
     for (const key in list) {
         if (list[key]) {
@@ -45,6 +44,7 @@ async function genNeedDownloadFiles(platform, distpath) {
             fs.unlinkSync(key);
         }
     }
+    console.log("needCopyFiles:", needCopyFiles);
     fs.writeFileSync('./www/needCopyFiles.json', JSON.stringify(needCopyFiles));
 }
 

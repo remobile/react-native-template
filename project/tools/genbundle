@@ -30,7 +30,7 @@ function zipWWW() {
 
 function genMd5List() {
     cd ./tools
-    git co head ${distpath}/${1}_md5.json
+    # git co head ${distpath}/${1}_md5.json
     node -e "var o=process.argv;require('./getMd5List')(o[1],o[2])" ${1} ${distpath}
 }
 
@@ -65,9 +65,11 @@ function main() {
         buildAndroid
     elif [ "$1" = "ios" ];then
         buildIos
-    else
+    elif [ "$1" = "all" ];then
         buildAndroid
         buildIos
+    else
+        echo "Usage: ./genbundle ios|android|all"
     fi
 }
 
