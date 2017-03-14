@@ -17,6 +17,7 @@
 /**/public
 !/project/ios/Pods/Headers/Public
 /**/.gradle
+download
 *.idea
 local.properties
 project_new
