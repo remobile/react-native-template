@@ -159,8 +159,6 @@ dependencies {
     compile(project(':react-native-marquee-label')) {exclude group: 'com.facebook.react', module: 'react-native'}
     compile(project(':react-native-battery-status')) {exclude group: 'com.facebook.react', module: 'react-native'}
     compile(project(':react-native-module')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-echarts')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-cocos2dx')) {exclude group: 'com.facebook.react', module: 'react-native'}
 
     //VendorLibraries
     compile(project(':react-native-fs')) {exclude group: 'com.facebook.react', module: 'react-native'}
