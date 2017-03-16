@@ -13,7 +13,7 @@ var CardSwiper = require('@remobile/react-native-card-swiper');
 module.exports = React.createClass({
     getDefaultProps: function () {
         return {
-            vertical: false,
+            vertical: true,
         };
     },
     renderRow (obj) {
@@ -24,7 +24,7 @@ module.exports = React.createClass({
         );
     },
     onPressRow (obj) {
-        console.log('onPressRow', obj);
+        Toast(''+obj);
     },
     onChange (obj) {
         console.log('onChange', obj);
@@ -34,11 +34,12 @@ module.exports = React.createClass({
         return (
             <View style={[styles.container, { paddingLeft: vertical ? 50 : 0 }]}>
                 <CardSwiper
+                    index={0}
                     list={[1, 2, 3]}
                     vertical={vertical}
                     width={vertical ? 180 : sr.tw}
                     height={vertical ? sr.th / 2 : 150}
-                    loop
+                    loop={true}
                     onPress={this.onPressRow}
                     onChange={this.onChange}
                     renderRow={this.renderRow}
