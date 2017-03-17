@@ -1,6 +1,6 @@
 {
     "frameRate"     : 60,
-    "id"            : "gameCanvas",
+    "id"            : "canvas",
     "renderMode"    : 1,
     "showFPS"       : false,
     "jsList" : [
