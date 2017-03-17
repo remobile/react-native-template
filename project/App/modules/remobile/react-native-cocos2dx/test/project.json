@@ -1,0 +1,12 @@
+{
+    "frameRate"     : 60,
+    "id"            : "gameCanvas",
+    "renderMode"    : 1,
+    "showFPS"       : false,
+    "jsList" : [
+        "./resource.js",
+        "./src/MenuView.js",
+        "./src/GameView.js",
+        "./src/GameOver.js"
+    ]
+}
