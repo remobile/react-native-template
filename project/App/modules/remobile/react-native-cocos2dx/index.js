@@ -8,21 +8,25 @@ var {
 } = ReactNative;
 
 var resolveAssetSource = require('resolveAssetSource');
-var Cocos2dx = require('./xx');
-// var Cocos2dx = require('@remobile/react-native-cocos2dx');
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var resource = require('./resource.js');
-var render = require('./render.js');
-
+var Cocos2dx = require('@remobile/react-native-cocos2dx');
+var resource = require('./remobile_cocos2dx_resource.js');
+var render = require('./remobile_cocos2dx_render.js');
 module.exports = React.createClass({
     componentWillMount() {
-        SplashScreen.hide();
+        app.toggleNavigationBar(false);
+    },
+    onCocos2dxMessage(data) {
+        if (data.type === 'exit') {
+            app.toggleNavigationBar(true);
+            app.navigator.pop();
+        }
     },
     render () {
         return (
             <View style={styles.container}>
                 <Cocos2dx
                     scene="MenuViewScene"
+                    onCocos2dxMessage={this.onCocos2dxMessage}
                     render={render}
                     resource={resource}
                     width={sr.tw}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta content="text/html; charset=utf-8" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
+    <style type="text/css">
+    html,body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="375" height="667"></canvas>
+    <script type="text/javascript" src="cocos2d-js-v3.13-lite.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="app.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+    document.ccConfig = {
+        id: "canvas",
+        debugMode:1,
+        renderMode: 1,
+        frameRate: 60,
+        showFPS: true,
+        "jsList" : [
+            "./remobile_cocos2dx_resource.js",
+            "./src/MenuView.js",
+            "./src/GameView.js",
+            "./src/GameOver.js"
+        ]
+    };
+    window.onload = function(){
+        renderCocos2dx();
+    };
+    </script>
+</body>
+</html>

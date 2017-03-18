@@ -45,7 +45,11 @@ var GameOver = cc.Layer.extend({
         gameView.startGame();
     },
     onHome: function () {
-        this.removeFromParent(true);
-        cc.director.runScene(new MenuViewScene());
+        if (cc.sendMessage) {
+            cc.sendMessage({type: 'exit'});
+        } else {
+            this.removeFromParent(true);
+            cc.director.runScene(new MenuViewScene());
+        }
     }
 });

@@ -7,9 +7,9 @@ function renderCocos2dx() {
         cc.view.setDesignResolutionSize(375, 667, cc.ResolutionPolicy.SHOW_ALL);
         // The game will be resized when browser size change
         cc.view.resizeWithBrowserSize(true);
-        cc.LoaderScene.preload(g_resources, function () {
+       cc.LoaderScene.preload(g_resources, function () {
             cc.director.runScene(new MenuViewScene());
-        }, this);
+       }, this);
     };
     cc.game.run();
 }

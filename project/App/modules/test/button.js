@@ -9,12 +9,17 @@ var {
 
 var SplashScreen = require('@remobile/react-native-splashscreen');
 var Button = require('@remobile/react-native-simple-button');
+var fs = require('react-native-fs');
+console.log(fs);
 
 module.exports = React.createClass({
     componentWillMount () {
         SplashScreen.hide();
     },
     test () {
+        fs.readFileRaw('walk').then((xx)=>{
+            console.log(xx);
+        }).catch((e)=>{console.log(e)})
     },
     render () {
         return (

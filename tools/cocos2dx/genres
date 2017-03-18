@@ -29,14 +29,14 @@ function __get_pure_filename()
 }
 
 last_name=""
-file=resource.js
-modules=(`ls ./res/`)
+file=remobile_cocos2dx_resource.js
+modules=(`ls ./remobile-cocos2dx-resource/`)
 echo "var res = {" > "$file"
 
 img="     img: {"
 plist="     plist: {"
 for module in ${modules[@]};do
-    files=(`ls ./res/${module}`)
+    files=(`ls ./remobile-cocos2dx-resource/${module}`)
     for item in ${files[@]};do
         purefilename=`__get_pure_filename $item`
         purefilename=${purefilename%%@*}
@@ -44,9 +44,9 @@ for module in ${modules[@]};do
         if [ "${last_name}" != "${purefilename}" ];then
             if [ "${extfilename}" = "png" -o "${extfilename}" = "jpg" -o "${extfilename}" = "gif" ];then
                 last_name=${purefilename}
-                img="${img}\n        ${module}_${purefilename}:'./res/${module}/${purefilename}.${extfilename}',"
+                img="${img}\n        ${module}_${purefilename}:'./remobile-cocos2dx-resource/${module}/${purefilename}.${extfilename}',"
             elif [ "${extfilename}" = "plist" ];then
-                plist="${plist}\n        ${module}_${purefilename}:'./res/${module}/${purefilename}.${extfilename}',"
+                plist="${plist}\n        ${module}_${purefilename}:'./remobile-cocos2dx-resource/${module}/${purefilename}.${extfilename}',"
             fi
         fi
     done

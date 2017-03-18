@@ -9,6 +9,8 @@
 /**/node_modules
 !/project/App/node_modules/
 /project/App/node_modules/@remobile
+remobile_cocos2dx_render.js
+remobile_cocos2dx_resource.js
 /**/*.iml
 /**/build
 /**/*shared*

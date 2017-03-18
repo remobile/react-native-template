@@ -4,7 +4,7 @@ var uglify = require('gulp-uglify');
 var through = require('through2');
 
 var path = './';
-var file = 'render.js';
+var file = 'remobile_cocos2dx_render.js';
 
 gulp.task('release', function() {
     return gulp.src([
