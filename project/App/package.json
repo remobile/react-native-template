@@ -1,0 +1,12 @@
+{
+    "name": "App",
+    "scripts": {
+        "genres": "genccresource modules/remobile/react-native-cocos2dx/remobile-cocos2dx-resource modules/remobile/react-native-cocos2dx/remobile_cocos2dx_resource.js",
+        "genrender": "genccrender modules/remobile/react-native-cocos2dx/remobile-cocos2dx-render modules/remobile/react-native-cocos2dx/remobile_cocos2dx_render.js",
+        "genrender:dev": "npm run genrender dev"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+    }
+}
