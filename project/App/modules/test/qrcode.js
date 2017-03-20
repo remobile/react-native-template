@@ -6,7 +6,7 @@ import {
     View,
 } from 'react-native';
 
-import BarcodeScanner from 'react-native-barcode-scanner-universal';
+import BarcodeScanner from 'react-native-camera';
 
 module.exports = React.createClass({
     onBarCodeRead (code) {

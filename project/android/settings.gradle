@@ -33,8 +33,8 @@ project(':react-native-update').projectDir = new File(settingsDir, '../App/node_
 include ':react-native-contacts'
 project(':react-native-contacts').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-contacts/android')
 
-include ':react-native-camera'
-project(':react-native-camera').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-camera/android')
+include ':react-native-remobile-camera'
+project(':react-native-remobile-camera').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-camera/android')
 
 include ':react-native-capture'
 project(':react-native-capture').projectDir = new File(settingsDir, '../App/node_modules/@remobile/react-native-capture/android')
@@ -64,8 +64,8 @@ project(':react-native-module').projectDir = new File(settingsDir, '../App/node_
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(settingsDir, '../App/node_modules/react-native-fs/android')
 
-include ':react-native-barcodescanner'
-project(':react-native-barcodescanner').projectDir = new File(rootProject.projectDir, '../App/node_modules/react-native-barcodescanner/android')
+include ':react-native-camera'
+project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../App/node_modules/react-native-camera/android')
 
 include ':react-native-webview-bridge'
 project(':react-native-webview-bridge').projectDir = new File(rootProject.projectDir, '../App/node_modules/react-native-webview-bridge/android')

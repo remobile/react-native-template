@@ -33,7 +33,7 @@ var aud = require('./resource/audio.js');
 var PersonalInfoMgr = require('./manager/PersonalInfoMgr.js');
 var NetMgr = require('./manager/NetMgr.js');
 var UpdateMgr = require('./manager/UpdateMgr.js');
-var JPushMgr = require('./manager/JPushMgr.js');
+// var JPushMgr = require('./manager/JPushMgr.js');
 var SettingMgr = require('./manager/SettingMgr.js');
 var LoginMgr = require('./manager/LoginMgr.js');
 var MediaFileMgr = require('./manager/MediaFileMgr.js');
@@ -47,7 +47,7 @@ global.app = {
     data: {},
     personal: PersonalInfoMgr,
     net: NetMgr,
-    jpush: JPushMgr,
+    // jpush: JPushMgr,
     setting: SettingMgr,
     updateMgr:UpdateMgr,
     login: LoginMgr,
@@ -280,7 +280,7 @@ module.exports = React.createClass({
     },
     componentDidMount: function () {
         app.net.register();
-        app.jpush.register();
+        // app.jpush.register();
     },
     configureScene (route) {
         return app.configureScene(route);
