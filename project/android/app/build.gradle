@@ -162,8 +162,6 @@ dependencies {
 
     //VendorLibraries
     compile project(':react-native-fs')
-    compile project(':react-native-jpush')
-    compile project(':react-native-fileupload')
     compile project(':react-native-barcodescanner')
     compile project(':react-native-webview-bridge')
 }

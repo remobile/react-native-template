@@ -29,12 +29,10 @@ import com.remobile.update.RCTUpdateMgr;
 import com.remobile.video.RCTVideoPackage;
 import com.remobile.zip.RCTZipPackage;
 import com.rnfs.RNFSPackage;
-import com.yoloci.fileupload.FileUploadPackage;
 
 import java.util.Arrays;
 import java.util.List;
 
-import cn.reactnative.modules.jpush.JPushPackage;
 
 public class MainApplication extends Application implements ReactApplication {
     private RCTUpdateMgr mUpdateMgr;
@@ -78,9 +76,7 @@ public class MainApplication extends Application implements ReactApplication {
                 new RCTModulePackage(),
                 //VendorLibraries
                 new RNFSPackage(),
-                new FileUploadPackage(),
                 new BarcodeScanner(),
-                new JPushPackage(),
                 new WebViewBridgePackage()
             );
         }
