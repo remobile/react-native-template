@@ -56,7 +56,6 @@ class Manager extends EventEmitter {
         app.connect = this.info.connect;
         if (!app.connect) {
             Toast('当前设备已离线，请检查您的网络是否可用');
-            app.phoneMgr.deviceNetOffline();
         }
     }
 }

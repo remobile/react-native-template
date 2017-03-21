@@ -17,7 +17,7 @@ module.exports = React.createClass({
         return { text: '' };
     },
     onPress () {
-        QRCode.decode(!app.isandroid ? 'http://192.168.43.39:3000/qr.png' : '/sdcard/qr.png', (error, result) => {
+        QRCode.decode('http://192.168.1.126:3000/qr.png', (error, result) => {
             this.setState({ text: JSON.stringify({ error, result }) });
         });
     },

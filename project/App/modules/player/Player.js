@@ -144,7 +144,6 @@ module.exports = React.createClass({
         AppState.removeEventListener('change', this._handleAppStateChange);
     },
     componentWillMount () {
-        app.phoneMgr.phone.speakerOn();
         this.lastPlayTime = 0;
     },
     startControlPanelTimeout () {

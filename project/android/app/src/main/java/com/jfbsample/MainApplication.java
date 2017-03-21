@@ -28,7 +28,6 @@ import com.remobile.update.RCTUpdateMgr;
 import com.remobile.video.RCTVideoPackage;
 import com.remobile.zip.RCTZipPackage;
 import com.rnfs.RNFSPackage;
-import com.lwansbrough.RCTCamera.RCTCameraPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -76,7 +75,7 @@ public class MainApplication extends Application implements ReactApplication {
                 new RCTModulePackage(),
                 //VendorLibraries
                 new RNFSPackage(),
-                new RCTCameraPackage(),
+                new com.lwansbrough.RCTCamera.RCTCameraPackage(),
                 new WebViewBridgePackage()
             );
         }
