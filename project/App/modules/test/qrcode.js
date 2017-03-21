@@ -4,6 +4,7 @@ import {
     StyleSheet,
     Text,
     View,
+    Vibration,
 } from 'react-native';
 
 import BarcodeScanner from 'react-native-camera';
@@ -11,13 +12,9 @@ import BarcodeScanner from 'react-native-camera';
 module.exports = React.createClass({
     onBarCodeRead (code) {
         var { data } = code;
-        try {
-            data = JSON.parse(data);
-            Toast(data);
-        } catch (e) {
-            Toast('扫描失败');
-            return;
-        }
+        Toast(data);
+        Vibration.vibrate();
+        app.navigator.pop();
     },
     render () {
         return (
@@ -25,27 +22,24 @@ module.exports = React.createClass({
                 <BarcodeScanner
                     onBarCodeRead={this.onBarCodeRead}
                     style={styles.camera}>
-                    {
-                        !app.isandroid &&
-                        <View style={styles.rectangleContainer}>
-                            <View style={styles.rectangleTop} />
-                            <View style={styles.rectangleMiddle}>
-                                <View style={styles.rectangleLeft} />
-                                <View style={styles.rectangleMiddleMiddle}>
-                                    <View style={[styles.makeup, styles.makeupTL]} />
-                                    <View style={[styles.makeup, styles.makeupTR]} />
-                                    <View style={[styles.makeup, styles.makeupDL]} />
-                                    <View style={[styles.makeup, styles.makeupDR]} />
-                                </View>
-                                <View style={styles.rectangleRight} />
+                    <View style={styles.rectangleContainer}>
+                        <View style={styles.rectangleTop} />
+                        <View style={styles.rectangleMiddle}>
+                            <View style={styles.rectangleLeft} />
+                            <View style={styles.rectangleMiddleMiddle}>
+                                <View style={[styles.makeup, styles.makeupTL]} />
+                                <View style={[styles.makeup, styles.makeupTR]} />
+                                <View style={[styles.makeup, styles.makeupDL]} />
+                                <View style={[styles.makeup, styles.makeupDR]} />
                             </View>
-                            <View style={styles.rectangleBottom}>
-                                <Text style={styles.info}>
-                                    将二维码放入框内，即可自动扫描
-                                </Text>
-                            </View>
+                            <View style={styles.rectangleRight} />
                         </View>
-                    }
+                        <View style={styles.rectangleBottom}>
+                            <Text style={styles.info}>
+                                将二维码放入框内，即可自动扫描
+                            </Text>
+                        </View>
+                    </View>
                 </BarcodeScanner>
             </View>
         );

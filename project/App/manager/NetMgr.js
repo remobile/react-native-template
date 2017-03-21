@@ -36,6 +36,7 @@ class Manager extends EventEmitter {
         this.updateConnectionInfo(o);
     }
     updateConnectionInfo (o) {
+        console.log(o);
         if (Platform.OS === 'android') {
             if (o === 'WIFI' || o === 'ETHERNET' || o === 'DUMMY') {
                 this.info = { connect: true, fee: false };
@@ -55,7 +56,7 @@ class Manager extends EventEmitter {
         }
         app.connect = this.info.connect;
         if (!app.connect) {
-            Toast('当前设备已离线，请检查您的网络是否可用');
+            // Toast('当前设备已离线，请检查您的网络是否可用');
         }
     }
 }

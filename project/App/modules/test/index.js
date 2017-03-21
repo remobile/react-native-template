@@ -14,6 +14,7 @@ var {
 var PersonInfo = require('../person/PersonInfo.js');
 var TestImage = require('./image.js');
 var QRCode = require('./qrcode.js');
+var SplashScreen = require('@remobile/react-native-splashscreen');
 
 var modules = [
     { title:'图片', image: app.img.common_point, module:TestImage },
@@ -31,6 +32,7 @@ module.exports = React.createClass({
         } },
     },
     getInitialState: function () {
+        SplashScreen.hide();
         var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return {
             dataSource: ds.cloneWithRows(modules),
