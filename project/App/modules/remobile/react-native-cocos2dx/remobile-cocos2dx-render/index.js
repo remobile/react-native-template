@@ -2,8 +2,8 @@ var g_resources = [];
 for (var i in res.img) {
     g_resources.push(res.img[i]);
 }
-for (var i in res.plist) {
-    g_resources.push(res.plist[i]);
+for (var j in res.plist) {
+    g_resources.push(res.plist[j]);
 }
 
 cc.view.enableRetina(false);

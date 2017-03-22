@@ -4,8 +4,8 @@ var {
     AsyncStorage,
 } = ReactNative;
 var EventEmitter = require('EventEmitter');
-
 const ITEM_NAME = 'personalInfo';
+const NEED_LOGIN_ITEM_NAME = 'personalInfoNeedLogin';
 
 class Manager extends EventEmitter {
     constructor () {
@@ -16,17 +16,21 @@ class Manager extends EventEmitter {
         return new Promise(async(resolve, reject) => {
             var info;
             try {
+                var needLogin = await AsyncStorage.getItem(NEED_LOGIN_ITEM_NAME);
+                this.needLogin = needLogin !== 'false';
                 var infoStr = await AsyncStorage.getItem(ITEM_NAME);
                 info = JSON.parse(infoStr);
             } catch (e) {
-                info = null;
+                this.needLogin = true;
             }
-            this.info = info;
+            this.info = info || {};
+            this.needLogin = this.needLogin || !info;
+            this.initialized = true;
         });
     }
     set (info) {
+        this.info = info;
         return new Promise(async(resolve, reject) => {
-            this.info = info;
             await AsyncStorage.setItem(ITEM_NAME, JSON.stringify(info));
             resolve();
         });
@@ -34,9 +38,9 @@ class Manager extends EventEmitter {
     setUserHead (head) {
         this.emit('USER_HEAD_CHANGE_EVENT', { head:head });
     }
-    clear () {
-        this.info = null;
-        AsyncStorage.removeItem(ITEM_NAME);
+    setNeedLogin (flag) {
+        this.needLogin = flag;
+        AsyncStorage.setItem(NEED_LOGIN_ITEM_NAME, flag + '');
     }
 }
 

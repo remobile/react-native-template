@@ -24,7 +24,7 @@ module.exports = React.createClass({
         );
     },
     onPressRow (obj) {
-        Toast(''+obj);
+        Toast('' + obj);
     },
     onChange (obj) {
         console.log('onChange', obj);
@@ -39,7 +39,7 @@ module.exports = React.createClass({
                     vertical={vertical}
                     width={vertical ? 180 : sr.tw}
                     height={vertical ? sr.th / 2 : 150}
-                    loop={true}
+                    loop
                     onPress={this.onPressRow}
                     onChange={this.onChange}
                     renderRow={this.renderRow}

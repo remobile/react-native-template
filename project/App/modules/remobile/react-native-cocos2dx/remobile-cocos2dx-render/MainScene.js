@@ -8,14 +8,14 @@ var MainScene = cc.Scene.extend({
         sprite.setScale(0.8);
         this.addChild(sprite, 0);
 
-        var sprite = cc.Sprite.create(res.img.main_arrow);
+        sprite = cc.Sprite.create(res.img.main_arrow);
         sprite.setPosition(size.width / 2, size.height / 2);
         sprite.setScale(0.8);
         this.addChild(sprite, 0);
 
-        var label = cc.LabelTTF.create("Hello World", "Arial", 40);
+        var label = cc.LabelTTF.create('Hello World', 'Arial', 40);
         label.setPosition(size.width / 2, size.height / 2 + 200);
-        label.setColor(255, 0,255);
+        label.setColor(255, 0, 255);
         this.addChild(label, 1);
-    }
+    },
 });

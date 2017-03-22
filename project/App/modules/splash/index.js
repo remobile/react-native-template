@@ -36,12 +36,13 @@ module.exports = React.createClass({
             context['phone'] = app.personal.info.phone;
             app.personal.set(context);
             this.changeToHomePage();
+            app.personal.setNeedLogin(false);
         } else {
             this.getInfoError();
         }
     },
     getInfoError () {
-        app.personal.clear();
+        app.personal.setNeedLogin(true);
         this.changeToLoginPage();
     },
     enterLoginPage (needHideSplashScreen) {
@@ -52,7 +53,7 @@ module.exports = React.createClass({
     },
     changeToLoginPage () {
         if (app.updateMgr.needShowSplash) {
-            this.setState({ renderSplashType: 1 }, ()=>{
+            this.setState({ renderSplashType: 1 }, () => {
                 SplashScreen.hide();
             });
         } else {
@@ -67,7 +68,7 @@ module.exports = React.createClass({
     },
     changeToHomePage () {
         if (app.updateMgr.needShowSplash) {
-            this.setState({ renderSplashType: 2 }, ()=>{
+            this.setState({ renderSplashType: 2 }, () => {
                 SplashScreen.hide();
             });
         } else {
@@ -83,15 +84,15 @@ module.exports = React.createClass({
         }
     },
     changeToNextPage () {
-        if (app.personal.info) {
-            this.doGetPersonalInfo();
-        } else {
+        if (app.personal.needLogin) {
             this.changeToLoginPage();
+        } else {
+            this.doGetPersonalInfo();
         }
     },
     componentDidMount () {
         app.utils.until(
-            () => app.updateMgr.initialized && app.navigator,
+            () => app.personal.initialized && app.updateMgr.initialized && app.navigator,
             (cb) => setTimeout(cb, 100),
             () => this.changeToNextPage()
         );
@@ -99,24 +100,24 @@ module.exports = React.createClass({
     componentWillUnmount () {
         app.updateMgr.checkUpdate();
     },
-    onLayout(e) {
-        var {height} = e.nativeEvent.layout;
+    onLayout (e) {
+        var { height } = e.nativeEvent.layout;
         if (this.state.height !== height) {
             this.heightHasChange = !!this.state.height;
             this.setState({ height });
         }
     },
     renderSwiperSplash () {
-        const {height} = this.state;
-        const marginBottom = (!this.heightHasChange || Math.floor(height)===Math.floor(sr.th)) ? 0 : 30;
+        const { height } = this.state;
+        const marginBottom = (!this.heightHasChange || Math.floor(height) === Math.floor(sr.th)) ? 0 : 30;
         return (
-            <View style={{flex: 1}} onLayout={this.onLayout}>
+            <View style={{ flex: 1 }} onLayout={this.onLayout}>
                 {
                     height &&
                     <Swiper
                         paginationStyle={styles.paginationStyle}
-                        dot={<View style={{ backgroundColor:'#FFFCF4', width: 8, height: 8, borderRadius: 4, marginLeft: 8, marginRight: 8, marginBottom}} />}
-                        activeDot={<View style={{ backgroundColor:'#FFCD53', width: 16, height: 8, borderRadius: 4, marginLeft: 8, marginRight: 8, marginBottom}} />}
+                        dot={<View style={{ backgroundColor:'#FFFCF4', width: 8, height: 8, borderRadius: 4, marginLeft: 8, marginRight: 8, marginBottom }} />}
+                        activeDot={<View style={{ backgroundColor:'#FFCD53', width: 16, height: 8, borderRadius: 4, marginLeft: 8, marginRight: 8, marginBottom }} />}
                         height={height}
                         loop={false}>
                         {
@@ -126,7 +127,7 @@ module.exports = React.createClass({
                                         key={i}
                                         resizeMode='stretch'
                                         source={app.img['splash_splash' + i]}
-                                        style={[styles.bannerImage, {height}]}>
+                                        style={[styles.bannerImage, { height }]}>
                                         {
                                             i === 4 &&
                                             <TouchableOpacity

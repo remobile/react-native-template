@@ -13,25 +13,23 @@ var GameOver = cc.Layer.extend({
         layer.y = size.height / 2;
         this.addChild(layer);
 
-
         var RestartBtn = new cc.MenuItemSprite(
             new cc.Sprite(res.img.main_restart), // normal state image
-            new cc.Sprite(res.img.main_restart), //select state image
+            new cc.Sprite(res.img.main_restart), // select state image
             this.onRestart, this);
         var HomeBtn = new cc.MenuItemSprite(
             new cc.Sprite(res.img.main_home), // normal state image
-            new cc.Sprite(res.img.main_home), //select state image
+            new cc.Sprite(res.img.main_home), // select state image
             this.onHome, this);
 
-        var ResBtn = new cc.Menu(RestartBtn);  //7. create the menu
+        var ResBtn = new cc.Menu(RestartBtn);  // 7. create the menu
         ResBtn.setPosition(size.width / 2 - 100, size.height / 2 - 100);
         this.addChild(ResBtn);
 
-        var HomBtn = new cc.Menu(HomeBtn);  //7. create the menu
+        var HomBtn = new cc.Menu(HomeBtn);  // 7. create the menu
         HomBtn.setPosition(size.width / 2 + 100, size.height / 2 - 100);
         this.addChild(HomBtn);
         return true;
-
     }, onRestart: function () {
         this.removeFromParent(true);
         var scene = new cc.Scene();
@@ -46,10 +44,10 @@ var GameOver = cc.Layer.extend({
     },
     onHome: function () {
         if (cc.sendMessage) {
-            cc.sendMessage({type: 'exit'});
+            cc.sendMessage({ type: 'exit' });
         } else {
             this.removeFromParent(true);
             cc.director.runScene(new MenuViewScene());
         }
-    }
+    },
 });

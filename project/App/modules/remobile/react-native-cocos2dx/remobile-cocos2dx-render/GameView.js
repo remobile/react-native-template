@@ -1,15 +1,14 @@
-//背景 size
+// 背景 size
 var bgSize = null;
-//小人
+// 小人
 var person = null;
-//下面黑色的size
+// 下面黑色的size
 var sbSize = null;
 
 var guideTextPic = null;
-var npcNormal=null;
+var npcNormal = null;
 
-
-//显示分数的
+// 显示分数的
 var ScoreText;
 var score;
 
@@ -18,28 +17,25 @@ var preBlackXOffset = 0;
 
 var stickObject = null;
 
-
 var GameLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
-    }
+    },
 });
 
 var getAnimate = function (spriteName, frameCount, duration) {
     var animFrames = [];
-    var str = "";
+    var str = '';
     var frame;
     var cache = cc.spriteFrameCache;
     for (var i = 1; i < frameCount; i++) {
-        str = spriteName + i + ".png";
+        str = spriteName + i + '.png';
         frame = cache.getSpriteFrame(str);
         animFrames.push(frame);
     }
     var animation = new cc.Animation(animFrames, duration);
     return cc.animate(animation);
 };
-
-
 
 var personControl = {
     initRes: function (layer) {
@@ -55,24 +51,24 @@ var personControl = {
         layer.addChild(person);
     },
     yao: function () {
-        var ani = getAnimate("d000", 10, 0.1);
+        var ani = getAnimate('d000', 10, 0.1);
         person.stopAllActions();
         person.runAction(ani.repeatForever());
     },
     walk: function (time) {
-        var ani = getAnimate("z000", 10, time);
+        var ani = getAnimate('z000', 10, time);
         person.stopAllActions();
         person.runAction(ani.repeatForever());
     },
     shake: function () {
-        var ani = getAnimate("dq000", 10, 0.1);
+        var ani = getAnimate('dq000', 10, 0.1);
         person.stopAllActions();
         person.runAction(ani.repeatForever());
-    }
+    },
 
 };
 
-//根据不同的value 获取不同的背景图片
+// 根据不同的value 获取不同的背景图片
 var GameViewBackground = cc.Layer.extend({
     ctor: function () {
         this._super();
@@ -80,31 +76,26 @@ var GameViewBackground = cc.Layer.extend({
         var num = parseInt(cc.random0To1() * 3);
         var name;
         switch (num) {
-            case 0:
-            {
+            case 0: {
                 name = res.img.main_background0;
-            }
                 break;
-            case 1:
-            {
+            }
+            case 1: {
                 name = res.img.main_background1;
-            }
                 break;
-            case 2:
-            {
+            }
+            case 2: {
                 name = res.img.main_background2;
-            }
                 break;
-            case 3:
-            {
+            }
+            case 3: {
                 name = res.img.main_background3;
-            }
                 break;
-            default :
-            {
+            }
+            default : {
                 name = res.img.main_background0;
-            }
                 break;
+            }
         }
         var bg = new cc.Sprite(name);
         bg.setPosition(bgSize.width / 2, bgSize.height / 2);
@@ -117,7 +108,7 @@ var GameViewBackground = cc.Layer.extend({
         scoreBg.y = bgSize.height / 2 + 300;
         this.addChild(scoreBg, 1);
 
-        ScoreText = new cc.LabelTTF("", "宋体", 46);
+        ScoreText = new cc.LabelTTF('', '宋体', 46);
         ScoreText.setPosition(cc.p(bgSize.width / 2, bgSize.height / 2 + 300));
         ScoreText.setColor(cc.color(255, 255, 255));
         this.addChild(ScoreText, 2);
@@ -127,9 +118,8 @@ var GameViewBackground = cc.Layer.extend({
         guideTextPic.setPosition(bgSize.width / 2, bgSize.height / 2 + 220);
         this.addChild(guideTextPic, 2);
         guideTextPic.setVisible(false);
-    }
+    },
 });
-
 
 var GameView = cc.Layer.extend({
     self: null,
@@ -151,7 +141,7 @@ var GameView = cc.Layer.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan,
-            onTouchEnded: this.onTouchEnded
+            onTouchEnded: this.onTouchEnded,
         }, this);
     },
     startGame: function () {
@@ -162,12 +152,10 @@ var GameView = cc.Layer.extend({
         gameViewXOffset = -_width / 2 + bgSize.width / 2;
         preBlackXOffset = _width;
         this.runAction(cc.sequence(cc.moveBy(0.2, cc.p(-gameViewXOffset, 100))));
-        //this.npcRun(0.1);
+        // this.npcRun(0.1);
         personControl.walk(0.1);
-        person.runAction
-        (
-            cc.sequence
-            (
+        person.runAction(
+            cc.sequence(
                 cc.moveBy(0.2, cc.p(_width / 2 - 28, 0)),
                 cc.callFunc(this.personYao, this),
                 cc.callFunc(this.addBlock, this)
@@ -176,7 +164,6 @@ var GameView = cc.Layer.extend({
         if (guideTextPic != null) {
             guideTextPic.setVisible(true);
         }
-
     },
     addBlock: function () {
         self._start = true;
@@ -198,22 +185,20 @@ var GameView = cc.Layer.extend({
         this.addChild(stickBlack);
 
         var _offset = bgSize.width - preBlackXOffset;
-//			var flag1 = (cc.random0To1()+1)/4;
+        // var flag1 = (cc.random0To1()+1)/4;
         var flag1 = (cc.random0To1() + 0.6) / 2;
         currBlackXOffset = flag;
         betweenXOffset = flag1 * _offset;
 
-        stickBlack.runAction
-        (
+        stickBlack.runAction(
             cc.sequence(cc.moveBy(0.05, cc.p(-betweenXOffset, 0)))
         );
-
     },
     personYao: function () {
         personControl.yao();
     },
     onTouchBegan: function (touch, event) {
-        cc.log("touch begin");
+        cc.log('touch begin');
         if (self._start) {
             self.startSchedule();
             return true;
@@ -230,32 +215,29 @@ var GameView = cc.Layer.extend({
     stopSchedule: function () {
         this.unschedule(this.upDateBlack);
         self._start = false;
-        stickObject.runAction
-        (
-            cc.sequence
-            (
+        stickObject.runAction(
+            cc.sequence(
                 cc.delayTime(0.3),
                 cc.rotateBy(0.1, 90),
                 cc.callFunc(this.rotateEnd, this)
             )
         );
-
     }, upDateBlack: function () {
         var scaleY = stickObject.getScaleY();
         stickObject.setScaleY(scaleY + 0.07);
     }, rotateEnd: function () {
         var uSize = stickObject.getContentSize();
         var finalHeight = stickObject.getScaleY() * uSize.height;
-        //判断是否可以通过,
+        // 判断是否可以通过,
         var offsetll = (betweenXOffset + preBlackXOffset);
         var result = bgSize.width - offsetll;
         if (result + 5 <= finalHeight && (result + currBlackXOffset >= finalHeight)) {
-            //成功
-            cc.log("fuck ok");
-//	    		preBlackXOffset = currBlackXOffset;
+            // 成功
+            cc.log('fuck ok');
+            // preBlackXOffset = currBlackXOffset;
             this.next(result + currBlackXOffset);
         } else {
-            //失败
+            // 失败
             if (result + currBlackXOffset < finalHeight) {
                 this.gameOver(result + currBlackXOffset + 50);
             } else {
@@ -264,20 +246,18 @@ var GameView = cc.Layer.extend({
         }
     },
     gameOver: function (offset) {
-        cc.log("over.....");
+        cc.log('over.....');
         var flag = offset / 500;
         this.npcRun(flag / 30);
-        person.runAction
-        (
-            cc.sequence
-            (
+        person.runAction(
+            cc.sequence(
                 cc.moveBy(flag, cc.p(offset, 0)),
                 cc.callFunc(this.gameFaile, this)
             )
         );
     },
-    npcRun:function(flag){
-        //NPC移动
+    npcRun:function (flag) {
+        // NPC移动
         personControl.walk(flag);
     },
     nextBlack: function () {
@@ -285,62 +265,55 @@ var GameView = cc.Layer.extend({
         ScoreText.setString(score);
         personControl.yao();
 
-        if (score > cc.sys.localStorage.getItem("best_score")) {
-            cc.sys.localStorage.setItem("best_score", score);
+        if (score > cc.sys.localStorage.getItem('best_score')) {
+            cc.sys.localStorage.setItem('best_score', score);
         }
-//	    	var u_score = cc.sys.localStorage.getItem("u_score");
-//	    	cc.log("u_score = "+u_score);
+        // var u_score = cc.sys.localStorage.getItem("u_score");
+        // cc.log("u_score = "+u_score);
 
-        //this.npcYao();
-        preBlackXOffset = currBlackXOffset+40;
-        var result = bgSize.width - (betweenXOffset)-40;
+        // this.npcYao();
+        preBlackXOffset = currBlackXOffset + 40;
+        var result = bgSize.width - (betweenXOffset) - 40;
         gameViewXOffset += result;
-        this.runAction
-        (
-            cc.sequence
-            (
+        this.runAction(
+            cc.sequence(
                 cc.moveBy(0.3, cc.p(-result, 0)),
                 cc.callFunc(this.addBlock, this)
             )
         );
     },
-    gameFaile:function(){
+    gameFaile:function () {
         //
-        //this.npcYao();
-        person.runAction
-        (
-            cc.sequence
-            (
+        // this.npcYao();
+        person.runAction(
+            cc.sequence(
                 cc.moveTo(0.3, cc.p(person.getPositionX(), -200)),
                 cc.callFunc(this.addGameFailView, this)
             )
         );
-        stickObject.runAction
-        (
+        stickObject.runAction(
             cc.sequence(cc.rotateBy(0.1, 90))
         );
     },
-    addGameFailView:function(){
-        //添加重新开始界面
+    addGameFailView:function () {
+        // 添加重新开始界面
         var gameOverLayer = new GameOver();
         gameOverLayer.x = gameViewXOffset;
         gameOverLayer.y = -100;
-        //gameOverLayer.showScore(Score);
+        // gameOverLayer.showScore(Score);
         this.addChild(gameOverLayer);
     },
 
     next: function (value) {
-        cc.log("fuck value is " + value);
+        cc.log('fuck value is ' + value);
         var flag = value / 500;
         personControl.walk(flag / 30);
-        person.runAction
-        (
-            cc.sequence
-            (
+        person.runAction(
+            cc.sequence(
                 cc.moveBy(flag, cc.p(value, 0)),
                 cc.callFunc(this.nextBlack, this)
             )
         );
-    }
+    },
 
 });

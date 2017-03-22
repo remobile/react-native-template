@@ -20,26 +20,25 @@ module.exports = React.createClass({
         this.webview.postMessage('I am from react');
         this.webview.postMessage('I am from react1');
     },
-    onMessage(e) {
+    onMessage (e) {
         console.log(e.nativeEvent.data);
     },
     render () {
         return (
-            <View style={{flex: 1, paddingTop: 60}}>
+            <View style={{ flex: 1, paddingTop: 60 }}>
                 <Button onPress={this.test}>测试</Button>
                 <WebView
-                    ref={(ref)=>{this.webview=ref}}
+                    ref={(ref) => { this.webview = ref; }}
                     onMessage={this.onMessage}
-                    javaScriptEnabled={true}
-                    source={{html: `
+                    javaScriptEnabled
+                    source={{ html: `
                         <script>
                             document.addEventListener('message', function(e) {
                                 window.postMessage(e.data + '[back]');
                                 window.postMessage(e.data + '[back]');
                                 window.postMessage(e.data + '[back]');
                             });
-                        </script>`}
-                    }
+                        </script>` }}
                     />
             </View>
         );

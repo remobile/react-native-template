@@ -12,10 +12,10 @@ var Cocos2dx = require('@remobile/react-native-cocos2dx');
 var resource = require('./remobile_cocos2dx_resource.js');
 var render = require('./remobile_cocos2dx_render.js');
 module.exports = React.createClass({
-    componentWillMount() {
+    componentWillMount () {
         app.toggleNavigationBar(false);
     },
-    onCocos2dxMessage(data) {
+    onCocos2dxMessage (data) {
         if (data.type === 'exit') {
             app.toggleNavigationBar(true);
             app.navigator.pop();
@@ -25,7 +25,7 @@ module.exports = React.createClass({
         return (
             <View style={styles.container}>
                 <Cocos2dx
-                    scene="MenuViewScene"
+                    scene='MenuViewScene'
                     onCocos2dxMessage={this.onCocos2dxMessage}
                     render={render}
                     resource={resource}
@@ -39,6 +39,6 @@ module.exports = React.createClass({
 
 var styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
 });
