@@ -27,6 +27,8 @@ mv ${project_old}/ios/JFBSample.xcodeproj/xcuserdata ${backup}/xcuserdata
 
 cp -r ${project_old} ${project_new}
 pushd ${project_new}
+xfind -n "*${oldname}*" -r "${oldname}:${newname}"
+xfind -n "*${loldname}*" -r "${loldname}:${lnewname}"
 xfind -t "${oldname}" -v "-c \"%s/${oldname}/${newname}/g\""
 xfind -t "${loldname}" -v "-c \"%s/${loldname}/${lnewname}/g\""
 popd

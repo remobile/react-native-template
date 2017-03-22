@@ -10,6 +10,7 @@
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-fs": "git://github.com/remobile/react-native-fs.git",
     "react-native-picker": "^4.0.18",
+    "react-native-swiper": "^1.5.4",
     "react-native-tab-navigator": "^0.3.3",
     "react-native-webview-bridge": "^0.33.0"
   }
