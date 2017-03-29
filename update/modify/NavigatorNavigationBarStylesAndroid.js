@@ -29,6 +29,7 @@
 var buildStyleInterpolator = require('buildStyleInterpolator');
 var merge = require('merge');
 
+// Android Material Design
 var NAV_BAR_HEIGHT = 56;
 var Dimensions = require('Dimensions');
 var _height = Dimensions.get('window').height;
