@@ -6,8 +6,8 @@ curdir=`pwd`
 for dir in ${dirs[@]};do
     [ $dir = "tools" ]&&continue
     echo ===============================${dir}=============================
-    cd ${curdir}/${dir}
-    git diff
+    git ci -m "eslint code"
+    git pu
     cd ${curdir}
     echo
     echo
