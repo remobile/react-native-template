@@ -1,22 +1,22 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
+const React = require('react');
+const ReactNative = require('react-native');
 
-var {
+const {
     StyleSheet,
     View,
     Text,
     Image,
 } = ReactNative;
 
-var MainToast = require('@remobile/react-native-toast');
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var Button = require('@remobile/react-native-simple-button');
-var Capture = require('@remobile/react-native-capture');
-var BaiduMap = require('react-native-baidu-map');
+const MainToast = require('@remobile/react-native-toast');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const Button = require('@remobile/react-native-simple-button');
+const Capture = require('@remobile/react-native-capture');
+const BaiduMap = require('react-native-baidu-map');
 
-var {
+const {
     MapView,
     MapTypes,
     MapModule,

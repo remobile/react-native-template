@@ -1,14 +1,14 @@
 'use strict';
 
-var EventEmitter = require('EventEmitter');
-var Native = require('../native/index.js');
+const EventEmitter = require('EventEmitter');
+const Native = require('../native/index.js');
 
-var winCoinPrice = 0.01;
+let winCoinPrice = 0.01;
 
 class Manager extends EventEmitter {
     createWinCoinOrder (winCoinIDValue, price) {
         winCoinPrice = price;
-        var param = {
+        const param = {
             userID: app.personal.info.userID,
             winCoinID: winCoinIDValue,
         };
@@ -22,7 +22,7 @@ class Manager extends EventEmitter {
         }
     }
     getaliPayInfo (subject, orderNo, price) {
-        var param = {
+        const param = {
         };
         this.subject = subject;
         this.tradeNo = orderNo;
@@ -31,7 +31,7 @@ class Manager extends EventEmitter {
     }
     getaliPayInfoSuccess (data) {
         if (data.success) {
-            var context = data.context;
+            const context = data.context;
             this.partner = context.alipayPID;
             this.seller = context.alipayName;
             this.privateKey = context.alipayPrivateKey;
@@ -59,7 +59,7 @@ class Manager extends EventEmitter {
     * function(errorResults){} 是失败之后的回调函数
     */
     doPay () {
-        var obj = {
+        const obj = {
             partner: this.partner,
             seller: this.seller,
             privateKey: this.privateKey,

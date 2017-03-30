@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     Text,
     Animated,
@@ -9,7 +9,7 @@ var {
     TouchableHighlight,
 } = ReactNative;
 
-var Button = require('./Button.js');
+const Button = require('./Button.js');
 
 module.exports = React.createClass({
     getDefaultProps: function () {
@@ -84,7 +84,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     buttonViewStyle: {
         flexDirection: 'row',
         width: sr.w * 5 / 6 - 20,

@@ -1,13 +1,13 @@
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
 } = ReactNative;
 
-var Dialogs = require('@remobile/react-native-dialogs');
-var Button = require('@remobile/react-native-simple-button');
-var alert = Dialogs.alert;
+const Dialogs = require('@remobile/react-native-dialogs');
+const Button = require('@remobile/react-native-simple-button');
+const alert = Dialogs.alert;
 
 module.exports = React.createClass({
     testAlert () {
@@ -54,7 +54,7 @@ module.exports = React.createClass({
         Dialogs.progressStart('fang', 'fangyunjiang');
     },
     render () {
-        var additional = app.isandroid ? [
+        const additional = app.isandroid ? [
             <Button onPress={this.testActivityStart} key='testActivityStart'>
                 Test ActivityStart
             </Button>,
@@ -82,7 +82,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-around',

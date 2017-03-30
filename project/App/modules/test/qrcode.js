@@ -11,7 +11,7 @@ import BarcodeScanner from 'react-native-camera';
 
 module.exports = React.createClass({
     onBarCodeRead (code) {
-        var { data } = code;
+        const { data } = code;
         Toast(data);
         Vibration.vibrate();
         app.navigator.pop();
@@ -46,9 +46,9 @@ module.exports = React.createClass({
     },
 });
 
-var OVERLAY = 'rgba(0, 0, 0, 0.2)';
-var BORDER = 2;
-var styles = StyleSheet.create({
+const OVERLAY = 'rgba(0, 0, 0, 0.2)';
+const BORDER = 2;
+const styles = StyleSheet.create({
     container: {
         flex: 1,
     },

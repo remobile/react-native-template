@@ -1,13 +1,13 @@
 'use strict';
 
-var { NativeAppEventEmitter, DeviceEventEmitter, Platform } = require('react-native');
-var EventEmitter = require('EventEmitter');
-var Wxpay = require('../native/index.js').WeixinPay;
-var gEventEmitter = Platform.OS === 'android' ? DeviceEventEmitter : NativeAppEventEmitter;
+const { NativeAppEventEmitter, DeviceEventEmitter, Platform } = require('react-native');
+const EventEmitter = require('EventEmitter');
+const Wxpay = require('../native/index.js').WeixinPay;
+const gEventEmitter = Platform.OS === 'android' ? DeviceEventEmitter : NativeAppEventEmitter;
 
 class Manager extends EventEmitter {
     createWinCoinOrder (winCoinIDValue) {
-        var param = {
+        const param = {
             userID: app.personal.info.userID,
             winCoinID: winCoinIDValue,
         };
@@ -21,7 +21,7 @@ class Manager extends EventEmitter {
         }
     }
     getWXPayInfo (userID, orderNo) {
-        var param = {
+        const param = {
             userId:userID,
             orderNo:orderNo,
         };

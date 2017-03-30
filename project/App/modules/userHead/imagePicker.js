@@ -1,15 +1,15 @@
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     Text,
     View,
     Image,
 } = ReactNative;
 
-var CameraRollPicker = require('@remobile/react-native-camera-roll-picker');
-var Camera = require('@remobile/react-native-camera');
-var ImageCrop = require('./imageCrop');
+const CameraRollPicker = require('@remobile/react-native-camera-roll-picker');
+const Camera = require('@remobile/react-native-camera');
+const ImageCrop = require('./imageCrop');
 
 module.exports = React.createClass({
     statics: {

@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
 } = ReactNative;
 
-var Native = require('../../native/index.js');
-var { Button } = COMPONENTS;
+const Native = require('../../native/index.js');
+const { Button } = COMPONENTS;
 
 module.exports = React.createClass({
     createWinCoinOrder () {
-        var param = {
+        const param = {
             userID: '56e656d10cf2b97fb6c3b779',
             winCoinID: '56e6314c0cf2a703c3fe7346',
         };
@@ -26,13 +26,13 @@ module.exports = React.createClass({
         }
     },
     getaliPayInfo () {
-        var param = {
+        const param = {
         };
         POST(app.route.ROUTE_GET_ALIPAY_INFO, param, this.getaliPayInfoSuccess);
     },
     getaliPayInfoSuccess (data) {
         if (data.success) {
-            var context = data.context;
+            const context = data.context;
             this.partner = context.alipayPID;
             this.seller = context.alipayName;
             this.privateKey = context.alipayPrivateKey;
@@ -54,7 +54,7 @@ module.exports = React.createClass({
     * function(errorResults){} 是失败之后的回调函数
     */
     doPay () {
-        var obj = {
+        const obj = {
             partner: this.partner,
             seller: this.seller,
             privateKey: this.privateKey,
@@ -76,7 +76,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',

@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     KeyboardAvoidingView,
     Modal,
     SegmentedControlIOS,
@@ -15,8 +15,8 @@ var {
 } = ReactNative;
 
 import { GiftedChat } from 'react-native-gifted-chat';
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var Button = require('@remobile/react-native-simple-button');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const Button = require('@remobile/react-native-simple-button');
 
 module.exports = React.createClass({
     componentWillMount () {

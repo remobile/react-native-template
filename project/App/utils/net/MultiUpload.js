@@ -1,12 +1,12 @@
 'use strict';
 
-var Des = require('@remobile/react-native-des');
-var FileUpload = require('NativeModules').FileUpload;
-var KEY = CONSTANTS.DES_KEY;
+const Des = require('@remobile/react-native-des');
+const FileUpload = require('NativeModules').FileUpload;
+const KEY = CONSTANTS.DES_KEY;
 
 function MULTIUPLOAD (files, url, parameter, onprogress, success, failed, wait) {
     console.log('send:', url, parameter);
-    var obj = {
+    const obj = {
         uploadUrl: url,
         method: 'POST', // default 'POST',support 'POST' and 'PUT'
         headers: {
@@ -24,12 +24,12 @@ function MULTIUPLOAD (files, url, parameter, onprogress, success, failed, wait) 
         app.showProgressHud();
     }
     Des.encrypt(JSON.stringify(parameter), KEY, function (base64) {
-        var param = base64;
+        const param = base64;
         FileUpload.upload(obj, function (err, result) {
             console.log('upload:', obj, err, result);
-            var base64 = result.data;
+            const base64 = result.data;
             Des.decrypt(base64, KEY, function (jsonString) {
-                var json = {};
+                let json = {};
                 try {
                     json = JSON.parse(jsonString);
                 } catch (error) {

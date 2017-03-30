@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
 } = ReactNative;
 
-var CardSwiper = require('@remobile/react-native-card-swiper');
+const CardSwiper = require('@remobile/react-native-card-swiper');
 
 module.exports = React.createClass({
     getDefaultProps: function () {
@@ -49,7 +49,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 100,

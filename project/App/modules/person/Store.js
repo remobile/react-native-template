@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
@@ -10,7 +10,7 @@ var {
     ListView,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
+const Button = require('@remobile/react-native-simple-button');
 module.exports = React.createClass({
     statics: {
         title: '查看存储',
@@ -23,10 +23,10 @@ module.exports = React.createClass({
     },
     doShowList () {
         (async () => {
-            var list = [];
-            var keys = await AsyncStorage.getAllKeys();
-            for (var key of keys) {
-                var obj = await AsyncStorage.getItem(key);
+            const list = [];
+            const keys = await AsyncStorage.getAllKeys();
+            for (let key of keys) {
+                const obj = await AsyncStorage.getItem(key);
                 console.log(key, JSON.parse(obj));
                 list.push(key + ': ' + obj);
             }
@@ -34,9 +34,9 @@ module.exports = React.createClass({
         })();
     },
     doShowKeys () {
-        var list = [];
+        let list = [];
         (async () => {
-            var keys = await AsyncStorage.getAllKeys();
+            const keys = await AsyncStorage.getAllKeys();
             console.log(keys);
             list = keys;
             this.setState({ dataSource: this.ds.cloneWithRows(list) });
@@ -49,8 +49,8 @@ module.exports = React.createClass({
     },
     doClearAll () {
         (async () => {
-            var list = await AsyncStorage.getAllKeys();
-            for (var i in list) {
+            const list = await AsyncStorage.getAllKeys();
+            for (let i in list) {
                 await AsyncStorage.removeItem(list[i]);
             }
         })();
@@ -89,7 +89,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
     },

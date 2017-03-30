@@ -1,6 +1,6 @@
 'use strict';
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     Navigator,
     PixelRatio,
     StyleSheet,
@@ -11,12 +11,12 @@ var {
 } = ReactNative;
 
 import TabNavigator from 'react-native-tab-navigator';
-var Test = require('../test');
-var Remobile = require('../remobile');
-var Empty = require('./Empty.js');
+const Test = require('../test');
+const Remobile = require('../remobile');
+const Empty = require('./Empty.js');
 
-var INIT_ROUTE_INDEX = 0;
-var ROUTE_STACK = [
+const INIT_ROUTE_INDEX = 0;
+const ROUTE_STACK = [
     { index: 0, component:  Test },
     { index: 1, component: Remobile },
     { index: 2, component: Empty },
@@ -26,10 +26,10 @@ if (CONSTANTS.ISSUE_IOS) {
     _.remove(ROUTE_STACK, (o) => o.index === 3);
 }
 
-var HomeTabBar = React.createClass({
+const HomeTabBar = React.createClass({
     componentWillMount () {
         app.showMainScene = (i) => {
-            var { title, leftButton, rightButton } = _.find(ROUTE_STACK, (o) => o.index === i).component;
+            const { title, leftButton, rightButton } = _.find(ROUTE_STACK, (o) => o.index === i).component;
             Object.assign(app.getCurrentRoute().component, {
                 title: title,
                 leftButton: leftButton,
@@ -52,11 +52,11 @@ var HomeTabBar = React.createClass({
         };
     },
     handleWillFocus (route) {
-        var tabIndex = route.index;
+        const tabIndex = route.index;
         this.setState({ tabIndex });
     },
     render () {
-        var menus = [
+        const menus = [
             { index: 0, title: '首页', icon: app.img.home_home, selected: app.img.home_home_press },
             { index: 1, title: 'Remobile', icon: app.img.home_remobile, selected: app.img.home_remobile_press },
             { index: 2, title: '测试', icon: app.img.home_test, selected: app.img.home_test_press },
@@ -65,7 +65,7 @@ var HomeTabBar = React.createClass({
         if (CONSTANTS.ISSUE_IOS) {
             _.remove(menus, (o) => o.index === 3);
         }
-        var TabNavigatorItems = menus.map((item) => {
+        const TabNavigatorItems = menus.map((item) => {
             return (
                 <TabNavigator.Item
                     key={item.index}
@@ -129,19 +129,19 @@ module.exports = React.createClass({
                 initialRouteStack={ROUTE_STACK}
                 renderScene={this.renderScene}
                 onDidFocus={(route) => {
-                    var ref = this.scene = app.scene = route.ref;
+                    const ref = this.scene = app.scene = route.ref;
                     ref && ref.onDidFocus && ref.onDidFocus();
                 }}
                 onWillFocus={(route) => {
                     if (this._navigator) {
-                        var { routeStack, presentedIndex } = this._navigator.state;
-                        var preRoute = routeStack[presentedIndex];
+                        const { routeStack, presentedIndex } = this._navigator.state;
+                        const preRoute = routeStack[presentedIndex];
                         if (preRoute) {
-                            var preRef = preRoute.ref;
+                            const preRef = preRoute.ref;
                             preRef && preRef.onWillHide && preRef.onWillHide();
                         }
                     }
-                    var ref = route.ref;
+                    const ref = route.ref;
                     ref && ref.onWillFocus && ref.onWillFocus(true); // 注意：因为有initialRouteStack，在mounted的时候所有的页面都会加载，因此只有第一个页面首次不会调用，需要在componentDidMount中调用，其他页面可以调用
                 }}
                 configureScene={(route) => ({
@@ -160,7 +160,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         overflow: 'hidden',
         flex: 1,

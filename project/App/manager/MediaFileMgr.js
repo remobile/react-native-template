@@ -1,14 +1,14 @@
 'use strict';
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     AsyncStorage,
     Platform,
 } = ReactNative;
-var moment = require('moment');
-var EventEmitter = require('EventEmitter');
-var fs = require('react-native-fs');
+const moment = require('moment');
+const EventEmitter = require('EventEmitter');
+const fs = require('react-native-fs');
 
-var DocumentPath = Platform.OS === 'android' ? fs.ExternalStorageDirectoryPath + '/mediaRecodes/' : fs.DocumentDirectoryPath + '/mediaRecodes/';
+const DocumentPath = Platform.OS === 'android' ? fs.ExternalStorageDirectoryPath + '/mediaRecodes/' : fs.DocumentDirectoryPath + '/mediaRecodes/';
 console.log(DocumentPath);
 
 const ITEM_NAME = 'mediaRecordeFiles';
@@ -21,17 +21,17 @@ class Manager extends EventEmitter {
     }
     get () {
         return new Promise(async(resolve, reject) => {
-            var data = {};
-            var index = 0;
+            let data = {};
+            let index = 0;
             try {
-                var nameStr = await AsyncStorage.getItem(ITEM_NAME);
+                const nameStr = await AsyncStorage.getItem(ITEM_NAME);
                 data = JSON.parse(nameStr || '{}');
             } catch (e) {
                 data = {};
             }
             this.data = data;
             try {
-                var indexStr = await AsyncStorage.getItem(ITEM_NAME_INDEX);
+                const indexStr = await AsyncStorage.getItem(ITEM_NAME_INDEX);
                 index = JSON.parse(indexStr || '0');
             } catch (e) {
                 index = 0;
@@ -56,16 +56,16 @@ class Manager extends EventEmitter {
     addMediaFile (path, isImage) {
         return new Promise(async(resolve, reject) => {
             this.index++;
-            var expandName = path.replace(/^.*(\..*)$/, '$1');
+            const expandName = path.replace(/^.*(\..*)$/, '$1');
             await AsyncStorage.setItem(ITEM_NAME_INDEX, JSON.stringify(this.index));
-            var item = {
+            const item = {
                 mediaId: this.index,
                 url: DocumentPath + this.index + expandName,
                 local: true,
             };
             await fs.copyFile(path, item.url);
-            var taskItem = this.tempItem;
-            var list = isImage ? taskItem.images : taskItem.videos;
+            const taskItem = this.tempItem;
+            const list = isImage ? taskItem.images : taskItem.videos;
             list.push(item);
             resolve(list);
         });
@@ -75,7 +75,7 @@ class Manager extends EventEmitter {
             if (noNeedChecked ? false : await fs.exists(url)) {
                 await fs.unlink(url);
             }
-            let taskItem = this.data[accusationId];
+            const taskItem = this.data[accusationId];
             if (taskItem) {
                 let list = isImage ? taskItem.images : taskItem.videos;
                 if (list) {

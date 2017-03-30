@@ -1,13 +1,13 @@
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Image,
 } = ReactNative;
 
-var Zip = require('@remobile/react-native-zip');
-var Button = require('@remobile/react-native-simple-button');
+const Zip = require('@remobile/react-native-zip');
+const Button = require('@remobile/react-native-simple-button');
 
 module.exports = React.createClass({
     testUnzip () {
@@ -28,7 +28,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-around',

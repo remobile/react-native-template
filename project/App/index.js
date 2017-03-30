@@ -2,8 +2,8 @@
 
 console.disableYellowBox = true;
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     Navigator,
     Platform,
@@ -25,19 +25,19 @@ global.UPLOAD = UPLOAD;
 global.MULTIUPLOAD = MULTIUPLOAD;
 global.COMPONENTS = require('./components/index.js');
 
-var TimerMixin = require('react-timer-mixin');
-var Utils = require('./utils/common/index.js');
-var Route = require('./config/Route.js');
-var img = require('./resource/image.js');
-var aud = require('./resource/audio.js');
-var PersonalInfoMgr = require('./manager/PersonalInfoMgr.js');
-var NetMgr = require('./manager/NetMgr.js');
-var UpdateMgr = require('./manager/UpdateMgr.js');
-// var JPushMgr = require('./manager/JPushMgr.js');
-var SettingMgr = require('./manager/SettingMgr.js');
-var LoginMgr = require('./manager/LoginMgr.js');
-var MediaFileMgr = require('./manager/MediaFileMgr.js');
-var { ProgressHud, DelayTouchableOpacity, Modal } = COMPONENTS;
+const TimerMixin = require('react-timer-mixin');
+const Utils = require('./utils/common/index.js');
+const Route = require('./config/Route.js');
+const img = require('./resource/image.js');
+const aud = require('./resource/audio.js');
+const PersonalInfoMgr = require('./manager/PersonalInfoMgr.js');
+const NetMgr = require('./manager/NetMgr.js');
+const UpdateMgr = require('./manager/UpdateMgr.js');
+// const JPushMgr = require('./manager/JPushMgr.js');
+const SettingMgr = require('./manager/SettingMgr.js');
+const LoginMgr = require('./manager/LoginMgr.js');
+const MediaFileMgr = require('./manager/MediaFileMgr.js');
+const { ProgressHud, DelayTouchableOpacity, Modal } = COMPONENTS;
 
 global.app = {
     route: Route,
@@ -63,7 +63,7 @@ global.SceneMixin = {
 
 app.configureScene = function (route) {
     route = route || {};
-    var sceneConfig = route.sceneConfig;
+    let sceneConfig = route.sceneConfig;
     if (sceneConfig) {
         return sceneConfig;
     }
@@ -83,17 +83,17 @@ app.configureScene = function (route) {
     return sceneConfig;
 };
 
-var Splash = require('./modules/test/index.js');
+const Splash = require('./modules/test/index.js');
 
-var NavigationBarRouteMapper = {
+const NavigationBarRouteMapper = {
     LeftButton (route, navigator, index, navState) {
-        var leftButton = route.leftButton || route.component.leftButton;
+        const leftButton = route.leftButton || route.component.leftButton;
         if (index === 0 && !leftButton) {
             return null;
         }
-        var image = leftButton && leftButton.image || app.img.common_back;
-        var title = leftButton && leftButton.title || '';
-        var handler = leftButton && leftButton.handler || navigator.pop;
+        const image = leftButton && leftButton.image || app.img.common_back;
+        const title = leftButton && leftButton.title || '';
+        const handler = leftButton && leftButton.handler || navigator.pop;
         if (image && !title) {
             return (
                 <DelayTouchableOpacity
@@ -118,7 +118,7 @@ var NavigationBarRouteMapper = {
         }
     },
     RightButton (route, navigator, index, navState) {
-        var rightButton = route.rightButton || route.component.rightButton;
+        const rightButton = route.rightButton || route.component.rightButton;
         if (!rightButton) {
             return <View style={styles.navBarRightEmptyButton} />;
         }
@@ -146,7 +146,7 @@ var NavigationBarRouteMapper = {
         }
     },
     Title (route, navigator, index, navState) {
-        var title = route.title || route.component.title;
+        const title = route.title || route.component.title;
         if (typeof title === 'string') {
             return (
                 <View style={styles.titleContainer}>
@@ -232,15 +232,15 @@ module.exports = React.createClass({
             });
         };
         app.getCurrentRoute = () => {
-            var { routeStack, presentedIndex } = app.navigator.state;
+            const { routeStack, presentedIndex } = app.navigator.state;
             return routeStack[presentedIndex];
         };
         app.pop = (step = 1) => {
             if (step === 1) {
                 app.navigator.pop();
             } else {
-                var routes = app.navigator.getCurrentRoutes();
-                var index = routes.length - step - 1;
+                const routes = app.navigator.getCurrentRoutes();
+                const index = routes.length - step - 1;
                 if (index > 0) {
                     app.navigator.popToRoute(routes[index]);
                 } else {
@@ -258,9 +258,9 @@ module.exports = React.createClass({
                     this.setState({ modalShow: false });
                     return true;
                 }
-                var routes = app.navigator.getCurrentRoutes();
+                const routes = app.navigator.getCurrentRoutes();
                 if (routes.length > 1) {
-                    var leftButton = routes[routes.length - 1].component.leftButton;
+                    const leftButton = routes[routes.length - 1].component.leftButton;
                     if (leftButton && leftButton.handler) {
                         leftButton.handler();
                     } else {
@@ -296,10 +296,10 @@ module.exports = React.createClass({
         );
     },
     render () {
-        var initialRoute = {
+        const initialRoute = {
             component: Splash,
         };
-        var navigationBar = (
+        const navigationBar = (
             <Navigator.NavigationBar
                 routeMapper={NavigationBarRouteMapper}
                 style={[styles.navBar, { backgroundColor: app.THEME_COLOR }]}
@@ -319,11 +319,11 @@ module.exports = React.createClass({
                     configureScene={this.configureScene}
                     renderScene={this.renderScene}
                     onDidFocus={(route) => {
-                        var ref = route.ref;
-                        var getChildScene = ref && ref.getChildScene;
+                        const ref = route.ref;
+                        const getChildScene = ref && ref.getChildScene;
                         // 注意：app.scene调用的时候一定需要使用封装函数，如：{handler: ()=>{app.scene.toggleEdit()}}，不能直接使用 handler: app.scene.toggleEdit.
                         // 在动画加载完成前 app.scene 还没有被赋值， 需要使用 SceneMixin 来设置 app.scene
-                        var scene = app.scene = getChildScene ? getChildScene() : ref;
+                        const scene = app.scene = getChildScene ? getChildScene() : ref;
                         if (getChildScene && !scene.hasMouted) {
                             scene.hasMouted = true;
                             return;
@@ -333,18 +333,18 @@ module.exports = React.createClass({
                         ref && ref !== scene && ref.onDidFocus && ref.onDidFocus();
                     }}
                     onWillFocus={(route) => {
-                        var preRoute = app.navigator && app.getCurrentRoute();
+                        const preRoute = app.navigator && app.getCurrentRoute();
                         if (preRoute) {
-                            var preRef = preRoute.ref;
-                            var preGetChildScene = preRef && preRef.getChildScene;
-                            var preScene = preGetChildScene ? preGetChildScene() : preRef;
+                            const preRef = preRoute.ref;
+                            const preGetChildScene = preRef && preRef.getChildScene;
+                            const preScene = preGetChildScene ? preGetChildScene() : preRef;
                             preScene && preScene.onWillHide && preScene.onWillHide();
                             // 如果时主页面，需要检测主页面和其子页面的回调
                             preRef && preRef !== preScene && preRef.onWillHide && preRef.onWillHide();
                         }
-                        var ref = route.ref;
-                        var getChildScene = ref && ref.getChildScene;
-                        var scene = getChildScene ? getChildScene() : ref;
+                        const ref = route.ref;
+                        const getChildScene = ref && ref.getChildScene;
+                        const scene = getChildScene ? getChildScene() : ref;
                         // 如果时主页面，需要检测主页面和其子页面的回调
                         scene && scene.onWillFocus && scene.onWillFocus();// 注意：在首次加载的时候页面没有被加载，route.ref为空，不会调用该函数，需要在该页面的componentWillMount里面处理首次逻辑，只有从上页面返回的时候才能被调用
                         ref && ref !== scene && ref.onWillFocus && ref.onWillFocus();
@@ -368,8 +368,8 @@ module.exports = React.createClass({
     },
 });
 
-var NAVBAR_HEIGHT = sr.rs(Navigator.NavigationBar.Styles.General.NavBarHeight);
-var styles = StyleSheet.create({
+const NAVBAR_HEIGHT = sr.rs(Navigator.NavigationBar.Styles.General.NavBarHeight);
+const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor:'#FEFCFD',

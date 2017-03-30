@@ -1,13 +1,13 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     Text,
     Platform,
 } = ReactNative;
 
-var RText = React.createClass({
+const RText = React.createClass({
     render () {
         const { children, style, ...props } = this.props;
         const s = StyleSheet.flatten(style);

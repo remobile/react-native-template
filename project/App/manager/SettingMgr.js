@@ -1,9 +1,9 @@
 'use strict';
-var ReactNative = require('react-native');
-var {
+const ReactNative = require('react-native');
+const {
     AsyncStorage,
 } = ReactNative;
-var EventEmitter = require('EventEmitter');
+const EventEmitter = require('EventEmitter');
 
 const ITEM_NAME = 'APP_SETTING_MANAGER';
 
@@ -15,9 +15,9 @@ class Manager extends EventEmitter {
     }
     get () {
         return new Promise(async(resolve, reject) => {
-            var data = {};
+            let data = {};
             try {
-                var infoStr = await AsyncStorage.getItem(ITEM_NAME);
+                const infoStr = await AsyncStorage.getItem(ITEM_NAME);
                 data = JSON.parse(infoStr);
             } catch (e) {
                 data = {};
@@ -34,12 +34,12 @@ class Manager extends EventEmitter {
         });
     }
     setOnlyWifiUpload (flag) {
-        var data = this.data;
+        const data = this.data;
         data.onlyWifiUpload = flag;
         this.set(data);
     }
     setThemeColor (color) {
-        var data = this.data;
+        const data = this.data;
         data.themeColor = color;
         this.set(data);
         app.THEME_COLOR = color;

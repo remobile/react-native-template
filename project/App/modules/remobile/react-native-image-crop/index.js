@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
@@ -10,8 +10,8 @@ var {
     ImageEditor,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
-var ImageCrop = require('@remobile/react-native-image-crop');
+const Button = require('@remobile/react-native-simple-button');
+const ImageCrop = require('@remobile/react-native-image-crop');
 
 module.exports = React.createClass({
     getInitialState () {
@@ -51,7 +51,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
     },

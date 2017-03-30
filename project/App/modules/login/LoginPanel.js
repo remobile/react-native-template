@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     Image,
     View,
@@ -11,12 +11,12 @@ var {
     TouchableOpacity,
 } = ReactNative;
 
-var ForgetPassword = require('./ForgetPassword.js');
-var Home = require('../home/index.js');
+const ForgetPassword = require('./ForgetPassword.js');
+const Home = require('../home/index.js');
 
-var { Button } = COMPONENTS;
+const { Button } = COMPONENTS;
 
-var WeixinQQPanel = React.createClass({
+const WeixinQQPanel = React.createClass({
     render () {
         return (
             <View style={styles.thirdpartyContainer}>
@@ -53,7 +53,7 @@ var WeixinQQPanel = React.createClass({
     },
 });
 
-var NoWeixinQQPanel = React.createClass({
+const NoWeixinQQPanel = React.createClass({
     render () {
         return (
             <View style={styles.thirdpartyContainer2}>
@@ -74,7 +74,7 @@ module.exports = React.createClass({
             Toast('密码必须有6-20位的数字，字母，下划线组成');
             return;
         }
-        var param = {
+        const param = {
             phone:this.state.phone,
             password:this.state.password,
         };
@@ -108,14 +108,14 @@ module.exports = React.createClass({
         });
     },
     doGetPersonalInfo () {
-        var param = {
+        const param = {
             phone: this.state.phone,
         };
         POST(app.route.ROUTE_GET_PERSONAL_INFO, param, this.getPersonalInfoSuccess, this.getPersonalInfoError);
     },
     getPersonalInfoSuccess (data) {
         if (data.success) {
-            var context = data.context;
+            const context = data.context;
             context['phone'] = this.state.phone;
             app.personal.set(context);
             app.navigator.replace({
@@ -141,7 +141,7 @@ module.exports = React.createClass({
         };
     },
     onPhoneTextInputLayout (e) {
-        var frame = e.nativeEvent.layout;
+        const frame = e.nativeEvent.layout;
         this.listTop = frame.y + frame.height;
     },
     renderRow (text) {
@@ -165,8 +165,8 @@ module.exports = React.createClass({
         this.setState({ showList: false });
     },
     onPhoneTextChange (text) {
-        var dataSource = this.state.dataSource;
-        var newData = _.filter(app.login.list, (item) => { var reg = new RegExp('^' + text + '.*'); return reg.test(item); });
+        const dataSource = this.state.dataSource;
+        const newData = _.filter(app.login.list, (item) => { const reg = new RegExp('^' + text + '.*'); return reg.test(item); });
         this.setState({
             phone: text,
             dataSource: dataSource.cloneWithRows(newData),
@@ -174,8 +174,8 @@ module.exports = React.createClass({
         });
     },
     render () {
-        var row = this.state.dataSource.getRowCount();
-        var listHeight = row > 4 ? styles.listHeightMax : row < 2 ? styles.listHeightMin : null;
+        const row = this.state.dataSource.getRowCount();
+        const listHeight = row > 4 ? styles.listHeightMax : row < 2 ? styles.listHeightMin : null;
         return (
             <View style={{ flex:1 }}>
                 <View
@@ -235,7 +235,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     inputContainer: {
         height: 50,
         marginTop: 20,

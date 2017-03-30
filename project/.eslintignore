@@ -1,5 +1,6 @@
-#/**/node_modules
+/**/node_modules
 /App/resource
 remobile_cocos2dx_render.js
+remobile-cocos2dx-render
 android
 ios

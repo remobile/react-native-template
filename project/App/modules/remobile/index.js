@@ -1,7 +1,7 @@
 'use strict';
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
@@ -11,32 +11,32 @@ var {
     Navigator,
 } = ReactNative;
 
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var PersonInfo = require('../person/PersonInfo.js');
-var Dialogs = require('./react-native-dialogs');
-var Camera = require('./react-native-camera');
-var Sqlite = require('./react-native-sqlite-storage');
-var Contacts = require('./react-native-contacts');
-var FileTransfer = require('./react-native-file-transfer');
-var MarqueeLabel = require('./react-native-marquee-label');
-var Zip = require('./react-native-zip');
-var RefreshInfiniteListview = require('./react-native-refresh-infinite-listview');
-var Panel = require('./react-native-3d-panel');
-var Marquee = require('./react-native-marquee');
-var CameraRollPicker = require('./react-native-camera-roll-picker');
-var ImageCrop = require('./react-native-image-crop');
-var IndexedListview = require('./react-native-indexed-listview');
-var ClipRect = require('./react-native-clip-rect');
-var CardList = require('./react-native-card-list');
-var QRCode = require('./react-native-qrcode-local-image');
-var CardSwiper = require('./react-native-card-swiper');
-var Echarts = require('./react-native-echarts');
-var Module = require('./react-native-module');
-var CacheModule = require('./react-native-cache-module');
-var SmartKeyboard = require('./react-native-smart-keyboard');
-var Cocos2dx = require('./react-native-cocos2dx');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const PersonInfo = require('../person/PersonInfo.js');
+const Dialogs = require('./react-native-dialogs');
+const Camera = require('./react-native-camera');
+const Sqlite = require('./react-native-sqlite-storage');
+const Contacts = require('./react-native-contacts');
+const FileTransfer = require('./react-native-file-transfer');
+const MarqueeLabel = require('./react-native-marquee-label');
+const Zip = require('./react-native-zip');
+const RefreshInfiniteListview = require('./react-native-refresh-infinite-listview');
+const Panel = require('./react-native-3d-panel');
+const Marquee = require('./react-native-marquee');
+const CameraRollPicker = require('./react-native-camera-roll-picker');
+const ImageCrop = require('./react-native-image-crop');
+const IndexedListview = require('./react-native-indexed-listview');
+const ClipRect = require('./react-native-clip-rect');
+const CardList = require('./react-native-card-list');
+const QRCode = require('./react-native-qrcode-local-image');
+const CardSwiper = require('./react-native-card-swiper');
+const Echarts = require('./react-native-echarts');
+const Module = require('./react-native-module');
+const CacheModule = require('./react-native-cache-module');
+const SmartKeyboard = require('./react-native-smart-keyboard');
+const Cocos2dx = require('./react-native-cocos2dx');
 
-var modules = [
+const modules = [
     { title:'react-native-cocos2dx', image: app.img.common_point, module:Cocos2dx },
     { title:'react-native-smart-keyboard', image: app.img.common_point, module:SmartKeyboard },
     { title:'react-native-cache-module', image: app.img.common_point, module:CacheModule },
@@ -76,14 +76,14 @@ module.exports = React.createClass({
         SplashScreen.hide();
     },
     getInitialState: function () {
-        var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return {
             dataSource: ds.cloneWithRows(modules),
 
         };
     },
     _onPressRow (obj) {
-        var route = {
+        const route = {
             title: obj.title,
             component: obj.module,
         };
@@ -131,7 +131,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

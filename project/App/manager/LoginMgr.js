@@ -1,9 +1,9 @@
 'use strict';
-var ReactNative = require('react-native');
-var {
+const ReactNative = require('react-native');
+const {
     AsyncStorage,
 } = ReactNative;
-var EventEmitter = require('EventEmitter');
+const EventEmitter = require('EventEmitter');
 
 const ITEM_NAME = 'LOGIN_HISTORY_LIST';
 
@@ -15,9 +15,9 @@ class Manager extends EventEmitter {
     }
     get () {
         return new Promise(async(resolve, reject) => {
-            var list = [];
+            let list = [];
             try {
-                var infoStr = await AsyncStorage.getItem(ITEM_NAME);
+                const infoStr = await AsyncStorage.getItem(ITEM_NAME);
                 list = JSON.parse(infoStr);
             } catch (e) {
             }
@@ -32,7 +32,7 @@ class Manager extends EventEmitter {
         });
     }
     savePhone (phone) {
-        var list = this.list;
+        let list = this.list;
         if (_.includes(list, phone)) {
             list = _.without(list, phone);
         }

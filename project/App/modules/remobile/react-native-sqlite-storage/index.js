@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     AsyncStorage,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
-var Sqlite = require('@remobile/react-native-sqlite');
+const Button = require('@remobile/react-native-simple-button');
+const Sqlite = require('@remobile/react-native-sqlite');
 
-var db = Sqlite.openDatabase({ name: 'my.db', location: 'default' });
+const db = Sqlite.openDatabase({ name: 'my.db', location: 'default' });
 module.exports = React.createClass({
     doTest () {
         db.transaction(function (tx) {
@@ -40,14 +40,14 @@ module.exports = React.createClass({
     },
     select (tx) {
         tx.executeSql('SELECT * FROM student', [], function (tx, results) {
-            var len = results.rows.length, i;
-            for (i = 0; i < len; i++) {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i++) {
                 console.log(results.rows.item(i).id + ':' + results.rows.item(i).log);
             }
         }, null);
     },
     add () {
-        var self = this;
+        const self = this;
         db.transaction(function (tx) {
             tx.executeSql('CREATE TABLE IF NOT EXISTS student (id integer, log integer)');
             tx.executeSql('INSERT INTO student (id, log) VALUES (1, 1)');
@@ -58,7 +58,7 @@ module.exports = React.createClass({
         }, (e) => { console.log(e); });
     },
     update () {
-        var self = this;
+        const self = this;
         db.transaction(function (tx) {
             tx.executeSql('UPDATE student SET log=log+? WHERE id=8', [2], function (tx, rs) {
                 if (rs.rowsAffected === 0) {
@@ -72,7 +72,7 @@ module.exports = React.createClass({
         }, function (a) { console.log(a); });
     },
     deleteMin () {
-        var self = this;
+        const self = this;
         db.transaction(function (tx) {
             tx.executeSql('DELETE FROM student WHERE id=(SELECT MIN(id) FROM student)', [], function (tx, rs) {
                 console.log(rs.rows);
@@ -98,7 +98,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',

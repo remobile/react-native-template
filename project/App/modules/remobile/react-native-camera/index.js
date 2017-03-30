@@ -1,18 +1,18 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
+const React = require('react');const ReactNative = require('react-native');
 
-var {
+const {
     StyleSheet,
     View,
     Text,
     Image,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
-var Camera = require('@remobile/react-native-camera');
-var Capture = require('@remobile/react-native-capture');
-var { DImage } = COMPONENTS;
+const Button = require('@remobile/react-native-simple-button');
+const Camera = require('@remobile/react-native-camera');
+const Capture = require('@remobile/react-native-capture');
+const { DImage } = COMPONENTS;
 
 module.exports = React.createClass({
     getInitialState () {
@@ -21,7 +21,7 @@ module.exports = React.createClass({
         };
     },
     takePicture (i) {
-        var options = [{
+        const options = [{
             quality: 30,
             allowEdit: true,
             targetWidth: 240,
@@ -71,7 +71,7 @@ module.exports = React.createClass({
     },
     taskVideo () {
         Capture.captureVideo((mediaFiles) => {
-            let filePath = mediaFiles[0].fullPath;
+            const filePath = mediaFiles[0].fullPath;
             this.setState({ filePath });
         }, () => {
             Toast('录制失败');
@@ -104,7 +104,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

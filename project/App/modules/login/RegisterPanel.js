@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     Image,
     Text,
@@ -10,8 +10,8 @@ var {
     TouchableOpacity,
 } = ReactNative;
 
-var TimerMixin = require('react-timer-mixin');
-var { Button, WebviewMessageBox } = COMPONENTS;
+const TimerMixin = require('react-timer-mixin');
+const { Button, WebviewMessageBox } = COMPONENTS;
 
 module.exports = React.createClass({
     mixins: [TimerMixin],
@@ -37,7 +37,7 @@ module.exports = React.createClass({
             Toast('邮箱地址不规范，请重新输入');
             return;
         }
-        var param = {
+        const param = {
             phone,
             email,
             password,
@@ -130,7 +130,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     inputContainer: {
         height: 50,
         marginTop: 20,

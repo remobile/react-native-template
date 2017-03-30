@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     Image,
     View,
 } = ReactNative;
 
-var DImage = React.createClass({
+const DImage = React.createClass({
     getInitialState () {
         return { showDefault: true };
     },
@@ -14,16 +14,16 @@ var DImage = React.createClass({
         this.setState({ showDefault: false });
     },
     componentWillReceiveProps (nextProps) {
-        var pre = this.props.source, post = nextProps.source;
-        var preuri = pre.uri, posturi = post.uri;
-        var preT = typeof posturi === 'string', postT = typeof posturi === 'string';
+        const pre = this.props.source, post = nextProps.source;
+        const preuri = pre.uri, posturi = post.uri;
+        const preT = typeof posturi === 'string', postT = typeof posturi === 'string';
         if ((!(preT ^ postT)) && preuri !== posturi) {
             this.setState({ showDefault: true });
         }
     },
     render () {
-        var { source, defaultSource, ...other } = this.props;
-        var { showDefault } = this.state;
+        const { source, defaultSource, ...other } = this.props;
+        const { showDefault } = this.state;
         return (
             showDefault ?
                 <View>

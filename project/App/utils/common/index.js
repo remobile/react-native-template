@@ -1,4 +1,4 @@
-var moment = require('moment');
+const moment = require('moment');
 
 module.exports = {
     until (test, iterator, callback) {
@@ -34,15 +34,15 @@ module.exports = {
         return (hour === undefined ? '' : (hour < 10 ? '0' : '') + hour + ':') + (minute < 10 ? '0' : '') + minute + ':' + (second < 10 ? '0' : '') + second;
     },
     createDateData (now) {
-        let date = {};
-        let iy = now.year(), im = now.month() + 1, id = now.date();
+        const date = {};
+        const iy = now.year(), im = now.month() + 1, id = now.date();
         for (let y = iy; y <= iy + 1; y++) {
-            let month = {};
-            let mm = [0, 31, (!(y % 4) & (!!(y % 100))) | (!(y % 400)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            let iim = (y == iy) ? im : 1;
+            const month = {};
+            const mm = [0, 31, (!(y % 4) & (!!(y % 100))) | (!(y % 400)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            const iim = (y == iy) ? im : 1;
             for (let m = iim; m <= 12; m++) {
-                let day = [];
-                let iid = (y == iy && m == im) ? id : 1;
+                const day = [];
+                const iid = (y == iy && m == im) ? id : 1;
                 for (let d = iid; d <= mm[m]; d++) {
                     day.push(d + '日');
                 }
@@ -54,15 +54,15 @@ module.exports = {
     },
     // 获取生日
     createBirthdayData (now) {
-        let date = {};
-        let iy = now.year(), im = now.month() + 1, id = now.date();
+        const date = {};
+        const iy = now.year(), im = now.month() + 1, id = now.date();
         for (let y = 1916; y <= iy; y++) {
-            let month = {};
-            let mm = [0, 31, (!(y % 4) & (!!(y % 100))) | (!(y % 400)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            let iim = (y == iy) ? im : 12;
+            const month = {};
+            const mm = [0, 31, (!(y % 4) & (!!(y % 100))) | (!(y % 400)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            const iim = (y == iy) ? im : 12;
             for (let m = 1; m <= iim; m++) {
-                let day = [];
-                let iid = (y == iy && m == im) ? id : mm[m];
+                const day = [];
+                const iid = (y == iy && m == im) ? id : mm[m];
                 for (let d = 1; d <= iid; d++) {
                     day.push(d + '日');
                 }
@@ -73,8 +73,8 @@ module.exports = {
         return date;
     },
     getVisibleText (text, n) {
-        var realLength = 0, len = text.length, preLen = -1, charCode = -1, needCut = false;
-        for (var i = 0; i < len; i++) {
+        let realLength = 0, len = text.length, preLen = -1, charCode = -1, needCut = false;
+        for (let i = 0; i < len; i++) {
             charCode = text.charCodeAt(i);
             if (charCode >= 0 && charCode <= 128) {
                 realLength += 1;
@@ -94,8 +94,8 @@ module.exports = {
         return text;
     },
     cutLimitText (text, n) {
-        var realLength = 0, len = text.length, preLen = -1, charCode = -1, needCut = false;
-        for (var i = 0; i < len; i++) {
+        let realLength = 0, len = text.length, preLen = -1, charCode = -1, needCut = false;
+        for (let i = 0; i < len; i++) {
             charCode = text.charCodeAt(i);
             if (charCode >= 0 && charCode <= 128) {
                 realLength += 1;
@@ -121,14 +121,14 @@ module.exports = {
         return moment().format('YYYY-MM-DD HH:mm:ss');
     },
     getJetlagString (str) {
-        var now = moment();
-        var time = moment(str);
-        var sec = now.diff(time, 'seconds');
-        var ret;
+        const now = moment();
+        const time = moment(str);
+        let sec = now.diff(time, 'seconds');
+        let ret;
         if (sec < 3600 * 24) {
-            var min = Math.floor(sec / 60);
+            let min = Math.floor(sec / 60);
             sec -= min * 60;
-            var hour = Math.floor(min / 60);
+            const hour = Math.floor(min / 60);
             min -= hour * 60;
             ret = ((hour ? hour + '小时' : '') + (min ? min + '分钟前' : '')) || '刚刚';
         } else {
@@ -137,9 +137,9 @@ module.exports = {
         return ret;
     },
     getStrlen (str) {
-        var len = 0;
-        for (var i = 0; i < str.length; i++) {
-            var c = str.charCodeAt(i);
+        let len = 0;
+        for (let i = 0; i < str.length; i++) {
+            const c = str.charCodeAt(i);
             // 单字节加1
             if ((c >= 0x0001 && c <= 0x007e) || (c >= 0xff60 && c <= 0xff9f)) {
                 len++;
@@ -165,7 +165,7 @@ module.exports = {
         return /^(\d{16}|\d{19})$/.test(code);
     },
     checkEmailCode (code) {
-        var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        const re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
         if (re.test(code)) {
             return true;
         } else {

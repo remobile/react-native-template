@@ -1,16 +1,16 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
 } = ReactNative;
 
-var resolveAssetSource = require('resolveAssetSource');
-var Cocos2dx = require('@remobile/react-native-cocos2dx');
-var resource = require('./remobile_cocos2dx_resource.js');
-var render = require('./remobile_cocos2dx_render.js');
+const resolveAssetSource = require('resolveAssetSource');
+const Cocos2dx = require('@remobile/react-native-cocos2dx');
+const resource = require('./remobile_cocos2dx_resource.js');
+const render = require('./remobile_cocos2dx_render.js');
 module.exports = React.createClass({
     componentWillMount () {
         app.toggleNavigationBar(false);
@@ -37,7 +37,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
     },

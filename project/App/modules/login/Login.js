@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var LoginPanel = require('./LoginPanel.js');
-var RegisterPanel = require('./RegisterPanel.js');
+const React = require('react');
+const ReactNative = require('react-native');
+const LoginPanel = require('./LoginPanel.js');
+const RegisterPanel = require('./RegisterPanel.js');
 
-var {
+const {
     StyleSheet,
     Text,
     View,
@@ -55,7 +55,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',

@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     TouchableOpacity,
@@ -14,30 +14,30 @@ var {
     NativeModules,
 } = ReactNative;
 
-var TimerMixin = require('react-timer-mixin');
+const TimerMixin = require('react-timer-mixin');
 import Video from '@remobile/react-native-video';
 
-var UtilsModule = NativeModules.UtilsModule;
-var { Slider } = COMPONENTS;
-var videoEnable = true;
-var hasPause = false;
+const UtilsModule = NativeModules.UtilsModule;
+const { Slider } = COMPONENTS;
+let videoEnable = true;
+let hasPause = false;
 
-var ControlPanel = React.createClass({
+const ControlPanel = React.createClass({
     getShowTime (sec) {
         sec = Math.floor(sec);
-        var min = Math.floor(sec / 60);
+        const min = Math.floor(sec / 60);
         sec -= min * 60;
         return app.utils.timeFormat(min, sec);
     },
     measureSliderValue (sec) {
-        var { playTime, totalTime } = this.props;
+        const { playTime, totalTime } = this.props;
         if (totalTime <= 0) {
             return 0;
         }
         return playTime / totalTime;
     },
     measureTime (progress) {
-        var { totalTime } = this.props;
+        const { totalTime } = this.props;
         return totalTime * progress;
     },
     onSlidingStart () {
@@ -166,7 +166,7 @@ module.exports = React.createClass({
         this.startControlPanelTimeout();
     },
     toggleFullScreen () {
-        var isFullScreen = !this.state.isFullScreen;
+        const isFullScreen = !this.state.isFullScreen;
         this.props.fullScreenListener(isFullScreen);
         this.setState({
             isFullScreen: isFullScreen,
@@ -245,7 +245,7 @@ module.exports = React.createClass({
         }
     },
     onProgress (e) {
-        var deltaTime = (e.currentTime - this.lastPlayTime) / this.state.totalTime * 200;
+        const deltaTime = (e.currentTime - this.lastPlayTime) / this.state.totalTime * 200;
         if (deltaTime >= 1 || deltaTime < 0) {
             this.setState({
                 playTime: e.currentTime,
@@ -362,10 +362,10 @@ module.exports = React.createClass({
     },
 });
 
-var NORMAL_WIDTH = sr.w;
-var NORMAL_HEIGHT = NORMAL_WIDTH * 2 / 3;
-var FULL_WIDTH = sr.fh;
-var FULL_HEIGHT = sr.w;
+const NORMAL_WIDTH = sr.w;
+const NORMAL_HEIGHT = NORMAL_WIDTH * 2 / 3;
+const FULL_WIDTH = sr.fh;
+const FULL_HEIGHT = sr.w;
 
 const styles = StyleSheet.create({
     container: {

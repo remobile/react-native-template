@@ -1,6 +1,6 @@
 'use strict';
-var Umeng = require('../native/index.js').Umeng;
-var EventEmitter = require('EventEmitter');
+const Umeng = require('../native/index.js').Umeng;
+const EventEmitter = require('EventEmitter');
 
 class Manager extends EventEmitter {
     doActionSheetShare (url, title, text, shareType, callback) {

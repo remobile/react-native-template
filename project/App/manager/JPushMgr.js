@@ -1,11 +1,11 @@
 'use strict';
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     Platform,
     NetInfo,
 } = ReactNative;
-var EventEmitter = require('EventEmitter');
+const EventEmitter = require('EventEmitter');
 import JPush, { JpushEventReceiveMessage, JpushEventOpenMessage } from 'react-native-jpush';
 const
     MESSAGE_TYPE_SYSTEM_NOTICE = 0,

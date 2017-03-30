@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
-var CacheModule = require('@remobile/react-native-cache-module');
-var Module = require('@remobile/react-native-module');
+const Button = require('@remobile/react-native-simple-button');
+const CacheModule = require('@remobile/react-native-cache-module');
+const Module = require('@remobile/react-native-module');
 
 module.exports = React.createClass({
     test () {
@@ -28,7 +28,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',

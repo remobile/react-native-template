@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     View,
     Text,
     Image,
@@ -48,7 +48,7 @@ module.exports = React.createClass({
         }
     },
     getList (wait) {
-        var param = {
+        const param = {
             ...this.props.listParam,
             pageNo: this.pageNo,
         };
@@ -58,8 +58,8 @@ module.exports = React.createClass({
     getListSuccess (data) {
         this.props.onGetList && this.props.onGetList(data, this.pageNo);
         if (data.success) {
-            var list = data.context[this.props.listName];
-            var infiniteLoadStatus = (!list.length && this.pageNo === 0) ? STATUS_NO_DATA : list.length < CONSTANTS.PER_PAGE_COUNT ? STATUS_ALL_LOADED : STATUS_TEXT_HIDE;
+            const list = data.context[this.props.listName];
+            const infiniteLoadStatus = (!list.length && this.pageNo === 0) ? STATUS_NO_DATA : list.length < CONSTANTS.PER_PAGE_COUNT ? STATUS_ALL_LOADED : STATUS_TEXT_HIDE;
             this.list = this.list.concat(list);
             this.setState({
                 dataSource: this.ds.cloneWithRows(this.list),
@@ -106,7 +106,7 @@ module.exports = React.createClass({
         );
     },
     renderFooter () {
-        var status = this.state.infiniteLoadStatus;
+        const status = this.state.infiniteLoadStatus;
         return (
             <View style={styles.listFooterContainer}>
                 <Text style={styles.listFooter}>
@@ -145,7 +145,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
     },

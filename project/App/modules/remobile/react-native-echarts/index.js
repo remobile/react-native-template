@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     Image,
     StyleSheet,
     Text,
@@ -13,10 +13,10 @@ var {
     WebView,
 } = ReactNative;
 
-var UserAgeInfo = require('./UserAgeInfo.js');
-var UserSexInfo = require('./UserSexInfo.js');
-var ConsumeInfo = require('./ConsumeInfo.js');
-var ReleaseCardInfo = require('./ReleaseCardInfo.js');
+const UserAgeInfo = require('./UserAgeInfo.js');
+const UserSexInfo = require('./UserSexInfo.js');
+const ConsumeInfo = require('./ConsumeInfo.js');
+const ReleaseCardInfo = require('./ReleaseCardInfo.js');
 
 const CHILD_ITEM = [
     '发卡信息',
@@ -95,7 +95,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: '#E6EBEC',

@@ -1,27 +1,27 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
+const React = require('react');const ReactNative = require('react-native');
 
-var {
+const {
     StyleSheet,
     View,
     Text,
     Image,
 } = ReactNative;
 
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var Button = require('@remobile/react-native-simple-button');
-var FileTransfer = require('@remobile/react-native-file-transfer');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const Button = require('@remobile/react-native-simple-button');
+const FileTransfer = require('@remobile/react-native-file-transfer');
 
 module.exports = React.createClass({
     componentDidMount () {
         SplashScreen.hide();
     },
     downloadApkFromServer () {
-        var oldval;
-        var fileTransfer = new FileTransfer();
+        let oldval;
+        const fileTransfer = new FileTransfer();
         fileTransfer.onprogress = (progress) => {
-            var val = parseInt(progress.loaded * 100 / progress.total);
+            const val = parseInt(progress.loaded * 100 / progress.total);
             if (oldval !== val) {
                 console.log(val);
                 oldval = val;
@@ -48,7 +48,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

@@ -1,24 +1,24 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     Shape,
     Surface,
     Path,
 } = ReactNative.ART;
 
-var ClipRectIOS = React.createClass({
+const ClipRectIOS = React.createClass({
     render: function () {
-        var style = ReactNative.StyleSheet.flatten(this.props.style);
-        var { width, height, borderRadius, borderTopLeftRadius, borderTopRightRadius, borderBottomRightRadius, borderBottomLeftRadius, color } = style;
+        const style = ReactNative.StyleSheet.flatten(this.props.style);
+        let { width, height, borderRadius, borderTopLeftRadius, borderTopRightRadius, borderBottomRightRadius, borderBottomLeftRadius, color } = style;
         borderRadius = borderRadius || 0;
-        var tl = borderTopLeftRadius || borderRadius;
-        var tr = borderTopRightRadius || borderRadius;
-        var br = borderBottomRightRadius || borderRadius;
-        var bl = borderBottomLeftRadius || borderRadius;
+        const tl = borderTopLeftRadius || borderRadius;
+        const tr = borderTopRightRadius || borderRadius;
+        const br = borderBottomRightRadius || borderRadius;
+        const bl = borderBottomLeftRadius || borderRadius;
 
-        var path = Path();
+        const path = Path();
 
         path.move(0, tl);
 
@@ -45,27 +45,27 @@ var ClipRectIOS = React.createClass({
     },
 });
 
-var TIMES = 30;
-var _X = (r, d) => Math.cos(Math.PI / 180 * d) * r;
-var _Y = (r, d) => Math.sin(Math.PI / 180 * d) * r;
-var arc = (path, x, y, r, t) => {
-    var offset = 90 / TIMES;
-    for (var i = 0; i <= TIMES; i++) {
+const TIMES = 30;
+const _X = (r, d) => Math.cos(Math.PI / 180 * d) * r;
+const _Y = (r, d) => Math.sin(Math.PI / 180 * d) * r;
+const arc = (path, x, y, r, t) => {
+    const offset = 90 / TIMES;
+    for (let i = 0; i <= TIMES; i++) {
         path.lineTo(x - _X(r, 90 * t + offset * i), y - _Y(r, 90 * t + offset * i));
     }
 };
 
-var ClipRectAndroid = React.createClass({
+const ClipRectAndroid = React.createClass({
     render: function () {
-        var style = ReactNative.StyleSheet.flatten(this.props.style);
-        var { width, height, borderRadius, borderTopLeftRadius, borderTopRightRadius, borderBottomRightRadius, borderBottomLeftRadius, color } = style;
+        const style = ReactNative.StyleSheet.flatten(this.props.style);
+        let { width, height, borderRadius, borderTopLeftRadius, borderTopRightRadius, borderBottomRightRadius, borderBottomLeftRadius, color } = style;
         borderRadius = borderRadius || 0;
-        var tl = borderTopLeftRadius || borderRadius;
-        var tr = borderTopRightRadius || borderRadius;
-        var br = borderBottomRightRadius || borderRadius;
-        var bl = borderBottomLeftRadius || borderRadius;
+        const tl = borderTopLeftRadius || borderRadius;
+        const tr = borderTopRightRadius || borderRadius;
+        const br = borderBottomRightRadius || borderRadius;
+        const bl = borderBottomLeftRadius || borderRadius;
 
-        var path = Path();
+        const path = Path();
 
         path.move(0, tl);
 

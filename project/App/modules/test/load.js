@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Platform,
     NativeModules,
 } = ReactNative;
 
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var Button = require('@remobile/react-native-simple-button');
-var Module = require('@remobile/react-native-module');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const Button = require('@remobile/react-native-simple-button');
+const Module = require('@remobile/react-native-module');
 
 module.exports = React.createClass({
     componentWillMount () {
@@ -34,7 +34,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',

@@ -1,16 +1,16 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     WebView,
 } = ReactNative;
 
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var Button = require('@remobile/react-native-simple-button');
-var fs = require('react-native-fs');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const Button = require('@remobile/react-native-simple-button');
+const fs = require('react-native-fs');
 
 module.exports = React.createClass({
     componentWillMount () {

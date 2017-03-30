@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     Image,
     StyleSheet,
     Text,
@@ -11,17 +11,17 @@ var {
     ScrollView,
 } = ReactNative;
 
-var Update = require('@remobile/react-native-update');
-var Help = require('./Help.js');
-var About = require('./About.js');
-var Feedback = require('./Feedback');
-var ModifyPassword = require('./ModifyPassword.js');
-var CommonSetting = require('./CommonSetting.js');
-var UpdatePage = require('../update/UpdatePage.js');
+const Update = require('@remobile/react-native-update');
+const Help = require('./Help.js');
+const About = require('./About.js');
+const Feedback = require('./Feedback');
+const ModifyPassword = require('./ModifyPassword.js');
+const CommonSetting = require('./CommonSetting.js');
+const UpdatePage = require('../update/UpdatePage.js');
 
-var { Button, WebviewMessageBox } = COMPONENTS;
+const { Button, WebviewMessageBox } = COMPONENTS;
 
-var MenuItem = React.createClass({
+const MenuItem = React.createClass({
     showChildPage () {
         const { module, method } = this.props.page;
         if (method) {
@@ -90,7 +90,7 @@ module.exports = React.createClass({
         ];
     },
     render () {
-        var info = app.personal.info || {};
+        const info = app.personal.info || {};
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -111,7 +111,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: '#ececec',

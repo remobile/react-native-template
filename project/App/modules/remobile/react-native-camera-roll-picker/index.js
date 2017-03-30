@@ -1,12 +1,12 @@
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     Text,
     View,
 } = ReactNative;
 
-var CameraRollPicker = require('@remobile/react-native-camera-roll-picker');
+const CameraRollPicker = require('@remobile/react-native-camera-roll-picker');
 
 module.exports = React.createClass({
     getInitialState () {
@@ -16,7 +16,7 @@ module.exports = React.createClass({
         };
     },
     onSelectedImages (images, current) {
-        var num = images.length;
+        const num = images.length;
 
         this.setState({
             num: num,

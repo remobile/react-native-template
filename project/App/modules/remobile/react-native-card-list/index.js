@@ -1,18 +1,18 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
     Dimensions,
 } = ReactNative;
 
-var CardList = require('@remobile/react-native-card-list');
-var { width, height } = Dimensions.get('window');
+const CardList = require('@remobile/react-native-card-list');
+const { width, height } = Dimensions.get('window');
 
-var LIST = [
+const LIST = [
     { color: 'red' },
     { color: 'blue' },
     { color: 'darkgray' },
@@ -61,7 +61,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: sr.rs(50),

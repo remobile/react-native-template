@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var FileUpload = require('NativeModules').FileUpload;
-var Des = require('@remobile/react-native-des');
-var KEY = CONSTANTS.DES_KEY;
+const React = require('react');const ReactNative = require('react-native');
+const FileUpload = require('NativeModules').FileUpload;
+const Des = require('@remobile/react-native-des');
+const KEY = CONSTANTS.DES_KEY;
 
-var {
+const {
   AppRegistry,
   StyleSheet,
   Text,
@@ -14,7 +14,7 @@ var {
 
 module.exports = React.createClass({
     componentDidMount: function () {
-        var obj = {
+        const obj = {
             uploadUrl: app.route.ROUTE_UPDATE_FILE,
             method: 'POST', // default 'POST',support 'POST' and 'PUT'
             headers: {
@@ -37,9 +37,9 @@ module.exports = React.createClass({
         };
         FileUpload.upload(obj, function (err, result) {
             console.log('upload:', obj, err, result);
-            var base64 = result.data;
+            const base64 = result.data;
             Des.decrypt(base64, KEY, function (jsonString) {
-                var json = {};
+                let json = {};
                 try {
                     json = JSON.parse(jsonString);
                 } catch (error) {
@@ -62,7 +62,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',

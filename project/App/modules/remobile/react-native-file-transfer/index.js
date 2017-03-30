@@ -1,30 +1,30 @@
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     NativeAppEventEmitter,
     View,
     Text,
 } = ReactNative;
 
-var FileTransfer = require('@remobile/react-native-file-transfer');
-var Button = require('@remobile/react-native-simple-button');
+const FileTransfer = require('@remobile/react-native-file-transfer');
+const Button = require('@remobile/react-native-simple-button');
 
 module.exports = React.createClass({
     testUpload () {
-        var fileURL = app.isandroid ? 'file:///sdcard/1/jsandroid.zip' : 'file:///Users/fang/rn/react-native-template/localServer/public/exhibition.apk';
-        var options = {};
+        const fileURL = app.isandroid ? 'file:///sdcard/1/jsandroid.zip' : 'file:///Users/fang/rn/react-native-template/localServer/public/exhibition.apk';
+        const options = {};
         options.fileKey = 'file';
         options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
         options.mimeType = 'text/plain';
         // options.chunkedMode = false;
 
-        var params = {};
+        const params = {};
         params.value1 = 'test';
         params.value2 = 'param';
 
         options.params = params;
-        var fileTransfer = new FileTransfer();
+        const fileTransfer = new FileTransfer();
         fileTransfer.onprogress = (progress) => console.log('progress', progress.loaded + '/' + progress.total);
 
         fileTransfer.upload(fileURL, encodeURI('http://192.168.1.131:3000/app/api/uploadMediaFile'), (result) => {
@@ -34,8 +34,8 @@ module.exports = React.createClass({
         }, options);
     },
     testDownload () {
-        var fileTransfer = new FileTransfer();
-        var uri = encodeURI('http://192.168.1.131:3000/medias/exhibition.apk');
+        const fileTransfer = new FileTransfer();
+        const uri = encodeURI('http://192.168.1.131:3000/medias/exhibition.apk');
         fileTransfer.onprogress = (progress) => console.log('progress', progress.loaded + '/' + progress.total);
         fileTransfer.download(
               uri,
@@ -63,7 +63,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-around',

@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
+const React = require('react');
+const ReactNative = require('react-native');
 
-var {
+const {
     StyleSheet,
     View,
     Text,
@@ -11,9 +11,9 @@ var {
     PanResponder,
 } = ReactNative;
 
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var Button = require('@remobile/react-native-simple-button');
-var EmojiInputBox = require('../text/index.js');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const Button = require('@remobile/react-native-simple-button');
+const EmojiInputBox = require('../text/index.js');
 
 module.exports = React.createClass({
     componentWillMount () {
@@ -34,7 +34,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 44,

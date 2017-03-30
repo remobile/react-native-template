@@ -1,9 +1,9 @@
 'use strict';
-var ReactNative = require('react-native');
-var {
+const ReactNative = require('react-native');
+const {
     AsyncStorage,
 } = ReactNative;
-var EventEmitter = require('EventEmitter');
+const EventEmitter = require('EventEmitter');
 const ITEM_NAME = 'personalInfo';
 const NEED_LOGIN_ITEM_NAME = 'personalInfoNeedLogin';
 
@@ -14,11 +14,11 @@ class Manager extends EventEmitter {
     }
     get () {
         return new Promise(async(resolve, reject) => {
-            var info;
+            let info;
             try {
-                var needLogin = await AsyncStorage.getItem(NEED_LOGIN_ITEM_NAME);
+                const needLogin = await AsyncStorage.getItem(NEED_LOGIN_ITEM_NAME);
                 this.needLogin = needLogin !== 'false';
-                var infoStr = await AsyncStorage.getItem(ITEM_NAME);
+                const infoStr = await AsyncStorage.getItem(ITEM_NAME);
                 info = JSON.parse(infoStr);
             } catch (e) {
                 this.needLogin = true;

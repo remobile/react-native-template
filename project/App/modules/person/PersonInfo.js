@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     Image,
     StyleSheet,
     Text,
@@ -10,12 +10,12 @@ var {
     ScrollView,
 } = ReactNative;
 
-var EditPersonInfo = require('./EditPersonInfo.js');
-var Settings = require('./Settings');
-var Store = require('./Store.js');
-var ImagePicker = require('../userHead/imagePicker');
+const EditPersonInfo = require('./EditPersonInfo.js');
+const Settings = require('./Settings');
+const Store = require('./Store.js');
+const ImagePicker = require('../userHead/imagePicker');
 
-var { Button, DImage, WebviewMessageBox } = COMPONENTS;
+const { Button, DImage, WebviewMessageBox } = COMPONENTS;
 
 const CHILD_PAGES = [
     { strict:true, title:'个人资料', module: EditPersonInfo, img:app.img.personal_info, info:'' },
@@ -23,7 +23,7 @@ const CHILD_PAGES = [
     { hidden:!CONSTANTS.NOT_NEED_UPDATE_JS_START, title:'查看存储', module: Store, img:app.img.personal_settings, info:'' },
 ];
 
-var MenuItem = React.createClass({
+const MenuItem = React.createClass({
     showChildPage () {
         const { module } = this.props.page;
         app.navigator.push({
@@ -123,7 +123,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: '#ececec',

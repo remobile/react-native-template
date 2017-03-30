@@ -1,22 +1,23 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     Image,
     TouchableOpacity,
     View,
     StyleSheet,
 } = ReactNative;
 
-var MAX_STAR_NUM = 5;
+const MAX_STAR_NUM = 5;
 
 module.exports = React.createClass({
     render () {
-        var value = this.props.value;
-        var starNum = Math.floor(value);
-        var rest = value - starNum;
-        var list = [];
-        for (var i = 0; i < starNum; i++) {
+        const value = this.props.value;
+        const starNum = Math.floor(value);
+        const rest = value - starNum;
+        const list = [];
+        let i;
+        for (i = 0; i < starNum; i++) {
             list[i] = 1;
         }
         if (i < MAX_STAR_NUM) {
@@ -29,7 +30,7 @@ module.exports = React.createClass({
             <View style={this.props.style ? this.props.style : styles.scoreIconContainer}>
                 {
                     list.map((item, i) => {
-                        var imgSource = app.img['actualCombat_star_' + item];
+                        const imgSource = app.img['actualCombat_star_' + item];
                         return (
                             <Image
                                 key={i}
@@ -45,7 +46,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     scoreIconContainer: {
         height: 30,
         flexDirection: 'row',

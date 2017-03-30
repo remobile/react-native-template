@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     TouchableOpacity,
     View,
 } = ReactNative;
 
-var Overlay = require('./ActionSheet/overlay.js');
-var Sheet = require('./ActionSheet/sheet.js');
+const Overlay = require('./ActionSheet/overlay.js');
+const Sheet = require('./ActionSheet/sheet.js');
 
 module.exports = React.createClass({
     render () {
@@ -28,7 +28,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     actionSheetContainer: {
         flex: 1,
         padding: 10,

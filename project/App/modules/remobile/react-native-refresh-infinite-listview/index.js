@@ -1,29 +1,29 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     View,
     Text,
     StyleSheet,
     ListView,
 } = ReactNative;
 
-var TimerMixin = require('react-timer-mixin');
-var RefreshInfiniteListView = require('@remobile/react-native-refresh-infinite-listview');
+const TimerMixin = require('react-timer-mixin');
+const RefreshInfiniteListView = require('@remobile/react-native-refresh-infinite-listview');
 
-var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 module.exports = React.createClass({
     mixins: [TimerMixin],
     data: { index: 0, maxIndex:20, list:[] },
     getData (init) {
-        var total = 5;
+        let total = 5;
         if (init) {
             this.data.index = 0;
             this.data.list = [];
             total = Math.floor(Math.random() * 5 + 10);
         }
-        for (var i = 0; i < total; i++) {
+        for (let i = 0; i < total; i++) {
             this.data.list[this.data.index] = 'Row' + (this.data.index + 1);
             this.data.index++;
         }
@@ -85,7 +85,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     row: {
         height:60,
         flex: 1,

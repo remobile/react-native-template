@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
 } = ReactNative;
 
-var Panel = require('@remobile/react-native-3d-panel');
-var Menu = require('../../person/Settings');
-var Login = require('../../login/Login');
+const Panel = require('@remobile/react-native-3d-panel');
+const Menu = require('../../person/Settings');
+const Login = require('../../login/Login');
 
 module.exports = React.createClass({
     render () {
@@ -23,7 +23,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     image: {
         width: sr.w,
         height: sr.h,

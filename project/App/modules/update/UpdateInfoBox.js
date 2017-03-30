@@ -1,7 +1,7 @@
 'use strict';
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
@@ -9,9 +9,9 @@ var {
     TouchableOpacity,
 } = ReactNative;
 
-var Update = require('@remobile/react-native-update');
+const Update = require('@remobile/react-native-update');
 
-var
+const
     STATUS_HAS_VEW_VERSION = 0,
     STATUS_DOWNLOAD_APK_PROGESS = 1,
     STATUS_DOWNLOAD_JS_PROGESS = 2,
@@ -22,17 +22,17 @@ var
     STATUS_FAILED_INSTALL_ERROR = 7,
     STATUS_UPDATE_END = 8;
 
-var
+const
     ERROR_NULL = 0,
     ERROR_DOWNKOAD_APK = 1,
     ERROR_DOWNKOAD_JS = 2,
     ERROR_FAILED_INSTALL = 3,
     ERROR_UNZIP_JS = 4;
 
-var PROGRESS_WIDTH = sr.tw * 0.7;
-var { Button, ProgressBar } = COMPONENTS;
+const PROGRESS_WIDTH = sr.tw * 0.7;
+const { Button, ProgressBar } = COMPONENTS;
 
-var ProgressInfo = React.createClass({
+const ProgressInfo = React.createClass({
     render () {
         const { progress } = this.props;
         if (progress < 1000) {
@@ -52,7 +52,7 @@ var ProgressInfo = React.createClass({
                 </View>
             );
         } else {
-            let size = progress / 1000 / 1024 / 1024;
+            const size = progress / 1000 / 1024 / 1024;
             return (
                 <View style={[styles.functionContainer, { alignItems: 'center', paddingVertical: 30 }]}>
                     <Text>{this.props.title} [ {size.toFixed(2)} M ]</Text>
@@ -198,7 +198,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',

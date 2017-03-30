@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
@@ -46,7 +46,7 @@ module.exports = React.createClass({
         });
     },
     render () {
-        var { modalTouchHide } = this.props;
+        const { modalTouchHide } = this.props;
         return (
             <Animated.View style={[styles.container, { backgroundColor: this.props.backgroundColor, opacity: this.state.opacity }]} {...(modalTouchHide ? this._panResponder.panHandlers : {})}>
                 {
@@ -65,7 +65,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         position: 'absolute',
         top: 0,

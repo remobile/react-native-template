@@ -10,8 +10,8 @@ import {
     View,
 } from 'react-native';
 
-var Player = require('./Player.js');
-var SplashScreen = require('@remobile/react-native-splashscreen');
+const Player = require('./Player.js');
+const SplashScreen = require('@remobile/react-native-splashscreen');
 
 module.exports = React.createClass({
     componentWillMount () {

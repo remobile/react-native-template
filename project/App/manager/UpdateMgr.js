@@ -1,10 +1,10 @@
 'use strict';
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     AsyncStorage,
 } = ReactNative;
-var EventEmitter = require('EventEmitter');
+const EventEmitter = require('EventEmitter');
 
 const ITEM_NAME = 'NEED_SHOW_SPLASH';
 const Update = require('@remobile/react-native-update');
@@ -28,9 +28,9 @@ class Manager extends EventEmitter {
     }
     getNeedShowSplash () {
         return new Promise(async(resolve, reject) => {
-            var needShowSplash;
+            let needShowSplash;
             try {
-                var infoStr = await AsyncStorage.getItem(ITEM_NAME);
+                const infoStr = await AsyncStorage.getItem(ITEM_NAME);
                 needShowSplash = JSON.parse(infoStr);
             } catch (e) {
             }

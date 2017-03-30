@@ -1,18 +1,18 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
+const React = require('react');
+const ReactNative = require('react-native');
 
-var {
+const {
     StyleSheet,
     View,
     Text,
     Image,
 } = ReactNative;
 
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var Button = require('@remobile/react-native-simple-button');
-var Capture = require('@remobile/react-native-capture');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const Button = require('@remobile/react-native-simple-button');
+const Capture = require('@remobile/react-native-capture');
 
 module.exports = React.createClass({
     componentDidMount () {
@@ -44,7 +44,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

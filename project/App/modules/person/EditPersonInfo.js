@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     Image,
     Text,
     StyleSheet,
@@ -12,10 +12,10 @@ var {
     ScrollView,
 } = ReactNative;
 
-var PersonalInfoMgr = require('../../manager/PersonalInfoMgr.js');
-var Subscribable = require('Subscribable');
+const PersonalInfoMgr = require('../../manager/PersonalInfoMgr.js');
+const Subscribable = require('Subscribable');
 
-var { MessageBox, DImage } = COMPONENTS;
+const { MessageBox, DImage } = COMPONENTS;
 
 const DEFAULT_OPACITY = 0.5;
 
@@ -43,7 +43,7 @@ module.exports = React.createClass({
         }
     },
     getInitialState () {
-        var info = app.personal.info;
+        const info = app.personal.info;
         return {
             messageBoxType: 0, // 0：不显示，1：是否保存修改， 2：是否放弃修改
             isEditting: false,
@@ -58,7 +58,7 @@ module.exports = React.createClass({
         };
     },
     setPersonalInfo () {
-        var info = app.personal.info;
+        const info = app.personal.info;
         info.name = this.state.name;
         info.identifyNumber = this.state.identifyNumber;
         info.address = this.state.address;
@@ -92,7 +92,7 @@ module.exports = React.createClass({
         }
     },
     updatePersnalInfo () {
-        var param = {
+        const param = {
             phone: this.state.phone,
             name: this.state.inputName,
             address: this.state.inputAddress,
@@ -174,7 +174,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: '#ececec',

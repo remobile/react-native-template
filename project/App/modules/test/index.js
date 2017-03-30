@@ -1,7 +1,7 @@
 'use strict';
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
@@ -11,12 +11,12 @@ var {
     Navigator,
 } = ReactNative;
 
-var PersonInfo = require('../person/PersonInfo.js');
-var TestImage = require('./image.js');
-var QRCode = require('./qrcode.js');
-var SplashScreen = require('@remobile/react-native-splashscreen');
+const PersonInfo = require('../person/PersonInfo.js');
+const TestImage = require('./image.js');
+const QRCode = require('./qrcode.js');
+const SplashScreen = require('@remobile/react-native-splashscreen');
 
-var modules = [
+const modules = [
     { title:'图片', image: app.img.common_point, module:TestImage },
     { title:'二维码', image: app.img.common_point, module:QRCode },
 ];
@@ -33,14 +33,14 @@ module.exports = React.createClass({
     },
     getInitialState: function () {
         SplashScreen.hide();
-        var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return {
             dataSource: ds.cloneWithRows(modules),
 
         };
     },
     _onPressRow (obj) {
-        var route = {
+        const route = {
             title: obj.title,
             component: obj.module,
         };
@@ -88,7 +88,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

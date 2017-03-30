@@ -1,15 +1,15 @@
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Image,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
-var RCTContacts = require('@remobile/react-native-contacts');
+const Button = require('@remobile/react-native-simple-button');
+const RCTContacts = require('@remobile/react-native-contacts');
 
-var {
+const {
     contacts,
     ContactFindOptions,
     ContactField,
@@ -19,8 +19,8 @@ module.exports = React.createClass({
     testFind () {
         // display the address information for all contacts
         function onSuccess (contacts) {
-            for (var i = 0; i < contacts.length; i++) {
-                var item = contacts[i];
+            for (let i = 0; i < contacts.length; i++) {
+                const item = contacts[i];
                 console.log(item);
             }
         };
@@ -28,18 +28,18 @@ module.exports = React.createClass({
             console.log('onError!');
         };
         // find all contacts
-        var options = new ContactFindOptions();
+        const options = new ContactFindOptions();
         options.filter = '';
         options.multiple = false;
-        var fields = ['displayName', 'addresses'];
+        const fields = ['displayName', 'addresses'];
         contacts.find(fields, onSuccess, onError, options);
     },
     testSave () {
         // create a new contact
-        var contact = contacts.create();
+        const contact = contacts.create();
 
         // store contact phone numbers in ContactField[]
-        var phoneNumbers = [];
+        const phoneNumbers = [];
         phoneNumbers[0] = new ContactField('work', '212-555-1234', false);
         phoneNumbers[1] = new ContactField('mobile', '917-555-5432', true); // preferred number
         phoneNumbers[2] = new ContactField('home', '203-555-7890', false);
@@ -52,8 +52,8 @@ module.exports = React.createClass({
     testRemove () {
         // display the address information for all contacts
         function onSuccess (contacts) {
-            for (var i = 0; i < contacts.length; i++) {
-                var item = contacts[i];
+            for (let i = 0; i < contacts.length; i++) {
+                const item = contacts[i];
                 item.remove();
             }
         };
@@ -61,10 +61,10 @@ module.exports = React.createClass({
             console.log('onError!');
         };
         // find all contacts
-        var options = new ContactFindOptions();
+        const options = new ContactFindOptions();
         options.filter = 'fang';
         options.multiple = true;
-        var fields = ['nickname'];
+        const fields = ['nickname'];
         contacts.find(fields, onSuccess, onError, options);
     },
     pickContact () {
@@ -114,7 +114,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-around',

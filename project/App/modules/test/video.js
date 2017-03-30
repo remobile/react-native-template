@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     AlertIOS,
     StyleSheet,
     Text,
@@ -11,7 +11,7 @@ var {
 } = ReactNative;
 
 import Video from '@remobile/react-native-video';
-var SplashScreen = require('@remobile/react-native-splashscreen');
+const SplashScreen = require('@remobile/react-native-splashscreen');
 
 class VideoPlayer extends React.Component {
     state = {
@@ -48,10 +48,10 @@ class VideoPlayer extends React.Component {
 }
 module.exports = VideoPlayer;
 
-var NORMAL_WIDTH = sr.w;
-var NORMAL_HEIGHT = NORMAL_WIDTH * 2 / 3;
-var FULL_WIDTH = sr.h;
-var FULL_HEIGHT = sr.w;
+const NORMAL_WIDTH = sr.w;
+const NORMAL_HEIGHT = NORMAL_WIDTH * 2 / 3;
+const FULL_WIDTH = sr.h;
+const FULL_HEIGHT = sr.w;
 
 const styles = StyleSheet.create({
     container: {

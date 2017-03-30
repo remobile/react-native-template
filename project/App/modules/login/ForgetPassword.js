@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     TextInput,
     Text,
 } = ReactNative;
 
-var { Button, Label } = COMPONENTS;
+const { Button, Label } = COMPONENTS;
 
 module.exports = React.createClass({
     statics: {
@@ -30,7 +30,7 @@ module.exports = React.createClass({
             Toast('邮箱地址不规范，请重新输入');
             return;
         }
-        var param = {
+        const param = {
             phone,
             email,
         };
@@ -77,7 +77,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 10,

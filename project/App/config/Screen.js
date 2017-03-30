@@ -1,7 +1,7 @@
 'use strict';
 
-var ReactNative = require('react-native');
-var {
+const ReactNative = require('react-native');
+const {
     Navigator,
     Dimensions,
     PixelRatio,
@@ -9,13 +9,13 @@ var {
     StatusBar,
 } = ReactNative;
 
-var SCREEN_WIDTH_BASE = 375;
+const SCREEN_WIDTH_BASE = 375;
 
-var { width, height } = Dimensions.get('screen') || Dimensions.get('window'),
+const { width, height } = Dimensions.get('screen') || Dimensions.get('window'),
     pxielRatio = PixelRatio.get();
 
-var { TotalNavHeight } = Navigator.NavigationBar.Styles.General;
-var statusBarHeight = (Platform.OS === 'android') ? StatusBar.currentHeight : 0;
+const { TotalNavHeight } = Navigator.NavigationBar.Styles.General;
+const statusBarHeight = (Platform.OS === 'android') ? StatusBar.currentHeight : 0;
 
 module.exports = {
     w: SCREEN_WIDTH_BASE, // 屏幕的宽度

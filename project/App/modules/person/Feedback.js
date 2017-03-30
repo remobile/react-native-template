@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Animated,
@@ -11,9 +11,9 @@ var {
     Navigator,
 } = ReactNative;
 
-var dismissKeyboard = require('dismissKeyboard');
+const dismissKeyboard = require('dismissKeyboard');
 
-var { Button } = COMPONENTS;
+const { Button } = COMPONENTS;
 
 module.exports = React.createClass({
     statics: {
@@ -37,7 +37,7 @@ module.exports = React.createClass({
             Toast('请填写您需要反馈的内容');
             return;
         }
-        var param = {
+        const param = {
             userID: app.personal.info.userID,
             content: this.state.content,
         };
@@ -75,7 +75,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F0EFF5',

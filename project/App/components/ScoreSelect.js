@@ -9,8 +9,6 @@ import {
 const ViewPager = React.createClass({
     componentWillMount () {
         this.count = this.props.children.length;
-        var _scrollView: ScrollView;
-        this.scrollView = _scrollView;
     },
     componentDidMount () {
         InteractionManager.runAfterInteractions(() => {
@@ -25,7 +23,7 @@ const ViewPager = React.createClass({
         this.updateIndex(e.nativeEvent.contentOffset.x);
     },
     updateIndex (x) {
-        let { width, afterChange } = this.props;
+        const { width, afterChange } = this.props;
         const selectedIndex = Math.round(x / width);
         if (this.lastSelectedIndex !== selectedIndex && selectedIndex >= 0 && selectedIndex <= this.count - 1) {
             this.lastSelectedIndex = selectedIndex;
@@ -35,8 +33,8 @@ const ViewPager = React.createClass({
         }
     },
     render () {
-        let { width, height } = this.props;
-        let pages = this.props.children.map((page, i) => {
+        const { width, height } = this.props;
+        const pages = this.props.children.map((page, i) => {
             return (<View style={{ width, height }} key={i}>{page}</View>);
         });
         return (

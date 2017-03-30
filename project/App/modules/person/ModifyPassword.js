@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     Image,
     StyleSheet,
     View,
     TextInput,
 } = ReactNative;
 
-var { Button, Label } = COMPONENTS;
+const { Button, Label } = COMPONENTS;
 
 module.exports = React.createClass({
     statics: {
@@ -47,7 +47,7 @@ module.exports = React.createClass({
             Toast('两次填写新密码不一致');
             return;
         }
-        var param = {
+        const param = {
             phone: app.personal.info.phone,
             oldPassword,
             newPassword: newPassword1,
@@ -92,7 +92,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: 'white',

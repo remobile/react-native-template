@@ -1,6 +1,6 @@
-var React = require('react');var ReactNative = require('react-native');
+const React = require('react');const ReactNative = require('react-native');
 
-var {
+const {
     StyleSheet,
     View,
 } = ReactNative;
@@ -12,7 +12,7 @@ module.exports = React.createClass({
         };
     },
     render () {
-        var fillWidth = this.props.progress * this.props.style.width;
+        const fillWidth = this.props.progress * this.props.style.width;
         return (
             <View style={[styles.background, this.props.backgroundStyle, this.props.style]}>
                 <View style={[styles.fill, this.props.fillStyle, { width: fillWidth }]} />
@@ -21,7 +21,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     background: {
         backgroundColor: '#bbbbbb',
         height: 5,

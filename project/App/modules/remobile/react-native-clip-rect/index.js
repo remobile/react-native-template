@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     Image,
     View,
 } = ReactNative;
 
-var ClipRect = require('@remobile/react-native-clip-rect');
+const ClipRect = require('@remobile/react-native-clip-rect');
 
 module.exports = React.createClass({
     render () {

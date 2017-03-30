@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
-var MarqueeLabel = require('@remobile/react-native-marquee');
+const Button = require('@remobile/react-native-simple-button');
+const MarqueeLabel = require('@remobile/react-native-marquee');
 
 module.exports = React.createClass({
     getInitialState () {
@@ -67,7 +67,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 100,

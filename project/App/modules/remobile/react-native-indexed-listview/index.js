@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+const React = require('react');
+const ReactNative = require('react-native');
+const {
     View,
     Text,
     Image,
     StyleSheet,
 } = ReactNative;
 
-var IndexedListView = require('@remobile/react-native-indexed-listview');
+const IndexedListView = require('@remobile/react-native-indexed-listview');
 
 module.exports = React.createClass({
     getInitialState () {
@@ -98,7 +98,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 24,

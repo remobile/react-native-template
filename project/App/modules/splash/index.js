@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Image,
@@ -11,10 +11,10 @@ var {
 } = ReactNative;
 
 import Swiper from 'react-native-swiper';
-var TimerMixin = require('react-timer-mixin');
-var SplashScreen = require('@remobile/react-native-splashscreen');
-var Login = require('../login/Login.js');
-var Home = require('../home/index.js');
+const TimerMixin = require('react-timer-mixin');
+const SplashScreen = require('@remobile/react-native-splashscreen');
+const Login = require('../login/Login.js');
+const Home = require('../home/index.js');
 
 module.exports = React.createClass({
     mixins: [TimerMixin],
@@ -24,14 +24,14 @@ module.exports = React.createClass({
         };
     },
     doGetPersonalInfo () {
-        var param = {
+        const param = {
             userID: app.personal.info.userID,
         };
         POST(app.route.ROUTE_GET_PERSONAL_INFO, param, this.getPersonalInfoSuccess, this.getInfoError);
     },
     getPersonalInfoSuccess (data) {
         if (data.success) {
-            var context = data.context;
+            const context = data.context;
             context['userID'] = app.personal.info.userID;
             context['phone'] = app.personal.info.phone;
             app.personal.set(context);
@@ -101,7 +101,7 @@ module.exports = React.createClass({
         app.updateMgr.checkUpdate();
     },
     onLayout (e) {
-        var { height } = e.nativeEvent.layout;
+        const { height } = e.nativeEvent.layout;
         if (this.state.height !== height) {
             this.heightHasChange = !!this.state.height;
             this.setState({ height });
@@ -150,7 +150,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     paginationStyle: {
         bottom: 30,
     },

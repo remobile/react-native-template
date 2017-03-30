@@ -1,8 +1,8 @@
 'use strict';
 
-var Des = require('@remobile/react-native-des');
-var qs = require('qs');
-var KEY = CONSTANTS.DES_KEY;
+const Des = require('@remobile/react-native-des');
+const qs = require('qs');
+const KEY = CONSTANTS.DES_KEY;
 
 module.exports = (url, parameter, success, failed, wait) => {
     console.log('send:[' + url + ']', parameter);
@@ -26,7 +26,7 @@ module.exports = (url, parameter, success, failed, wait) => {
         .then((base64) => {
             // console.log("base64:",base64);
             success && Des.decrypt(base64, KEY, (jsonString) => {
-                var json = {};
+                let json = {};
                 try {
                     json = JSON.parse(jsonString);
                 } catch (error) {

@@ -1,20 +1,20 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
-var AudioRecorder = require('../../native/index.js').AudioRecorder;
+const Button = require('@remobile/react-native-simple-button');
+const AudioRecorder = require('../../native/index.js').AudioRecorder;
 
-var DocumentPath = '/Users/fang/work/test/';
+const DocumentPath = '/Users/fang/work/test/';
 const ITEM_NAME = 'AudioRecordeFiles';
 
 module.exports = React.createClass({
     getOriginRecordFile () {
-        var name = app.utils.dateFormat(new Date(), 'MM_dd_hh_mm_ss');
+        const name = app.utils.dateFormat(new Date(), 'MM_dd_hh_mm_ss');
         return DocumentPath + name;
     },
     saveRecordFile (filename) {
@@ -53,7 +53,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',

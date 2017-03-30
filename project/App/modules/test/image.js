@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');var ReactNative = require('react-native');
-var {
+const React = require('react');const ReactNative = require('react-native');
+const {
     StyleSheet,
     View,
     Text,
@@ -9,9 +9,9 @@ var {
     ListView,
 } = ReactNative;
 
-var Button = require('@remobile/react-native-simple-button');
+const Button = require('@remobile/react-native-simple-button');
 
-var DImage = React.createClass({
+const DImage = React.createClass({
     getInitialState () {
         return { showDefault: true };
     },
@@ -19,16 +19,16 @@ var DImage = React.createClass({
         this.setState({ showDefault: false });
     },
     componentWillReceiveProps (nextProps) {
-        var pre = this.props.source, post = nextProps.source;
-        var preuri = pre.uri, posturi = post.uri;
-        var preT = typeof posturi === 'string', postT = typeof posturi === 'string';
+        const pre = this.props.source, post = nextProps.source;
+        const preuri = pre.uri, posturi = post.uri;
+        const preT = typeof posturi === 'string', postT = typeof posturi === 'string';
         if ((!(preT ^ postT)) && preuri !== posturi) {
             this.setState({ showDefault: true });
         }
     },
     render () {
-        var { source, defaultSource, ...other } = this.props;
-        var { showDefault } = this.state;
+        const { source, defaultSource, ...other } = this.props;
+        const { showDefault } = this.state;
         return (
             showDefault ?
                 <Image source={defaultSource} {...other}>
@@ -48,7 +48,7 @@ module.exports = React.createClass({
     //     return {index: 1}
     // },
     // changePicture() {
-    //     var index = this.state.index+1;
+    //     const index = this.state.index+1;
     //     if (index > 7) index = 1;
     //     this.setState({index});
     // },
@@ -117,7 +117,7 @@ module.exports = React.createClass({
     },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
     },

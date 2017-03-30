@@ -4,7 +4,7 @@
 // 发布正式服务器的配置，svn上面永远不要动这个配置，在发布测试服务器的时候将ISSUE改为false
 // 如果发布ios时 ISSUE_IOS=true 其他的发布为 ISSUE_IOS=false
 // CHANNEL为android渠道，发布百度市场时为baidu,其他的为default,ios忽略这个选项
-let CONFIG = {
+const CONFIG = {
     ISSUE: false,
     ISSUE_IOS: false,
     CHANNEL: 'default',
@@ -13,7 +13,7 @@ let CONFIG = {
 // 发布测试服务器的配置，该配置只有 CONFIG.ISSUE 为 false 的时候才生效
 // 如果是本地开发模式， CONFIG.ISSUE = false， TEST_CONFIG.ISSUE = false, 同时可以修改调试的服务器
 // 如果是发布测试服务器， CONFIG.ISSUE = false，TEST_CONFIG.ISSUE = true
-let TEST_CONFIG = {
+const TEST_CONFIG = {
     ISSUE: false,
     BASE_SERVER_INDEX: 0, //只有 TEST_CONFIG.ISSUE 为 false时生效
 };
