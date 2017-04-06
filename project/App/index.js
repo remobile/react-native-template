@@ -12,6 +12,7 @@ const {
     Text,
     Image,
     NativeModules,
+    StatusBar,
 } = ReactNative;
 
 global._ = require('lodash');
@@ -200,6 +201,8 @@ module.exports = React.createClass({
         app.root = this;
         app.showProgressHud = this.showProgressHud;
         app.dismissProgressHud = this.dismissProgressHud;
+        StatusBar.setBackgroundColor('transparent');
+        StatusBar.setTranslucent(true);
         app.showModal = (view, options = {}) => {
             const { title, backgroundColor, touchHide } = options;
             this.setState({
@@ -288,7 +291,7 @@ module.exports = React.createClass({
     renderScene (route, navigator) {
         return (
             <View style={{ flex: 1 }}>
-                {this.state.showNavBar && <View style={[styles.navBarBack, { backgroundColor:app.THEME_COLOR }]} />}
+                {this.state.showNavBar && <View style={[styles.navBarBack, { backgroundColor: app.THEME_COLOR }]} />}
                 <route.component
                     {...route.passProps}
                     ref={(ref) => { if (ref)route.ref = ref; }} />
@@ -319,35 +322,39 @@ module.exports = React.createClass({
                     configureScene={this.configureScene}
                     renderScene={this.renderScene}
                     onDidFocus={(route) => {
-                        const ref = route.ref;
-                        const getChildScene = ref && ref.getChildScene;
-                        // 注意：app.scene调用的时候一定需要使用封装函数，如：{handler: ()=>{app.scene.toggleEdit()}}，不能直接使用 handler: app.scene.toggleEdit.
-                        // 在动画加载完成前 app.scene 还没有被赋值， 需要使用 SceneMixin 来设置 app.scene
-                        const scene = app.scene = getChildScene ? getChildScene() : ref;
-                        if (getChildScene && !scene.hasMouted) {
-                            scene.hasMouted = true;
-                            return;
+                        if (route) {
+                            const ref = route.ref;
+                            const getChildScene = ref && ref.getChildScene;
+                            // 注意：app.scene调用的时候一定需要使用封装函数，如：{handler: ()=>{app.scene.toggleEdit()}}，不能直接使用 handler: app.scene.toggleEdit.
+                            // 在动画加载完成前 app.scene 还没有被赋值， 需要使用 SceneMixin 来设置 app.scene
+                            const scene = app.scene = getChildScene ? getChildScene() : ref;
+                            if (getChildScene && !scene.hasMouted) {
+                                scene.hasMouted = true;
+                                return;
+                            }
+                            scene && scene.onDidFocus && scene.onDidFocus();
+                            // 如果时主页面，需要检测主页面和其子页面的回调
+                            ref && ref !== scene && ref.onDidFocus && ref.onDidFocus();
                         }
-                        scene && scene.onDidFocus && scene.onDidFocus();
-                        // 如果时主页面，需要检测主页面和其子页面的回调
-                        ref && ref !== scene && ref.onDidFocus && ref.onDidFocus();
                     }}
                     onWillFocus={(route) => {
-                        const preRoute = app.navigator && app.getCurrentRoute();
-                        if (preRoute) {
-                            const preRef = preRoute.ref;
-                            const preGetChildScene = preRef && preRef.getChildScene;
-                            const preScene = preGetChildScene ? preGetChildScene() : preRef;
-                            preScene && preScene.onWillHide && preScene.onWillHide();
+                        if (route) {
+                            const preRoute = app.navigator && app.getCurrentRoute();
+                            if (preRoute) {
+                                const preRef = preRoute.ref;
+                                const preGetChildScene = preRef && preRef.getChildScene;
+                                const preScene = preGetChildScene ? preGetChildScene() : preRef;
+                                preScene && preScene.onWillHide && preScene.onWillHide();
+                                // 如果时主页面，需要检测主页面和其子页面的回调
+                                preRef && preRef !== preScene && preRef.onWillHide && preRef.onWillHide();
+                            }
+                            const ref = route.ref;
+                            const getChildScene = ref && ref.getChildScene;
+                            const scene = getChildScene ? getChildScene() : ref;
                             // 如果时主页面，需要检测主页面和其子页面的回调
-                            preRef && preRef !== preScene && preRef.onWillHide && preRef.onWillHide();
+                            scene && scene.onWillFocus && scene.onWillFocus();// 注意：在首次加载的时候页面没有被加载，route.ref为空，不会调用该函数，需要在该页面的componentWillMount里面处理首次逻辑，只有从上页面返回的时候才能被调用
+                            ref && ref !== scene && ref.onWillFocus && ref.onWillFocus();
                         }
-                        const ref = route.ref;
-                        const getChildScene = ref && ref.getChildScene;
-                        const scene = getChildScene ? getChildScene() : ref;
-                        // 如果时主页面，需要检测主页面和其子页面的回调
-                        scene && scene.onWillFocus && scene.onWillFocus();// 注意：在首次加载的时候页面没有被加载，route.ref为空，不会调用该函数，需要在该页面的componentWillMount里面处理首次逻辑，只有从上页面返回的时候才能被调用
-                        ref && ref !== scene && ref.onWillFocus && ref.onWillFocus();
                     }}
                     navigationBar={this.state.showNavBar ? navigationBar : null}
                     />
@@ -368,25 +375,24 @@ module.exports = React.createClass({
     },
 });
 
-const NAVBAR_HEIGHT = sr.rs(Navigator.NavigationBar.Styles.General.NavBarHeight);
 const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor:'#FEFCFD',
     },
     navBarBack: {
-        height:sr.totalNavHeight,
+        height:sr.totalNavbarHeight,
     },
     navBar: {
         alignItems:'center',
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5,
+        height: sr.totalNavbarHeight,
     },
     titleContainer: {
         width: sr.w,
-        height: NAVBAR_HEIGHT,
+        height: sr.navbarHeight,
         alignItems:'center',
         justifyContent: 'center',
+        paddingTop: sr.translucent ? sr.statusBarHeight : 0,
     },
     navBarButtonText: {
         color: '#FFFFFF',
@@ -402,16 +408,16 @@ const styles = StyleSheet.create({
     navBarButton: {
         flexDirection: 'row',
         paddingHorizontal: 10,
-        height:NAVBAR_HEIGHT,
+        height:sr.navbarHeight,
         alignItems: 'center',
+        paddingTop: sr.translucent ? sr.statusBarHeight/2 : 0,
     },
     navBarRightEmptyButton: {
         width: 80,
-        height: NAVBAR_HEIGHT,
-        backgroundColor: CONSTANTS.THEME_COLOR,
+        height: sr.navbarHeight,
     },
     navBarIcon: {
-        width: NAVBAR_HEIGHT * 0.6,
-        height: NAVBAR_HEIGHT * 0.6,
+        width: sr.navbarHeight * (sr.translucent ? 0.5 : 0.7),
+        height: sr.navbarHeight * (sr.translucent ? 0.5 : 0.7),
     },
 });

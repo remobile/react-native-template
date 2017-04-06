@@ -55,7 +55,7 @@ public class MainApplication extends Application implements ReactApplication {
                 new MainReactPackage(),
                 new RCTRemobilePackage(MainActivity.activity),
                 //RemobileLibraries
-                new RCTSplashScreenPackage(MainActivity.activity),
+                new RCTSplashScreenPackage(MainActivity.activity, true),
                 new RCTToastPackage(),
                 new RCTDialogsPackage(),
                 new RCTLocalNotificationsPackage(),

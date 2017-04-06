@@ -30,11 +30,15 @@ var buildStyleInterpolator = require('buildStyleInterpolator');
 var merge = require('merge');
 
 // Android Material Design
-var NAV_BAR_HEIGHT = 56;
 var Dimensions = require('Dimensions');
+var NativeModules = require('NativeModules');
+var StatusBar = require('StatusBar');
+var translucent = NativeModules.SplashScreen.translucent;
 var _height = Dimensions.get('window').height;
 var _width = Dimensions.get('window').width;
 var _rate = (667-375/_width*_height)/667;
+var NAV_BAR_HEIGHT = 56;
+translucent && (NAV_BAR_HEIGHT += StatusBar.currentHeight);
 if (_rate > 0) {
     NAV_BAR_HEIGHT = NAV_BAR_HEIGHT*(1-_rate);
 }

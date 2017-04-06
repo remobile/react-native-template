@@ -8,4 +8,4 @@ find -name ".gradle" -exec rm -fr {} \;
 find -name ".idea" -exec rm -fr {} \;
 find -name "*xcuser*" -exec rm -fr {} \;
 find -name "*xcshared*" -exec rm -fr {} \;
-find -name "build" -exec rm -fr {} \;
+find -name "build"|grep "android"|xargs -I bbbb rm -fr bbbb
