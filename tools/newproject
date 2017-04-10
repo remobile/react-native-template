@@ -20,10 +20,10 @@ mv ${project_old}/android/app/build ${backup}/app_build
 mv ${project_old}/android/.gradle ${backup}/gradle
 mv ${project_old}/android/.idea ${backup}/idea
 mv ${project_old}/ios/build ${backup}/ios_build
-mv ${project_old}/ios/JFBSample.xcodeproj/project.xcworkspace/xcshareddata ${backup}/xcworkspace_xcshareddata
-mv ${project_old}/ios/JFBSample.xcodeproj/project.xcworkspace/xcuserdata ${backup}/xcworkspace_xcuserdata
-mv ${project_old}/ios/JFBSample.xcodeproj/xcshareddata ${backup}/xcshareddata
-mv ${project_old}/ios/JFBSample.xcodeproj/xcuserdata ${backup}/xcuserdata
+mv ${project_old}/ios/${oldname}.xcodeproj/project.xcworkspace/xcshareddata ${backup}/xcworkspace_xcshareddata
+mv ${project_old}/ios/${oldname}.xcodeproj/project.xcworkspace/xcuserdata ${backup}/xcworkspace_xcuserdata
+mv ${project_old}/ios/${oldname}.xcodeproj/xcshareddata ${backup}/xcshareddata
+mv ${project_old}/ios/${oldname}.xcodeproj/xcuserdata ${backup}/xcuserdata
 
 cp -r ${project_old} ${project_new}
 pushd ${project_new}
@@ -40,7 +40,7 @@ mv ${backup}/app_build ${project_old}/android/app/build
 mv ${backup}/gradle ${project_old}/android/.gradle
 mv ${backup}/idea ${project_old}/android/.idea
 mv ${backup}/ios_build ${project_old}/ios/build
-mv ${backup}/xcworkspace_xcshareddata ${project_old}/ios/JFBSample.xcodeproj/project.xcworkspace/xcshareddata
-mv ${backup}/xcworkspace_xcuserdata ${project_old}/ios/JFBSample.xcodeproj/project.xcworkspace/xcuserdata
-mv ${backup}/xcshareddata ${project_old}/ios/JFBSample.xcodeproj/xcshareddata
-mv ${backup}/xcuserdata ${project_old}/ios/JFBSample.xcodeproj/xcuserdata
+mv ${backup}/xcworkspace_xcshareddata ${project_old}/ios/${oldname}.xcodeproj/project.xcworkspace/xcshareddata
+mv ${backup}/xcworkspace_xcuserdata ${project_old}/ios/${oldname}.xcodeproj/project.xcworkspace/xcuserdata
+mv ${backup}/xcshareddata ${project_old}/ios/${oldname}.xcodeproj/xcshareddata
+mv ${backup}/xcuserdata ${project_old}/ios/${oldname}.xcodeproj/xcuserdata
