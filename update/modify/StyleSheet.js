@@ -207,15 +207,14 @@ module.exports = {
           if (typeof value !== 'number') {
               return value;
           }
-          if (value > 2) {
-              if (key === 'flex') {
-                  return value;
-              }
-              if (key === 'lineHeight' || key=== 'fontSize') {
-                  return Math.round(value*FONT_SCALE);
-              } else {
-                  return Math.round(value*WIDTH_SCALE);
-              }
+          if (key === 'flex') {
+              return value;
+          }
+          if (key === 'lineHeight' || key=== 'fontSize') {
+              return Math.round(value*FONT_SCALE);
+          }
+          if (value > 2 || value < -2 ) {
+              return value*WIDTH_SCALE;
           }
           return value;
       }));
