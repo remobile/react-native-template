@@ -150,7 +150,7 @@ dependencies {
     compile(project(':react-native-des')) {exclude group: 'com.facebook.react', module: 'react-native'}
     compile(project(':react-native-update')) {exclude group: 'com.facebook.react', module: 'react-native'}
     compile(project(':react-native-contacts')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-camera')) {exclude group: 'com.facebook.react', module: 'react-native'}
+    compile(project(':react-native-remobile-camera')) {exclude group: 'com.facebook.react', module: 'react-native'}
     compile(project(':react-native-capture')) {exclude group: 'com.facebook.react', module: 'react-native'}
     compile(project(':react-native-image-picker')) {exclude group: 'com.facebook.react', module: 'react-native'}
     compile(project(':react-native-video')) {exclude group: 'com.facebook.react', module: 'react-native'}
@@ -162,9 +162,7 @@ dependencies {
 
     //VendorLibraries
     compile(project(':react-native-fs')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-jpush')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-fileupload')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-barcodescanner')) {exclude group: 'com.facebook.react', module: 'react-native'}
+    compile(project(':react-native-camera')) {exclude group: 'com.facebook.react', module: 'react-native'}
     compile(project(':react-native-webview-bridge')) {exclude group: 'com.facebook.react', module: 'react-native'}
 }
 
