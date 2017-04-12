@@ -1,0 +1,9 @@
+wget https://downloads.bitnami.com/files/stacks/redmine/3.3.2-2/bitnami-redmine-3.3.2-2-linux-x64-installer.run
+./bitnami-redmine-3.3.2-2-linux-x64-installer.run
+cd /opt/redmine-3.3.2-2/apache2/bin/
+./httpd.bin restart
+./apachectl stop
+./apachectl start
+lsof -i:81
+
+参考文档:http://www.centoscn.com/image-text/install/2014/1222/4359.html
