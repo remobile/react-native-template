@@ -172,7 +172,7 @@ var Interpolators = {
 module.exports = {
   General: {
     NavBarHeight: NAV_BAR_HEIGHT,
-    StatusBarHeight: 0,
+    StatusBarHeight: translucent ? 0 : StatusBar.currentHeight,
     TotalNavHeight: NAV_BAR_HEIGHT,
   },
   Interpolators,

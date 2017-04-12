@@ -16,16 +16,14 @@ const { width, height } = Dimensions.get('screen') || Dimensions.get('window'),
     pxielRatio = PixelRatio.get();
 
 const { TotalNavHeight, NavBarHeight, StatusBarHeight } = Navigator.NavigationBar.Styles.General;
-const translucent = NativeModules.SplashScreen.translucent;
-const statusBarHeight = (Platform.OS === 'android' && !translucent) ? StatusBarHeight : 0;
 
 module.exports = {
-    translucent,
+    translucent: NativeModules.SplashScreen.translucent,
     w: SCREEN_WIDTH_BASE, // 屏幕的宽度
-    h: (height - statusBarHeight) * SCREEN_WIDTH_BASE / width, // 屏幕的高度（android不包含状态栏）
+    h: (height - StatusBarHeight) * SCREEN_WIDTH_BASE / width, // 屏幕的高度（android不包含状态栏）
     fh: height * SCREEN_WIDTH_BASE / width, // 屏幕全屏的高度（android包含状态栏）
     tw: width, // 屏幕的真实宽度
-    th: height - statusBarHeight, // 屏幕的真实高度（android不包含状态栏）
+    th: height - StatusBarHeight, // 屏幕的真实高度（android不包含状态栏）
     tfh: height, // 屏幕全屏的真实高度（android包含状态栏）
     ch: (height - StatusBarHeight - NavBarHeight) * SCREEN_WIDTH_BASE / width, // 界面的高度
     tch: height - StatusBarHeight - NavBarHeight, // 界面的真实高度

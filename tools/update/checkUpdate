@@ -1,0 +1,49 @@
+#!/bin/bash
+source ~/command/common
+
+_path="../../project"
+_file=""
+_list_=(
+	Libraries/CustomComponents/Navigator/NavigatorNavigationBarStylesAndroid.js
+	Libraries/CustomComponents/Navigator/NavigatorNavigationBarStylesIOS.js
+	Libraries/Utilities/Dimensions.js
+	Libraries/StyleSheet/StyleSheet.js
+	local-cli/bundle/assetPathUtils.js
+	packager/src/JSTransformer/worker/minify.js
+	local-cli/bundle/buildBundle.js
+)
+
+function checkUpdate()
+{
+	diffmerge.sh modify/$(basename $1) ${_path}/node_modules/react-native/$1
+}
+
+function show_help()
+{
+	local -a list
+	list="help"
+	list=("${list[@]}" "Usage :checkUpdate [OPTIONS]")
+	list=("${list[@]}" "  -p [path] :set the project path [~/xxx/project]")
+	list=("${list[@]}" "  -f [file] :diff file")
+	list=("${list[@]}" "  -h :show help ")
+	__msgbox "${list[@]}"
+}
+
+function main()
+{
+	while getopts :p:f:h opt;do
+		case $opt in
+			p)_path="$OPTARG";;
+			f)_file="$OPTARG";;
+			h)show_help;exit;;
+			*)show_help;exit;;
+		esac
+	done
+	if [ "$_file" = "" ];then
+		__radiobox "checkUpdate $_TARGET_" "no" "checkUpdate" "select bellow files to check"
+	else
+		diffmerge.sh ../../project/${_file} ${_path}/${_file}
+	fi
+}
+
+main "$@"

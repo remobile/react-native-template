@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$1"="" -o "$1" = "-h" -o "$1" = "--help" ];then
+if [ "$1" = "" -o "$1" = "-h" -o "$1" = "--help" ];then
     echo "buildSource.sh [-h|--help|-c|--clear|-r|--run]"
     echo
     echo "di ../../project/android/build.gradle ./source/build.gradle"
