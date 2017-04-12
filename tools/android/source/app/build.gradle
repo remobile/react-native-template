@@ -140,30 +140,30 @@ dependencies {
 
     compile project(':ReactAndroid')
     //RemobileLibraries
-    compile(project(':react-native-splashscreen')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-toast')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-dialogs')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-local-notifications')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-cordova')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-zip')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-sqlite')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-des')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-update')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-contacts')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-remobile-camera')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-capture')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-image-picker')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-video')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-file-transfer')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-qrcode-local-image')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-marquee-label')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-battery-status')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-module')) {exclude group: 'com.facebook.react', module: 'react-native'}
+    compile project(':react-native-splashscreen')
+    compile project(':react-native-toast')
+    compile project(':react-native-dialogs')
+    compile project(':react-native-local-notifications')
+    compile project(':react-native-cordova')
+    compile project(':react-native-zip')
+    compile project(':react-native-sqlite')
+    compile project(':react-native-des')
+    compile project(':react-native-update')
+    compile project(':react-native-contacts')
+    compile project(':react-native-remobile-camera')
+    compile project(':react-native-capture')
+    compile project(':react-native-image-picker')
+    compile project(':react-native-video')
+    compile project(':react-native-file-transfer')
+    compile project(':react-native-qrcode-local-image')
+    compile project(':react-native-marquee-label')
+    compile project(':react-native-battery-status')
+    compile project(':react-native-module')
 
     //VendorLibraries
-    compile(project(':react-native-fs')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-camera')) {exclude group: 'com.facebook.react', module: 'react-native'}
-    compile(project(':react-native-webview-bridge')) {exclude group: 'com.facebook.react', module: 'react-native'}
+    compile project(':react-native-fs')
+    compile project(':react-native-camera')
+    compile project(':react-native-webview-bridge')
 }
 
 // Run this once to be able to run the application with BUCK
@@ -171,4 +171,7 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
+}
+configurations.all {
+    exclude group: 'com.facebook.react', module: 'react-native'
 }
