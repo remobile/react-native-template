@@ -1,16 +1,6 @@
-##目录##目录##目录
-1. 登录(login)
-2. 注册(register)
-
----
-
-1. 登录(login)
-2. 注册123(register)
-
----
-
-1. 登录(login)
-2. 注册(register)
+## 目录
+1. [登录(login)](#登录)
+2. [注册(register)](#注册)
 
 ---
 
@@ -53,4 +43,3 @@
 {
     "success": true
 }
-
