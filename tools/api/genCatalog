@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cp api.md __tmp1.md
+vim -e -s -c "/###.*\|^- \`.*\`$" -c ":v//d" -c ":%s/.*\[\(.*\)\].*/\1/"  -c ":1,\$g/^/join" -c ":%s/ - \`\(.*\)\`/(\1)/" -c ":%s/^/\=line('.').'. '" -c ":wq" __tmp1.md
+echo >> __tmp1.md
+echo --- >> __tmp1.md
+echo >> __tmp1.md
+
+vim -e -s -c ":g/## 目录/, /---/d" -c "1s/^/##目录/" -c ":r __tmp1.md" -c ":wq" api.md
+rm -f __tmp1.md
