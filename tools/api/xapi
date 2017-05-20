@@ -1,0 +1,73 @@
+#!/bin/bash
+source ~/command/common
+url="https://github.com/fov42550564/api/blob/master/api.md"
+
+
+function genCatalog() {
+    file=github/README.md
+    tmpfile=github/.__tmp.md
+    cp api.md github/README.md
+
+    cp ${file} ${tmpfile}
+    vim -e -s -c "/###.*\|^- \`.*\`$" -c ":v//d" -c ":%s/.*\[\(.*\)\].*/\1/"  -c ":1,\$g/^/join" -c ":%s/ - \`\(.*\)\`/ \1/"  -c ":%s/\(.*\) \(.*\)/\=line('.').'. ['.submatch(1).'('.submatch(2).')](#'.line('.').'-'.submatch(1).')'/" -c ":wq" ${tmpfile}
+    echo >> ${tmpfile}
+    echo --- >> ${tmpfile}
+    echo >> ${tmpfile}
+
+    vim -e -s -c ":g/## 目录/, /---/d" -c "1s/^/## 目录/" -c ":r ${tmpfile}" -c ":wq" ${file}
+
+    cp ${file} ${tmpfile}
+    vim -e -s -c ":v/###/d" -c "%s/.*\[\(.*\)\].*/\1/" -c "%s/.*/\='%s;###.*\\\\['.submatch(0).'\\\\];### '.line('.').'. ['.submatch(0).'];'/" -c ":wq" ${tmpfile}
+
+    cat ${tmpfile} | xargs -I bbbb vim -e -s -c "bbbb" -c "wq" ${file}
+
+    rm -f ${tmpfile}
+}
+
+function getHtml() {
+    #node lib/getHtml.js "${url}"
+    mv lib/api.html github/api.html
+    open github/api.html
+}
+
+function openHtmlOnline() {
+    open "${url}"
+}
+
+
+function show_help()
+{
+	local -a list
+	list="help"
+	list=("${list[@]}" "Usage :xapi [OPTIONS]")
+	list=("${list[@]}" "  -c :gen catalog")
+	list=("${list[@]}" "  -i :get api.html and open it")
+	list=("${list[@]}" "  -l :open online html")
+	list=("${list[@]}" "  -h :show help ")
+	__msgbox "${list[@]}"
+}
+
+function main()
+{
+    local oper oper_right=0
+	while getopts :cilh opt;do
+		oper_right=1
+		case $opt in
+			c)oper=0;;
+			i)oper=1;;
+			l)oper=2;;
+			h)show_help;exit;;
+			*)show_help;exit;;
+		esac
+	done
+
+	[ $oper_right -eq 0 ] && show_help && exit
+
+	case $oper in
+		0)genCatalog;;
+		1)getHtml;;
+		2)openHtmlOnline;;
+	esac
+}
+
+main "$@"
