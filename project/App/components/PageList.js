@@ -20,6 +20,7 @@ module.exports = React.createClass({
             pageNo: 0,
             infiniteLoadStatus: STATUS_START_LOAD,
             style: { flex: 1 },
+            pageSize: CONSTANTS.PER_PAGE_COUNT,
         };
     },
     componentDidMount () {
@@ -51,6 +52,7 @@ module.exports = React.createClass({
         const param = {
             ...this.props.listParam,
             pageNo: this.pageNo,
+            pageSize: this.props.pageSize,
         };
         this.setState({ infiniteLoadStatus: this.pageNo === 0 ? STATUS_START_LOAD : STATUS_HAVE_MORE });
         POST(this.props.listUrl, param, this.getListSuccess, this.getListFailed, wait);
@@ -58,8 +60,8 @@ module.exports = React.createClass({
     getListSuccess (data) {
         this.props.onGetList && this.props.onGetList(data, this.pageNo);
         if (data.success) {
-            const list = data.context[this.props.listName];
-            const infiniteLoadStatus = (!list.length && this.pageNo === 0) ? STATUS_NO_DATA : list.length < CONSTANTS.PER_PAGE_COUNT ? STATUS_ALL_LOADED : STATUS_TEXT_HIDE;
+            const list = _.get(data.context, this.props.listName);
+            const infiniteLoadStatus = (!list.length && this.pageNo === 0) ? STATUS_NO_DATA : list.length < this.props.pageSize ? STATUS_ALL_LOADED : STATUS_TEXT_HIDE;
             this.list = this.list.concat(list);
             this.setState({
                 dataSource: this.ds.cloneWithRows(this.list),
@@ -124,8 +126,9 @@ module.exports = React.createClass({
             <View style={styles.container}>
                 <ListView                    onEndReached={this.onEndReached}
                     onEndReachedThreshold={10}
-                    initialListSize={1}
+                    initialListSize={this.props.pageSize}
                     enableEmptySections
+                    removeClippedSubviews={false}
                     style={[{ alignSelf:'stretch' }, this.props.style]}
                     dataSource={this.state.dataSource}
                     renderRow={this.props.renderRow}

@@ -13,7 +13,7 @@ const {
 module.exports = React.createClass({
     getDefaultProps () {
         return {
-            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
         };
     },
     getInitialState () {
