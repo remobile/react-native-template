@@ -25,7 +25,7 @@ function genCatalog() {
 }
 
 function getHtml() {
-    #node lib/getHtml.js "${url}"
+    node lib/getHtml.js "${url}"
     mv lib/api.html github/api.html
     open github/api.html
 }
