@@ -1,6 +1,6 @@
 var fs = require("fs");
 var path = require("path");
-var jsdom = require("jsdom");
+var jsdom = require("jsdom/lib/old-api");
 var jquery = fs.readFileSync(path.join(__dirname,'jquery.js')).toString();
 var userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:23.0) Gecko/20100101 Firefox/23.0';
 var args = process.argv.splice(2);

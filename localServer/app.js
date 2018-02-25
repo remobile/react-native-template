@@ -18,6 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
+app.all('*', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 app.send = function(res, str) {
     setTimeout(function() {
         console.log("send:", str);
@@ -49,6 +55,6 @@ for (var i in modules) {
     require('./modules/'+modules[i]).register(app);
 }
 
-app.listen(3000, function() {
-    console.log("server listen on: http://localhost:3000");
+app.listen(3002, function() {
+    console.log("server listen on: http://localhost:3002");
 });
