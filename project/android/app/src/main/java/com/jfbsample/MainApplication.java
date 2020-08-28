@@ -27,6 +27,7 @@ import com.remobile.toast.RCTToastPackage;
 import com.remobile.update.RCTUpdateMgr;
 import com.remobile.video.RCTVideoPackage;
 import com.remobile.zip.RCTZipPackage;
+import com.remobile.imageedit.RCTImageEditPackage;
 import com.rnfs.RNFSPackage;
 
 import java.util.Arrays;
@@ -55,7 +56,7 @@ public class MainApplication extends Application implements ReactApplication {
                 new MainReactPackage(),
                 new RCTRemobilePackage(MainActivity.activity),
                 //RemobileLibraries
-                new RCTSplashScreenPackage(MainActivity.activity, true),
+                new RCTSplashScreenPackage(MainActivity.activity),
                 new RCTToastPackage(),
                 new RCTDialogsPackage(),
                 new RCTLocalNotificationsPackage(),
@@ -73,6 +74,7 @@ public class MainApplication extends Application implements ReactApplication {
                 new RCTMarqueeLabelPackage(),
                 new RCTBatteryStatusPackage(),
                 new RCTModulePackage(),
+                new RCTImageEditPackage(),
                 //VendorLibraries
                 new RNFSPackage(),
                 new com.lwansbrough.RCTCamera.RCTCameraPackage(),

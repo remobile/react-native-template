@@ -159,6 +159,7 @@ dependencies {
     compile project(':react-native-marquee-label')
     compile project(':react-native-battery-status')
     compile project(':react-native-module')
+    compile project(':react-native-image-edit')
 
     //VendorLibraries
     compile project(':react-native-fs')
