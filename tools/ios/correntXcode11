@@ -1,0 +1,4 @@
+#!/bin/bash
+#https://github.com/facebook/react-native/pull/25146/files#diff-263fc157dfce55895cdc16495b55d190
+
+vim -e -s ../../project/node_modules/react-native/React/Base/RCTModuleMethod.m -c ":%s/return RCTReadString.*/return RCTReadString(input, \"__unused\") || RCTReadString(input, \"__attribute__((__unused__))\") ||/" -c ":wq"
