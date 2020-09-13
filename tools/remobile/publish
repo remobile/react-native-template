@@ -1,5 +1,7 @@
 #!/bin/bash
-
+# npm whoami
+# npm login
+# fov42550564 fang~1003 42550564@qq.com
 cd ../../project/App/node_modules/@remobile/$1
 
 npm publish --access public
